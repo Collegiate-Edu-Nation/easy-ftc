@@ -115,27 +115,27 @@ public class Mecanum extends Drive {
 
             // Sets velocityMultiplier to minimum ticks/rev of all drive motors
             MotorConfigurationType [] motorType = {
-                    frontLeftEx.getMotorType(),
-                    frontRightEx.getMotorType(),
-                    backLeftEx.getMotorType(),
-                    backRightEx.getMotorType()
+                frontLeftEx.getMotorType(),
+                frontRightEx.getMotorType(),
+                backLeftEx.getMotorType(),
+                backRightEx.getMotorType()
             };
             double [] velocityMultiplierArr = {
-                    motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond(),
-                    motorType[2].getAchieveableMaxTicksPerSecond(),
-                    motorType[3].getAchieveableMaxTicksPerSecond()
+                motorType[0].getAchieveableMaxTicksPerSecond(),
+                motorType[1].getAchieveableMaxTicksPerSecond(),
+                motorType[2].getAchieveableMaxTicksPerSecond(),
+                motorType[3].getAchieveableMaxTicksPerSecond()
             };
             // Banking on the associativity of min(): https://proofwiki.org/wiki/Min_Operation_is_Associative
             velocityMultiplier = Math.min(
-                    Math.min(
-                            velocityMultiplierArr[0],
-                            velocityMultiplierArr[1]
-                    ),
-                    Math.min(
-                            velocityMultiplierArr[2],
-                            velocityMultiplierArr[3]
-                    )
+                Math.min(
+                    velocityMultiplierArr[0],
+                    velocityMultiplierArr[1]
+                ),
+                Math.min(
+                    velocityMultiplierArr[2],
+                    velocityMultiplierArr[3]
+                )
             );
         }
         else {
@@ -161,12 +161,13 @@ public class Mecanum extends Drive {
         if(layout == "field") {
             imu = hardwareMap.get(IMU.class, "imu");
             IMU.Parameters parameters = new IMU.Parameters(
-                    new RevHubOrientationOnRobot(
-                            RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
-                    )
+                new RevHubOrientationOnRobot(
+                    RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                    RevHubOrientationOnRobot.UsbFacingDirection.FORWARD
+                )
             );
             imu.initialize(parameters);
+            imu.resetYaw();
         }
     }
 
@@ -216,9 +217,9 @@ public class Mecanum extends Drive {
         }
         else {
             throw new IllegalArgumentException(
-                    "Unexpected layout: "
-                            + layout
-                            + ", passed to Mecanum.tele(). Valid layouts are: robot, field"
+                "Unexpected layout: "
+                + layout
+                + ", passed to Mecanum.tele(). Valid layouts are: robot, field"
             );
         }
 
@@ -300,9 +301,9 @@ public class Mecanum extends Drive {
                 break;
             default:
                 throw new IllegalArgumentException(
-                        "Unexpected direction: "
-                                + direction
-                                + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight"
+                    "Unexpected direction: "
+                    + direction
+                    + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight"
                 );
         }
 
