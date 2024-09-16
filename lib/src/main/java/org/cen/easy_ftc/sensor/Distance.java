@@ -15,25 +15,25 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * {@link #state()}
  */
 public class Distance extends Sensor {
-  private DistanceSensor sensor;
+    private DistanceSensor sensor;
 
-  public Distance(HardwareMap hardwareMap) {super(hardwareMap, 7.0);}
-  public Distance(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState, 7.0);}
-  public Distance(HardwareMap hardwareMap, double calibrationValue) {super(hardwareMap, calibrationValue);}
-  public Distance(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {super(hardwareMap, reverseState, calibrationValue);}
+    public Distance(HardwareMap hardwareMap) {super(hardwareMap, 7.0);}
+    public Distance(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState, 7.0);}
+    public Distance(HardwareMap hardwareMap, double calibrationValue) {super(hardwareMap, calibrationValue);}
+    public Distance(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {super(hardwareMap, reverseState, calibrationValue);}
 
-  @Override
-  protected void hardwareInit() {
-    sensor = hardwareMap.get(DistanceSensor.class,"distanceSensor");
-  }
-
-  @Override
-  public boolean state() {
-    if(reverseState) {  
-      return !(sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+    @Override
+    protected void hardwareInit() {
+        sensor = hardwareMap.get(DistanceSensor.class,"distanceSensor");
     }
-    else {
-      return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+
+    @Override
+    public boolean state() {
+        if(reverseState) {  
+            return !(sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+        }
+        else {
+            return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+        }
     }
-  }
 }

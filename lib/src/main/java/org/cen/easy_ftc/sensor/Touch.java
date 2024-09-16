@@ -13,23 +13,23 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * {@link #state()}
  */
 public class Touch extends Sensor {
-  private TouchSensor sensor;
+    private TouchSensor sensor;
 
-  public Touch(HardwareMap hardwareMap) {super(hardwareMap);}
-  public Touch(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState);}
+    public Touch(HardwareMap hardwareMap) {super(hardwareMap);}
+    public Touch(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState);}
 
-  @Override
-  protected void hardwareInit() {
-    sensor = hardwareMap.get(TouchSensor.class,"touchSensor");
-  }
-
-  @Override
-  public boolean state() {
-    if(reverseState) {
-      return !(sensor.isPressed());
+    @Override
+    protected void hardwareInit() {
+        sensor = hardwareMap.get(TouchSensor.class,"touchSensor");
     }
-    else {
-      return sensor.isPressed();
+
+    @Override
+    public boolean state() {
+        if(reverseState) {
+            return !(sensor.isPressed());
+        }
+        else {
+            return sensor.isPressed();
+        }
     }
-  }
 }

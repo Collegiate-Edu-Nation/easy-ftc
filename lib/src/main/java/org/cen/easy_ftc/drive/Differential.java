@@ -103,16 +103,16 @@ public class Differential extends Drive {
 
             // Sets velocityMultiplier to minimum ticks/rev of all drive motors (reduces the impact of mixing motor types)
             MotorConfigurationType [] motorType = {
-                    left_driveEx.getMotorType(),
-                    right_driveEx.getMotorType()
+                left_driveEx.getMotorType(),
+                right_driveEx.getMotorType()
             };
             double [] velocityMultiplierArr = {
-                    motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond()
+                motorType[0].getAchieveableMaxTicksPerSecond(),
+                motorType[1].getAchieveableMaxTicksPerSecond()
             };
             velocityMultiplier = Math.min(
-                    velocityMultiplierArr[0],
-                    velocityMultiplierArr[1]
+                velocityMultiplierArr[0],
+                velocityMultiplierArr[1]
             );
         }
         else {
@@ -149,9 +149,9 @@ public class Differential extends Drive {
         }
         else {
             throw new IllegalArgumentException(
-                    "Unexpected layout: "
-                            + layout
-                            + ", passed to Differential.tele(). Valid layouts are: tank, arcade"
+                "Unexpected layout: "
+                + layout
+                + ", passed to Differential.tele(). Valid layouts are: tank, arcade"
             );
         }
 
@@ -189,9 +189,9 @@ public class Differential extends Drive {
                 break;
             default:
                 throw new IllegalArgumentException(
-                        "Unexpected direction: "
-                                + direction
-                                + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight"
+                    "Unexpected direction: "
+                    + direction
+                    + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight"
                 );
         }
 

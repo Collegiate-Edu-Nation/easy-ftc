@@ -17,31 +17,31 @@ import java.util.List;
  * {@link #state()}
  */
 public class Apriltag extends Sensor {
-  private AprilTagProcessor sensor;
-  private VisionPortal portal;
-  private List<AprilTagDetection> detections;
+    private AprilTagProcessor sensor;
+    private VisionPortal portal;
+    private List<AprilTagDetection> detections;
 
-  public Apriltag(HardwareMap hardwareMap) {super(hardwareMap);}
-  public Apriltag(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState);}
+    public Apriltag(HardwareMap hardwareMap) {super(hardwareMap);}
+    public Apriltag(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState);}
 
-  @Override
-  protected void hardwareInit() {
-    sensor = AprilTagProcessor.easyCreateWithDefaults();
-    portal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), sensor);
-  }
-
-  @Override
-  public boolean state() {
-    if(reverseState) {
-      return !(objectDetected());
+    @Override
+    protected void hardwareInit() {
+        sensor = AprilTagProcessor.easyCreateWithDefaults();
+        portal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"), sensor);
     }
-    else {
-      return objectDetected();
-    }
-  }
 
-  private boolean objectDetected() {
-    detections = sensor.getDetections();
-    return(detections.size() > 0);
-  }
+    @Override
+    public boolean state() {
+        if(reverseState) {
+            return !(objectDetected());
+        }
+        else {
+            return objectDetected();
+        }
+    }
+
+    private boolean objectDetected() {
+        detections = sensor.getDetections();
+        return(detections.size() > 0);
+    }
 }

@@ -11,20 +11,20 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * {@link #state()} (used by subclasses)
  */
 public abstract class Sensor {
-  protected HardwareMap hardwareMap;
-  protected boolean reverseState;
-  protected double calibrationValue;
+    protected HardwareMap hardwareMap;
+    protected boolean reverseState;
+    protected double calibrationValue;
 
-  public Sensor(HardwareMap hardwareMap) {this(hardwareMap, false);}
-  public Sensor(HardwareMap hardwareMap, boolean reverseState) {this(hardwareMap, reverseState, 0);}
-  public Sensor(HardwareMap hardwareMap, double calibrationValue) {this(hardwareMap, false, calibrationValue);}
-  public Sensor(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {
-    this.hardwareMap = hardwareMap;
-    this.reverseState = reverseState;
-    this.calibrationValue = calibrationValue;
-    hardwareInit();
-  }
+    public Sensor(HardwareMap hardwareMap) {this(hardwareMap, false);}
+    public Sensor(HardwareMap hardwareMap, boolean reverseState) {this(hardwareMap, reverseState, 0);}
+    public Sensor(HardwareMap hardwareMap, double calibrationValue) {this(hardwareMap, false, calibrationValue);}
+    public Sensor(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {
+        this.hardwareMap = hardwareMap;
+        this.reverseState = reverseState;
+        this.calibrationValue = calibrationValue;
+        hardwareInit();
+    }
 
-  protected abstract void hardwareInit();
-  public abstract boolean state();
+    protected abstract void hardwareInit();
+    public abstract boolean state();
 }
