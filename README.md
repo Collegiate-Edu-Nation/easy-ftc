@@ -106,7 +106,7 @@ For either approach, gradlew builds are supported
 <summary><b>Advanced Usage</b></summary>
 Generate javadoc
 
-    javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor
+    javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public
 </details>
 
 <details>
