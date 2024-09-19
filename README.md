@@ -1,6 +1,6 @@
 # easy-ftc
 
-Facade-pattern API for easily leveraging in-the-box FTC features, including:
+Facade-pattern API for easily leveraging in-the-box FTC mechanisms and features, including:
 * Arm (Solo and Dual motor)
 * Claw (Solo and Dual servo)
 * Drive (Differential and Mecanum)
