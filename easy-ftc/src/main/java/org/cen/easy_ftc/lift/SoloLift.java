@@ -91,7 +91,7 @@ public class SoloLift extends Lift {
      */
     @Override
     public void tele() {
-        double lift = gamepad.right_trigger - gamepad.left_trigger;
+        double lift = map(gamepad.right_trigger) - map(gamepad.left_trigger);
         double [] movements = {lift};
         setAllPower(movements);
     }

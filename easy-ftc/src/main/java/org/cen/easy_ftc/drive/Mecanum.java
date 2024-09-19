@@ -184,9 +184,9 @@ public class Mecanum extends Drive {
     public void tele() {
         double frontLeft, frontRight, backLeft, backRight;
         // Axes (used for both robot-centric and field-centric)
-        double axial = -gamepad.left_stick_y;
-        double lateral = gamepad.left_stick_x;
-        double yaw = gamepad.right_stick_x;
+        double axial = map(-gamepad.left_stick_y);
+        double lateral = map(gamepad.left_stick_x);
+        double yaw = map(gamepad.right_stick_x);
 
         // Calculate desired individual motor values (orientation factored in for else-if statement i.e. field-centric driving)
         if(layout == "robot" || layout == "") {

@@ -18,6 +18,7 @@ public abstract class Lift {
     protected boolean useEncoder;
     protected Gamepad gamepad;
     protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for setVelocity()
+    protected double deadZone = 0.1;
     protected ElapsedTime timer = new ElapsedTime();
 
     /**
@@ -64,5 +65,31 @@ public abstract class Lift {
     public void wait(double time) {
         this.timer.reset();
         while(opMode.opModeIsActive() && (this.timer.time() < time)) {}
+    }
+
+    /**
+     * Set the deadZone from 0-1. Default is 0.1
+     */
+    public void setDeadZone(double deadZone) {
+        this.deadZone = deadZone;
+    }
+
+    /**
+     * Maps individual value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller deadZone
+     * @Defaults
+     * deadZone = 0.1
+     */
+    protected double map(double controllerValue) {
+        double mappedValue;
+        if(Math.abs(controllerValue) < Math.abs(deadZone)) {
+            mappedValue = 0;
+        }
+        else {
+            mappedValue = ((Math.abs(controllerValue) - deadZone) / (1.0 - deadZone));
+            if(controllerValue < 0) {
+                mappedValue *= -1;
+            }
+        }
+        return mappedValue;
     }
 }

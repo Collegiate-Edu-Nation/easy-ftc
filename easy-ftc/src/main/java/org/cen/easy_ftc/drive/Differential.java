@@ -140,12 +140,12 @@ public class Differential extends Drive {
         double left, right;
         // Set axes based on layout: tank(default) or arcade
         if(layout == "tank" || layout == "") {
-            left = -gamepad.left_stick_y;
-            right = -gamepad.right_stick_y;
+            left = map(-gamepad.left_stick_y);
+            right = map(-gamepad.right_stick_y);
         }
         else if(layout == "arcade") {
-            left = -gamepad.left_stick_y + gamepad.right_stick_x;
-            right = -gamepad.left_stick_y - gamepad.right_stick_x;
+            left = map(-gamepad.left_stick_y) + map(gamepad.right_stick_x);
+            right = map(-gamepad.left_stick_y) - map(gamepad.right_stick_x);
         }
         else {
             throw new IllegalArgumentException(
