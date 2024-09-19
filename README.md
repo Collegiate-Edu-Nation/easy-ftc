@@ -27,7 +27,30 @@ Blocks:
 
 Android Studio:
 * asdf
+</details>
 
+<details>
+<summary><b>Controls</b></summary>
+
+Arm:
+* Bumpers
+    * RB to raise
+    * LB to lower
+
+
+Claw:
+* Buttons: A, B
+    * A to open
+    * B to close
+
+Drive:
+* Joysticks
+* Option (resets gyro, optional)
+
+Lift:
+* Triggers
+    * RT to lift
+    * LT to lower
 </details>
 
 <details>
@@ -61,9 +84,9 @@ Autonomous control of Mecanum drivetrain with encoders and field-centric layout 
 
 <details>
 <summary><b>Dev Setup</b></summary>
-Nix is my preferred approach for setting up the development environment. Linux, MacOS, and WSL are supported. 
+Nix is my preferred approach for setting up the development environment. Linux, MacOS, and WSL are supported
 
-<b>Must install flake-enabled Nix before running.</b>
+<b>Must install flake-enabled Nix before running</b>
 
 Launch development environment
 
@@ -71,7 +94,10 @@ Launch development environment
 
 The project can also be imported into Android Studio, where Windows is also supported
 
+<b>Must install git and Android Studio before running</b>
+
     git clone https://github.com/camdenboren/easy-ftc.git
+    Import project in Android Studio
 
 For either approach, gradlew builds are supported
 </details>
@@ -81,4 +107,24 @@ For either approach, gradlew builds are supported
 Generate javadoc
 
     javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor
+</details>
+
+<details>
+<summary><b>Todo</b></summary>
+
+Features
+- [ ] Add setters for directionality
+- [ ] OpenCV
+- [ ] Flesh out AprilTag
+- [ ] Support RUN_TO_POSITION for encoders via moveTo
+- [ ] Support moving until sensor says otherwise via moveUntil
+- [ ] Tests
+
+Documentation
+- [ ] Add more examples
+- [ ] Improve usage instructions
+- [ ] Add 'Common Issues' section
+- [ ] Add graphics for usage, controls
+- [ ] Flesh out controls for different drive configurations
+- [ ] Create logo
 </details>
