@@ -57,11 +57,11 @@ Lift:
 <summary><b>Examples</b></summary>
 Autonomous control of Mecanum drivetrain with encoders and field-centric layout enabled
 
-    package org.firstinspires.ftc.teamcode.auto;
+    package org.firstinspires.ftc.teamcode;
 
-    import org.cen.easy_ftc.*;
     import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
     import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import org.cen.easy_ftc.drive.*;
 
     @Autonomous(name = "Auto")
     public class Auto extends LinearOpMode {
