@@ -1,89 +1,50 @@
 # easy-ftc
+![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
+![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-red)
+![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
-Facade-pattern API for easily leveraging in-the-box FTC mechanisms and features, including:
+Library for easily leveraging in-the-box FTC mechanisms and features, including
 * Arm (Solo and Dual motor)
 * Claw (Solo and Dual servo)
 * Drive (Differential and Mecanum)
 * Lift (Solo and Dual motor)
 * Sensors (Distance, Touch, AprilTag)
 
-<i>Note: Encoders can be enabled for all motor-powered features. Both Robot-centric and Field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential</i>
+<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential</i>
 
-API reference docs deployed at: 
+Docs deployed at https://camdenboren.github.io/easy-ftc<br>
+<i>Docs cover examples, controls, and API reference</i>
 
-Powered by Nix ❄️
+## Usage
 
-<details>
-<summary><b>Usage</b></summary>
+### Download release archive
+* Each option requires that you download this repo's latest Android archive
+* Click on 'easy-ftc-release.aar' at https://github.com/camdenboren/easy-ftc/releases
 
-Download release archive:
-* Download 'easy-ftc-release.aar' (the Android archive for this library) at: https://github.com/camdenboren/easy-ftc/releases
-
-OnBot Java:
+### OnBot Java
 * Upload the .aar using OnBot Java's GUI
 
-Blocks:
-* asdf
+### Android Studio
+* Add the .aar to FtcRobotController/libs/
+* Add libs/ to your root build.gradle like so
 
-Android Studio:
-* asdf
-</details>
-
-<details>
-<summary><b>Controls</b></summary>
-
-Arm:
-* Bumpers
-    * RB to raise
-    * LB to lower
-
-
-Claw:
-* Buttons: A, B
-    * A to open
-    * B to close
-
-Drive:
-* Joysticks
-* Option (resets gyro, optional)
-
-Lift:
-* Triggers
-    * RT to lift
-    * LT to lower
-</details>
-
-<details>
-<summary><b>Examples</b></summary>
-Autonomous control of Mecanum drivetrain with encoders and field-centric layout enabled
-
-    package org.firstinspires.ftc.teamcode;
-
-    import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-    import org.cen.easy_ftc.drive.*;
-
-    @Autonomous(name = "Auto")
-    public class Auto extends LinearOpMode {
-        /**
-        * This function is executed when this OpMode is selected from the Driver Station.
-        */
-        @Override
-        public void runOpMode() {
-            // Hardware init
-            Mecanum mecanum = new Mecanum(this, hardwareMap, true, "field");
-
-            waitForStart();
-            if (opModeIsActive()) {
-                // Move drivetrain forward at half power for 2s
-                mecanum.move(0.5, "forward", 2);
+        allprojects {
+            repositories {
+                mavenCentral()
+                google()
+                flatDir {
+                    dirs("libs")
+                }
             }
         }
-    }
-</details>
+* Add implementation to TeamCode's buid.gradle  like so
 
-<details>
-<summary><b>Dev Setup</b></summary>
+        dependencies {
+            implementation project(':FtcRobotController')
+            implementation(name:'easy-ftc-release', ext:'aar')
+        }
+
+## Dev Setup
 Nix is my preferred approach for setting up the development environment. Linux, MacOS, and WSL are supported
 
 <b>Must install flake-enabled Nix before running</b>
@@ -100,19 +61,15 @@ The project can also be imported into Android Studio, where Windows is also supp
     Import project in Android Studio
 
 For either approach, gradlew builds are supported
-</details>
 
-<details>
-<summary><b>Advanced Usage</b></summary>
+## Advanced Usage
 Generate javadoc
 
-    javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public
-</details>
+    javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public -overview docs/overview.html
 
-<details>
-<summary><b>Todo</b></summary>
-
-Features
+## ToDo
+### Features
+- [ ] Add support for Blockly
 - [ ] Add setters for directionality
 - [ ] OpenCV
 - [ ] Flesh out AprilTag
@@ -120,11 +77,10 @@ Features
 - [ ] Support moving until sensor says otherwise via moveUntil
 - [ ] Tests
 
-Documentation
+### Documentation
 - [ ] Add more examples
-- [ ] Improve usage instructions
+- [x] Improve usage instructions
 - [ ] Add 'Common Issues' section
-- [ ] Add graphics for usage, controls
-- [ ] Flesh out controls for different drive configurations
+- [ ] Add graphics for blocks and onbot usage, controls
+- [x] Flesh out controls for different drive configurations
 - [ ] Create logo
-</details>
