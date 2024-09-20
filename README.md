@@ -68,6 +68,10 @@ Generate javadoc
     javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public -overview docs/overview.html
 
 ## ToDo
+### Update
+- [ ] Move to FTC SDK v10.1 (update javadoc cmd as well)
+- [ ] Clean up unused deps
+
 ### Features
 - [ ] Add support for Blockly
 - [ ] Add setters for directionality
