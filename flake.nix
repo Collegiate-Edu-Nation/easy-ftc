@@ -41,6 +41,7 @@
           echo -e "\easy-ftc Development Environment via Nix Flake\n"
           echo -e "Build: ./gradlew build\n"
           echo -e "Clean: ./gradlew clean\n"
+          echo -e "Docs: javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public -overview docs/overview.html"
           java --version
         '';
       };

@@ -1,6 +1,9 @@
 # easy-ftc
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-red)
+![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.0-green)
+![Static Badge](https://img.shields.io/badge/Android_API-29-green)
+![Static Badge](https://img.shields.io/badge/JDK-17.0.10-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and features, including
@@ -62,14 +65,9 @@ The project can also be imported into Android Studio, where Windows is also supp
 
 For either approach, gradlew builds are supported
 
-## Advanced Usage
-Generate javadoc
-
-    javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.0.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.0.0.jar -sourcepath easy-ftc/src/main/java/ org.cen.easy_ftc.arm org.cen.easy_ftc.claw org.cen.easy_ftc.drive org.cen.easy_ftc.lift org.cen.easy_ftc.sensor -public -overview docs/overview.html
-
 ## ToDo
 ### Update
-- [ ] Move to FTC SDK v10.1 (update javadoc cmd as well)
+- [x] Move to FTC SDK v10.1 (update javadoc cmd as well)
 - [ ] Clean up unused deps
 
 ### Features
