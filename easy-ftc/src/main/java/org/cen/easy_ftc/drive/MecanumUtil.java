@@ -12,7 +12,7 @@ import java.lang.Math;
  */
 class MecanumUtil extends DriveUtil {
     /**
-     * Set axes based on layout: robot(default) or field
+     * Set drivetrain motor movements based on layout: robot(default) or field
      */
     protected static double [] controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX) {
         double frontLeft, frontRight, backLeft, backRight;

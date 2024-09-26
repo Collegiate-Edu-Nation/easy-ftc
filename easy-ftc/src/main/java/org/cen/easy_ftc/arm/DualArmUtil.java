@@ -8,6 +8,9 @@ package org.cen.easy_ftc.arm;
  * <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from {@link DriveUtil})
  */
 class DualArmUtil extends ArmUtil {
+    /**
+     * Sets arm motor movements based on bumpers
+     */
     protected static double [] controlToDirection(double power, boolean lb, boolean rb) {
         int down = lb ? 1 : 0;
         int up = rb ? 1 : 0;

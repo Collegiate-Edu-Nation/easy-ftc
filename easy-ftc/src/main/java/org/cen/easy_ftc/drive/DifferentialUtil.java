@@ -10,7 +10,7 @@ package org.cen.easy_ftc.drive;
  */
 class DifferentialUtil extends DriveUtil {
     /**
-     * Set axes based on layout: tank(default) or arcade
+     * Set drivetrain motor movements based on layout: tank(default) or arcade
      */
     protected static double [] controlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX) {
         double left, right;
