@@ -137,25 +137,13 @@ public class Differential extends Drive {
      */
     @Override
     public void tele() {
-        double left, right;
-        // Set axes based on layout: tank(default) or arcade
-        if(layout == "tank" || layout == "") {
-            left = map(-gamepad.left_stick_y);
-            right = map(-gamepad.right_stick_y);
-        }
-        else if(layout == "arcade") {
-            left = map(-gamepad.left_stick_y) + map(gamepad.right_stick_x);
-            right = map(-gamepad.left_stick_y) - map(gamepad.right_stick_x);
-        }
-        else {
-            throw new IllegalArgumentException(
-                "Unexpected layout: "
-                + layout
-                + ", passed to Differential.tele(). Valid layouts are: tank, arcade"
-            );
-        }
-
-        double [] movements = {left, right};
+        double [] movements = DifferentialUtil.ControlToDirection(
+            layout,
+            deadZone,
+            gamepad.left_stick_y,
+            gamepad.right_stick_y,
+            gamepad.right_stick_x
+        );
         setAllPower(movements);
     }
 
@@ -168,32 +156,7 @@ public class Differential extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        // Translate natural-language direction to numeric values
-        double [] motorDirections = {0,0};
-        switch (direction) {
-            case "forward":
-                motorDirections[0] = 1;
-                motorDirections[1] = 1;
-                break;
-            case "backward":
-                motorDirections[0] = -1;
-                motorDirections[1] = -1;
-                break;
-            case "rotateLeft":
-                motorDirections[0] = -1;
-                motorDirections[1] = 1;
-                break;
-            case "rotateRight":
-                motorDirections[0] = 1;
-                motorDirections[1] = -1;
-                break;
-            default:
-                throw new IllegalArgumentException(
-                    "Unexpected direction: "
-                    + direction
-                    + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight"
-                );
-        }
+        double [] motorDirections = DifferentialUtil.LanguageToDirection(direction);
 
         // Scale directions by a factor of power to derive actual, intended motor movements
         double [] movements = {0,0};

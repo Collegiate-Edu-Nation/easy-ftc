@@ -1,6 +1,5 @@
 package org.cen.easy_ftc.drive;
 
-import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -103,24 +102,5 @@ public abstract class Drive {
      */
     public void setDeadZone(double deadZone) {
         this.deadZone = deadZone;
-    }
-
-    /**
-     * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller deadZone
-     * @Defaults
-     * deadZone = 0.1
-     */
-    protected double map(double controllerValue) {
-        double mappedValue;
-        if(Math.abs(controllerValue) < Math.abs(deadZone)) {
-            mappedValue = 0;
-        }
-        else {
-            mappedValue = ((Math.abs(controllerValue) - deadZone) / (1.0 - deadZone));
-            if(controllerValue < 0) {
-                mappedValue *= -1;
-            }
-        }
-        return mappedValue;
     }
 }

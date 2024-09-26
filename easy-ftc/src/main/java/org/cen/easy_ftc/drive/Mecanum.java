@@ -182,48 +182,18 @@ public class Mecanum extends Drive {
      */
     @Override
     public void tele() {
-        double frontLeft, frontRight, backLeft, backRight;
-        // Axes (used for both robot-centric and field-centric)
-        double axial = map(-gamepad.left_stick_y);
-        double lateral = map(gamepad.left_stick_x);
-        double yaw = map(gamepad.right_stick_x);
-
-        // Calculate desired individual motor values (orientation factored in for else-if statement i.e. field-centric driving)
-        if(layout == "robot" || layout == "") {
-            // Scaled individual motor movements derived from axes (left to right, front to back)
-            // Scaling is needed to ensure intended ratios of motor powers
-            // (otherwise, for example, 1.1 would become 1, while 0.9 would be unaffected)
-            double max = Math.max(Math.abs(axial) + Math.abs(lateral) + Math.abs(yaw), 1);
-            frontLeft = ((axial + lateral + yaw) / max);
-            frontRight = ((axial - lateral - yaw) / max);
-            backLeft = ((axial - lateral + yaw) / max);
-            backRight = ((axial + lateral - yaw) / max);
+        // Press option to reset imu to combat drift
+        if(layout == "field" && gamepad.options) {
+            imu.resetYaw();
         }
-        else if(layout == "field") {
-            // Press option to reset imu to combat drift
-            if(gamepad.options) {
-                imu.resetYaw();
-            }
-            // Scaled individual motor movements derived from axes and orientation (left to right, front to back)
-            // Heading is the current yaw of the robot, which is used to calculate relative axes
-            double heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-            double axial_relative = lateral*Math.sin(-heading) + axial*Math.cos(-heading);
-            double lateral_relative = lateral*Math.cos(-heading) - axial*Math.sin(-heading);
-            double max = Math.max(Math.abs(axial_relative) + Math.abs(lateral_relative) + Math.abs(yaw), 1);
-            frontLeft = ((axial_relative + lateral_relative + yaw) / max);
-            frontRight = ((axial_relative - lateral_relative - yaw) / max);
-            backLeft = ((axial_relative - lateral_relative + yaw) / max);
-            backRight = ((axial_relative + lateral_relative - yaw) / max);
-        }
-        else {
-            throw new IllegalArgumentException(
-                "Unexpected layout: "
-                + layout
-                + ", passed to Mecanum.tele(). Valid layouts are: robot, field"
-            );
-        }
-
-        double [] movements = {frontLeft, frontRight, backLeft, backRight};
+        double [] movements = MecanumUtil.ControlToDirection(
+            layout,
+            deadZone,
+            imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS),
+            gamepad.left_stick_y,
+            gamepad.left_stick_x,
+            gamepad.right_stick_x
+        );
         setAllPower(movements);
     }
 
@@ -236,76 +206,7 @@ public class Mecanum extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        // Translate natural-language direction to numeric values
-        double [] motorDirections = {0,0,0,0};
-        switch (direction) {
-            case "forward":
-                motorDirections[0] = 1;
-                motorDirections[1] = 1;
-                motorDirections[2] = 1;
-                motorDirections[3] = 1;
-                break;
-            case "backward":
-                motorDirections[0] = -1;
-                motorDirections[1] = -1;
-                motorDirections[2] = -1;
-                motorDirections[3] = -1;
-                break;
-            case "left":
-                motorDirections[0] = -1;
-                motorDirections[1] = 1;
-                motorDirections[2] = 1;
-                motorDirections[3] = -1;
-                break;
-            case "right":
-                motorDirections[0] = 1;
-                motorDirections[1] = -1;
-                motorDirections[2] = -1;
-                motorDirections[3] = 1;
-                break;
-            case "rotateLeft":
-                motorDirections[0] = -1;
-                motorDirections[1] = 1;
-                motorDirections[2] = -1;
-                motorDirections[3] = 1;
-                break;
-            case "rotateRight":
-                motorDirections[0] = 1;
-                motorDirections[1] = -1;
-                motorDirections[2] = 1;
-                motorDirections[3] = -1;
-                break;
-            case "forwardLeft":
-                motorDirections[0] = 0;
-                motorDirections[1] = 1;
-                motorDirections[2] = 1;
-                motorDirections[3] = 0;
-                break;
-            case "forwardRight":
-                motorDirections[0] = 1;
-                motorDirections[1] = 0;
-                motorDirections[2] = 0;
-                motorDirections[3] = 1;
-                break;
-            case "backwardLeft":
-                motorDirections[0] = -1;
-                motorDirections[1] = 0;
-                motorDirections[2] = 0;
-                motorDirections[3] = -1;
-                break;
-            case "backwardRight":
-                motorDirections[0] = 0;
-                motorDirections[1] = -1;
-                motorDirections[2] = -1;
-                motorDirections[3] = 0;
-                break;
-            default:
-                throw new IllegalArgumentException(
-                    "Unexpected direction: "
-                    + direction
-                    + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight"
-                );
-        }
+        double [] motorDirections = MecanumUtil.LanguageToDirection(direction);
 
         // Scale directions by a factor of power to derive actual, intended motor movements
         double [] movements = {0,0,0,0};
