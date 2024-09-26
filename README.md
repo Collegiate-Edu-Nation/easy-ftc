@@ -79,6 +79,7 @@ For either approach, gradlew builds are supported
 - [ ] Flesh out AprilTag
 - [ ] Support RUN_TO_POSITION for encoders via moveTo
 - [ ] Support moving until sensor says otherwise via moveUntil
+- [ ] Add telemetry for status indicators
 - [ ] Add support for Blockly
 - [ ] Investigate instrumentation and/or manual hardware tests
 
