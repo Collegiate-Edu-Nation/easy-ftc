@@ -108,8 +108,11 @@ public class DualLift extends Lift {
      */
     @Override
     public void tele() {
-        double lift = map(gamepad.right_trigger) - map(gamepad.left_trigger);
-        double [] movements = {lift, lift};
+        double [] movements = DualLiftUtil.controlToDirection(
+            deadZone,
+            gamepad.left_trigger,
+            gamepad.right_trigger
+        );
         setAllPower(movements);
     }
 
@@ -122,31 +125,8 @@ public class DualLift extends Lift {
      */
     @Override
     public void move(double power, String direction, double time) {
-        // Translate natural-language direction to numeric values
-        double [] motorDirections = {0,0};
-        switch (direction) {
-            case "up":
-                motorDirections[0] = 1;
-                motorDirections[1] = 1;
-                break;
-            case "down":
-                motorDirections[0] = -1;
-                motorDirections[1] = -1;
-                break;
-            default: 
-                throw new IllegalArgumentException(
-                    "Unexpected direction: " 
-                    + direction
-                    + ", passed to DualLift.move(). Valid directions are: up, down"
-                );
-        }
-
-        // Scale directions by a factor of power to derive actual, intended motor movements
-        double [] movements = {0,0};
-        for(int i = 0; i < motorDirections.length; i++) {
-            movements[i] = power * motorDirections[i];
-        }
-
+        double [] motorDirections = DualLiftUtil.languageToDirection(direction);
+        double [] movements = DualLiftUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();

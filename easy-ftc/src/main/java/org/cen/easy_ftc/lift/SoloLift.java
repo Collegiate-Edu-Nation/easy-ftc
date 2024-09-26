@@ -91,8 +91,11 @@ public class SoloLift extends Lift {
      */
     @Override
     public void tele() {
-        double lift = map(gamepad.right_trigger) - map(gamepad.left_trigger);
-        double [] movements = {lift};
+        double [] movements = SoloLiftUtil.controlToDirection(
+            deadZone,
+            gamepad.left_trigger,
+            gamepad.right_trigger
+        );
         setAllPower(movements);
     }
 
@@ -105,29 +108,8 @@ public class SoloLift extends Lift {
      */
     @Override
     public void move(double power, String direction, double time) {
-        // Translate natural-language direction to numeric values
-        double [] motorDirections = {0};
-        switch (direction) {
-            case "up":
-                motorDirections[0] = 1;
-                break;
-            case "down":
-                motorDirections[0] = -1;
-                break;
-            default: 
-                throw new IllegalArgumentException(
-                    "Unexpected direction: " 
-                    + direction
-                    + ", passed to SoloLift.move(). Valid directions are: up, down"
-                );
-        }
-
-        // Scale direction by a factor of power to derive actual, intended motor movement
-        double [] movements = {0};
-        for(int i = 0; i < motorDirections.length; i++) {
-            movements[i] = power * motorDirections[i];
-        }
-
+        double [] motorDirections = SoloLiftUtil.languageToDirection(direction);
+        double [] movements = SoloLiftUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();
