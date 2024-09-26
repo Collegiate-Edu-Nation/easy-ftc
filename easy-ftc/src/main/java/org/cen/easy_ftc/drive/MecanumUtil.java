@@ -2,11 +2,19 @@ package org.cen.easy_ftc.drive;
 
 import java.lang.Math;
 
+/**
+ * Provides static utility methods for driving a mecanum drivetrain by extending the functionality of {@link DriveUtil}.
+ * @Methods
+ * {@link #controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX)}
+ * <li>{@link #languageToDirection(String direction)}
+ * <li>{@link #map(double controllerValue, double deadZone)} (inherited from {@link DriveUtil})
+ * <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from {@link DriveUtil})
+ */
 public class MecanumUtil extends DriveUtil {
     /**
      * Set axes based on layout: robot(default) or field
      */
-    protected static double [] ControlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX) {
+    protected static double [] controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX) {
         double frontLeft, frontRight, backLeft, backRight;
         // Axes (used for both robot-centric and field-centric)
         double axial = map(-leftY, deadZone);
@@ -50,7 +58,7 @@ public class MecanumUtil extends DriveUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double [] LanguageToDirection(String direction) {
+    protected static double [] languageToDirection(String direction) {
         double [] motorDirections = {0,0,0,0};
         switch (direction) {
             case "forward":

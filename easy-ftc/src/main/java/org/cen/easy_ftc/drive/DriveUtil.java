@@ -2,6 +2,14 @@ package org.cen.easy_ftc.drive;
 
 import java.lang.Math;
 
+/**
+ * Blueprints an abstract drivetrain utility class, providing methods for mapping controls and scaling directions, which are common to all drivetrains.
+ * Cannot be instantiated, only extended by other classes providing static methods (see {@link MecanumUtil} and {@link DifferentialUtil}).
+ * <p>
+ * @Methods
+ * {@link #map(double controllerValue, double deadZone)} (used by subclasses)
+ * <li>{@link #scaleDirections(double power, double [] motorDirections)} (used by subclasses)
+ */
 public abstract class DriveUtil {
     /**
      * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller deadZone
@@ -20,5 +28,16 @@ public abstract class DriveUtil {
             }
         }
         return mappedValue;
+    }
+
+    /**
+     * Scale directions by a factor of power to derive actual, intended motor movements
+     */
+    protected static double [] scaleDirections(double power, double [] motorDirections) {
+        double [] movements = new double[motorDirections.length];
+        for(int i = 0; i < motorDirections.length; i++) {
+            movements[i] = power * motorDirections[i];
+        }
+        return movements;
     }
 }

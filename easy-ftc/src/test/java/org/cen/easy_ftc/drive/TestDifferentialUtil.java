@@ -3,66 +3,63 @@ package org.cen.easy_ftc.drive;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- */
 public class TestDifferentialUtil {
     @Test
-    public void WhenTank_ControlToDirection_isCorrect() {
+    public void whenTank_controlToDirection_isCorrect() {
         double deadZone = 0.1;
 
         // Test "", no movement
-        double [] result = DifferentialUtil.ControlToDirection("", deadZone, 0, 0, 0);
+        double [] result = DifferentialUtil.controlToDirection("", deadZone, 0, 0, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test "", forward
-        result = DifferentialUtil.ControlToDirection("", deadZone, -1, -1, 0);
+        result = DifferentialUtil.controlToDirection("", deadZone, -1, -1, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "", backward
-        result = DifferentialUtil.ControlToDirection("", deadZone, 1, 1, 0);
+        result = DifferentialUtil.controlToDirection("", deadZone, 1, 1, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
     }
 
     @Test
-    public void WhenArcade_ControlToDirection_isCorrect() {
+    public void whenArcade_controlToDirection_isCorrect() {
         double deadZone = 0.1;
 
         // Test "", no movement
-        double [] result = DifferentialUtil.ControlToDirection("arcade", deadZone, 0, 0, 0);
+        double [] result = DifferentialUtil.controlToDirection("arcade", deadZone, 0, 0, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test "", forward
-        result = DifferentialUtil.ControlToDirection("arcade", deadZone, -1, 0, 0);
+        result = DifferentialUtil.controlToDirection("arcade", deadZone, -1, 0, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "", backward
-        result = DifferentialUtil.ControlToDirection("arcade", deadZone, 1, 0, 0);
+        result = DifferentialUtil.controlToDirection("arcade", deadZone, 1, 0, 0);
         for(int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
     }
 
     @Test
-    public void LanguageToDirection_isCorrect() {
+    public void languageToDirection_isCorrect() {
         // Test "forward"
-        double [] result = DifferentialUtil.LanguageToDirection("forward");
+        double [] result = DifferentialUtil.languageToDirection("forward");
         for(int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
-        result = DifferentialUtil.LanguageToDirection("backward");
+        result = DifferentialUtil.languageToDirection("backward");
         for(int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }

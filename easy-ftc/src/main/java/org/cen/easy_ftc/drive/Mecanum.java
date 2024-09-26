@@ -186,7 +186,7 @@ public class Mecanum extends Drive {
         if(layout == "field" && gamepad.options) {
             imu.resetYaw();
         }
-        double [] movements = MecanumUtil.ControlToDirection(
+        double [] movements = MecanumUtil.controlToDirection(
             layout,
             deadZone,
             imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS),
@@ -206,14 +206,8 @@ public class Mecanum extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double [] motorDirections = MecanumUtil.LanguageToDirection(direction);
-
-        // Scale directions by a factor of power to derive actual, intended motor movements
-        double [] movements = {0,0,0,0};
-        for(int i = 0; i < motorDirections.length; i++) {
-            movements[i] = power * motorDirections[i];
-        }
-
+        double [] motorDirections = MecanumUtil.languageToDirection(direction);
+        double [] movements = MecanumUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();

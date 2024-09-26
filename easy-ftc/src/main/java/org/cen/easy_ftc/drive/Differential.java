@@ -137,7 +137,7 @@ public class Differential extends Drive {
      */
     @Override
     public void tele() {
-        double [] movements = DifferentialUtil.ControlToDirection(
+        double [] movements = DifferentialUtil.controlToDirection(
             layout,
             deadZone,
             gamepad.left_stick_y,
@@ -156,14 +156,8 @@ public class Differential extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double [] motorDirections = DifferentialUtil.LanguageToDirection(direction);
-
-        // Scale directions by a factor of power to derive actual, intended motor movements
-        double [] movements = {0,0};
-        for(int i = 0; i < motorDirections.length; i++) {
-            movements[i] = power * motorDirections[i];
-        }
-
+        double [] motorDirections = DifferentialUtil.languageToDirection(direction);
+        double [] movements = DifferentialUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();

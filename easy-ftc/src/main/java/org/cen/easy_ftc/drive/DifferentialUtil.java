@@ -1,10 +1,18 @@
 package org.cen.easy_ftc.drive;
 
+/**
+ * Provides static utility methods for driving a differential drivetrain by extending the functionality of {@link DriveUtil}.
+ * @Methods
+ * {@link #controlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX)}
+ * <li>{@link #languageToDirection(String direction)}
+ * <li>{@link #map(double controllerValue, double deadZone)} (inherited from {@link DriveUtil})
+ * <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from {@link DriveUtil})
+ */
 public class DifferentialUtil extends DriveUtil {
     /**
      * Set axes based on layout: tank(default) or arcade
      */
-    protected static double [] ControlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX) {
+    protected static double [] controlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX) {
         double left, right;
         if(layout == "tank" || layout == "") {
             left = map(-leftY, deadZone);
@@ -29,7 +37,7 @@ public class DifferentialUtil extends DriveUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double [] LanguageToDirection(String direction) {
+    protected static double [] languageToDirection(String direction) {
         double [] motorDirections = {0,0};
         switch (direction) {
             case "forward":
