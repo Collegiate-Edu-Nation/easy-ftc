@@ -182,14 +182,18 @@ public class Mecanum extends Drive {
      */
     @Override
     public void tele() {
-        // Press option to reset imu to combat drift
-        if(layout == "field" && gamepad.options) {
-            imu.resetYaw();
+        double heading = 0;
+        // Press option to reset imu to combat drift, set heading if applicable
+        if(layout == "field") {
+            heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+            if(gamepad.options) {
+                imu.resetYaw();
+            }
         }
         double [] movements = MecanumUtil.controlToDirection(
             layout,
             deadZone,
-            imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS),
+            heading,
             gamepad.left_stick_y,
             gamepad.left_stick_x,
             gamepad.right_stick_x
