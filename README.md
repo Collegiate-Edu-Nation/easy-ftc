@@ -71,17 +71,20 @@ For either approach, gradlew builds are supported
 - [ ] Clean up unused deps
 
 ### Features
-- [ ] Add support for Blockly
-- [ ] Add setters for directionality
-- [ ] OpenCV
+- [x] Tests (motors)
+- [ ] Tests (servos, sensors)
+- [ ] Add setters for directionality and controls
+- [ ] Add support for trigger (servo), intake (motor)
+- [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
 - [ ] Support RUN_TO_POSITION for encoders via moveTo
 - [ ] Support moving until sensor says otherwise via moveUntil
-- [ ] Tests
+- [ ] Add support for Blockly
+- [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
+- [ ] Improve usage instructions
 - [ ] Add more examples
-- [x] Improve usage instructions
 - [ ] Add 'Common Issues' section
 - [ ] Add graphics for blocks and onbot usage, controls
 - [x] Flesh out controls for different drive configurations
