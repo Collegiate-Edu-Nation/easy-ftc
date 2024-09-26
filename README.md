@@ -71,8 +71,8 @@ For either approach, gradlew builds are supported
 - [ ] Clean up unused deps
 
 ### Features
-- [x] Tests (motors)
-- [ ] Tests (servos, sensors)
+- [x] Unit Tests (motors)
+- [ ] Unit Tests (servos, sensors)
 - [ ] Add setters for directionality and controls
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
