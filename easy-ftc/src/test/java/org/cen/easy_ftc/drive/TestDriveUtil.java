@@ -48,7 +48,7 @@ public class TestDriveUtil {
         };
 
         // Test power zero
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[0], motorDirections[i]);
             for(int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[0][i][j], movements[j], 0.01);
@@ -56,7 +56,7 @@ public class TestDriveUtil {
         }
 
         // Test power half
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[1], motorDirections[i]);
             for(int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[1][i][j], movements[j], 0.01);
@@ -64,7 +64,7 @@ public class TestDriveUtil {
         }
 
         // Test power full
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[2], motorDirections[i]);
             for(int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[2][i][j], movements[j], 0.01);
@@ -99,25 +99,25 @@ public class TestDriveUtil {
         };
 
         // Test power zero
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[0], motorDirections[i]);
-            for(int j = 0; j < 2; j++) {
+            for(int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[0][i][j], movements[j], 0.01);
             }
         }
 
         // Test power half
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[1], motorDirections[i]);
-            for(int j = 0; j < 2; j++) {
+            for(int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[1][i][j], movements[j], 0.01);
             }
         }
 
         // Test power full
-        for(int i = 0; i < 2; i++) {
+        for(int i = 0; i < 3; i++) {
             double [] movements = DriveUtil.scaleDirections(powers[2], motorDirections[i]);
-            for(int j = 0; j < 2; j++) {
+            for(int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[2][i][j], movements[j], 0.01);
             }
         }
