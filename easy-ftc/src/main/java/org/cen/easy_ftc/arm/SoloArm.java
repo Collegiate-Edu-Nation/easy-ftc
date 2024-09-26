@@ -92,10 +92,11 @@ public class SoloArm extends Arm {
      */
     @Override
     public void tele(double power) {
-        int up = gamepad.right_bumper ? 1 : 0;
-        int down = gamepad.left_bumper ? 1 : 0;
-        double arm = power*(up - down);
-        double [] movements = {arm};
+        double [] movements = DualArmUtil.controlToDirection(
+            power,
+            gamepad.left_bumper,
+            gamepad.right_bumper
+        );
         setAllPower(movements);
     }
     /**
@@ -117,29 +118,8 @@ public class SoloArm extends Arm {
      */
     @Override
     public void move(double power, String direction, double time) {
-        // Translate natural-language direction to numeric values
-        double [] motorDirections = {0};
-        switch (direction) {
-            case "up":
-                motorDirections[0] = 1;
-                break;
-            case "down":
-                motorDirections[0] = -1;
-                break;
-            default: 
-                throw new IllegalArgumentException(
-                    "Unexpected direction: " 
-                    + direction
-                    + ", passed to SoloArm.move(). Valid directions are: up, down"
-                );
-        }
-
-        // Scale direction by a factor of power to derive actual, intended motor movement
-        double [] movements = {0};
-        for(int i = 0; i < motorDirections.length; i++) {
-            movements[i] = power * motorDirections[i];
-        }
-
+        double [] motorDirections = SoloArmUtil.languageToDirection(direction);
+        double [] movements = SoloArmUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();

@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * @Methods
  * {@link #wait(double time)} (used by subclasses)
  */
-public abstract class Arm {
+abstract class Arm {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected boolean useEncoder;
