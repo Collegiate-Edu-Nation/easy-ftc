@@ -10,7 +10,7 @@ import java.lang.Math;
  * <li>{@link #map(double controllerValue, double deadZone)} (inherited from {@link DriveUtil})
  * <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from {@link DriveUtil})
  */
-public class MecanumUtil extends DriveUtil {
+class MecanumUtil extends DriveUtil {
     /**
      * Set axes based on layout: robot(default) or field
      */

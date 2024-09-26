@@ -10,7 +10,7 @@ import java.lang.Math;
  * {@link #map(double controllerValue, double deadZone)} (used by subclasses)
  * <li>{@link #scaleDirections(double power, double [] motorDirections)} (used by subclasses)
  */
-public abstract class DriveUtil {
+abstract class DriveUtil {
     /**
      * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller deadZone
      * @Defaults

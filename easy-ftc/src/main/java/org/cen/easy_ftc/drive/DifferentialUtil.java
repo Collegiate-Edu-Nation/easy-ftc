@@ -8,7 +8,7 @@ package org.cen.easy_ftc.drive;
  * <li>{@link #map(double controllerValue, double deadZone)} (inherited from {@link DriveUtil})
  * <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from {@link DriveUtil})
  */
-public class DifferentialUtil extends DriveUtil {
+class DifferentialUtil extends DriveUtil {
     /**
      * Set axes based on layout: tank(default) or arcade
      */

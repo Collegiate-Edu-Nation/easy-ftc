@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * Blueprints an abstract claw, providing basic functionalities, options, and objects common to all claws.
  * Cannot be instantiated, only extended by actual lift classes (see {@link SoloClaw} and {@link DualClaw}).
  */
-public abstract class Claw {
+abstract class Claw {
     protected HardwareMap hardwareMap;
     protected double open, close;
     protected Gamepad gamepad;
