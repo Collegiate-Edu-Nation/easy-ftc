@@ -1,58 +1,42 @@
 package org.cen.easy_ftc.claw;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract claw, providing basic functionalities, options, and objects common to all
  * claws. Cannot be instantiated, only extended by actual lift classes (see {@link SoloClaw} and
  * {@link DualClaw}).
+ * 
+ * @Methods {@link #wait(double time)} (used by subclasses)
  */
 abstract class Claw {
+    protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected double open, close;
     protected Gamepad gamepad;
-
-    /**
-     * Constructor
-     * 
-     * @Defaults reverseState = false
-     *           <li>gamepad = null
-     */
-    public Claw(HardwareMap hardwareMap) {
-        this(hardwareMap, false);
-    }
+    protected double delay = 2;
+    protected ElapsedTime timer = new ElapsedTime();
 
     /**
      * Constructor
      * 
      * @Defaults gamepad = null
      */
-    public Claw(HardwareMap hardwareMap, boolean reverseState) {
-        this(hardwareMap, reverseState, null);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults reverseState = false
-     */
-    public Claw(HardwareMap hardwareMap, Gamepad gamepad) {
-        this(hardwareMap, false, gamepad);
+    public Claw(LinearOpMode opMode, HardwareMap hardwareMap) {
+        this(opMode, hardwareMap, null);
     }
 
     /**
      * Constructor
      */
-    public Claw(HardwareMap hardwareMap, boolean reverseState, Gamepad gamepad) {
+    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        this.opMode = opMode;
         this.hardwareMap = hardwareMap;
-        if (reverseState) {
-            this.open = 1.0;
-            this.close = 0.0;
-        } else {
-            this.open = 0.0;
-            this.close = 1.0;
-        }
+        this.open = 1.0;
+        this.close = 0.0;
         this.gamepad = gamepad;
         hardwareInit();
     }
@@ -62,4 +46,15 @@ abstract class Claw {
     public abstract void tele();
 
     public abstract void move(String direction);
+
+    /**
+     * Helper function to wait (but not suspend) for specified time in s.
+     * <p>
+     * Public, so custom movements [] use-case can also be timed.
+     */
+    public void wait(double time) {
+        this.timer.reset();
+        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
+        }
+    }
 }
