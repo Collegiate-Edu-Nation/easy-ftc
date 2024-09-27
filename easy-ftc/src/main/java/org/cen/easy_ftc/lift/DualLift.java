@@ -10,17 +10,17 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 /**
  * Implements a dual-motor lift by extending the functionality of {@link Lift}.
  * <p>
+ * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
- * <p>
- * @Methods
- * {@link #tele()}
- * <li>{@link #move(double power, String direction, double time)}
- * <li>{@link #setAllPower(double [] movements)}
- * <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
- * <li>{@link #wait(double time)} (inherited from {@link Lift})
+ *        <p>
+ * @Methods {@link #tele()}
+ *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #setAllPower(double [] movements)}
+ *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
+ *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class DualLift extends Lift {
     private DcMotor left_lift, right_lift;
@@ -28,34 +28,46 @@ public class DualLift extends Lift {
 
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
-     * <li>gamepad = null
+     * 
+     * @Defaults useEncoder = false
+     *           <li>gamepad = null
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap) {super(opMode, hardwareMap);}
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap) {
+        super(opMode, hardwareMap);
+    }
+
     /**
      * Constructor
-     * @Defaults 
-     * gamepad = null
+     * 
+     * @Defaults gamepad = null
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {super(opMode, hardwareMap, useEncoder);}
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
+        super(opMode, hardwareMap, useEncoder);
+    }
+
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
+     * 
+     * @Defaults useEncoder = false
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {super(opMode, hardwareMap, gamepad);}
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        super(opMode, hardwareMap, gamepad);
+    }
+
     /**
      * Constructor
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {super(opMode, hardwareMap, useEncoder, gamepad);}
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, gamepad);
+    }
 
     /**
      * Initializes lift motors based on constructor args (e.g. using encoders or not)
      */
     @Override
     protected void hardwareInit() {
-        if(useEncoder) {
+        if (useEncoder) {
             // Instantiate motors
             left_liftEx = hardwareMap.get(DcMotorEx.class, "left_lift");
             right_liftEx = hardwareMap.get(DcMotorEx.class, "right_lift");
@@ -71,22 +83,15 @@ public class DualLift extends Lift {
             // Set motors to run using the encoder (velocity, not position)
             left_liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             right_liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            
-            // Sets velocityMultiplier to minimum ticks/rev of all lift motors (reduces the impact of mixing motor types)
-            MotorConfigurationType [] motorType = {
-                left_liftEx.getMotorType(), 
-                right_liftEx.getMotorType()
-            };
-            double [] velocityMultiplierArr = {
-                motorType[0].getAchieveableMaxTicksPerSecond(), 
-                motorType[1].getAchieveableMaxTicksPerSecond()
-            };
-            velocityMultiplier = Math.min(
-                velocityMultiplierArr[0], 
-                velocityMultiplierArr[1]
-            );
-        }
-        else {
+
+            // Sets velocityMultiplier to minimum ticks/rev of all lift motors (reduces the impact
+            // of mixing motor types)
+            MotorConfigurationType[] motorType =
+                    {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
+            double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
+                    motorType[1].getAchieveableMaxTicksPerSecond()};
+            velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+        } else {
             // Instantiate motors
             left_lift = hardwareMap.get(DcMotor.class, "left_lift");
             right_lift = hardwareMap.get(DcMotor.class, "right_lift");
@@ -108,16 +113,14 @@ public class DualLift extends Lift {
      */
     @Override
     public void tele() {
-        double [] movements = DualLiftUtil.controlToDirection(
-            deadZone,
-            gamepad.left_trigger,
-            gamepad.right_trigger
-        );
+        double[] movements = DualLiftUtil.controlToDirection(deadZone, gamepad.left_trigger,
+                gamepad.right_trigger);
         setAllPower(movements);
     }
 
     /**
-     * Intermediate function that assigns individual motor powers based on direction specified in runOpMode() calls.
+     * Intermediate function that assigns individual motor powers based on direction specified in
+     * runOpMode() calls.
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      * <p>
@@ -125,29 +128,31 @@ public class DualLift extends Lift {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double [] motorDirections = DualLiftUtil.languageToDirection(direction);
-        double [] movements = DualLiftUtil.scaleDirections(power, motorDirections);
+        double[] motorDirections = DualLiftUtil.languageToDirection(direction);
+        double[] movements = DualLiftUtil.scaleDirections(power, motorDirections);
         setAllPower(movements);
         wait(time);
         setAllPower();
     }
 
     /**
-     * Helper function to set all motor powers to received values (defaults to 0 if no args provided).
+     * Helper function to set all motor powers to received values (defaults to 0 if no args
+     * provided).
      * <p>
-     * Public, so custom movements [] can be passed directly if needed (tele() is an example of this).
+     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
+     * this).
      */
     @Override
-    public void setAllPower(double [] movements) {
-        if(useEncoder) {
+    public void setAllPower(double[] movements) {
+        if (useEncoder) {
             left_liftEx.setVelocity(movements[0] * velocityMultiplier);
             right_liftEx.setVelocity(movements[1] * velocityMultiplier);
-        }
-        else {
+        } else {
             left_lift.setPower(movements[0]);
             right_lift.setPower(movements[1]);
         }
     }
+
     /**
      * Helper function to set all motor powers to zero (this is the default case).
      * <p>
@@ -155,7 +160,7 @@ public class DualLift extends Lift {
      */
     @Override
     public void setAllPower() {
-        double [] zeros = {0,0};
+        double[] zeros = {0, 0};
         setAllPower(zeros);
     }
 }

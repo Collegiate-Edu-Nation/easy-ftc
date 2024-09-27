@@ -9,26 +9,26 @@ public class TestDualArmUtil {
         double power = 0.5;
 
         // Test no movement (both true)
-        double [] result = DualArmUtil.controlToDirection(power, true, true);
-        for(int i = 0; i < result.length; i++) {
+        double[] result = DualArmUtil.controlToDirection(power, true, true);
+        for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
-        
+
         // Test no movement (both false)
         result = DualArmUtil.controlToDirection(power, false, false);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test up
         result = DualArmUtil.controlToDirection(power, false, true);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(0.5, result[i], 0.01);
         }
 
         // Test down
         result = DualArmUtil.controlToDirection(power, true, false);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(-0.5, result[i], 0.01);
         }
     }
@@ -36,14 +36,14 @@ public class TestDualArmUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "up"
-        double [] result = DualArmUtil.languageToDirection("up");
-        for(int i = 0; i < result.length; i++) {
+        double[] result = DualArmUtil.languageToDirection("up");
+        for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "down"
         result = DualArmUtil.languageToDirection("down");
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
     }

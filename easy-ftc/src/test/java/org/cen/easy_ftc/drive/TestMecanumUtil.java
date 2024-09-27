@@ -11,20 +11,20 @@ public class TestMecanumUtil {
         final double heading = 0;
 
         // Test no movement
-        double [] result = MecanumUtil.controlToDirection("", deadZone, heading, 0, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        double[] result = MecanumUtil.controlToDirection("", deadZone, heading, 0, 0, 0);
+        for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test forward
         result = MecanumUtil.controlToDirection("", deadZone, heading, -1, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test backward
         result = MecanumUtil.controlToDirection("", deadZone, heading, 1, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
     }
@@ -33,27 +33,23 @@ public class TestMecanumUtil {
     public void whenFieldCentric_controlToDirection_isCorrect() {
         final double deadZone = 0.1;
         final double heading = Math.PI / 2; // equals 90 degrees
-        final double [][] expectedValues = {
-            {0, 0, 0, 0},
-            {1, -1, -1, 1},
-            {-1, 1, 1, -1}
-        };
+        final double[][] expectedValues = {{0, 0, 0, 0}, {1, -1, -1, 1}, {-1, 1, 1, -1}};
 
         // Test no movement
-        double [] result = MecanumUtil.controlToDirection("field", deadZone, heading, 0, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        double[] result = MecanumUtil.controlToDirection("field", deadZone, heading, 0, 0, 0);
+        for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[0][i], result[i], 0.01);
         }
 
         // Test forward
         result = MecanumUtil.controlToDirection("field", deadZone, heading, -1, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[1][i], result[i], 0.01);
         }
 
         // Test backward
         result = MecanumUtil.controlToDirection("field", deadZone, heading, 1, 0, 0);
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[2][i], result[i], 0.01);
         }
     }
@@ -61,14 +57,14 @@ public class TestMecanumUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "forward"
-        double [] result = MecanumUtil.languageToDirection("forward");
-        for(int i = 0; i < result.length; i++) {
+        double[] result = MecanumUtil.languageToDirection("forward");
+        for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
         result = MecanumUtil.languageToDirection("backward");
-        for(int i = 0; i < result.length; i++) {
+        for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
     }

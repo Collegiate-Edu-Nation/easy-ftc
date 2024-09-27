@@ -6,40 +6,51 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * Blueprints an abstract lift, providing basic functionalities, options, and objects common to all lifts.
- * Cannot be instantiated, only extended by actual lift classes (see {@link SoloLift} and {@link DualLift}).
+ * Blueprints an abstract lift, providing basic functionalities, options, and objects common to all
+ * lifts. Cannot be instantiated, only extended by actual lift classes (see {@link SoloLift} and
+ * {@link DualLift}).
  * <p>
- * @Methods
- * {@link #wait(double time)} (used by subclasses)
+ * 
+ * @Methods {@link #wait(double time)} (used by subclasses)
  */
 abstract class Lift {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected boolean useEncoder;
     protected Gamepad gamepad;
-    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for setVelocity()
+    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
+                                         // setVelocity()
     protected double deadZone = 0.1;
     protected ElapsedTime timer = new ElapsedTime();
 
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
-     * <li>gamepad = null
+     * 
+     * @Defaults useEncoder = false
+     *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap) {this(opMode, hardwareMap, false);}
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap) {
+        this(opMode, hardwareMap, false);
+    }
+
     /**
      * Constructor
-     * @Defaults 
-     * gamepad = null
+     * 
+     * @Defaults gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {this(opMode, hardwareMap, useEncoder, null);}
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
+        this(opMode, hardwareMap, useEncoder, null);
+    }
+
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
+     * 
+     * @Defaults useEncoder = false
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {this(opMode, hardwareMap, false, gamepad);}
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        this(opMode, hardwareMap, false, gamepad);
+    }
+
     /**
      * Constructor
      */
@@ -52,9 +63,13 @@ abstract class Lift {
     }
 
     protected abstract void hardwareInit();
+
     public abstract void tele();
+
     public abstract void move(double power, String direction, double time);
-    public abstract void setAllPower(double [] movements);
+
+    public abstract void setAllPower(double[] movements);
+
     public abstract void setAllPower();
 
     /**
@@ -64,7 +79,8 @@ abstract class Lift {
      */
     public void wait(double time) {
         this.timer.reset();
-        while(opMode.opModeIsActive() && (this.timer.time() < time)) {}
+        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
+        }
     }
 
     /**

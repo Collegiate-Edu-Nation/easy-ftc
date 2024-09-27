@@ -7,40 +7,51 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 /**
  * Implements a solo-servo claw by extending the functionality of {@link Claw}.
  * <p>
+ * 
  * @param HardwareMap hardwareMap (required)
  * @param Boolean reverseState (true or false)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
- * <p>
- * @Methods
- * {@link #tele()}
- * <li>{@link #move(String direction)}
+ *        <p>
+ * @Methods {@link #tele()}
+ *          <li>{@link #move(String direction)}
  */
 public class SoloClaw extends Claw {
     private Servo claw;
 
     /**
      * Constructor
-     * @Defaults 
-     * reverseState = false
-     * <li>gamepad = null
+     * 
+     * @Defaults reverseState = false
+     *           <li>gamepad = null
      */
-    public SoloClaw(HardwareMap hardwareMap) {super(hardwareMap);}
+    public SoloClaw(HardwareMap hardwareMap) {
+        super(hardwareMap);
+    }
+
     /**
      * Constructor
-     * @Defaults
-     * gamepad = null
+     * 
+     * @Defaults gamepad = null
      */
-    public SoloClaw(HardwareMap hardwareMap, boolean reverseState) {super(hardwareMap, reverseState);}
+    public SoloClaw(HardwareMap hardwareMap, boolean reverseState) {
+        super(hardwareMap, reverseState);
+    }
+
     /**
      * Constructor
-     * @Defaults
-     * reverseState = false
+     * 
+     * @Defaults reverseState = false
      */
-    public SoloClaw(HardwareMap hardwareMap, Gamepad gamepad) {super(hardwareMap, gamepad);}
+    public SoloClaw(HardwareMap hardwareMap, Gamepad gamepad) {
+        super(hardwareMap, gamepad);
+    }
+
     /**
      * Constructor
      */
-    public SoloClaw(HardwareMap hardwareMap, boolean reverseState, Gamepad gamepad) {super(hardwareMap, reverseState, gamepad);}
+    public SoloClaw(HardwareMap hardwareMap, boolean reverseState, Gamepad gamepad) {
+        super(hardwareMap, reverseState, gamepad);
+    }
 
     /**
      * Initializes claw servo
@@ -61,16 +72,16 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void tele() {
-        if(gamepad.a) {
+        if (gamepad.a) {
             claw.setPosition(open);
-        }
-        else if(gamepad.b) {
+        } else if (gamepad.b) {
             claw.setPosition(close);
         }
     }
 
     /**
-     * Intermediate function that assigns servo position based on direction specified in runOpMode() calls.
+     * Intermediate function that assigns servo position based on direction specified in runOpMode()
+     * calls.
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      * <p>
@@ -86,12 +97,9 @@ public class SoloClaw extends Claw {
             case "close":
                 claw.setPosition(close);
                 break;
-            default: 
-                throw new IllegalArgumentException(
-                    "Unexpected direction: " 
-                    + direction
-                    + ", passed to DualClaw.move(). Valid directions are: open, close"
-                );
+            default:
+                throw new IllegalArgumentException("Unexpected direction: " + direction
+                        + ", passed to DualClaw.move(). Valid directions are: open, close");
         }
     }
 }
