@@ -9,7 +9,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState (true or false)
  * @param Double calibrationValue (in CM)
  *        <p>
  * @Methods {@link #state()}
@@ -17,27 +16,33 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class Distance extends Sensor {
     private DistanceSensor sensor;
 
+    /**
+     * Constructor
+     * 
+     * @defaults calibrationValue = 7.0
+     */
     public Distance(HardwareMap hardwareMap) {
         super(hardwareMap, 7.0);
     }
 
-    public Distance(HardwareMap hardwareMap, boolean reverseState) {
-        super(hardwareMap, reverseState, 7.0);
-    }
-
+    /**
+     * Constructor
+     */
     public Distance(HardwareMap hardwareMap, double calibrationValue) {
         super(hardwareMap, calibrationValue);
     }
 
-    public Distance(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {
-        super(hardwareMap, reverseState, calibrationValue);
-    }
-
+    /**
+     * Initializes distance sensor
+     */
     @Override
     protected void hardwareInit() {
         sensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
     }
 
+    /**
+     * Returns distance sensor state (whether an object is within the distance cutoff)
+     */
     @Override
     public boolean state() {
         if (reverseState) {

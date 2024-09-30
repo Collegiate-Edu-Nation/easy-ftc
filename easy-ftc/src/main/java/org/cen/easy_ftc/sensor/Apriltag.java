@@ -12,7 +12,6 @@ import java.util.List;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState (true or false)
  *        <p>
  * @Methods {@link #state()}
  */
@@ -21,14 +20,16 @@ public class Apriltag extends Sensor {
     private VisionPortal portal;
     private List<AprilTagDetection> detections;
 
+    /**
+     * Constructor
+     */
     public Apriltag(HardwareMap hardwareMap) {
         super(hardwareMap);
     }
 
-    public Apriltag(HardwareMap hardwareMap, boolean reverseState) {
-        super(hardwareMap, reverseState);
-    }
-
+    /**
+     * Initializes AprilTag sensor via Webcam1
+     */
     @Override
     protected void hardwareInit() {
         sensor = AprilTagProcessor.easyCreateWithDefaults();
@@ -36,6 +37,9 @@ public class Apriltag extends Sensor {
                 sensor);
     }
 
+    /**
+     * Returns AprilTag sensor state (whether an object has been detected or not)
+     */
     @Override
     public boolean state() {
         if (reverseState) {
@@ -45,6 +49,9 @@ public class Apriltag extends Sensor {
         }
     }
 
+    /**
+     * Helper function that returns whether any detections have occurred
+     */
     private boolean objectDetected() {
         detections = sensor.getDetections();
         return (detections.size() > 0);

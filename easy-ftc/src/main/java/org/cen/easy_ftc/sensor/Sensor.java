@@ -15,21 +15,20 @@ abstract class Sensor {
     protected boolean reverseState;
     protected double calibrationValue;
 
+    /**
+     * Constructor
+     * 
+     * @defaults calibrationValue = 0
+     */
     public Sensor(HardwareMap hardwareMap) {
-        this(hardwareMap, false);
+        this(hardwareMap, 0);
     }
 
-    public Sensor(HardwareMap hardwareMap, boolean reverseState) {
-        this(hardwareMap, reverseState, 0);
-    }
-
+    /**
+     * Constructor
+     */
     public Sensor(HardwareMap hardwareMap, double calibrationValue) {
-        this(hardwareMap, false, calibrationValue);
-    }
-
-    public Sensor(HardwareMap hardwareMap, boolean reverseState, double calibrationValue) {
         this.hardwareMap = hardwareMap;
-        this.reverseState = reverseState;
         this.calibrationValue = calibrationValue;
         hardwareInit();
     }
