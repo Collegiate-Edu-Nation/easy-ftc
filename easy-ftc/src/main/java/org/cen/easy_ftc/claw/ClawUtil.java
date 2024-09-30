@@ -9,7 +9,7 @@ package org.cen.easy_ftc.claw;
  * @Methods {@link #controlToDirection(double open, double close, double current, boolean a, boolean b)}
  *          (used by subclasses)
  */
-public class ClawUtil {
+abstract class ClawUtil {
     /**
      * Set claw servo movement based on open, close values as well as current position
      */
