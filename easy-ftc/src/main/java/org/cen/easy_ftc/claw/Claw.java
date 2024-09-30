@@ -16,8 +16,9 @@ abstract class Claw {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected double open, close;
+    protected double increment;
     protected Gamepad gamepad;
-    protected double delay = 2;
+    protected double delay = 0.02;
     protected ElapsedTime timer = new ElapsedTime();
 
     /**
@@ -37,6 +38,7 @@ abstract class Claw {
         this.hardwareMap = hardwareMap;
         this.open = 1.0;
         this.close = 0.0;
+        this.increment = 0.02;
         this.gamepad = gamepad;
         hardwareInit();
     }
@@ -46,6 +48,8 @@ abstract class Claw {
     public abstract void tele();
 
     public abstract void move(String direction);
+
+    protected abstract void setPositionByIncrement(double position, double movement);
 
     /**
      * Helper function to wait (but not suspend) for specified time in s.

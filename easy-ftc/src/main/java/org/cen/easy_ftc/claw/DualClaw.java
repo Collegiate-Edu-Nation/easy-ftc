@@ -1,5 +1,6 @@
 package org.cen.easy_ftc.claw;
 
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -57,12 +58,11 @@ public class DualClaw extends Claw {
      */
     @Override
     public void tele() {
-        double currentLeft = left_claw.getPosition();
-        double currentRight = right_claw.getPosition();
-        double[] movements = DualClawUtil.controlToDirection(open, close, currentLeft, currentRight,
-                gamepad.a, gamepad.b);
-        left_claw.setPosition(movements[0]);
-        right_claw.setPosition(movements[1]);
+        double current = left_claw.getPosition();
+        double movement =
+                DualClawUtil.controlToDirection(open, close, current, gamepad.a, gamepad.b);
+        double position = current;
+        setPositionByIncrement(position, movement);
     }
 
     /**
@@ -75,9 +75,22 @@ public class DualClaw extends Claw {
      */
     @Override
     public void move(String direction) {
-        double[] servoDirections = DualClawUtil.languageToDirection(direction, open, close);
-        left_claw.setPosition(servoDirections[0]);
-        right_claw.setPosition(servoDirections[1]);
-        wait(delay);
+        double servoDirection = DualClawUtil.languageToDirection(direction, open, close);
+        double position = left_claw.getPosition();
+        setPositionByIncrement(position, servoDirection);
+    }
+
+    /**
+     * Wrapper around setPosition that enables smooth, synchronized servo control
+     */
+    @Override
+    protected void setPositionByIncrement(double position, double movement) {
+        while (opMode.opModeIsActive() && position != movement) {
+            position += (movement - position > 0) ? increment : -increment;
+            position = Math.min(Math.max(position, 0), 1);
+            left_claw.setPosition(position);
+            right_claw.setPosition(position);
+            wait(delay);
+        }
     }
 }

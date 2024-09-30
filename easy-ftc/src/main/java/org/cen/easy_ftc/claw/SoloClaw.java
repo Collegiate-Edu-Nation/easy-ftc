@@ -56,9 +56,10 @@ public class SoloClaw extends Claw {
     @Override
     public void tele() {
         double current = claw.getPosition();
-        double[] movements =
+        double movement =
                 SoloClawUtil.controlToDirection(open, close, current, gamepad.a, gamepad.b);
-        claw.setPosition(movements[0]);
+        double position = current;
+        setPositionByIncrement(position, movement);
     }
 
     /**
@@ -71,8 +72,21 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void move(String direction) {
-        double[] servoDirections = SoloClawUtil.languageToDirection(direction, open, close);
-        claw.setPosition(servoDirections[0]);
-        wait(delay);
+        double servoDirection = SoloClawUtil.languageToDirection(direction, open, close);
+        double position = claw.getPosition();
+        setPositionByIncrement(position, servoDirection);
+    }
+
+    /**
+     * Wrapper around setPosition that enables smooth, synchronized servo control
+     */
+    @Override
+    protected void setPositionByIncrement(double position, double movement) {
+        while (opMode.opModeIsActive() && position != movement) {
+            position += (movement - position > 0) ? increment : -increment;
+            position = Math.min(Math.max(position, 0), 1);
+            claw.setPosition(position);
+            wait(delay);
+        }
     }
 }
