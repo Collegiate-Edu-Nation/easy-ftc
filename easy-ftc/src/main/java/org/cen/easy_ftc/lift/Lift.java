@@ -3,7 +3,7 @@ package org.cen.easy_ftc.lift;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import org.cen.easy_ftc.Mecanism;
 
 /**
  * Blueprints an abstract lift, providing basic functionalities, options, and objects common to all
@@ -11,17 +11,13 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * {@link DualLift}).
  * <p>
  * 
- * @Methods {@link #wait(double time)} (used by subclasses)
+ * @Methods {@link #wait(double time)} (inherited from {@link Mecanism})
  */
-abstract class Lift {
-    protected LinearOpMode opMode;
-    protected HardwareMap hardwareMap;
+abstract class Lift extends Mecanism {
     protected boolean useEncoder;
-    protected Gamepad gamepad;
     protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
                                          // setVelocity()
     protected double deadZone = 0.1;
-    protected ElapsedTime timer = new ElapsedTime();
 
     /**
      * Constructor
@@ -62,26 +58,11 @@ abstract class Lift {
         hardwareInit();
     }
 
-    protected abstract void hardwareInit();
-
-    public abstract void tele();
-
     public abstract void move(double power, String direction, double time);
 
     public abstract void setAllPower(double[] movements);
 
     public abstract void setAllPower();
-
-    /**
-     * Helper function to wait (but not suspend) for specified time in s.
-     * <p>
-     * Public, so custom movements [] use-case can also be timed.
-     */
-    public void wait(double time) {
-        this.timer.reset();
-        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
-        }
-    }
 
     /**
      * Set the deadZone from 0-1. Default is 0.1

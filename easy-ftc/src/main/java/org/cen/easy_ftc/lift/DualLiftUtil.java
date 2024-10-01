@@ -1,5 +1,7 @@
 package org.cen.easy_ftc.lift;
 
+import org.cen.easy_ftc.MotorMecanismUtil;
+
 /**
  * Provides static utility methods for moving a two-motor lift by extending the functionality of
  * {@link LiftUtil}.
@@ -7,11 +9,11 @@ package org.cen.easy_ftc.lift;
  * @Methods {@link #controlToDirection(double deadZone, float lt, float rt)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
- *          {@link LiftUtil})
+ *          {@link MotorMecanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link LiftUtil})
+ *          {@link MotorMecanismUtil})
  */
-class DualLiftUtil extends LiftUtil {
+class DualLiftUtil extends MotorMecanismUtil {
     /**
      * Set lift motor movements based on triggers
      */
@@ -24,7 +26,7 @@ class DualLiftUtil extends LiftUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(String direction) {
+    protected static double[] languageToDirection(double power, String direction) {
         double[] motorDirections = {0, 0};
         switch (direction) {
             case "up":
@@ -39,6 +41,7 @@ class DualLiftUtil extends LiftUtil {
                 throw new IllegalArgumentException("Unexpected direction: " + direction
                         + ", passed to DualLift.move(). Valid directions are: up, down");
         }
-        return motorDirections;
+        double[] movements = scaleDirections(power, motorDirections);
+        return movements;
     }
 }

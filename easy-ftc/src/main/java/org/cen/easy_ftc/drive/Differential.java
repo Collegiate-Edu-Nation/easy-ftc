@@ -172,8 +172,7 @@ public class Differential extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = DifferentialUtil.languageToDirection(direction);
-        double[] movements = DifferentialUtil.scaleDirections(power, motorDirections);
+        double[] movements = DifferentialUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();

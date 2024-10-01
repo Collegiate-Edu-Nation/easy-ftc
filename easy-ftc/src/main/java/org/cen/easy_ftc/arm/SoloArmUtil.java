@@ -1,5 +1,7 @@
 package org.cen.easy_ftc.arm;
 
+import org.cen.easy_ftc.MotorMecanismUtil;
+
 /**
  * Provides static utility methods for moving a single-motor arm by extending the functionality of
  * {@link ArmUtil}.
@@ -7,9 +9,9 @@ package org.cen.easy_ftc.arm;
  * @Methods {@link #controlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link DriveUtil})
+ *          {@link MotorMecanismUtil})
  */
-class SoloArmUtil extends ArmUtil {
+class SoloArmUtil extends MotorMecanismUtil {
     protected static double[] controlToDirection(double power, boolean lb, boolean rb) {
         int down = lb ? 1 : 0;
         int up = rb ? 1 : 0;
@@ -21,7 +23,7 @@ class SoloArmUtil extends ArmUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(String direction) {
+    protected static double[] languageToDirection(double power, String direction) {
         double[] motorDirections = {0};
         switch (direction) {
             case "up":
@@ -34,6 +36,7 @@ class SoloArmUtil extends ArmUtil {
                 throw new IllegalArgumentException("Unexpected direction: " + direction
                         + ", passed to SoloArm.move(). Valid directions are: up, down");
         }
-        return motorDirections;
+        double movements[] = scaleDirections(power, motorDirections);
+        return movements;
     }
 }

@@ -128,8 +128,7 @@ public class DualLift extends Lift {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = DualLiftUtil.languageToDirection(direction);
-        double[] movements = DualLiftUtil.scaleDirections(power, motorDirections);
+        double[] movements = DualLiftUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();

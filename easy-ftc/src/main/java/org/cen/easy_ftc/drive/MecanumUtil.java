@@ -1,6 +1,7 @@
 package org.cen.easy_ftc.drive;
 
 import java.lang.Math;
+import org.cen.easy_ftc.MotorMecanismUtil;
 
 /**
  * Provides static utility methods for driving a mecanum drivetrain by extending the functionality
@@ -9,11 +10,11 @@ import java.lang.Math;
  * @Methods {@link #controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
- *          {@link DriveUtil})
+ *          {@link MotorMecanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link DriveUtil})
+ *          {@link MotorMecanismUtil})
  */
-class MecanumUtil extends DriveUtil {
+class MecanumUtil extends MotorMecanismUtil {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */
@@ -60,7 +61,7 @@ class MecanumUtil extends DriveUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(String direction) {
+    protected static double[] languageToDirection(double power, String direction) {
         double[] motorDirections = {0, 0, 0, 0};
         switch (direction) {
             case "forward":
@@ -127,6 +128,7 @@ class MecanumUtil extends DriveUtil {
                 throw new IllegalArgumentException("Unexpected direction: " + direction
                         + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
         }
-        return motorDirections;
+        double[] movements = scaleDirections(power, motorDirections);
+        return movements;
     }
 }

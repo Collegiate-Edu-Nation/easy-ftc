@@ -117,8 +117,7 @@ public class SoloLift extends Lift {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = SoloLiftUtil.languageToDirection(direction);
-        double[] movements = SoloLiftUtil.scaleDirections(power, motorDirections);
+        double[] movements = SoloLiftUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();

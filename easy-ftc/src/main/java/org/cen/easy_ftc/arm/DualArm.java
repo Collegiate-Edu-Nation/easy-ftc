@@ -139,8 +139,7 @@ public class DualArm extends Arm {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = DualArmUtil.languageToDirection(direction);
-        double[] movements = DualArmUtil.scaleDirections(power, motorDirections);
+        double[] movements = DualArmUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();

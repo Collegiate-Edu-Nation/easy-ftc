@@ -219,8 +219,7 @@ public class Mecanum extends Drive {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = MecanumUtil.languageToDirection(direction);
-        double[] movements = MecanumUtil.scaleDirections(power, motorDirections);
+        double[] movements = MecanumUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();

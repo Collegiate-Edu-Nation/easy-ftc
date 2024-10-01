@@ -1,5 +1,7 @@
 package org.cen.easy_ftc.arm;
 
+import org.cen.easy_ftc.MotorMecanismUtil;
+
 /**
  * Provides static utility methods for moving a two-motor arm by extending the functionality of
  * {@link ArmUtil}.
@@ -7,9 +9,9 @@ package org.cen.easy_ftc.arm;
  * @Methods {@link #controlToDirection(double power, boolean lb, boolean rb)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link DriveUtil})
+ *          {@link MotorMecanismUtil})
  */
-class DualArmUtil extends ArmUtil {
+class DualArmUtil extends MotorMecanismUtil {
     /**
      * Sets arm motor movements based on bumpers
      */
@@ -24,7 +26,7 @@ class DualArmUtil extends ArmUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(String direction) {
+    protected static double[] languageToDirection(double power, String direction) {
         double[] motorDirections = {0, 0};
         switch (direction) {
             case "up":
@@ -39,6 +41,7 @@ class DualArmUtil extends ArmUtil {
                 throw new IllegalArgumentException("Unexpected direction: " + direction
                         + ", passed to DualArm.move(). Valid directions are: up, down");
         }
-        return motorDirections;
+        double movements[] = scaleDirections(power, motorDirections);
+        return movements;
     }
 }

@@ -128,8 +128,7 @@ public class SoloArm extends Arm {
      */
     @Override
     public void move(double power, String direction, double time) {
-        double[] motorDirections = SoloArmUtil.languageToDirection(direction);
-        double[] movements = SoloArmUtil.scaleDirections(power, motorDirections);
+        double[] movements = SoloArmUtil.languageToDirection(power, direction);
         setAllPower(movements);
         wait(time);
         setAllPower();
