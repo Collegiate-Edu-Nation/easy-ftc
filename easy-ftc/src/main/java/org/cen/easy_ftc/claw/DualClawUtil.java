@@ -1,14 +1,16 @@
 package org.cen.easy_ftc.claw;
 
+import org.cen.easy_ftc.ServoMecanismUtil;
+
 /**
  * Provides static utility methods for moving a two-servo claw by extending the functionality of
- * {@link ClawUtil}.
+ * {@link ServoMecanismUtil}.
  * 
  * @Methods {@link #languageToDirection(String direction, double open, double close)}
- *          <li>{@link #controlToDirection(double open, double close, double current, boolean a, boolean b)}
- *          (inherited from {@link ClawUtil})
+ *          <li>{@link #controlToDirection(double open, double close, double current, boolean openButton, boolean closeButton)}
+ *          (inherited from {@link ServoMecanismUtil})
  */
-class DualClawUtil extends ClawUtil {
+class DualClawUtil extends ServoMecanismUtil {
     /**
      * Translate natural-language direction to numeric values
      */
