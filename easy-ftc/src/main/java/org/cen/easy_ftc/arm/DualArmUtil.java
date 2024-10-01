@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.arm;
 
-import org.cen.easy_ftc.MotorMecanismUtil;
+import org.cen.easy_ftc.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for moving a two-motor arm by extending the functionality of
@@ -9,9 +9,9 @@ import org.cen.easy_ftc.MotorMecanismUtil;
  * @Methods {@link #controlToDirection(double power, boolean lb, boolean rb)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  */
-class DualArmUtil extends MotorMecanismUtil {
+class DualArmUtil extends MotorMechanismUtil {
     /**
      * Sets arm motor movements based on bumpers
      */

@@ -1,7 +1,7 @@
 package org.cen.easy_ftc.drive;
 
 import java.lang.Math;
-import org.cen.easy_ftc.MotorMecanismUtil;
+import org.cen.easy_ftc.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for driving a mecanum drivetrain by extending the functionality
@@ -10,11 +10,11 @@ import org.cen.easy_ftc.MotorMecanismUtil;
  * @Methods {@link #controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  */
-class MecanumUtil extends MotorMecanismUtil {
+class MecanumUtil extends MotorMechanismUtil {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */

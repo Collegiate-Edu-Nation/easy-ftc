@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.lift;
 
-import org.cen.easy_ftc.MotorMecanismUtil;
+import org.cen.easy_ftc.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for moving a two-motor lift by extending the functionality of
@@ -9,11 +9,11 @@ import org.cen.easy_ftc.MotorMecanismUtil;
  * @Methods {@link #controlToDirection(double deadZone, float lt, float rt)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  */
-class DualLiftUtil extends MotorMecanismUtil {
+class DualLiftUtil extends MotorMechanismUtil {
     /**
      * Set lift motor movements based on triggers
      */

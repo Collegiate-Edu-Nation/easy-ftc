@@ -3,7 +3,7 @@ package org.cen.easy_ftc;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-public class TestMotorMecanismUtil {
+public class TestMotorMechanismUtil {
     @Test
     public void map_isCorrect() {
         final double deadZone = 0.1;
@@ -12,13 +12,13 @@ public class TestMotorMecanismUtil {
 
         // Test positive controllerValues
         for (int i = 0; i < controllerValues.length / 2; i++) {
-            assertEquals(expectedValues[i], MotorMecanismUtil.map(controllerValues[i], deadZone),
+            assertEquals(expectedValues[i], MotorMechanismUtil.map(controllerValues[i], deadZone),
                     0.01);
         }
 
         // Test negative controllerValues
         for (int i = 3; i < controllerValues.length; i++) {
-            assertEquals(expectedValues[i], MotorMecanismUtil.map(controllerValues[i], deadZone),
+            assertEquals(expectedValues[i], MotorMechanismUtil.map(controllerValues[i], deadZone),
                     0.01);
         }
     }
@@ -32,7 +32,7 @@ public class TestMotorMecanismUtil {
 
         // Test power zero
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[0], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[0], motorDirections[i]);
             for (int j = 0; j < 1; j++) {
                 assertEquals(expectedValues[0][i][j], movements[j], 0.01);
             }
@@ -40,7 +40,7 @@ public class TestMotorMecanismUtil {
 
         // Test power half
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[1], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[1], motorDirections[i]);
             for (int j = 0; j < 1; j++) {
                 assertEquals(expectedValues[1][i][j], movements[j], 0.01);
             }
@@ -48,7 +48,7 @@ public class TestMotorMecanismUtil {
 
         // Test power full
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[2], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[2], motorDirections[i]);
             for (int j = 0; j < 1; j++) {
                 assertEquals(expectedValues[2][i][j], movements[j], 0.01);
             }
@@ -64,7 +64,7 @@ public class TestMotorMecanismUtil {
 
         // Test power zero
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[0], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[0], motorDirections[i]);
             for (int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[0][i][j], movements[j], 0.01);
             }
@@ -72,7 +72,7 @@ public class TestMotorMecanismUtil {
 
         // Test power half
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[1], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[1], motorDirections[i]);
             for (int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[1][i][j], movements[j], 0.01);
             }
@@ -80,7 +80,7 @@ public class TestMotorMecanismUtil {
 
         // Test power full
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[2], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[2], motorDirections[i]);
             for (int j = 0; j < 2; j++) {
                 assertEquals(expectedValues[2][i][j], movements[j], 0.01);
             }
@@ -97,7 +97,7 @@ public class TestMotorMecanismUtil {
 
         // Test power zero
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[0], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[0], motorDirections[i]);
             for (int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[0][i][j], movements[j], 0.01);
             }
@@ -105,7 +105,7 @@ public class TestMotorMecanismUtil {
 
         // Test power half
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[1], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[1], motorDirections[i]);
             for (int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[1][i][j], movements[j], 0.01);
             }
@@ -113,7 +113,7 @@ public class TestMotorMecanismUtil {
 
         // Test power full
         for (int i = 0; i < 3; i++) {
-            double[] movements = MotorMecanismUtil.scaleDirections(powers[2], motorDirections[i]);
+            double[] movements = MotorMechanismUtil.scaleDirections(powers[2], motorDirections[i]);
             for (int j = 0; j < 4; j++) {
                 assertEquals(expectedValues[2][i][j], movements[j], 0.01);
             }

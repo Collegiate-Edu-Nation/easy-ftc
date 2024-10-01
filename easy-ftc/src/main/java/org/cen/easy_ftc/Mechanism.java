@@ -6,12 +6,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Blueprints an abstract mecanism, providing basic functionalities, options, and objects common to
+ * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
  * all claws. Cannot be instantiated, only extended by other abstract classes.
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-public abstract class Mecanism {
+public abstract class Mechanism {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected Gamepad gamepad;

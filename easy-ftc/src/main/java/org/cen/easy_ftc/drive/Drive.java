@@ -3,7 +3,7 @@ package org.cen.easy_ftc.drive;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import org.cen.easy_ftc.Mecanism;
+import org.cen.easy_ftc.Mechanism;
 
 /**
  * Blueprints an abstract drivetrain, providing basic functionalities, options, and objects common
@@ -11,9 +11,9 @@ import org.cen.easy_ftc.Mecanism;
  * {@link Mecanum} and {@link Differential}).
  * <p>
  * 
- * @Methods {@link #wait(double time)} (inherited from {@link Mecanism})
+ * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
-abstract class Drive extends Mecanism {
+abstract class Drive extends Mechanism {
     protected boolean useEncoder;
     protected String layout;
     protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit

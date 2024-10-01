@@ -3,7 +3,7 @@ package org.cen.easy_ftc.arm;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import org.cen.easy_ftc.Mecanism;
+import org.cen.easy_ftc.Mechanism;
 
 /**
  * Blueprints an abstract arm, providing basic functionalities, options, and objects common to all
@@ -11,9 +11,9 @@ import org.cen.easy_ftc.Mecanism;
  * {@link DualArm}).
  * <p>
  * 
- * @Methods {@link #wait(double time)} (inherited from {@link Mecanism})
+ * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
-abstract class Arm extends Mecanism {
+abstract class Arm extends Mechanism {
     protected boolean useEncoder;
     protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
                                          // setVelocity()

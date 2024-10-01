@@ -3,8 +3,8 @@ package org.cen.easy_ftc;
 import java.lang.Math;
 
 /**
- * Blueprints an abstract motor mecanism utility class, providing methods for mapping controls and
- * scaling directions, which are common to all mecanisms. Cannot be instantiated, only extended by
+ * Blueprints an abstract motor mechanism utility class, providing methods for mapping controls and
+ * scaling directions, which are common to all Mechanisms. Cannot be instantiated, only extended by
  * other classes providing static methods.
  * <p>
  * 
@@ -12,7 +12,7 @@ import java.lang.Math;
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (used by
  *          subclasses)
  */
-public abstract class MotorMecanismUtil {
+public abstract class MotorMechanismUtil {
     /**
      * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller
      * deadZone

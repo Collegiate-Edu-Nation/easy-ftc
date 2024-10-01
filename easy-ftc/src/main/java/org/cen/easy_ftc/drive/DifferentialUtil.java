@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.drive;
 
-import org.cen.easy_ftc.MotorMecanismUtil;
+import org.cen.easy_ftc.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for driving a differential drivetrain by extending the
@@ -9,11 +9,11 @@ import org.cen.easy_ftc.MotorMecanismUtil;
  * @Methods {@link #controlToDirection(String layout, double deadZone, float leftY, float rightY, float rightX)}
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
- *          {@link MotorMecanismUtil})
+ *          {@link MotorMechanismUtil})
  */
-class DifferentialUtil extends MotorMecanismUtil {
+class DifferentialUtil extends MotorMechanismUtil {
     /**
      * Set drivetrain motor movements based on layout: tank(default) or arcade
      */

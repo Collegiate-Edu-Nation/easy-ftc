@@ -1,16 +1,16 @@
 package org.cen.easy_ftc.claw;
 
-import org.cen.easy_ftc.ServoMecanismUtil;
+import org.cen.easy_ftc.ServoMechanismUtil;
 
 /**
  * Provides static utility methods for moving a one-servo claw by extending the functionality of
- * {@link ServoMecanismUtil}.
+ * {@link ServoMechanismUtil}.
  * 
  * @Methods {@link #languageToDirection(String direction, double open, double close)}
  *          <li>{@link #controlToDirection(double open, double close, double current, boolean openButton, boolean closeButton)}
- *          (inherited from {@link ServoMecanismUtil})
+ *          (inherited from {@link ServoMechanismUtil})
  */
-class SoloClawUtil extends ServoMecanismUtil {
+class SoloClawUtil extends ServoMechanismUtil {
     /**
      * Translate natural-language direction to numeric values
      */

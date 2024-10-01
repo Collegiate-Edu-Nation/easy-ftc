@@ -3,16 +3,16 @@ package org.cen.easy_ftc.claw;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import org.cen.easy_ftc.Mecanism;
+import org.cen.easy_ftc.Mechanism;
 
 /**
  * Blueprints an abstract claw, providing basic functionalities, options, and objects common to all
  * claws. Cannot be instantiated, only extended by actual lift classes (see {@link SoloClaw} and
  * {@link DualClaw}).
  * 
- * @Methods {@link #wait(double time)} (inherited from {@link Mecanism})
+ * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
-abstract class Claw extends Mecanism {
+abstract class Claw extends Mechanism {
     protected double open, close;
     protected double increment;
     protected double delay = 0.02;
