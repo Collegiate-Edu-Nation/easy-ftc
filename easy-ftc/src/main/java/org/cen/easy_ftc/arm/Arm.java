@@ -6,39 +6,50 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
- * Blueprints an abstract arm, providing basic functionalities, options, and objects common to all lifts.
- * Cannot be instantiated, only extended by actual lift classes (see {@link SoloArm} and {@link DualArm}).
+ * Blueprints an abstract arm, providing basic functionalities, options, and objects common to all
+ * lifts. Cannot be instantiated, only extended by actual lift classes (see {@link SoloArm} and
+ * {@link DualArm}).
  * <p>
- * @Methods
- * {@link #wait(double time)} (used by subclasses)
+ * 
+ * @Methods {@link #wait(double time)} (used by subclasses)
  */
 abstract class Arm {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected boolean useEncoder;
     protected Gamepad gamepad;
-    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for setVelocity()
+    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
+                                         // setVelocity()
     protected ElapsedTime timer = new ElapsedTime();
 
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
-     * <li>gamepad = null
+     * 
+     * @Defaults useEncoder = false
+     *           <li>gamepad = null
      */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap) {this(opMode, hardwareMap, false);}
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap) {
+        this(opMode, hardwareMap, false);
+    }
+
     /**
      * Constructor
-     * @Defaults 
-     * gamepad = null
+     * 
+     * @Defaults gamepad = null
      */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {this(opMode, hardwareMap, useEncoder, null);}
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
+        this(opMode, hardwareMap, useEncoder, null);
+    }
+
     /**
      * Constructor
-     * @Defaults
-     * useEncoder = false
+     * 
+     * @Defaults useEncoder = false
      */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {this(opMode, hardwareMap, false, gamepad);}
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        this(opMode, hardwareMap, false, gamepad);
+    }
+
     /**
      * Constructor
      */
@@ -51,10 +62,15 @@ abstract class Arm {
     }
 
     protected abstract void hardwareInit();
+
     public abstract void tele(double power);
+
     public abstract void tele();
+
     public abstract void move(double power, String direction, double time);
-    public abstract void setAllPower(double [] movements);
+
+    public abstract void setAllPower(double[] movements);
+
     public abstract void setAllPower();
 
     /**
@@ -64,6 +80,7 @@ abstract class Arm {
      */
     public void wait(double time) {
         this.timer.reset();
-        while(opMode.opModeIsActive() && (this.timer.time() < time)) {}
+        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
+        }
     }
 }
