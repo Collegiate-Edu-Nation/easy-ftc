@@ -36,13 +36,13 @@ public class TestSoloArmUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "up"
-        double[] result = SoloArmUtil.languageToDirection("up");
+        double[] result = SoloArmUtil.languageToDirection(1, "up");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "down"
-        result = SoloArmUtil.languageToDirection("down");
+        result = SoloArmUtil.languageToDirection(1, "down");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }

@@ -42,13 +42,13 @@ public class TestDualLiftUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "up"
-        double[] result = DualLiftUtil.languageToDirection("up");
+        double[] result = DualLiftUtil.languageToDirection(1, "up");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "down"
-        result = DualLiftUtil.languageToDirection("down");
+        result = DualLiftUtil.languageToDirection(1, "down");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }

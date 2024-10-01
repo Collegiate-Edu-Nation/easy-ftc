@@ -57,13 +57,13 @@ public class TestMecanumUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "forward"
-        double[] result = MecanumUtil.languageToDirection("forward");
+        double[] result = MecanumUtil.languageToDirection(1, "forward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
-        result = MecanumUtil.languageToDirection("backward");
+        result = MecanumUtil.languageToDirection(1, "backward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }

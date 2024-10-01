@@ -53,13 +53,13 @@ public class TestDifferentialUtil {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "forward"
-        double[] result = DifferentialUtil.languageToDirection("forward");
+        double[] result = DifferentialUtil.languageToDirection(1, "forward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
-        result = DifferentialUtil.languageToDirection("backward");
+        result = DifferentialUtil.languageToDirection(1, "backward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
