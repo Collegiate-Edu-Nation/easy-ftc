@@ -15,7 +15,7 @@ import java.util.List;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Apriltag extends Sensor {
+public class Apriltag extends Sensor<Boolean> {
     private AprilTagProcessor sensor;
     private VisionPortal portal;
     private List<AprilTagDetection> detections;
@@ -41,7 +41,7 @@ public class Apriltag extends Sensor {
      * Returns AprilTag sensor state (whether an object has been detected or not)
      */
     @Override
-    public boolean state() {
+    public Boolean state() {
         if (reverseState) {
             return !(objectDetected());
         } else {

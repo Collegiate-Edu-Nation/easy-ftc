@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Distance extends Sensor {
+public class Distance extends Sensor<Boolean> {
     private DistanceSensor sensor;
 
     /**
@@ -44,7 +44,7 @@ public class Distance extends Sensor {
      * Returns distance sensor state (whether an object is within the distance cutoff)
      */
     @Override
-    public boolean state() {
+    public Boolean state() {
         if (reverseState) {
             return !(sensor.getDistance(DistanceUnit.CM) < calibrationValue);
         } else {

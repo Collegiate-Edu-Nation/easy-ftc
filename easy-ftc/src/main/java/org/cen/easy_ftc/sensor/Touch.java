@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Touch extends Sensor {
+public class Touch extends Sensor<Boolean> {
     private TouchSensor sensor;
 
     /**
@@ -33,7 +33,7 @@ public class Touch extends Sensor {
      * Returns touch sensor state (whether the sensor has been pressed or not)
      */
     @Override
-    public boolean state() {
+    public Boolean state() {
         if (reverseState) {
             return !(sensor.isPressed());
         } else {
