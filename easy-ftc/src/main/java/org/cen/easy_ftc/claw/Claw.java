@@ -15,7 +15,7 @@ import org.cen.easy_ftc.Mechanism;
 abstract class Claw extends Mechanism {
     protected double open, close;
     protected double increment;
-    protected double delay = 0.02;
+    protected double delay;
 
     /**
      * Constructor
@@ -35,6 +35,7 @@ abstract class Claw extends Mechanism {
         this.open = 1.0;
         this.close = 0.0;
         this.increment = 0.02;
+        this.delay = 0.02;
         this.gamepad = gamepad;
         hardwareInit();
     }
