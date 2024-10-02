@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id "com.hiya.jacoco-android" version "0.2"
 }
 
 android {
@@ -16,12 +17,34 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            enableUnitTestCoverage true
         }
     }
+
+    // ignore "debug" variant
+    variantFilter { variant ->
+        if(variant.name.equals("debug")) {
+            variant.setIgnore(true);
+        }
+    }
+    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+// Configure jacoco
+jacocoAndroidUnitTestReport {
+    csv.enabled false
+    html.enabled true
+    xml.enabled false
+}
+
+// create alias for jacoco report
+task coverage(dependsOn: jacocoTestReport) {
+    group = "reporting"
+    description = "Generates Jacoco coverage report as HTML in build/jacoco/jacocoHtml"
 }
 
 dependencies {

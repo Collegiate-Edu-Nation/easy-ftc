@@ -39,8 +39,10 @@
 
         shellHook = ''
           echo -e "\easy-ftc Development Environment via Nix Flake\n"
-          echo -e "Build: ./gradlew build\n"
+          echo -e "Build: ./gradlew assemble\n"
           echo -e "Clean: ./gradlew clean\n"
+          echo -e "Test: ./gradlew test\n"
+          echo -e "Coverage: ./gradlew coverage\n"
           echo -e "Docs: javadoc -d docs -classpath easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar -sourcepath easy-ftc/src/main/java/ org.edu_nation.easy_ftc.arm org.edu_nation.easy_ftc.claw org.edu_nation.easy_ftc.drive org.edu_nation.easy_ftc.lift org.edu_nation.easy_ftc.sensor -public -overview docs/overview.html"
           java --version
         '';
