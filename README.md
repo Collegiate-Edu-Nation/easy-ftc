@@ -7,16 +7,18 @@
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and features, including
-* Arm (Solo and Dual motor)
-* Claw (Solo and Dual servo)
-* Drive (Differential and Mecanum)
-* Lift (Solo and Dual motor)
-* Sensors (Distance, Touch, AprilTag)
-
-<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential</i>
+* Arm
+* Claw
+* Drivetrain
+* Lift
+* Sensors
 
 Docs deployed at https://camdenboren.github.io/easy-ftc<br>
 <i>Docs cover examples, controls, and API reference</i>
+
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and constructor-enabled features. Setters are still provided for lower-level adjustments like changing controls and directions, however.
+
+<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features leverage smooth-servo control, enabling multi-servo synchronization. Supported sensors are: AprilTag, color, distance, and touch</i>
 
 ## Usage
 
@@ -72,7 +74,7 @@ For either approach, gradlew builds are supported
 
 ### Features
 - [x] Unit Tests (motors)
-- [ ] Unit Tests (servos, sensors)
+- [x] Unit Tests (servos, sensors)
 - [ ] Add setters for directionality and controls
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
@@ -84,6 +86,7 @@ For either approach, gradlew builds are supported
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
+- [ ] Add hardware naming section
 - [ ] Improve usage instructions
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
