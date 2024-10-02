@@ -1,4 +1,4 @@
-package org.cen.easy_ftc;
+package org.edu_nation.easy_ftc;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("org.cen.easy_ftc", appContext.getPackageName());
+        assertEquals("org.edu_nation.easy_ftc", appContext.getPackageName());
     }
 }
