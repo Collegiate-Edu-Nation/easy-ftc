@@ -1,5 +1,6 @@
 package org.cen.easy_ftc.sensor;
 
+import java.lang.Math;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
@@ -8,20 +9,21 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Double calibrationValue (in CM)
+ * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
  *        <p>
  * @Methods {@link #state()}
  */
 public class Color extends Sensor<String> {
     private ColorSensor sensor;
+    private int[] rgbOffsets = {10, -25, 0};
 
     /**
      * Constructor
      * 
-     * @defaults calibrationValue = 65.0
+     * @defaults calibrationValue = 85.0
      */
     public Color(HardwareMap hardwareMap) {
-        super(hardwareMap, 65.0);
+        super(hardwareMap, 85.0);
     }
 
     /**
@@ -44,14 +46,32 @@ public class Color extends Sensor<String> {
      */
     @Override
     public String state() {
-        if (sensor.red() > calibrationValue) {
-            return "red";
-        } else if (sensor.green() > calibrationValue) {
-            return "green";
-        } else if (sensor.blue() > calibrationValue) {
-            return "blue";
-        } else {
-            return "";
+        int[] rgbRaw = {sensor.red(), sensor.green(), sensor.blue()};
+        int[] rgbNormalized = {0, 0, 0};
+
+        // normalize color readings by applying offsets
+        for (int i = 0; i < rgbRaw.length; i++) {
+            rgbNormalized[i] = rgbRaw[i] + rgbOffsets[i];
         }
+
+        // set color to corresponding maximum of normalized rgb values
+        int max = Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
+                Math.max(rgbNormalized[1], rgbNormalized[2]));
+
+        String color;
+        if (max > calibrationValue) {
+            if (max == rgbNormalized[0]) {
+                color = "red";
+            } else if (max == rgbNormalized[1]) {
+                color = "green";
+            } else if (max == rgbNormalized[2]) {
+                color = "blue";
+            } else {
+                color = "";
+            }
+        } else {
+            color = "";
+        }
+        return color;
     }
 }
