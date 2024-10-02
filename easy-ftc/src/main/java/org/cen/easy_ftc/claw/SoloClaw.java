@@ -44,8 +44,8 @@ public class SoloClaw extends Claw {
         // Instantiate servo
         claw = hardwareMap.get(Servo.class, "claw");
 
-        // Set direction of servo (switch to BACKWARD if claw is backwards)
-        claw.setDirection(Servo.Direction.FORWARD);
+        // Set direction of servo (switch to FORWARD if claw is backwards)
+        claw.setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -57,7 +57,7 @@ public class SoloClaw extends Claw {
     public void tele() {
         double current = claw.getPosition();
         double movement =
-                SoloClawUtil.controlToDirection(open, close, current, gamepad.a, gamepad.b);
+                SoloClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         double position = current;
         setPositionByIncrement(position, movement);
     }

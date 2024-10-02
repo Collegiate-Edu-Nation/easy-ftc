@@ -46,9 +46,9 @@ public class DualClaw extends Claw {
         left_claw = hardwareMap.get(Servo.class, "left_claw");
         right_claw = hardwareMap.get(Servo.class, "right_claw");
 
-        // Reverse direction of left servo for convenience (switch if claw is backwards)
-        left_claw.setDirection(Servo.Direction.REVERSE);
-        right_claw.setDirection(Servo.Direction.FORWARD);
+        // Reverse direction of right servo for convenience (switch if claw is backwards)
+        left_claw.setDirection(Servo.Direction.FORWARD);
+        right_claw.setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -60,7 +60,7 @@ public class DualClaw extends Claw {
     public void tele() {
         double current = left_claw.getPosition();
         double movement =
-                DualClawUtil.controlToDirection(open, close, current, gamepad.a, gamepad.b);
+                DualClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         double position = current;
         setPositionByIncrement(position, movement);
     }
