@@ -1,4 +1,4 @@
-package org.cen.easy_ftc;
+package org.cen.easy_ftc.mechanism;
 
 import java.lang.Math;
 

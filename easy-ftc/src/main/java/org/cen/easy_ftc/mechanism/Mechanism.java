@@ -1,4 +1,4 @@
-package org.cen.easy_ftc;
+package org.cen.easy_ftc.mechanism;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;

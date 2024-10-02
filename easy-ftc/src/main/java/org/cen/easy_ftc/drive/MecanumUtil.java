@@ -1,7 +1,7 @@
 package org.cen.easy_ftc.drive;
 
 import java.lang.Math;
-import org.cen.easy_ftc.MotorMechanismUtil;
+import org.cen.easy_ftc.mechanism.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for driving a mecanum drivetrain by extending the functionality

@@ -1,4 +1,4 @@
-package org.cen.easy_ftc;
+package org.cen.easy_ftc.mechanism;
 
 /**
  * Blueprints an abstract servo utility class, providing a method for controlling directions, which

@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.claw;
 
-import org.cen.easy_ftc.ServoMechanismUtil;
+import org.cen.easy_ftc.mechanism.ServoMechanismUtil;
 
 /**
  * Provides static utility methods for moving a one-servo claw by extending the functionality of

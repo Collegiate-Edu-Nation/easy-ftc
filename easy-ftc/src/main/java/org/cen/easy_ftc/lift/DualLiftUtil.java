@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.lift;
 
-import org.cen.easy_ftc.MotorMechanismUtil;
+import org.cen.easy_ftc.mechanism.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for moving a two-motor lift by extending the functionality of

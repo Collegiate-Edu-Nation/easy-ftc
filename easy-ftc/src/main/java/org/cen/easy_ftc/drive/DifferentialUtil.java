@@ -1,6 +1,6 @@
 package org.cen.easy_ftc.drive;
 
-import org.cen.easy_ftc.MotorMechanismUtil;
+import org.cen.easy_ftc.mechanism.MotorMechanismUtil;
 
 /**
  * Provides static utility methods for driving a differential drivetrain by extending the

@@ -1,9 +1,9 @@
 package org.cen.easy_ftc.claw;
 
+import org.cen.easy_ftc.mechanism.Mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import org.cen.easy_ftc.Mechanism;
 
 /**
  * Blueprints an abstract claw, providing basic functionalities, options, and objects common to all

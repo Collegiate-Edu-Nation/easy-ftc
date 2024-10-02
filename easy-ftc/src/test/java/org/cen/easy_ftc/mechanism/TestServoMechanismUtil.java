@@ -1,4 +1,4 @@
-package org.cen.easy_ftc;
+package org.cen.easy_ftc.mechanism;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
