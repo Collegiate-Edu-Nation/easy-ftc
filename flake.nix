@@ -38,14 +38,14 @@
         GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2";
 
         shellHook = ''
-          echo -e "\easy-ftc Development Environment via Nix Flake\n"
-          echo -e "Build:    ./gradlew assemble\n"
-          echo -e "Clean:    ./gradlew clean\n"
-          echo -e "Test:     ./gradlew test\n"
-          echo -e "Coverage: ./gradlew coverage\n"
-          echo -e "Docs:     ./gradlew docs"
+          echo -e "\neasy-ftc Development Environment via Nix Flake\n"
+          echo -e "Build:    ./gradlew assemble"
+          echo -e "Clean:    ./gradlew clean"
+          echo -e "Test:     ./gradlew test"
+          echo -e "Coverage: ./gradlew coverage"
+          echo -e "Docs:     ./gradlew docs\n"
           java --version
-          echo -e "\n"
+          echo -e ""
         '';
       };
     });
