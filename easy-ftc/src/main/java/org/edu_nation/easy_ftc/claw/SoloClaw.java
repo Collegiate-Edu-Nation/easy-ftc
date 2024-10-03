@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
+ * @param Boolean smoothServo (true or false)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
@@ -23,17 +24,37 @@ public class SoloClaw extends Claw {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults smoothServo = true
+     *           <li>gamepad = null
      */
     public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap) {
-        super(opMode, hardwareMap, null);
+        super(opMode, hardwareMap, true);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo) {
+        super(opMode, hardwareMap, smoothServo, null);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults smoothServo = true
+     */
+    public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        super(opMode, hardwareMap, true, gamepad);
     }
 
     /**
      * Constructor
      */
-    public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        super(opMode, hardwareMap, gamepad);
+    public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo,
+            Gamepad gamepad) {
+        super(opMode, hardwareMap, smoothServo, gamepad);
     }
 
     /**
@@ -58,8 +79,12 @@ public class SoloClaw extends Claw {
         double current = claw.getPosition();
         double movement =
                 SoloClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
-        double position = current;
-        setPositionByIncrement(position, movement);
+        if (smoothServo) {
+            double position = current;
+            setPositionByIncrement(position, movement);
+        } else {
+            claw.setPosition(movement);
+        }
     }
 
     /**
@@ -73,8 +98,13 @@ public class SoloClaw extends Claw {
     @Override
     public void move(String direction) {
         double servoDirection = SoloClawUtil.languageToDirection(direction, open, close);
-        double position = claw.getPosition();
-        setPositionByIncrement(position, servoDirection);
+        if (smoothServo) {
+            double position = claw.getPosition();
+            setPositionByIncrement(position, servoDirection);
+        } else {
+            claw.setPosition(servoDirection);
+            wait(delay);
+        }
     }
 
     /**
@@ -86,7 +116,7 @@ public class SoloClaw extends Claw {
             position += (movement - position > 0) ? increment : -increment;
             position = Math.min(Math.max(position, 0), 1);
             claw.setPosition(position);
-            wait(delay);
+            wait(incrementDelay);
         }
     }
 }

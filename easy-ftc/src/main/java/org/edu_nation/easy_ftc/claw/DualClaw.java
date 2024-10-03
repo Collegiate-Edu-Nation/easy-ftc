@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
+ * @param Boolean smoothServo (true or false)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
@@ -24,17 +25,37 @@ public class DualClaw extends Claw {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults smoothServo = true
+     *           <li>gamepad = null
      */
     public DualClaw(LinearOpMode opMode, HardwareMap hardwareMap) {
-        super(opMode, hardwareMap, null);
+        super(opMode, hardwareMap, true);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public DualClaw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo) {
+        super(opMode, hardwareMap, smoothServo, null);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults smoothServo = true
+     */
+    public DualClaw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        super(opMode, hardwareMap, true, gamepad);
     }
 
     /**
      * Constructor
      */
-    public DualClaw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        super(opMode, hardwareMap, gamepad);
+    public DualClaw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo,
+            Gamepad gamepad) {
+        super(opMode, hardwareMap, smoothServo, gamepad);
     }
 
     /**
@@ -61,8 +82,13 @@ public class DualClaw extends Claw {
         double current = left_claw.getPosition();
         double movement =
                 DualClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
-        double position = current;
-        setPositionByIncrement(position, movement);
+        if (smoothServo) {
+            double position = current;
+            setPositionByIncrement(position, movement);
+        } else {
+            left_claw.setPosition(movement);
+            right_claw.setPosition(movement);
+        }
     }
 
     /**
@@ -76,8 +102,14 @@ public class DualClaw extends Claw {
     @Override
     public void move(String direction) {
         double servoDirection = DualClawUtil.languageToDirection(direction, open, close);
-        double position = left_claw.getPosition();
-        setPositionByIncrement(position, servoDirection);
+        if (smoothServo) {
+            double position = left_claw.getPosition();
+            setPositionByIncrement(position, servoDirection);
+        } else {
+            left_claw.setPosition(servoDirection);
+            right_claw.setPosition(servoDirection);
+            wait(delay);
+        }
     }
 
     /**
@@ -90,7 +122,7 @@ public class DualClaw extends Claw {
             position = Math.min(Math.max(position, 0), 1);
             left_claw.setPosition(position);
             right_claw.setPosition(position);
-            wait(delay);
+            wait(incrementDelay);
         }
     }
 }
