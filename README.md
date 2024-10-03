@@ -79,11 +79,14 @@ For either approach, gradlew builds are supported
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
-- [ ] Support RUN_TO_POSITION for encoders via moveTo
-- [ ] Support moving until sensor says otherwise via moveUntil
+- [ ] Support RUN_TO_POSITION for encoders
+- [ ] Support moving until sensor says otherwise
 - [ ] Add telemetry for status indicators
 - [ ] Add support for Blockly
 - [ ] Investigate instrumentation and/or manual hardware tests
+
+### Fixes
+- [ ] Investigate multi-threading for smoothServo control
 
 ### Documentation
 - [ ] Add hardware naming section
