@@ -54,6 +54,12 @@ public class TestMecanumUtil {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void controlToDirection_garbageThrowsException() {
+        // Test "abc"
+        MecanumUtil.controlToDirection("abc", 0.1, 0, 0, 0, 0);
+    }
+
     @Test
     public void languageToDirection_isCorrect() {
         // Test "forward"
@@ -67,5 +73,73 @@ public class TestMecanumUtil {
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
+
+        // Test "left"
+        double[] expectedLeft = {-1, 1, 1, -1};
+        result = MecanumUtil.languageToDirection(1, "left");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedLeft[i], result[i], 0.01);
+        }
+
+        // Test "right"
+        double[] expectedRight = {1, -1, -1, 1};
+        result = MecanumUtil.languageToDirection(1, "right");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRight[i], result[i], 0.01);
+        }
+
+        // Test "rotateLeft"
+        double[] expectedRotateLeft = {-1, 1, -1, 1};
+        result = MecanumUtil.languageToDirection(1, "rotateLeft");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateLeft[i], result[i], 0.01);
+        }
+
+        // Test "rotateRight"
+        double[] expectedRotateRight = {1, -1, 1, -1};
+        result = MecanumUtil.languageToDirection(1, "rotateRight");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateRight[i], result[i], 0.01);
+        }
+
+        // Test "forwardLeft"
+        double[] expectedForwardLeft = {0, 1, 1, 0};
+        result = MecanumUtil.languageToDirection(1, "forwardLeft");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedForwardLeft[i], result[i], 0.01);
+        }
+
+        // Test "forwardRight"
+        double[] expectedForwardRight = {1, 0, 0, 1};
+        result = MecanumUtil.languageToDirection(1, "forwardRight");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedForwardRight[i], result[i], 0.01);
+        }
+
+        // Test "backwardLeft"
+        double[] expectedBackwardLeft = {-1, 0, 0, -1};
+        result = MecanumUtil.languageToDirection(1, "backwardLeft");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedBackwardLeft[i], result[i], 0.01);
+        }
+
+        // Test "backwardRight"
+        double[] expectedBackwardRight = {0, -1, -1, 0};
+        result = MecanumUtil.languageToDirection(1, "backwardRight");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedBackwardRight[i], result[i], 0.01);
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_garbageThrowsException() {
+        // Test "abc"
+        MecanumUtil.languageToDirection(1, "abc");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_emptyThrowsException() {
+        // Test ""
+        MecanumUtil.languageToDirection(1, "");
     }
 }

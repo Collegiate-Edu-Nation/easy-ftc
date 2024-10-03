@@ -50,6 +50,12 @@ public class TestDifferentialUtil {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void controlToDirection_garbageThrowsException() {
+        // Test "abc"
+        DifferentialUtil.controlToDirection("abc", 0.1, 0, 0, 0);
+    }
+
     @Test
     public void languageToDirection_isCorrect() {
         // Test "forward"
@@ -63,5 +69,31 @@ public class TestDifferentialUtil {
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
+
+        // Test "rotateLeft"
+        double[] expectedRotateLeft = {-1, 1};
+        result = DifferentialUtil.languageToDirection(1, "rotateLeft");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateLeft[i], result[i], 0.01);
+        }
+
+        // Test "rotateRight"
+        double[] expectedRotateRight = {1, -1};
+        result = DifferentialUtil.languageToDirection(1, "rotateRight");
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateRight[i], result[i], 0.01);
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_garbageThrowsException() {
+        // Test "abc"
+        DifferentialUtil.languageToDirection(1, "abc");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_emptyThrowsException() {
+        // Test ""
+        DifferentialUtil.languageToDirection(1, "");
     }
 }
