@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
- * @param String layout ("robot" or "field")
+ * @param String layout ("tank" or "arcade")
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double time)}
