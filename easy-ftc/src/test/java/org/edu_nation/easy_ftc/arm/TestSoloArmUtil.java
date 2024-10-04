@@ -47,4 +47,16 @@ public class TestSoloArmUtil {
             assertEquals(-1, result[i], 0.01);
         }
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_garbageThrowsException() {
+        // Test "abc"
+        SoloArmUtil.languageToDirection(1, "abc");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_emptyThrowsException() {
+        // Test ""
+        SoloArmUtil.languageToDirection(1, "");
+    }
 }

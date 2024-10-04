@@ -14,4 +14,16 @@ public class TestDualClawUtil {
         result = DualClawUtil.languageToDirection("close", 1, 0);
         assertEquals(0, result, 0.01);
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_garbageThrowsException() {
+        // Test "abc"
+        DualClawUtil.languageToDirection("abc", 1, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_emptyThrowsException() {
+        // Test ""
+        DualClawUtil.languageToDirection("", 1, 0);
+    }
 }
