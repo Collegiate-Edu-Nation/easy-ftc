@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @Methods {@link #tele(double power)}
  *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
@@ -132,6 +133,18 @@ public class SoloArm extends Arm {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the arm motor
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            armEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            arm.setDirection(DcMotor.Direction.REVERSE);
+        }
     }
 
     /**

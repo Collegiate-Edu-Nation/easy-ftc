@@ -21,6 +21,8 @@ public abstract class Mechanism {
 
     public abstract void tele();
 
+    public abstract void reverse();
+
     /**
      * Helper function to wait (but not suspend) for specified time in s.
      * <p>

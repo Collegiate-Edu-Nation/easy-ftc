@@ -18,6 +18,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
+ *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
@@ -132,6 +134,45 @@ public class DualLift extends Lift {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the lift motors
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            left_liftEx.setDirection(DcMotorEx.Direction.FORWARD);
+            right_liftEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            left_lift.setDirection(DcMotor.Direction.FORWARD);
+            right_lift.setDirection(DcMotor.Direction.REVERSE);
+        }
+    }
+
+    /**
+     * Reverse the direction of the specified motor
+     */
+    public void reverse(String motorName) {
+        switch (motorName) {
+            case "left_lift":
+                if (useEncoder) {
+                    left_liftEx.setDirection(DcMotorEx.Direction.FORWARD);
+                } else {
+                    left_lift.setDirection(DcMotor.Direction.FORWARD);
+                }
+                break;
+            case "right_lift":
+                if (useEncoder) {
+                    right_liftEx.setDirection(DcMotorEx.Direction.REVERSE);
+                } else {
+                    right_lift.setDirection(DcMotor.Direction.REVERSE);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                        + ", passed to DualLift.reverse(). Valid names are: left_lift, right_lift");
+        }
     }
 
     /**

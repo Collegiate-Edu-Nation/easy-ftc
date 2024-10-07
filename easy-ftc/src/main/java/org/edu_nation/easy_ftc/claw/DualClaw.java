@@ -17,6 +17,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(String direction)}
+ *          <li>{@link #reverse()}
+ *          <li>{@link #reverse(String servoName)}
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class DualClaw extends Claw {
@@ -109,6 +111,32 @@ public class DualClaw extends Claw {
             left_claw.setPosition(servoDirection);
             right_claw.setPosition(servoDirection);
             wait(delay);
+        }
+    }
+
+    /**
+     * Reverse the direction of the claw servos
+     */
+    @Override
+    public void reverse() {
+        left_claw.setDirection(Servo.Direction.REVERSE);
+        right_claw.setDirection(Servo.Direction.FORWARD);
+    }
+
+    /**
+     * Reverse the direction of the specified servo
+     */
+    public void reverse(String servoName) {
+        switch (servoName) {
+            case "left_claw":
+                left_claw.setDirection(Servo.Direction.REVERSE);
+                break;
+            case "right_claw":
+                right_claw.setDirection(Servo.Direction.FORWARD);
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected servoName: " + servoName
+                        + ", passed to DualClaw.reverse(). Valid names are: left_claw, right_claw");
         }
     }
 

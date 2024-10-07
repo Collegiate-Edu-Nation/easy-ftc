@@ -19,6 +19,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
+ *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Drive})
@@ -176,6 +178,45 @@ public class Differential extends Drive {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the drive motors
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            left_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
+            right_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            left_drive.setDirection(DcMotor.Direction.FORWARD);
+            right_drive.setDirection(DcMotor.Direction.REVERSE);
+        }
+    }
+
+    /**
+     * Reverse the direction of the specified motor
+     */
+    public void reverse(String motorName) {
+        switch (motorName) {
+            case "left_drive":
+                if (useEncoder) {
+                    left_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
+                } else {
+                    left_drive.setDirection(DcMotor.Direction.FORWARD);
+                }
+                break;
+            case "right_drive":
+                if (useEncoder) {
+                    right_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
+                } else {
+                    right_drive.setDirection(DcMotor.Direction.REVERSE);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                        + ", passed to Differential.reverse(). Valid names are: left_drive, right_drive");
+        }
     }
 
     /**

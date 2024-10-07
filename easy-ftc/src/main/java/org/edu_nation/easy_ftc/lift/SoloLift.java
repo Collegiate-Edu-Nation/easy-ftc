@@ -18,6 +18,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
@@ -121,6 +122,18 @@ public class SoloLift extends Lift {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the lift motor
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            liftEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            lift.setDirection(DcMotor.Direction.REVERSE);
+        }
     }
 
     /**

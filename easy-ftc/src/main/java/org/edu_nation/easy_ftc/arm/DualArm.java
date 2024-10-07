@@ -19,6 +19,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @Methods {@link #tele(double power)}
  *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
+ *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
@@ -143,6 +145,45 @@ public class DualArm extends Arm {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the arm motors
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            left_armEx.setDirection(DcMotorEx.Direction.FORWARD);
+            right_armEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            left_arm.setDirection(DcMotor.Direction.FORWARD);
+            right_arm.setDirection(DcMotor.Direction.REVERSE);
+        }
+    }
+
+    /**
+     * Reverse the direction of the specified motor
+     */
+    public void reverse(String motorName) {
+        switch (motorName) {
+            case "left_arm":
+                if (useEncoder) {
+                    left_armEx.setDirection(DcMotorEx.Direction.FORWARD);
+                } else {
+                    left_arm.setDirection(DcMotor.Direction.FORWARD);
+                }
+                break;
+            case "right_arm":
+                if (useEncoder) {
+                    right_armEx.setDirection(DcMotorEx.Direction.REVERSE);
+                } else {
+                    right_arm.setDirection(DcMotor.Direction.REVERSE);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                        + ", passed to DualArm.reverse(). Valid names are: left_arm, right_arm");
+        }
     }
 
     /**

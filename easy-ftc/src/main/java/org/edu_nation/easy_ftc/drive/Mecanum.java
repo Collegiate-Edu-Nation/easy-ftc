@@ -22,6 +22,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #reverse()}
+ *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Drive})
@@ -223,6 +225,63 @@ public class Mecanum extends Drive {
         setAllPower(movements);
         wait(time);
         setAllPower();
+    }
+
+    /**
+     * Reverse the direction of the drive motors
+     */
+    @Override
+    public void reverse() {
+        if (useEncoder) {
+            frontLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+            frontRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+            backLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+            backRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+        } else {
+            frontLeft.setDirection(DcMotor.Direction.FORWARD);
+            frontRight.setDirection(DcMotor.Direction.REVERSE);
+            backLeft.setDirection(DcMotor.Direction.FORWARD);
+            backRight.setDirection(DcMotor.Direction.REVERSE);
+        }
+    }
+
+    /**
+     * Reverse the direction of the specified motor
+     */
+    public void reverse(String motorName) {
+        switch (motorName) {
+            case "frontLeft":
+                if (useEncoder) {
+                    frontLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+                } else {
+                    frontLeft.setDirection(DcMotor.Direction.FORWARD);
+                }
+                break;
+            case "frontRight":
+                if (useEncoder) {
+                    frontRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+                } else {
+                    frontRight.setDirection(DcMotor.Direction.REVERSE);
+                }
+                break;
+            case "backLeft":
+                if (useEncoder) {
+                    backLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+                } else {
+                    backLeft.setDirection(DcMotor.Direction.FORWARD);
+                }
+                break;
+            case "backRight":
+                if (useEncoder) {
+                    backRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+                } else {
+                    backRight.setDirection(DcMotor.Direction.REVERSE);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                        + ", passed to Mecanum.reverse(). Valid names are: frontLeft, frontRight, backLeft, backRight");
+        }
     }
 
     /**

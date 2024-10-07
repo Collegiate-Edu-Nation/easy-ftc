@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(String direction)}
+ *          <li>{@link #reverse()}
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class SoloClaw extends Claw {
@@ -105,6 +106,14 @@ public class SoloClaw extends Claw {
             claw.setPosition(servoDirection);
             wait(delay);
         }
+    }
+
+    /**
+     * Reverse the direction of the claw servo
+     */
+    @Override
+    public void reverse() {
+        claw.setDirection(Servo.Direction.FORWARD);
     }
 
     /**
