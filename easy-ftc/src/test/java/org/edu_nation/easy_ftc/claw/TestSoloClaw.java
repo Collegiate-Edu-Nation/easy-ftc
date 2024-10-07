@@ -27,6 +27,21 @@ public class TestSoloClaw {
         }
     }
 
+    @Test 
+    public void tele_isCalled() {
+        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        when(mockedClaw.getPosition()).thenReturn(0.0);
+        
+        try {
+            SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
+            claw.tele();
+            clawNotSmooth.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     @Test
     public void move_isCalled() {
         when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);

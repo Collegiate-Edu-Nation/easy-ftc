@@ -28,6 +28,22 @@ public class TestDualClaw {
         }
     }
 
+    @Test 
+    public void tele_isCalled() {
+        when(mockedHardwareMap.get(Servo.class, "left_claw")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "right_claw")).thenReturn(mockedClaw);
+        when(mockedClaw.getPosition()).thenReturn(0.0);
+        
+        try {
+            DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            DualClaw clawNotSmooth = new DualClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
+            claw.tele();
+            clawNotSmooth.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     @Test
     public void move_isCalled() {
         when(mockedHardwareMap.get(Servo.class, "left_claw")).thenReturn(mockedClaw);

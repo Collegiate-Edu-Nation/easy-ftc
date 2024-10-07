@@ -35,6 +35,22 @@ public class TestSoloLift {
     }
 
     @Test
+    public void tele_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+
+        try {
+            SoloLift lift = new SoloLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            SoloLift liftEnc = new SoloLift(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            lift.tele();
+            liftEnc.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void move_isCalled() {
         when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);

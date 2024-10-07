@@ -37,6 +37,24 @@ public class TestDualLift {
     }
 
     @Test
+    public void tele_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+
+        try {
+            DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            DualLift liftEnc = new DualLift(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            lift.tele();
+            liftEnc.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void move_isCalled() {
         when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);

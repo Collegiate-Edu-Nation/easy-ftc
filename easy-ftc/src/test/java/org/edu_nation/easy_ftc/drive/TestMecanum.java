@@ -46,6 +46,28 @@ public class TestMecanum {
     }
 
     @Test
+    public void tele_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "frontLeft")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "frontRight")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "backLeft")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "backRight")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "frontLeft")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "frontRight")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "backLeft")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "backRight")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+
+        try {
+            Mecanum drive = new Mecanum(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            Mecanum driveEnc = new Mecanum(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            drive.tele();
+            driveEnc.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
     public void move_isCalled() {
         when(mockedHardwareMap.get(DcMotor.class, "frontLeft")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "frontRight")).thenReturn(mockedMotor);
