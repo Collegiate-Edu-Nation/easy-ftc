@@ -35,4 +35,22 @@ public class TestDualArm {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "left_arm")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "right_arm")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        
+        try {
+            DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap);
+            DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true);
+            arm.move(0.5, "up", 1);
+            armEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

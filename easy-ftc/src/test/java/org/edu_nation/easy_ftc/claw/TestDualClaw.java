@@ -27,4 +27,20 @@ public class TestDualClaw {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(Servo.class, "left_claw")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "right_claw")).thenReturn(mockedClaw);
+        when(mockedClaw.getPosition()).thenReturn(0.0);
+        
+        try {
+            DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap);
+            DualClaw clawNotSmooth = new DualClaw(mockedOpMode, mockedHardwareMap, false);
+            claw.move("open");
+            clawNotSmooth.move("open");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

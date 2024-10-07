@@ -33,4 +33,20 @@ public class TestSoloArm {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "arm")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        
+        try {
+            SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap);
+            SoloArm armEnc = new SoloArm(mockedOpMode, mockedHardwareMap, true);
+            arm.move(0.5, "up", 1);
+            armEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

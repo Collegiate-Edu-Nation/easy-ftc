@@ -33,4 +33,20 @@ public class TestSoloLift {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        
+        try {
+            SoloLift drive = new SoloLift(mockedOpMode, mockedHardwareMap);
+            SoloLift driveEnc = new SoloLift(mockedOpMode, mockedHardwareMap, true);
+            drive.move(0.5, "up", 1);
+            driveEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

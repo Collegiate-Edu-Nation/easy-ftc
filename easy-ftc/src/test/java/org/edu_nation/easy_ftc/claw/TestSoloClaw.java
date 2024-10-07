@@ -26,4 +26,19 @@ public class TestSoloClaw {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        when(mockedClaw.getPosition()).thenReturn(0.0);
+        
+        try {
+            SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap);
+            SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false);
+            claw.move("open");
+            clawNotSmooth.move("open");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }

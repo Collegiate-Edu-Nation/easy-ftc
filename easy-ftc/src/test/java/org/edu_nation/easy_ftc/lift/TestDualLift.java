@@ -35,4 +35,22 @@ public class TestDualLift {
             fail(e.getMessage());
         }
     }
+
+    @Test
+    public void move_isCalled() {
+        when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
+        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        
+        try {
+            DualLift drive = new DualLift(mockedOpMode, mockedHardwareMap);
+            DualLift driveEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
+            drive.move(0.5, "up", 1);
+            driveEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
 }
