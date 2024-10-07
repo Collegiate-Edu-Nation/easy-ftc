@@ -18,11 +18,15 @@ public class TestSoloLift {
     DcMotorEx mockedMotorEx = mock(DcMotorEx.class);
     MotorConfigurationType motorType = new MotorConfigurationType();
 
-    @Test
-    public void SoloLift_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+    }
+
+    @Test
+    public void SoloLift_initializes() {
+        mockInit();
 
         try {
             new SoloLift(mockedOpMode, mockedHardwareMap);
@@ -36,9 +40,7 @@ public class TestSoloLift {
 
     @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        mockInit();
 
         try {
             SoloLift lift = new SoloLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
@@ -52,15 +54,27 @@ public class TestSoloLift {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "lift")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
-        
+        mockInit();
+
         try {
             SoloLift drive = new SoloLift(mockedOpMode, mockedHardwareMap);
             SoloLift driveEnc = new SoloLift(mockedOpMode, mockedHardwareMap, true);
             drive.move(0.5, "up", 1);
             driveEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reverse_isCalled() {
+        mockInit();
+
+        try {
+            SoloLift lift = new SoloLift(mockedOpMode, mockedHardwareMap);
+            SoloLift liftEnc = new SoloLift(mockedOpMode, mockedHardwareMap, true);
+            lift.reverse();
+            liftEnc.reverse();
         } catch (Exception e) {
             fail(e.getMessage());
         }

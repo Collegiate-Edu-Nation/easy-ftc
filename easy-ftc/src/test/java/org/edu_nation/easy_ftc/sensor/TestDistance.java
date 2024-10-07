@@ -11,10 +11,14 @@ public class TestDistance {
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);
     DistanceSensor mockedDistanceSensor = mock(DistanceSensor.class);
 
-    @Test
-    public void Distance_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DistanceSensor.class, "distanceSensor"))
                 .thenReturn(mockedDistanceSensor);
+    }
+
+    @Test
+    public void Distance_initializes() {
+        mockInit();
 
         try {
             new Distance(mockedHardwareMap);
@@ -26,8 +30,7 @@ public class TestDistance {
 
     @Test
     public void state_isCorrect() {
-        when(mockedHardwareMap.get(DistanceSensor.class, "distanceSensor"))
-                .thenReturn(mockedDistanceSensor);
+        mockInit();
         Distance mockedDistance = new Distance(mockedHardwareMap);
 
         // getDistance() >= calibrationValue
@@ -39,5 +42,30 @@ public class TestDistance {
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
         result = mockedDistance.state();
         assertEquals(true, result);
+
+        // reversed-state
+        mockedDistance.reverse();
+
+        // getDistance() >= calibrationValue
+        when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
+        result = mockedDistance.state();
+        assertEquals(true, result);
+
+        // getDistance() < calibrationValue
+        when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
+        result = mockedDistance.state();
+        assertEquals(false, result);
+    }
+
+    @Test
+    public void reverse_isCalled() {
+        mockInit();
+
+        try {
+            Distance mockedDistance = new Distance(mockedHardwareMap);
+            mockedDistance.reverse();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 }

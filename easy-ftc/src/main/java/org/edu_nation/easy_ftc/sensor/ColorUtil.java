@@ -3,7 +3,8 @@ package org.edu_nation.easy_ftc.sensor;
 import java.lang.Math;
 
 /**
- * Provides static utility methods to {@link Color} for identifying the dominant color from given
+ * Provides static utility methods to {@link Color} for identifying the dominant
+ * color from given
  * rgb and calibration values
  * 
  * @Methods {@link #dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue)}
@@ -14,7 +15,8 @@ import java.lang.Math;
  */
 class ColorUtil {
     /**
-     * Converts the maximum, normalized rgb value to the corresponding color as a String
+     * Converts the maximum, normalized rgb value to the corresponding color as a
+     * String
      * 
      * @param rgbRaw
      * @param rgbOffsets
@@ -27,7 +29,11 @@ class ColorUtil {
 
         String color;
         if (max > calibrationValue) {
-            if (max == rgbNormalized[0]) {
+            if ((rgbNormalized[0] == rgbNormalized[1] && rgbNormalized[0] == max)
+                    || (rgbNormalized[0] == rgbNormalized[2] && rgbNormalized[0] == max)
+                    || (rgbNormalized[1] == rgbNormalized[2] && rgbNormalized[1] == max)) {
+                color = "";
+            } else if (max == rgbNormalized[0]) {
                 color = "red";
             } else if (max == rgbNormalized[1]) {
                 color = "green";
@@ -43,7 +49,8 @@ class ColorUtil {
     }
 
     /**
-     * Converts the minimum, normalized rgb value to the corresponding color as a String
+     * Converts the minimum, normalized rgb value to the corresponding color as a
+     * String
      * 
      * @param rgbRaw
      * @param rgbOffsets
@@ -54,7 +61,12 @@ class ColorUtil {
         int min = min(rgbNormalized);
 
         String color;
-        if (min == rgbNormalized[0]) {
+
+        if ((rgbNormalized[0] == rgbNormalized[1] && rgbNormalized[0] == min)
+                || (rgbNormalized[0] == rgbNormalized[2] && rgbNormalized[0] == min)
+                || (rgbNormalized[1] == rgbNormalized[2] && rgbNormalized[1] == min)) {
+            color = "";
+        } else if (min == rgbNormalized[0]) {
             color = "red";
         } else if (min == rgbNormalized[1]) {
             color = "green";
@@ -74,7 +86,7 @@ class ColorUtil {
      * @return <b>rgbNormalized</b>
      */
     private static int[] normalize(int[] rgbRaw, int[] rgbOffsets) {
-        int[] rgbNormalized = {0, 0, 0};
+        int[] rgbNormalized = { 0, 0, 0 };
         for (int i = 0; i < rgbRaw.length; i++) {
             rgbNormalized[i] = rgbRaw[i] + rgbOffsets[i];
         }

@@ -18,11 +18,15 @@ public class TestSoloArm {
     DcMotorEx mockedMotorEx = mock(DcMotorEx.class);
     MotorConfigurationType motorType = new MotorConfigurationType();
 
-    @Test
-    public void SoloArm_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "arm")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+    }
+
+    @Test
+    public void SoloArm_initializes() {
+        mockInit();
 
         try {
             new SoloArm(mockedOpMode, mockedHardwareMap);
@@ -36,9 +40,7 @@ public class TestSoloArm {
 
     @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "arm")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        mockInit();
 
         try {
             SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
@@ -52,15 +54,27 @@ public class TestSoloArm {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "arm")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
-        
+        mockInit();
+
         try {
             SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap);
             SoloArm armEnc = new SoloArm(mockedOpMode, mockedHardwareMap, true);
             arm.move(0.5, "up", 1);
             armEnc.move(0.5, "up", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reverse_isCalled() {
+        mockInit();
+
+        try {
+            SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap);
+            SoloArm armEnc = new SoloArm(mockedOpMode, mockedHardwareMap, true);
+            arm.reverse();
+            armEnc.reverse();
         } catch (Exception e) {
             fail(e.getMessage());
         }

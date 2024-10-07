@@ -18,13 +18,17 @@ public class TestDualArm {
     DcMotorEx mockedMotorEx = mock(DcMotorEx.class);
     MotorConfigurationType motorType = new MotorConfigurationType();
 
-    @Test
-    public void DualArm_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DcMotor.class, "left_arm")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "right_arm")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+    }
+
+    @Test
+    public void DualArm_initializes() {
+        mockInit();
 
         try {
             new DualArm(mockedOpMode, mockedHardwareMap);
@@ -38,11 +42,7 @@ public class TestDualArm {
 
     @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        mockInit();
 
         try {
             DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
@@ -56,12 +56,8 @@ public class TestDualArm {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
-        
+        mockInit();
+
         try {
             DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap);
             DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true);
@@ -70,5 +66,35 @@ public class TestDualArm {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void reverse_isCalledWithValidInputs() {
+        mockInit();
+
+        try {
+            DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap);
+            DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true);
+            arm.reverse();
+            arm.reverse("left_arm");
+            arm.reverse("right_arm");
+            armEnc.reverse();
+            armEnc.reverse("left_arm");
+            armEnc.reverse("right_arm");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void reverse_ThrowsException() {
+        mockInit();
+
+        DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
+        DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+        arm.reverse("abc");
+        arm.reverse("");
+        armEnc.reverse("abc");
+        armEnc.reverse("");
     }
 }

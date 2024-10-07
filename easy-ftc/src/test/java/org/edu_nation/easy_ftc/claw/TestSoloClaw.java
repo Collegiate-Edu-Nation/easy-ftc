@@ -14,9 +14,15 @@ public class TestSoloClaw {
     Gamepad mockedGamepad = mock(Gamepad.class);
     Servo mockedClaw = mock(Servo.class);
 
+    private void mockInit() {
+        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        when(mockedClaw.getPosition()).thenReturn(0.0);
+    }
+
     @Test
     public void SoloClaw_initializes() {
-        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        mockInit();
+
         try {
             new SoloClaw(mockedOpMode, mockedHardwareMap);
             new SoloClaw(mockedOpMode, mockedHardwareMap, true);
@@ -27,11 +33,10 @@ public class TestSoloClaw {
         }
     }
 
-    @Test 
+    @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
-        when(mockedClaw.getPosition()).thenReturn(0.0);
-        
+        mockInit();
+
         try {
             SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
             SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
@@ -44,14 +49,25 @@ public class TestSoloClaw {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
-        when(mockedClaw.getPosition()).thenReturn(0.0);
-        
+        mockInit();
+
         try {
             SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap);
             SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false);
             claw.move("open");
             clawNotSmooth.move("open");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reverse_isCalledWithValidInputs() {
+        mockInit();
+
+        try {
+            SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap);
+            claw.reverse();
         } catch (Exception e) {
             fail(e.getMessage());
         }

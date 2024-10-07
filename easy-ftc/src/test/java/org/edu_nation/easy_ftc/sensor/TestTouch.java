@@ -10,9 +10,13 @@ public class TestTouch {
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);
     TouchSensor mockedTouchSensor = mock(TouchSensor.class);
 
+    private void mockInit() {
+        when(mockedHardwareMap.get(TouchSensor.class, "touchSensor")).thenReturn(mockedTouchSensor);
+    }
+
     @Test
     public void Touch_initializes() {
-        when(mockedHardwareMap.get(TouchSensor.class, "touchSensor")).thenReturn(mockedTouchSensor);
+        mockInit();
 
         try {
             new Touch(mockedHardwareMap);
@@ -23,7 +27,7 @@ public class TestTouch {
 
     @Test
     public void state_isCorrect() {
-        when(mockedHardwareMap.get(TouchSensor.class, "touchSensor")).thenReturn(mockedTouchSensor);
+        mockInit();
         Touch mockedTouch = new Touch(mockedHardwareMap);
 
         // getDistance() >= calibrationValue
@@ -35,5 +39,30 @@ public class TestTouch {
         when(mockedTouchSensor.isPressed()).thenReturn(false);
         result = mockedTouch.state();
         assertEquals(false, result);
+
+        // reversed-state
+        mockedTouch.reverse();
+
+        // getDistance() >= calibrationValue
+        when(mockedTouchSensor.isPressed()).thenReturn(true);
+        result = mockedTouch.state();
+        assertEquals(false, result);
+
+        // getDistance() < calibrationValue
+        when(mockedTouchSensor.isPressed()).thenReturn(false);
+        result = mockedTouch.state();
+        assertEquals(true, result);
+    }
+
+    @Test
+    public void reverse_isCalled() {
+        mockInit();
+
+        try {
+            Touch mockedTouch = new Touch(mockedHardwareMap);
+            mockedTouch.reverse();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 }

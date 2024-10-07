@@ -18,13 +18,17 @@ public class TestDualLift {
     DcMotorEx mockedMotorEx = mock(DcMotorEx.class);
     MotorConfigurationType motorType = new MotorConfigurationType();
 
-    @Test
-    public void DualLift_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+    }
+
+    @Test
+    public void DualLift_initializes() {
+        mockInit();
 
         try {
             new DualLift(mockedOpMode, mockedHardwareMap);
@@ -38,11 +42,7 @@ public class TestDualLift {
 
     @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        mockInit();
 
         try {
             DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
@@ -56,12 +56,8 @@ public class TestDualLift {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
-        
+        mockInit();
+
         try {
             DualLift drive = new DualLift(mockedOpMode, mockedHardwareMap);
             DualLift driveEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
@@ -70,5 +66,35 @@ public class TestDualLift {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void reverse_isCalledWithValidInputs() {
+        mockInit();
+
+        try {
+            DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap);
+            DualLift liftEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
+            lift.reverse();
+            lift.reverse("left_lift");
+            lift.reverse("right_lift");
+            liftEnc.reverse();
+            liftEnc.reverse("left_lift");
+            liftEnc.reverse("right_lift");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void reverse_ThrowsException() {
+        mockInit();
+
+        DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
+        DualLift liftEnc = new DualLift(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+        lift.reverse("abc");
+        lift.reverse("");
+        liftEnc.reverse("abc");
+        liftEnc.reverse("");
     }
 }

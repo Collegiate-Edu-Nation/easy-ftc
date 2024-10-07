@@ -18,13 +18,17 @@ public class TestDifferential {
     DcMotorEx mockedMotorEx = mock(DcMotorEx.class);
     MotorConfigurationType motorType = new MotorConfigurationType();
 
-    @Test
-    public void Differential_initializes() {
+    private void mockInit() {
         when(mockedHardwareMap.get(DcMotor.class, "left_drive")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "right_drive")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "left_drive")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_drive")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+    }
+
+    @Test
+    public void Differential_initializes() {
+        mockInit();
 
         try {
             new Differential(mockedOpMode, mockedHardwareMap);
@@ -43,11 +47,7 @@ public class TestDifferential {
 
     @Test
     public void tele_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_drive")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_drive")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        mockInit();
 
         try {
             Differential drive = new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad);
@@ -61,12 +61,8 @@ public class TestDifferential {
 
     @Test
     public void move_isCalled() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_drive")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_drive")).thenReturn(mockedMotorEx);
-        when(mockedMotorEx.getMotorType()).thenReturn(motorType);
-        
+        mockInit();
+
         try {
             Differential drive = new Differential(mockedOpMode, mockedHardwareMap);
             Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true);
@@ -75,5 +71,35 @@ public class TestDifferential {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void reverse_isCalledWithValidInputs() {
+        mockInit();
+
+        try {
+            Differential drive = new Differential(mockedOpMode, mockedHardwareMap);
+            Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true);
+            drive.reverse();
+            drive.reverse("left_drive");
+            drive.reverse("right_drive");
+            driveEnc.reverse();
+            driveEnc.reverse("left_drive");
+            driveEnc.reverse("right_drive");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void reverse_ThrowsException() {
+        mockInit();
+
+        Differential drive = new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad);
+        Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+        drive.reverse("abc");
+        drive.reverse("");
+        driveEnc.reverse("abc");
+        driveEnc.reverse("");
     }
 }
