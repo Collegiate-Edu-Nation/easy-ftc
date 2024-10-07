@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * @param HardwareMap hardwareMap (required)
  *        <p>
  * @Methods {@link #state()}
+ *          <li>{@link #reverse()}
  */
 public class Touch extends Sensor<Boolean> {
     private TouchSensor sensor;
@@ -39,5 +40,13 @@ public class Touch extends Sensor<Boolean> {
         } else {
             return sensor.isPressed();
         }
+    }
+
+    /**
+     * Reverses sensor state
+     */
+    @Override
+    public void reverse() {
+        this.reverseState = true;
     }
 }

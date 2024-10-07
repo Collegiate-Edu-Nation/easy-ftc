@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
  *        <p>
  * @Methods {@link #state()}
+ *          <li>{@link #reverse()}
  */
 public class Color extends Sensor<String> {
     private ColorSensor sensor;
@@ -46,7 +47,20 @@ public class Color extends Sensor<String> {
     @Override
     public String state() {
         int[] rgbRaw = {sensor.red(), sensor.green(), sensor.blue()};
-        String color = ColorUtil.dominantColor(rgbRaw, rgbOffsets, calibrationValue);
+        String color;
+        if (reverseState) {
+            color = ColorUtil.weakColor(rgbRaw, rgbOffsets);
+        } else {
+            color = ColorUtil.dominantColor(rgbRaw, rgbOffsets, calibrationValue);
+        }
         return color;
+    }
+
+    /**
+     * Reverses sensor state
+     */
+    @Override
+    public void reverse() {
+        this.reverseState = true;
     }
 }

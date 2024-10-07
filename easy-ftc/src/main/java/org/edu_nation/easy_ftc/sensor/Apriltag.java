@@ -14,6 +14,7 @@ import java.util.List;
  * @param HardwareMap hardwareMap (required)
  *        <p>
  * @Methods {@link #state()}
+ *          <li>{@link #reverse()}
  */
 public class Apriltag extends Sensor<Boolean> {
     private AprilTagProcessor sensor;
@@ -55,5 +56,13 @@ public class Apriltag extends Sensor<Boolean> {
     private boolean objectDetected() {
         detections = sensor.getDetections();
         return (detections.size() > 0);
+    }
+
+    /**
+     * Reverses sensor state
+     */
+    @Override
+    public void reverse() {
+        this.reverseState = true;
     }
 }

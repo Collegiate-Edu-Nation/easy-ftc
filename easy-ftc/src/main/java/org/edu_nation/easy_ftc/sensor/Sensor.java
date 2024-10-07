@@ -35,5 +35,7 @@ abstract class Sensor<V> {
 
     protected abstract void hardwareInit();
 
+    public abstract void reverse();
+
     public abstract V state();
 }

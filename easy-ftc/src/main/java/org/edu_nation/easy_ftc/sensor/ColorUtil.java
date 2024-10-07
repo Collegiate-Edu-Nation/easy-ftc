@@ -7,8 +7,10 @@ import java.lang.Math;
  * rgb and calibration values
  * 
  * @Methods {@link #dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue)}
+ *          <li>{@link #weakColor(int[] rgbRaw, int[] rgbOffsets)}
  *          <li>{@link #normalize(int[] rgbRaw, int[] rgbOffsets)}
  *          <li>{@link #max(int[] rgbNormalized)}
+ *          <li>{@link #min(int[] rgbNormalized)}
  */
 class ColorUtil {
     /**
@@ -41,6 +43,30 @@ class ColorUtil {
     }
 
     /**
+     * Converts the minimum, normalized rgb value to the corresponding color as a String
+     * 
+     * @param rgbRaw
+     * @param rgbOffsets
+     * @return <b>color</b>
+     */
+    protected static String weakColor(int[] rgbRaw, int[] rgbOffsets) {
+        int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
+        int min = min(rgbNormalized);
+
+        String color;
+        if (min == rgbNormalized[0]) {
+            color = "red";
+        } else if (min == rgbNormalized[1]) {
+            color = "green";
+        } else if (min == rgbNormalized[2]) {
+            color = "blue";
+        } else {
+            color = "";
+        }
+        return color;
+    }
+
+    /**
      * Normalize color readings by applying offsets
      * 
      * @param rgbRaw
@@ -65,5 +91,17 @@ class ColorUtil {
         int max = Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
         return max;
+    }
+
+    /**
+     * Return minimum of normalized rgb values
+     * 
+     * @param rgbNormalized
+     * @return <b>min</b>
+     */
+    private static int min(int[] rgbNormalized) {
+        int min = Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
+                Math.min(rgbNormalized[1], rgbNormalized[2]));
+        return min;
     }
 }

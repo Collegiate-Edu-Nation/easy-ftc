@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * @param Double calibrationValue (in CM)
  *        <p>
  * @Methods {@link #state()}
+ *          <li>{@link #reverse()}
  */
 public class Distance extends Sensor<Boolean> {
     private DistanceSensor sensor;
@@ -50,5 +51,13 @@ public class Distance extends Sensor<Boolean> {
         } else {
             return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
         }
+    }
+
+    /**
+     * Reverses sensor state
+     */
+    @Override
+    public void reverse() {
+        this.reverseState = true;
     }
 }
