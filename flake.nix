@@ -43,7 +43,8 @@
           echo -e "Clean:    ./gradlew clean"
           echo -e "Test:     ./gradlew test"
           echo -e "Coverage: ./gradlew coverage"
-          echo -e "Docs:     ./gradlew docs\n"
+          echo -e "Docs:     ./gradlew docs"
+          echo -e "myBlocks: ./gradlew myBlocks\n"
           java --version
           echo -e ""
         '';

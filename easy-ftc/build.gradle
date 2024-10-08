@@ -57,6 +57,16 @@ task docs(type: Exec) {
     ignoreExitValue true
 }
 
+// create task for compressing myBlocks to a zip archive
+task myBlocks(type: Zip) {
+    group = "build"
+    description = "Compress myBlocks to a zip archive for release"
+
+    archiveName = "myBlocks.zip"
+    destinationDir = file('build/outputs/zip')
+    from (files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
+}
+
 dependencies {
     compileOnly 'org.firstinspires.ftc:Inspection:10.1.0'
     compileOnly 'org.firstinspires.ftc:Blocks:10.1.0'

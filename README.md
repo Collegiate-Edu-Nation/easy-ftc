@@ -17,7 +17,7 @@ Library for easily leveraging in-the-box FTC mechanisms and features, including
 Docs deployed at https://camdenboren.github.io/easy-ftc<br>
 <i>Docs cover examples, controls, and API reference</i>
 
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and constructor-enabled features. Setters are still provided for lower-level adjustments like changing controls and directions, however.
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), reverse(), and state()) due to a reliance on sane defaults and constructor-enabled features.
 
 <i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features leverage smooth-servo control by default, enabling multi-servo synchronization. This causes blocking when used in TeleOp, however, so it can be disabled if that causes issues (e.g. the robot must be able to drive while the servos are moving to the desired position). Supported sensors are: AprilTag, color, distance, and touch</i>
 
@@ -27,8 +27,20 @@ This library greatly simplifies hardware initialization and control by abstracti
 * Each option requires that you download this repo's latest Android archive
 * Click on 'easy-ftc-release.aar' at https://github.com/camdenboren/easy-ftc/releases
 
+### Blockly
+* While at the previous link, also click on 'myBlocks.zip'
+* Upload the .aar and all relevant java files from myBlocks using OnBot Java's GUI
+    * <i>Each java file in 'myBlocks' will control a specific mechanism/sensor. <b>Only add the files for which you'd like to control the associated mechanism/sensor in Blockly</b></i>
+* Modify the myBlocks java files to use the correct easy-ftc class or to change behavior
+    * <i>e.g. change Mecanum to Differential in Drive.java
+    * e.g. use a different constructor, call drive.reverse(), etc.</i>
+* Press the gear icon on the bottom right with the title 'Build Everything'
+* A new menu option 'Java Classes' should be visible in the Blockly GUI now
+* Each class listed there will provide several methods from easy-ftc, like tele(), move(), and state()
+
 ### OnBot Java
 * Upload the .aar using OnBot Java's GUI
+* Press the gear icon on the bottom right with the title 'Build Everything'
 
 ### Android Studio
 * Add the .aar to FtcRobotController/libs/
@@ -76,14 +88,14 @@ For either approach, gradlew builds are supported
 ### Features
 - [x] Unit Tests (motors)
 - [x] Unit Tests (servos, sensors)
-- [ ] Add setters for directionality and controls
+- [x] Add reverse()
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
 - [ ] Support RUN_TO_POSITION for encoders
 - [ ] Support moving until sensor says otherwise
 - [ ] Add telemetry for status indicators
-- [ ] Add support for Blockly
+- [x] Add support for Blockly
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Fixes
