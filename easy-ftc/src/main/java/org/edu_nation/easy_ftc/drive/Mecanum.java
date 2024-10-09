@@ -31,6 +31,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Mecanum extends Drive {
     private DcMotor frontLeft, frontRight, backLeft, backRight;
     private DcMotorEx frontLeftEx, frontRightEx, backLeftEx, backRightEx; // w/ encoder
+    private boolean runToPosition = false;
+    private double distanceMultiplier;
     private IMU imu;
 
     /**
@@ -154,6 +156,15 @@ public class Mecanum extends Drive {
             velocityMultiplier =
                     Math.min(Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]),
                             Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
+
+            // sets distanceMultiplier to minimum ticks/rev of all drive motors
+            double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
+                    motorType[1].getTicksPerRev() / 4.0,
+                    motorType[2].getTicksPerRev() / 4.0,
+                    motorType[3].getTicksPerRev() / 4.0};
+            distanceMultiplier = 
+                    Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
+                            Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
         } else {
             // Instantiate motors
             frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -228,6 +239,48 @@ public class Mecanum extends Drive {
     }
 
     /**
+     * Moves the motors for the specified distance at the given power and direction. Use the same unit for distance, diameter
+     */
+    public void move(double power, String direction, double distance, double diameter) {
+        runToPosition = true;
+        double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
+        double[] movements = MecanumUtil.languageToDirection(power, direction);
+        int[] positions = MecanumUtil.calculatePositions(distance, diameter, distanceMultiplier, unscaledMovements);
+
+        // Reset encoders
+        frontLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        frontRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        backRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+        // set target-position
+        frontLeftEx.setTargetPosition(positions[0]);
+        frontRightEx.setTargetPosition(positions[1]);
+        backLeftEx.setTargetPosition(positions[2]);
+        backRightEx.setTargetPosition(positions[3]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        frontLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        frontRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        backRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+
+        // move the motors at power until they've reached the position
+        setAllPower(movements);
+        while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy() || backRightEx.isBusy()) {
+            setAllPower(movements);
+        }
+        setAllPower();
+
+        // Set motors to run using the encoder (velocity, not position)
+        frontLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        frontRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        backLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        backRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        runToPosition = false;
+    }
+
+    /**
      * Reverse the direction of the drive motors
      */
     @Override
@@ -293,7 +346,12 @@ public class Mecanum extends Drive {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder) {
+        if (useEncoder && runToPosition) {
+            frontLeftEx.setPower(movements[0]);
+            frontRightEx.setPower(movements[1]);
+            backLeftEx.setPower(movements[2]);
+            backRightEx.setPower(movements[3]);
+        } else if (useEncoder) {
             frontLeftEx.setVelocity(movements[0] * velocityMultiplier);
             frontRightEx.setVelocity(movements[1] * velocityMultiplier);
             backLeftEx.setVelocity(movements[2] * velocityMultiplier);
