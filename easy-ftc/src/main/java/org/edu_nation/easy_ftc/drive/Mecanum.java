@@ -183,10 +183,10 @@ public class Mecanum extends Drive {
             backRightEx.setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
-            frontLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            frontRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            backLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            backRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            
+            // Set motors to run using the encoder (velocity, not position)
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
                 double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
@@ -199,13 +199,6 @@ public class Mecanum extends Drive {
                 velocityMultiplier =
                         Math.min(Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]),
                                 Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
-
-
-                // Set motors to run using the encoder (velocity, not position)
-                frontLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-                frontRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-                backLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-                backRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
             } else {
                 // sets distanceMultiplier to minimum ticks/rev of all drive motors
                 double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
@@ -214,12 +207,6 @@ public class Mecanum extends Drive {
                 distanceMultiplier =
                         Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
                                 Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
-
-                // Set motors to run using the encoder (position, not velocity)
-                frontLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                frontRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                backLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-                backRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
             }
         } else {
             // Instantiate motors
@@ -235,10 +222,7 @@ public class Mecanum extends Drive {
             backRight.setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
-            frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
         // Initializes imu for field-centric layout. Adjust "UP" and "FORWARD" if orientation is
         // reversed
@@ -302,20 +286,52 @@ public class Mecanum extends Drive {
                     {frontLeftEx.getCurrentPosition(), frontRightEx.getCurrentPosition(),
                             backLeftEx.getCurrentPosition(), backRightEx.getCurrentPosition()};
 
-            // set target-position (relative + current = desired)
-            frontLeftEx.setTargetPosition(positions[0] + currentPositions[0]);
-            frontRightEx.setTargetPosition(positions[1] + currentPositions[1]);
-            backLeftEx.setTargetPosition(positions[2] + currentPositions[2]);
-            backRightEx.setTargetPosition(positions[3] + currentPositions[3]);
-
             // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
             setAllPower(movements);
             while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy()
                     || backRightEx.isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
+
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/ tele())
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    private void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        frontLeftEx.setTargetPosition(positions[0] + currentPositions[0]);
+        frontRightEx.setTargetPosition(positions[1] + currentPositions[1]);
+        backLeftEx.setTargetPosition(positions[2] + currentPositions[2]);
+        backRightEx.setTargetPosition(positions[3] + currentPositions[3]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * Sets all extended motors to the specified mode
+     */
+    private void setModesEx(DcMotorEx.RunMode runMode) {
+        frontLeftEx.setMode(runMode);
+        frontRightEx.setMode(runMode);
+        backLeftEx.setMode(runMode);
+        backRightEx.setMode(runMode);
+    }
+
+    /**
+     * Sets all basic motors to the specified mode
+     */
+    private void setModes(DcMotor.RunMode runMode) {
+        frontLeft.setMode(runMode);
+        frontRight.setMode(runMode);
+        backLeft.setMode(runMode);
+        backRight.setMode(runMode);
     }
 
     /**
