@@ -117,4 +117,24 @@ public class TestMecanum {
         driveEnc.reverse("abc");
         driveEnc.reverse("");
     }
+
+    @Test
+    public void setGearing_isCalled() {
+        mockInit();
+
+        try {
+            Mecanum drive = new Mecanum(mockedOpMode, mockedHardwareMap, true, 4);
+            drive.setGearing(19.2);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setGearing_ThrowsException() {
+        mockInit();
+
+        Mecanum drive = new Mecanum(mockedOpMode, mockedHardwareMap, true, 4);
+        drive.setGearing(0);
+    }
 }

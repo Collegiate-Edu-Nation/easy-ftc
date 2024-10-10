@@ -306,6 +306,10 @@ public class Mecanum extends Drive {
      * distanceMultiplier, velocityMultiplier
      */
     public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to Mecanum.setGearing(). Valid values are numbers > 0");
+        }
         MotorConfigurationType[] motorType = {frontLeftEx.getMotorType(),
                 frontRightEx.getMotorType(), backLeftEx.getMotorType(), backRightEx.getMotorType()};
 
