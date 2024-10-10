@@ -142,4 +142,41 @@ public class TestMecanumUtil {
         // Test ""
         MecanumUtil.languageToDirection(1, "");
     }
+
+    @Test
+    public void calculatePositions_isCorrect() {
+        final double[] movements = {1, 1, 1, 1};
+        final double[] movementsStrafe = {1, 0, 0, 1};
+        final int[][] expectedValues = {{400, 400, 400, 400}, {0, 0, 0, 0}, {382, 382, 382, 382}, {414, 414, 414, 414}, {400, 0, 0, 400}};
+
+        // Test distance = circumference
+        int[] result = MecanumUtil.calculatePositions(Math.PI*4, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[0][i], result[i], 0.01);
+        }
+
+        // Test distance = 0
+        result = MecanumUtil.calculatePositions(0, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[1][i], result[i], 0.01);
+        }
+
+        // Test distance < circumference
+        result = MecanumUtil.calculatePositions(12, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[2][i], result[i], 0.01);
+        }
+
+        // Test distance > circumference
+        result = MecanumUtil.calculatePositions(13, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[3][i], result[i], 0.01);
+        }
+
+        // Test distance = circumference, strafe
+        result = MecanumUtil.calculatePositions(Math.PI*4, 4, 400, movementsStrafe);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[4][i], result[i], 0.01);
+        }
+    }
 }

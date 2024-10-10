@@ -28,6 +28,7 @@ public class TestMecanum {
         when(mockedHardwareMap.get(DcMotorEx.class, "backLeft")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "backRight")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
 
     @Test
@@ -72,6 +73,18 @@ public class TestMecanum {
             Mecanum driveEnc = new Mecanum(mockedOpMode, mockedHardwareMap, true);
             drive.move(0.5, "forward", 1);
             driveEnc.move(0.5, "forward", 1);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void move_position_isCalled() {
+        mockInit();
+
+        try {
+            Mecanum driveEnc = new Mecanum(mockedOpMode, mockedHardwareMap, true);
+            driveEnc.move(0.5, "forward", 12, 4);
         } catch (Exception e) {
             fail(e.getMessage());
         }
