@@ -140,11 +140,11 @@ class MecanumUtil extends MotorMechanismUtil {
         double revolutions = distance / circumference;
         double positionRaw = revolutions * distanceMultiplier;
         int position = (int)Math.round(positionRaw);
-        int[] posiitons = {(int)movements[0] * position,
-                (int)movements[1] * position,
-                (int)movements[2] * position,
-                (int)movements[3] * position};
-        
-        return posiitons;
+
+        int[] positions = new int[movements.length];
+        for(int i = 0; i < movements.length; i++) {
+            positions[i] = (int)movements[i]*position;
+        }
+        return positions;
     }
 }
