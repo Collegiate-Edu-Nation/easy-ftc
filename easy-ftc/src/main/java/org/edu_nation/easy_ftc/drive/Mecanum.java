@@ -106,7 +106,8 @@ public class Mecanum extends Drive {
      * @Defaults diameter = 0.0
      *           <li>gamepad = null
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            String layout) {
         super(opMode, hardwareMap, useEncoder, layout);
     }
 
@@ -125,8 +126,8 @@ public class Mecanum extends Drive {
      * 
      * @Defaults diameter = 0.0
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad,
-            String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad, String layout) {
         super(opMode, hardwareMap, useEncoder, gamepad, layout);
     }
 
@@ -135,8 +136,8 @@ public class Mecanum extends Drive {
      * 
      * @Defaults gamepad = null
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
-            String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, String layout) {
         super(opMode, hardwareMap, useEncoder, diameter, layout);
     }
 
@@ -145,16 +146,16 @@ public class Mecanum extends Drive {
      * 
      * @Defaults layout = ""
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
-            Gamepad gamepad) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 
     /**
      * Constructor
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
-            Gamepad gamepad, String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, Gamepad gamepad, String layout) {
         super(opMode, hardwareMap, useEncoder, diameter, gamepad, layout);
     }
 
@@ -170,8 +171,6 @@ public class Mecanum extends Drive {
             backLeftEx = hardwareMap.get(DcMotorEx.class, "backLeft");
             backRightEx = hardwareMap.get(DcMotorEx.class, "backRight");
 
-
-            // Sets velocityMultiplier to minimum ticks/rev of all drive motors
             MotorConfigurationType[] motorType =
                     {frontLeftEx.getMotorType(), frontRightEx.getMotorType(),
                             backLeftEx.getMotorType(), backRightEx.getMotorType()};
@@ -184,11 +183,12 @@ public class Mecanum extends Drive {
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            
+
             // Set motors to run using the encoder (velocity, not position)
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
+                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
                 double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
                         motorType[1].getAchieveableMaxTicksPerSecond(),
                         motorType[2].getAchieveableMaxTicksPerSecond(),
@@ -201,9 +201,9 @@ public class Mecanum extends Drive {
                                 Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
             } else {
                 // sets distanceMultiplier to minimum ticks/rev of all drive motors
-                double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
-                        motorType[1].getTicksPerRev() / 4.0, motorType[2].getTicksPerRev() / 4.0,
-                        motorType[3].getTicksPerRev() / 4.0};
+                double[] distanceMultiplierArr =
+                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev(),
+                                motorType[2].getTicksPerRev(), motorType[3].getTicksPerRev()};
                 distanceMultiplier =
                         Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
                                 Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
@@ -280,8 +280,8 @@ public class Mecanum extends Drive {
             setAllPower();
         } else {
             double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
-            int[] positions = MecanumUtil.calculatePositions(measurement, diameter, distanceMultiplier,
-                    unscaledMovements);
+            int[] positions = MecanumUtil.calculatePositions(measurement, diameter,
+                    distanceMultiplier, unscaledMovements);
             int[] currentPositions =
                     {frontLeftEx.getCurrentPosition(), frontRightEx.getCurrentPosition(),
                             backLeftEx.getCurrentPosition(), backRightEx.getCurrentPosition()};
@@ -295,9 +295,29 @@ public class Mecanum extends Drive {
             }
             setAllPower();
 
-            // Reset motors to run using velocity (allows for using move() w/ diameter along w/ tele())
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    /**
+     * Correct the gear-ratio of all drive motors using encoders. Automatically updates
+     * distanceMultiplier, velocityMultiplier
+     */
+    public void setGearing(double gearing) {
+        MotorConfigurationType[] motorType = {frontLeftEx.getMotorType(),
+                frontRightEx.getMotorType(), backLeftEx.getMotorType(), backRightEx.getMotorType()};
+
+        // find current gearing (minimum of all motors)
+        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing(),
+                motorType[2].getGearing(), motorType[3].getGearing()};
+        double currentGearing = Math.min(Math.min(currentGearings[0], currentGearings[1]),
+                Math.min(currentGearings[2], currentGearings[3]));
+
+        // update multipliers based on ratio of current and new
+        velocityMultiplier *= currentGearing / gearing;
+        distanceMultiplier *= gearing / currentGearing;
     }
 
     /**
