@@ -41,10 +41,14 @@ public class TestMecanum {
             new Mecanum(mockedOpMode, mockedHardwareMap, mockedGamepad);
             new Mecanum(mockedOpMode, mockedHardwareMap, "");
             // new Mecanum(mockedOpMode, mockedHardwareMap, "field");
+            new Mecanum(mockedOpMode, mockedHardwareMap, true, 4);
             new Mecanum(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             new Mecanum(mockedOpMode, mockedHardwareMap, true, "");
             new Mecanum(mockedOpMode, mockedHardwareMap, mockedGamepad, "");
+            new Mecanum(mockedOpMode, mockedHardwareMap, true, 4, "");
+            new Mecanum(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad);
             new Mecanum(mockedOpMode, mockedHardwareMap, true, mockedGamepad, "");
+            new Mecanum(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad, "");
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -71,20 +75,10 @@ public class TestMecanum {
         try {
             Mecanum drive = new Mecanum(mockedOpMode, mockedHardwareMap);
             Mecanum driveEnc = new Mecanum(mockedOpMode, mockedHardwareMap, true);
+            Mecanum drivePos = new Mecanum(mockedOpMode, mockedHardwareMap, true, 4);
             drive.move(0.5, "forward", 1);
             driveEnc.move(0.5, "forward", 1);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void move_position_isCalled() {
-        mockInit();
-
-        try {
-            Mecanum driveEnc = new Mecanum(mockedOpMode, mockedHardwareMap, true);
-            driveEnc.move(0.5, "forward", 12, 4);
+            drivePos.move(0.5, "forward", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }

@@ -13,6 +13,8 @@ import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
  *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
+ *          <li>{@link #calculatePositions(double, double, double, double[])} (inherited from
+ *          {@link MotorMechanismUtil})
  */
 class MecanumUtil extends MotorMechanismUtil {
     /**
@@ -130,22 +132,5 @@ class MecanumUtil extends MotorMechanismUtil {
         }
         double[] movements = scaleDirections(power, motorDirections);
         return movements;
-    }
-
-    /**
-     * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
-     */
-    protected static int[] calculatePositions(double distance, double diameter,
-            double distanceMultiplier, double[] movements) {
-        double circumference = Math.PI * diameter;
-        double revolutions = distance / circumference;
-        double positionRaw = revolutions * distanceMultiplier;
-        int position = (int) Math.round(positionRaw);
-
-        int[] positions = new int[movements.length];
-        for (int i = 0; i < movements.length; i++) {
-            positions[i] = (int) movements[i] * position;
-        }
-        return positions;
     }
 }

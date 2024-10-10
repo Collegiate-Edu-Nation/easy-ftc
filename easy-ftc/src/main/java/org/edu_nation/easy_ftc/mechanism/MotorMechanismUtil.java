@@ -11,6 +11,8 @@ import java.lang.Math;
  * @Methods {@link #map(double controllerValue, double deadZone)} (used by subclasses)
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (used by
  *          subclasses)
+ *          <li>{@link #calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements)}
+ *          (used by subclasses)
  */
 public abstract class MotorMechanismUtil {
     /**
@@ -41,5 +43,22 @@ public abstract class MotorMechanismUtil {
             movements[i] = power * motorDirections[i];
         }
         return movements;
+    }
+
+    /**
+     * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
+     */
+    public static int[] calculatePositions(double distance, double diameter,
+            double distanceMultiplier, double[] movements) {
+        double circumference = Math.PI * diameter;
+        double revolutions = distance / circumference;
+        double positionRaw = revolutions * distanceMultiplier;
+        int position = (int) Math.round(positionRaw);
+
+        int[] positions = new int[movements.length];
+        for (int i = 0; i < movements.length; i++) {
+            positions[i] = (int) movements[i] * position;
+        }
+        return positions;
     }
 }

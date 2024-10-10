@@ -17,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
+ * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  * @param String layout ("robot" or "field")
  *        <p>
@@ -31,14 +32,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Mecanum extends Drive {
     private DcMotor frontLeft, frontRight, backLeft, backRight;
     private DcMotorEx frontLeftEx, frontRightEx, backLeftEx, backRightEx; // w/ encoder
-    private boolean runToPosition = false;
-    private double distanceMultiplier;
     private IMU imu;
 
     /**
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = null
      *           <li>gamepad = null
      *           <li>layout = ""
      */
@@ -49,7 +49,8 @@ public class Mecanum extends Drive {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = null
+     *           <li>gamepad = null
      *           <li>layout = ""
      */
     public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
@@ -60,6 +61,7 @@ public class Mecanum extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>layout = ""
      */
     public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
@@ -70,6 +72,7 @@ public class Mecanum extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, String layout) {
@@ -82,6 +85,17 @@ public class Mecanum extends Drive {
      * @Defaults layout = ""
      */
     public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter) {
+        super(opMode, hardwareMap, useEncoder, diameter);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     *           <li>layout = ""
+     */
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
             Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
@@ -89,10 +103,10 @@ public class Mecanum extends Drive {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, String layout) {
         super(opMode, hardwareMap, useEncoder, layout);
     }
 
@@ -100,6 +114,7 @@ public class Mecanum extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      */
     public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad, String layout) {
         super(opMode, hardwareMap, gamepad, layout);
@@ -107,10 +122,40 @@ public class Mecanum extends Drive {
 
     /**
      * Constructor
+     * 
+     * @Defaults diameter = 0.0
      */
-    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            Gamepad gamepad, String layout) {
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad,
+            String layout) {
         super(opMode, hardwareMap, useEncoder, gamepad, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            String layout) {
+        super(opMode, hardwareMap, useEncoder, diameter, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults layout = ""
+     */
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad);
+    }
+
+    /**
+     * Constructor
+     */
+    public Mecanum(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            Gamepad gamepad, String layout) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad, layout);
     }
 
     /**
@@ -125,6 +170,12 @@ public class Mecanum extends Drive {
             backLeftEx = hardwareMap.get(DcMotorEx.class, "backLeft");
             backRightEx = hardwareMap.get(DcMotorEx.class, "backRight");
 
+
+            // Sets velocityMultiplier to minimum ticks/rev of all drive motors
+            MotorConfigurationType[] motorType =
+                    {frontLeftEx.getMotorType(), frontRightEx.getMotorType(),
+                            backLeftEx.getMotorType(), backRightEx.getMotorType()};
+
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
             frontLeftEx.setDirection(DcMotorEx.Direction.REVERSE);
             frontRightEx.setDirection(DcMotorEx.Direction.FORWARD);
@@ -137,33 +188,39 @@ public class Mecanum extends Drive {
             backLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
             backRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-            // Set motors to run using the encoder (velocity, not position)
-            frontLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            frontRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            backLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            backRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            if (diameter == 0.0) {
+                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
+                        motorType[1].getAchieveableMaxTicksPerSecond(),
+                        motorType[2].getAchieveableMaxTicksPerSecond(),
+                        motorType[3].getAchieveableMaxTicksPerSecond()};
 
-            // Sets velocityMultiplier to minimum ticks/rev of all drive motors
-            MotorConfigurationType[] motorType =
-                    {frontLeftEx.getMotorType(), frontRightEx.getMotorType(),
-                            backLeftEx.getMotorType(), backRightEx.getMotorType()};
-            double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond(),
-                    motorType[2].getAchieveableMaxTicksPerSecond(),
-                    motorType[3].getAchieveableMaxTicksPerSecond()};
-            // Banking on the associativity of min():
-            // https://proofwiki.org/wiki/Min_Operation_is_Associative
-            velocityMultiplier =
-                    Math.min(Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]),
-                            Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
+                // Banking on the associativity of min():
+                // https://proofwiki.org/wiki/Min_Operation_is_Associative
+                velocityMultiplier =
+                        Math.min(Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]),
+                                Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
 
-            // sets distanceMultiplier to minimum ticks/rev of all drive motors
-            double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
-                    motorType[1].getTicksPerRev() / 4.0, motorType[2].getTicksPerRev() / 4.0,
-                    motorType[3].getTicksPerRev() / 4.0};
-            distanceMultiplier =
-                    Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
-                            Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
+
+                // Set motors to run using the encoder (velocity, not position)
+                frontLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+                frontRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+                backLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+                backRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            } else {
+                // sets distanceMultiplier to minimum ticks/rev of all drive motors
+                double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
+                        motorType[1].getTicksPerRev() / 4.0, motorType[2].getTicksPerRev() / 4.0,
+                        motorType[3].getTicksPerRev() / 4.0};
+                distanceMultiplier =
+                        Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
+                                Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
+
+                // Set motors to run using the encoder (position, not velocity)
+                frontLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                frontRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                backLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+                backRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+            }
         } else {
             // Instantiate motors
             frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -230,56 +287,35 @@ public class Mecanum extends Drive {
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
-    public void move(double power, String direction, double time) {
+    public void move(double power, String direction, double unit) {
         double[] movements = MecanumUtil.languageToDirection(power, direction);
-        setAllPower(movements);
-        wait(time);
-        setAllPower();
-    }
 
-    /**
-     * Moves the motors for the specified distance at the given power and direction. Use the same
-     * unit for distance, diameter
-     */
-    public void move(double power, String direction, double distance, double diameter) {
-        runToPosition = true;
-        double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
-        double[] movements = MecanumUtil.languageToDirection(power, direction);
-        int[] positions = MecanumUtil.calculatePositions(distance, diameter, distanceMultiplier,
-                unscaledMovements);
-
-        // Reset encoders
-        frontLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        frontRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        backLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        backRightEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
-        // set target-position
-        frontLeftEx.setTargetPosition(positions[0]);
-        frontRightEx.setTargetPosition(positions[1]);
-        backLeftEx.setTargetPosition(positions[2]);
-        backRightEx.setTargetPosition(positions[3]);
-
-        // Set motors to run using the encoder (position, not velocity)
-        frontLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        frontRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        backLeftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-        backRightEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
-        // move the motors at power until they've reached the position
-        setAllPower(movements);
-        while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy()
-                || backRightEx.isBusy()) {
+        if (diameter == 0.0) {
             setAllPower(movements);
-        }
-        setAllPower();
+            wait(unit);
+            setAllPower();
+        } else {
+            double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
+            int[] positions = MecanumUtil.calculatePositions(unit, diameter, distanceMultiplier,
+                    unscaledMovements);
+            int[] currentPositions =
+                    {frontLeftEx.getCurrentPosition(), frontRightEx.getCurrentPosition(),
+                            backLeftEx.getCurrentPosition(), backRightEx.getCurrentPosition()};
 
-        // Set motors to run using the encoder (velocity, not position)
-        frontLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        frontRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        backLeftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        backRightEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        runToPosition = false;
+            // set target-position (relative + current = desired)
+            frontLeftEx.setTargetPosition(positions[0] + currentPositions[0]);
+            frontRightEx.setTargetPosition(positions[1] + currentPositions[1]);
+            backLeftEx.setTargetPosition(positions[2] + currentPositions[2]);
+            backRightEx.setTargetPosition(positions[3] + currentPositions[3]);
+
+            // move the motors at power until they've reached the position
+            setAllPower(movements);
+            while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy()
+                    || backRightEx.isBusy()) {
+                setAllPower(movements);
+            }
+            setAllPower();
+        }
     }
 
     /**
@@ -348,7 +384,7 @@ public class Mecanum extends Drive {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder && runToPosition) {
+        if (useEncoder && diameter != 0.0) {
             frontLeftEx.setPower(movements[0]);
             frontRightEx.setPower(movements[1]);
             backLeftEx.setPower(movements[2]);

@@ -16,14 +16,16 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 abstract class Drive extends Mechanism {
     protected boolean useEncoder;
     protected String layout;
-    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit
-                                         // for setVelocity()
+    protected double velocityMultiplier;
+    protected double distanceMultiplier;
+    protected double diameter;
     protected double deadZone = 0.1;
 
     /**
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = null
      *           <li>gamepad = null
      *           <li>layout = ""
      */
@@ -34,7 +36,8 @@ abstract class Drive extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = null
+     *           <li>gamepad = null
      *           <li>layout = ""
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
@@ -45,6 +48,7 @@ abstract class Drive extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>layout = ""
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
@@ -55,6 +59,7 @@ abstract class Drive extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String layout) {
@@ -67,6 +72,17 @@ abstract class Drive extends Mechanism {
      * @Defaults layout = ""
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter) {
+        this(opMode, hardwareMap, useEncoder, diameter, "");
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     *           <li>layout = ""
+     */
+    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
             Gamepad gamepad) {
         this(opMode, hardwareMap, useEncoder, gamepad, "");
     }
@@ -74,7 +90,8 @@ abstract class Drive extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, String layout) {
         this(opMode, hardwareMap, useEncoder, null, layout);
@@ -84,6 +101,7 @@ abstract class Drive extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad, String layout) {
         this(opMode, hardwareMap, false, gamepad, layout);
@@ -91,18 +109,49 @@ abstract class Drive extends Mechanism {
 
     /**
      * Constructor
+     * 
+     * @Defaults diameter = 0.0
      */
     public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad,
             String layout) {
+        this(opMode, hardwareMap, useEncoder, 0.0, gamepad, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            String layout) {
+        this(opMode, hardwareMap, useEncoder, diameter, null, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults layout = ""
+     */
+    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            Gamepad gamepad) {
+        this(opMode, hardwareMap, useEncoder, diameter, gamepad, "");
+    }
+
+    /**
+     * Constructor
+     */
+    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            Gamepad gamepad, String layout) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.useEncoder = useEncoder;
+        this.diameter = diameter;
         this.gamepad = gamepad;
         this.layout = layout;
         hardwareInit();
     }
 
-    public abstract void move(double power, String direction, double time);
+    public abstract void move(double power, String direction, double unit);
 
     public abstract void setAllPower(double[] movements);
 
