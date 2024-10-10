@@ -151,7 +151,7 @@ abstract class Drive extends Mechanism {
         hardwareInit();
     }
 
-    public abstract void move(double power, String direction, double unit);
+    public abstract void move(double power, String direction, double measurement);
 
     public abstract void setAllPower(double[] movements);
 

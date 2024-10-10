@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param String layout ("robot" or "field")
  *        <p>
  * @Methods {@link #tele()}
- *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
@@ -287,16 +287,16 @@ public class Mecanum extends Drive {
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
-    public void move(double power, String direction, double unit) {
+    public void move(double power, String direction, double measurement) {
         double[] movements = MecanumUtil.languageToDirection(power, direction);
 
         if (diameter == 0.0) {
             setAllPower(movements);
-            wait(unit);
+            wait(measurement);
             setAllPower();
         } else {
             double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
-            int[] positions = MecanumUtil.calculatePositions(unit, diameter, distanceMultiplier,
+            int[] positions = MecanumUtil.calculatePositions(measurement, diameter, distanceMultiplier,
                     unscaledMovements);
             int[] currentPositions =
                     {frontLeftEx.getCurrentPosition(), frontRightEx.getCurrentPosition(),
