@@ -38,7 +38,7 @@ public class Mecanum extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
-     *           <li>diameter = null
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      *           <li>layout = ""
      */
@@ -49,7 +49,7 @@ public class Mecanum extends Drive {
     /**
      * Constructor
      * 
-     * @Defaults diameter = null
+     * @Defaults diameter = 0.0
      *           <li>gamepad = null
      *           <li>layout = ""
      */

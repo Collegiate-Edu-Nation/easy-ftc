@@ -25,7 +25,7 @@ abstract class Drive extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
-     *           <li>diameter = null
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      *           <li>layout = ""
      */
@@ -36,7 +36,7 @@ abstract class Drive extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults diameter = null
+     * @Defaults diameter = 0.0
      *           <li>gamepad = null
      *           <li>layout = ""
      */
