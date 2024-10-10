@@ -135,15 +135,16 @@ class MecanumUtil extends MotorMechanismUtil {
     /**
      * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
      */
-    protected static int[] calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements) {
+    protected static int[] calculatePositions(double distance, double diameter,
+            double distanceMultiplier, double[] movements) {
         double circumference = Math.PI * diameter;
         double revolutions = distance / circumference;
         double positionRaw = revolutions * distanceMultiplier;
-        int position = (int)Math.round(positionRaw);
+        int position = (int) Math.round(positionRaw);
 
         int[] positions = new int[movements.length];
-        for(int i = 0; i < movements.length; i++) {
-            positions[i] = (int)movements[i]*position;
+        for (int i = 0; i < movements.length; i++) {
+            positions[i] = (int) movements[i] * position;
         }
         return positions;
     }

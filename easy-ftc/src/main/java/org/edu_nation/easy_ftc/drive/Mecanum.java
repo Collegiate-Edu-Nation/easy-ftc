@@ -159,10 +159,9 @@ public class Mecanum extends Drive {
 
             // sets distanceMultiplier to minimum ticks/rev of all drive motors
             double[] distanceMultiplierArr = {motorType[0].getTicksPerRev() / 4.0,
-                    motorType[1].getTicksPerRev() / 4.0,
-                    motorType[2].getTicksPerRev() / 4.0,
+                    motorType[1].getTicksPerRev() / 4.0, motorType[2].getTicksPerRev() / 4.0,
                     motorType[3].getTicksPerRev() / 4.0};
-            distanceMultiplier = 
+            distanceMultiplier =
                     Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
                             Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
         } else {
@@ -239,13 +238,15 @@ public class Mecanum extends Drive {
     }
 
     /**
-     * Moves the motors for the specified distance at the given power and direction. Use the same unit for distance, diameter
+     * Moves the motors for the specified distance at the given power and direction. Use the same
+     * unit for distance, diameter
      */
     public void move(double power, String direction, double distance, double diameter) {
         runToPosition = true;
         double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
         double[] movements = MecanumUtil.languageToDirection(power, direction);
-        int[] positions = MecanumUtil.calculatePositions(distance, diameter, distanceMultiplier, unscaledMovements);
+        int[] positions = MecanumUtil.calculatePositions(distance, diameter, distanceMultiplier,
+                unscaledMovements);
 
         // Reset encoders
         frontLeftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -267,7 +268,8 @@ public class Mecanum extends Drive {
 
         // move the motors at power until they've reached the position
         setAllPower(movements);
-        while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy() || backRightEx.isBusy()) {
+        while (frontLeftEx.isBusy() || frontRightEx.isBusy() || backLeftEx.isBusy()
+                || backRightEx.isBusy()) {
             setAllPower(movements);
         }
         setAllPower();
