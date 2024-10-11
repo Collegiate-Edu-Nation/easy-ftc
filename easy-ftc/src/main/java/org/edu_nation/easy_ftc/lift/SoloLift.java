@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
+ * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
