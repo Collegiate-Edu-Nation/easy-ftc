@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
- *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
@@ -32,10 +32,31 @@ public class DualLift extends Lift {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap) {
-        super(opMode, hardwareMap);
+        super(opMode, hardwareMap, false);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
+     */
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
+        super(opMode, hardwareMap, useEncoder, null);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
+     */
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+        super(opMode, hardwareMap, false, gamepad);
     }
 
     /**
@@ -43,25 +64,24 @@ public class DualLift extends Lift {
      * 
      * @Defaults gamepad = null
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
-        super(opMode, hardwareMap, useEncoder);
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
+        super(opMode, hardwareMap, useEncoder, diameter, null);
     }
 
     /**
      * Constructor
      * 
-     * @Defaults useEncoder = false
+     * @Defaults diameter = 0.0
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        super(opMode, hardwareMap, gamepad);
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, 0.0, gamepad);
     }
 
     /**
      * Constructor
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            Gamepad gamepad) {
-        super(opMode, hardwareMap, useEncoder, gamepad);
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 
     /**
@@ -73,26 +93,31 @@ public class DualLift extends Lift {
             // Instantiate motors
             left_liftEx = hardwareMap.get(DcMotorEx.class, "left_lift");
             right_liftEx = hardwareMap.get(DcMotorEx.class, "right_lift");
+            
+            MotorConfigurationType[] motorType =
+            {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
             left_liftEx.setDirection(DcMotorEx.Direction.REVERSE);
             right_liftEx.setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
-            left_liftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            right_liftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Set motors to run using the encoder (velocity, not position)
-            left_liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            right_liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            // Sets velocityMultiplier to minimum ticks/rev of all lift motors (reduces the impact
-            // of mixing motor types)
-            MotorConfigurationType[] motorType =
-                    {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
-            double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond()};
-            velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            if (diameter == 0.0) {
+                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
+                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
+                        motorType[1].getAchieveableMaxTicksPerSecond()};
+                velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            } else {
+                // sets distanceMultiplier to minimum ticks/rev of all drive motors
+                double[] distanceMultiplierArr =
+                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev()};
+                distanceMultiplier = Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]);
+            }
         } else {
             // Instantiate motors
             left_lift = hardwareMap.get(DcMotor.class, "left_lift");
@@ -103,8 +128,7 @@ public class DualLift extends Lift {
             right_lift.setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
-            left_lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            right_lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -129,11 +153,81 @@ public class DualLift extends Lift {
      * Valid directions are: up, down
      */
     @Override
-    public void move(double power, String direction, double time) {
+    public void move(double power, String direction, double measurement) {
         double[] movements = DualLiftUtil.languageToDirection(power, direction);
-        setAllPower(movements);
-        wait(time);
-        setAllPower();
+
+        if (diameter == 0.0) {
+            setAllPower(movements);
+            wait(measurement);
+            setAllPower();
+        } else {
+            double[] unscaledMovements = DualLiftUtil.languageToDirection(1, direction);
+            int[] positions = DualLiftUtil.calculatePositions(measurement, diameter,
+                    distanceMultiplier, unscaledMovements);
+            int[] currentPositions =
+                    {left_liftEx.getCurrentPosition(), right_liftEx.getCurrentPosition()};
+
+            // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
+            setAllPower(movements);
+            while (left_liftEx.isBusy() || right_liftEx.isBusy()) {
+                setAllPower(movements);
+            }
+            setAllPower();
+
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // tele())
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    /**
+     * Correct the gear-ratio of all lift motors using encoders. Automatically updates
+     * distanceMultiplier, velocityMultiplier
+     */
+    public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to DualLift.setGearing(). Valid values are numbers > 0");
+        }
+        MotorConfigurationType[] motorType = {left_liftEx.getMotorType(),
+                right_liftEx.getMotorType()};
+
+        // find current gearing (minimum of all motors)
+        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
+        double currentGearing = Math.min(currentGearings[0], currentGearings[1]);
+
+        // update multipliers based on ratio of current and new
+        velocityMultiplier *= currentGearing / gearing;
+        distanceMultiplier *= gearing / currentGearing;
+    }
+
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    private void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        left_liftEx.setTargetPosition(positions[0] + currentPositions[0]);
+        right_liftEx.setTargetPosition(positions[1] + currentPositions[1]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * Sets all extended motors to the specified mode
+     */
+    private void setModesEx(DcMotorEx.RunMode runMode) {
+        left_liftEx.setMode(runMode);
+        right_liftEx.setMode(runMode);
+    }
+
+    /**
+     * Sets all basic motors to the specified mode
+     */
+    private void setModes(DcMotor.RunMode runMode) {
+        left_lift.setMode(runMode);
+        right_lift.setMode(runMode);
     }
 
     /**

@@ -24,6 +24,7 @@ public class TestDualLift {
         when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
 
     @Test
@@ -34,7 +35,9 @@ public class TestDualLift {
             new DualLift(mockedOpMode, mockedHardwareMap);
             new DualLift(mockedOpMode, mockedHardwareMap, true);
             new DualLift(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            new DualLift(mockedOpMode, mockedHardwareMap, true, 4);
             new DualLift(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            new DualLift(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -59,10 +62,12 @@ public class TestDualLift {
         mockInit();
 
         try {
-            DualLift drive = new DualLift(mockedOpMode, mockedHardwareMap);
-            DualLift driveEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
-            drive.move(0.5, "up", 1);
-            driveEnc.move(0.5, "up", 1);
+            DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap);
+            DualLift liftEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
+            DualLift liftPos = new DualLift(mockedOpMode, mockedHardwareMap, true, 4);
+            lift.move(0.5, "up", 1);
+            liftEnc.move(0.5, "up", 1);
+            liftPos.move(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -96,5 +101,25 @@ public class TestDualLift {
         lift.reverse("");
         liftEnc.reverse("abc");
         liftEnc.reverse("");
+    }
+
+    @Test
+    public void setGearing_isCalled() {
+        mockInit();
+
+        try {
+            DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap, true, 4);
+            lift.setGearing(19.2);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setGearing_ThrowsException() {
+        mockInit();
+
+        DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap, true, 4);
+        lift.setGearing(0);
     }
 }

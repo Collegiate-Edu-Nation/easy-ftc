@@ -15,14 +15,16 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 abstract class Lift extends Mechanism {
     protected boolean useEncoder;
-    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
-                                         // setVelocity()
+    protected double velocityMultiplier;
+    protected double distanceMultiplier;
+    protected double diameter;
     protected double deadZone = 0.1;
 
     /**
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public Lift(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -32,7 +34,8 @@ abstract class Lift extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      */
     public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
         this(opMode, hardwareMap, useEncoder, null);
@@ -42,6 +45,7 @@ abstract class Lift extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      */
     public Lift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
         this(opMode, hardwareMap, false, gamepad);
@@ -49,16 +53,35 @@ abstract class Lift extends Mechanism {
 
     /**
      * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
+        this(opMode, hardwareMap, useEncoder, diameter, null);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
      */
     public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+        this(opMode, hardwareMap, useEncoder, 0.0, gamepad);
+    }
+
+    /**
+     * Constructor
+     */
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.useEncoder = useEncoder;
+        this.diameter = diameter;
         this.gamepad = gamepad;
         hardwareInit();
     }
 
-    public abstract void move(double power, String direction, double time);
+    public abstract void move(double power, String direction, double measurement);
 
     public abstract void setAllPower(double[] movements);
 
