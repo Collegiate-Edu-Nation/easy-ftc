@@ -80,6 +80,12 @@ The project can also be imported into Android Studio, where Windows is also supp
 
 For either approach, gradlew builds are supported
 
+If contributing, this project uses the Google Java Style Guide. I use the Red Hat Java Language Support extension in VSCode, which allows for this to be configured by adding the following to your settings.json
+
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
+
+Note that LightWeight and Standard modes do not give identical output when formatting.
+
 ## ToDo
 ### Update
 - [x] Move to FTC SDK v10.1 (update javadoc cmd as well)
