@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param String layout ("tank" or "arcade")
  *        <p>
  * @Methods {@link #tele()}
- *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
