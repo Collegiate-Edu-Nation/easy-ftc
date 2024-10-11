@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
+ * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  * @param String layout ("tank" or "arcade")
  *        <p>
@@ -33,6 +34,7 @@ public class Differential extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      *           <li>layout = ""
      */
@@ -43,7 +45,8 @@ public class Differential extends Drive {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      *           <li>layout = ""
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
@@ -54,6 +57,7 @@ public class Differential extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>layout = ""
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
@@ -64,6 +68,7 @@ public class Differential extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, String layout) {
@@ -76,6 +81,17 @@ public class Differential extends Drive {
      * @Defaults layout = ""
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter) {
+        super(opMode, hardwareMap, useEncoder, diameter);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     *           <li>layout = ""
+     */
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
             Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
@@ -83,7 +99,8 @@ public class Differential extends Drive {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
             String layout) {
@@ -94,18 +111,48 @@ public class Differential extends Drive {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      */
-    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad,
-            String layout) {
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad, String layout) {
         super(opMode, hardwareMap, gamepad, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     */
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad, String layout) {
+        super(opMode, hardwareMap, useEncoder, gamepad, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, String layout) {
+        super(opMode, hardwareMap, useEncoder, diameter, layout);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults layout = ""
+     */
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 
     /**
      * Constructor
      */
     public Differential(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            Gamepad gamepad, String layout) {
-        super(opMode, hardwareMap, useEncoder, gamepad, layout);
+            double diameter, Gamepad gamepad, String layout) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad, layout);
     }
 
     /**
@@ -118,25 +165,30 @@ public class Differential extends Drive {
             left_driveEx = hardwareMap.get(DcMotorEx.class, "left_drive");
             right_driveEx = hardwareMap.get(DcMotorEx.class, "right_drive");
 
+            MotorConfigurationType[] motorType =
+                    {left_driveEx.getMotorType(), right_driveEx.getMotorType()};
+
             // Reverse direction of left motor for convenience (switch if robot drives backwards)
             left_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
             right_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
-            left_driveEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            right_driveEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Set motors to run using the encoder (velocity, not position)
-            left_driveEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            right_driveEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            // Sets velocityMultiplier to minimum ticks/rev of all drive motors (reduces the impact
-            // of mixing motor types)
-            MotorConfigurationType[] motorType =
-                    {left_driveEx.getMotorType(), right_driveEx.getMotorType()};
-            double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond()};
-            velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            if (diameter == 0.0) {
+                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
+                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
+                        motorType[1].getAchieveableMaxTicksPerSecond()};
+                velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            } else {
+                // sets distanceMultiplier to minimum ticks/rev of all drive motors
+                double[] distanceMultiplierArr =
+                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev()};
+                distanceMultiplier = Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]);
+            }
         } else {
             // Instantiate motors
             left_drive = hardwareMap.get(DcMotor.class, "left_drive");
@@ -147,8 +199,7 @@ public class Differential extends Drive {
             right_drive.setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
-            left_drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            right_drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -173,11 +224,81 @@ public class Differential extends Drive {
      * Valid directions are: forward, backward, rotateLeft, rotateRight
      */
     @Override
-    public void move(double power, String direction, double time) {
+    public void move(double power, String direction, double measurement) {
         double[] movements = DifferentialUtil.languageToDirection(power, direction);
-        setAllPower(movements);
-        wait(time);
-        setAllPower();
+
+        if (diameter == 0.0) {
+            setAllPower(movements);
+            wait(measurement);
+            setAllPower();
+        } else {
+            double[] unscaledMovements = DifferentialUtil.languageToDirection(1, direction);
+            int[] positions = DifferentialUtil.calculatePositions(measurement, diameter,
+                    distanceMultiplier, unscaledMovements);
+            int[] currentPositions =
+                    {left_driveEx.getCurrentPosition(), right_driveEx.getCurrentPosition()};
+
+            // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
+            setAllPower(movements);
+            while (left_driveEx.isBusy() || right_driveEx.isBusy()) {
+                setAllPower(movements);
+            }
+            setAllPower();
+
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // tele())
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    /**
+     * Correct the gear-ratio of all drive motors using encoders. Automatically updates
+     * distanceMultiplier, velocityMultiplier
+     */
+    public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to Differential.setGearing(). Valid values are numbers > 0");
+        }
+        MotorConfigurationType[] motorType = {left_driveEx.getMotorType(),
+                right_driveEx.getMotorType()};
+
+        // find current gearing (minimum of all motors)
+        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
+        double currentGearing = Math.min(currentGearings[0], currentGearings[1]);
+
+        // update multipliers based on ratio of current and new
+        velocityMultiplier *= currentGearing / gearing;
+        distanceMultiplier *= gearing / currentGearing;
+    }
+
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    private void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        left_driveEx.setTargetPosition(positions[0] + currentPositions[0]);
+        right_driveEx.setTargetPosition(positions[1] + currentPositions[1]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * Sets all extended motors to the specified mode
+     */
+    private void setModesEx(DcMotorEx.RunMode runMode) {
+        left_driveEx.setMode(runMode);
+        right_driveEx.setMode(runMode);
+    }
+
+    /**
+     * Sets all basic motors to the specified mode
+     */
+    private void setModes(DcMotor.RunMode runMode) {
+        left_drive.setMode(runMode);
+        right_drive.setMode(runMode);
     }
 
     /**

@@ -12,6 +12,8 @@ import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
  *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
+ *          <li>{@link #calculatePositions(double, double, double, double[])} (inherited from
+ *          {@link MotorMechanismUtil})
  */
 class DifferentialUtil extends MotorMechanismUtil {
     /**

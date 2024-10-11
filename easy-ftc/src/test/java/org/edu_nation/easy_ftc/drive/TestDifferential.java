@@ -24,6 +24,7 @@ public class TestDifferential {
         when(mockedHardwareMap.get(DcMotorEx.class, "left_drive")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_drive")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
 
     @Test
@@ -36,10 +37,14 @@ public class TestDifferential {
             new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad);
             new Differential(mockedOpMode, mockedHardwareMap, "");
             new Differential(mockedOpMode, mockedHardwareMap, "arcade");
+            new Differential(mockedOpMode, mockedHardwareMap, true, 4);
             new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             new Differential(mockedOpMode, mockedHardwareMap, true, "");
             new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad, "");
+            new Differential(mockedOpMode, mockedHardwareMap, true, 4, "");
+            new Differential(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad);
             new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad, "");
+            new Differential(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad, "");
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -66,8 +71,10 @@ public class TestDifferential {
         try {
             Differential drive = new Differential(mockedOpMode, mockedHardwareMap);
             Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true);
+            Differential drivePos = new Differential(mockedOpMode, mockedHardwareMap, true, 4);
             drive.move(0.5, "forward", 1);
             driveEnc.move(0.5, "forward", 1);
+            drivePos.move(0.5, "forward", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -101,5 +108,25 @@ public class TestDifferential {
         drive.reverse("");
         driveEnc.reverse("abc");
         driveEnc.reverse("");
+    }
+
+    @Test
+    public void setGearing_isCalled() {
+        mockInit();
+
+        try {
+            Differential drive = new Differential(mockedOpMode, mockedHardwareMap, true, 4);
+            drive.setGearing(19.2);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setGearing_ThrowsException() {
+        mockInit();
+
+        Differential drive = new Differential(mockedOpMode, mockedHardwareMap, true, 4);
+        drive.setGearing(0);
     }
 }
