@@ -303,7 +303,7 @@ public class Mecanum extends Drive {
 
     /**
      * Correct the gear-ratio of all drive motors using encoders. Automatically updates
-     * distanceMultiplier, velocityMultiplier
+     * distanceMultiplier
      */
     public void setGearing(double gearing) {
         if (gearing <= 0) {
@@ -319,8 +319,7 @@ public class Mecanum extends Drive {
         double currentGearing = Math.min(Math.min(currentGearings[0], currentGearings[1]),
                 Math.min(currentGearings[2], currentGearings[3]));
 
-        // update multipliers based on ratio of current and new
-        velocityMultiplier *= currentGearing / gearing;
+        // update multiplier based on ratio of current and new
         distanceMultiplier *= gearing / currentGearing;
     }
 

@@ -184,7 +184,7 @@ public class DualLift extends Lift {
 
     /**
      * Correct the gear-ratio of all lift motors using encoders. Automatically updates
-     * distanceMultiplier, velocityMultiplier
+     * distanceMultiplier
      */
     public void setGearing(double gearing) {
         if (gearing <= 0) {
@@ -198,8 +198,7 @@ public class DualLift extends Lift {
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
         double currentGearing = Math.min(currentGearings[0], currentGearings[1]);
 
-        // update multipliers based on ratio of current and new
-        velocityMultiplier *= currentGearing / gearing;
+        // update multiplier based on ratio of current and new
         distanceMultiplier *= gearing / currentGearing;
     }
 

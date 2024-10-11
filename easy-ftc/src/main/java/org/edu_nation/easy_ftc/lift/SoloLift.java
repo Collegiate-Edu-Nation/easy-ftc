@@ -173,7 +173,7 @@ public class SoloLift extends Lift {
 
     /**
      * Correct the gear-ratio of all lift motors using encoders. Automatically updates
-     * distanceMultiplier, velocityMultiplier
+     * distanceMultiplier
      */
     public void setGearing(double gearing) {
         if (gearing <= 0) {
@@ -185,8 +185,7 @@ public class SoloLift extends Lift {
         // find current gearing
         double currentGearing = motorType.getGearing();
 
-        // update multipliers based on ratio of current and new
-        velocityMultiplier *= currentGearing / gearing;
+        // update multiplier based on ratio of current and new
         distanceMultiplier *= gearing / currentGearing;
     }
 
