@@ -233,6 +233,9 @@ public class SoloArm extends Arm {
      */
     @Override
     public void setAllPower(double[] movements) {
+        if (useEncoder && length != 0.0) {
+            armEx.setPower(movements[0]);
+        } else 
         if (useEncoder) {
             armEx.setVelocity(movements[0] * velocityMultiplier);
         } else {

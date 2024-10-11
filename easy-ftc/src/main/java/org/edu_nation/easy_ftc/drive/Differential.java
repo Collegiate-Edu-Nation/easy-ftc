@@ -349,7 +349,10 @@ public class Differential extends Drive {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder) {
+        if (useEncoder && diameter != 0.0) {
+            left_driveEx.setPower(movements[0]);
+            right_driveEx.setPower(movements[1]);
+        } else if (useEncoder) {
             left_driveEx.setVelocity(movements[0] * velocityMultiplier);
             right_driveEx.setVelocity(movements[1] * velocityMultiplier);
         } else {

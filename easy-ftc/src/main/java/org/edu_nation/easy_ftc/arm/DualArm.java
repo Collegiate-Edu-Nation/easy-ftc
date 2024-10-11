@@ -291,7 +291,10 @@ public class DualArm extends Arm {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder) {
+        if (useEncoder && length != 0.0) {
+            left_armEx.setPower(movements[0]);
+            right_armEx.setPower(movements[1]);
+        } else if (useEncoder) {
             left_armEx.setVelocity(movements[0] * velocityMultiplier);
             right_armEx.setVelocity(movements[1] * velocityMultiplier);
         } else {

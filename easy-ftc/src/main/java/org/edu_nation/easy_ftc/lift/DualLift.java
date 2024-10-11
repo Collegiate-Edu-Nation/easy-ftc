@@ -279,7 +279,10 @@ public class DualLift extends Lift {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder) {
+        if (useEncoder && diameter != 0.0) {
+            left_liftEx.setPower(movements[0]);
+            right_liftEx.setPower(movements[1]);
+        } else if (useEncoder) {
             left_liftEx.setVelocity(movements[0] * velocityMultiplier);
             right_liftEx.setVelocity(movements[1] * velocityMultiplier);
         } else {

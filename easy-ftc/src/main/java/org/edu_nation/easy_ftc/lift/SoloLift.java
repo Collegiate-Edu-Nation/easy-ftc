@@ -221,7 +221,9 @@ public class SoloLift extends Lift {
      */
     @Override
     public void setAllPower(double[] movements) {
-        if (useEncoder) {
+        if (useEncoder && diameter != 0.0) {
+            liftEx.setPower(movements[0]);
+        } else if (useEncoder) {
             liftEx.setVelocity(movements[0] * velocityMultiplier);
         } else {
             lift.setPower(movements[0]);
