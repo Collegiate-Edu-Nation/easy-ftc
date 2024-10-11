@@ -36,7 +36,7 @@ public class DualLift extends Lift {
      *           <li>gamepad = null
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap) {
-        super(opMode, hardwareMap, false);
+        super(opMode, hardwareMap);
     }
 
     /**
@@ -46,7 +46,7 @@ public class DualLift extends Lift {
      *           <li>gamepad = null
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
-        super(opMode, hardwareMap, useEncoder, null);
+        super(opMode, hardwareMap, useEncoder);
     }
 
     /**
@@ -56,7 +56,7 @@ public class DualLift extends Lift {
      *           <li>diameter = 0.0
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        super(opMode, hardwareMap, false, gamepad);
+        super(opMode, hardwareMap, gamepad);
     }
 
     /**
@@ -65,7 +65,7 @@ public class DualLift extends Lift {
      * @Defaults gamepad = null
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
-        super(opMode, hardwareMap, useEncoder, diameter, null);
+        super(opMode, hardwareMap, useEncoder, diameter);
     }
 
     /**
@@ -74,7 +74,7 @@ public class DualLift extends Lift {
      * @Defaults diameter = 0.0
      */
     public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
-        super(opMode, hardwareMap, useEncoder, 0.0, gamepad);
+        super(opMode, hardwareMap, useEncoder, gamepad);
     }
 
     /**
@@ -108,12 +108,12 @@ public class DualLift extends Lift {
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
-                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
+                // Sets velocityMultiplier to minimum ticks/sec of all lift motors
                 double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
                         motorType[1].getAchieveableMaxTicksPerSecond()};
                 velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
             } else {
-                // sets distanceMultiplier to minimum ticks/rev of all drive motors
+                // sets distanceMultiplier to minimum ticks/rev of all lift motors
                 double[] distanceMultiplierArr =
                         {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev()};
                 distanceMultiplier = Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]);

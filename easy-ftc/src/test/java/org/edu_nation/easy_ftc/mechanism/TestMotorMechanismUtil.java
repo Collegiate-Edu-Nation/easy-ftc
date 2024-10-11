@@ -121,6 +121,43 @@ public class TestMotorMechanismUtil {
     }
 
     @Test
+    public void whenOneMotor_calculatePositions_isCorrect() {
+        final double[] movements = {1};
+        final double[] movementsBack = {-1};
+        final int[][] expectedValues = {{400}, {0}, {382}, {414}, {-400}};
+
+        // Test distance = circumference
+        int[] result = MotorMechanismUtil.calculatePositions(Math.PI * 4, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[0][i], result[i], 0.01);
+        }
+
+        // Test distance = 0
+        result = MotorMechanismUtil.calculatePositions(0, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[1][i], result[i], 0.01);
+        }
+
+        // Test distance < circumference
+        result = MotorMechanismUtil.calculatePositions(12, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[2][i], result[i], 0.01);
+        }
+
+        // Test distance > circumference
+        result = MotorMechanismUtil.calculatePositions(13, 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[3][i], result[i], 0.01);
+        }
+
+        // Test distance = circumference, back
+        result = MotorMechanismUtil.calculatePositions(Math.PI * 4, 4, 400, movementsBack);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[4][i], result[i], 0.01);
+        }
+    }
+
+    @Test
     public void whenTwoMotor_calculatePositions_isCorrect() {
         final double[] movements = {1, 1};
         final double[] movementsRotate = {1, -1};

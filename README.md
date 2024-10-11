@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/Android_API-29-blue)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-17.0.10-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
-![Static Badge](https://img.shields.io/badge/Coverage-93%25-green)
+![Static Badge](https://img.shields.io/badge/Coverage-95%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and features, including

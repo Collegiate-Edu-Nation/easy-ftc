@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
- *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
@@ -31,6 +31,7 @@ public class SoloLift extends Lift {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      *           <li>gamepad = null
      */
     public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -40,7 +41,8 @@ public class SoloLift extends Lift {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults diameter = 0.0
+     *           <li>gamepad = null
      */
     public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
         super(opMode, hardwareMap, useEncoder);
@@ -50,6 +52,7 @@ public class SoloLift extends Lift {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>diameter = 0.0
      */
     public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
         super(opMode, hardwareMap, gamepad);
@@ -57,10 +60,27 @@ public class SoloLift extends Lift {
 
     /**
      * Constructor
+     * 
+     * @Defaults gamepad = null
      */
-    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            Gamepad gamepad) {
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
+        super(opMode, hardwareMap, useEncoder, diameter);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults diameter = 0.0
+     */
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
+    }
+
+    /**
+     * Constructor
+     */
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 
     /**
@@ -72,6 +92,8 @@ public class SoloLift extends Lift {
             // Instantiate motor
             liftEx = hardwareMap.get(DcMotorEx.class, "lift");
 
+            MotorConfigurationType motorType = liftEx.getMotorType();
+
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
             liftEx.setDirection(DcMotor.Direction.FORWARD);
 
@@ -81,9 +103,13 @@ public class SoloLift extends Lift {
             // Sets motor to run using the encoder (velocity, not position)
             liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            // Sets velocityMultiplier to ticks/rev of lift motor
-            MotorConfigurationType[] motorType = {liftEx.getMotorType()};
-            velocityMultiplier = motorType[0].getAchieveableMaxTicksPerSecond();
+            if (diameter == 0.0) {
+                // Sets velocityMultiplier to ticks/sec of lift motor
+                velocityMultiplier = motorType.getAchieveableMaxTicksPerSecond();
+            } else {
+                // sets distanceMultiplier to ticks/rev of lift motor
+                distanceMultiplier = motorType.getTicksPerRev();
+            }
         } else {
             // Instantiate motor
             lift = hardwareMap.get(DcMotor.class, "lift");
@@ -117,11 +143,61 @@ public class SoloLift extends Lift {
      * Valid directions are: up, down
      */
     @Override
-    public void move(double power, String direction, double time) {
+    public void move(double power, String direction, double measurement) {
         double[] movements = SoloLiftUtil.languageToDirection(power, direction);
-        setAllPower(movements);
-        wait(time);
-        setAllPower();
+
+        if (diameter == 0.0) {
+            setAllPower(movements);
+            wait(measurement);
+            setAllPower();
+        } else {
+            double[] unscaledMovements = SoloLiftUtil.languageToDirection(1, direction);
+            int[] positions = SoloLiftUtil.calculatePositions(measurement, diameter,
+                    distanceMultiplier, unscaledMovements);
+            int[] currentPositions = {liftEx.getCurrentPosition()};
+
+            // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
+            setAllPower(movements);
+            while (liftEx.isBusy()) {
+                setAllPower(movements);
+            }
+            setAllPower();
+
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // tele())
+            liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    /**
+     * Correct the gear-ratio of all lift motors using encoders. Automatically updates
+     * distanceMultiplier, velocityMultiplier
+     */
+    public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to SoloLift.setGearing(). Valid values are numbers > 0");
+        }
+        MotorConfigurationType motorType = liftEx.getMotorType();
+
+        // find current gearing
+        double currentGearing = motorType.getGearing();
+
+        // update multipliers based on ratio of current and new
+        velocityMultiplier *= currentGearing / gearing;
+        distanceMultiplier *= gearing / currentGearing;
+    }
+
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    private void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        liftEx.setTargetPosition(positions[0] + currentPositions[0]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        liftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     /**
