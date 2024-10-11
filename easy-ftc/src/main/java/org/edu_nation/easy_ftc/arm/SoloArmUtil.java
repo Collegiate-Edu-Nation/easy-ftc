@@ -10,6 +10,8 @@ import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
  *          <li>{@link #languageToDirection(String direction)}
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
+ *          <li>{@link #calculatePositions(double, double, double, double[])} (inherited from
+ *          {@link MotorMechanismUtil})
  */
 class SoloArmUtil extends MotorMechanismUtil {
     protected static double[] controlToDirection(double power, boolean lb, boolean rb) {

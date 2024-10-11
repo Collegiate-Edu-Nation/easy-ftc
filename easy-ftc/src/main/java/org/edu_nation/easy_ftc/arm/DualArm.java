@@ -14,11 +14,12 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
+ * @param Double length (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele(double power)}
  *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
- *          <li>{@link #move(double power, String direction, double time)}
+ *          <li>{@link #move(double power, String direction, double movement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
@@ -33,6 +34,7 @@ public class DualArm extends Arm {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>length = 0.0
      *           <li>gamepad = null
      */
     public DualArm(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -42,7 +44,8 @@ public class DualArm extends Arm {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults length = 0.0
+     *           <li>gamepad = null
      */
     public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
         super(opMode, hardwareMap, useEncoder);
@@ -52,6 +55,7 @@ public class DualArm extends Arm {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>length = 0.0
      */
     public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
         super(opMode, hardwareMap, gamepad);
@@ -59,10 +63,27 @@ public class DualArm extends Arm {
 
     /**
      * Constructor
+     * 
+     * @Defaults gamepad = null
      */
-    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
-            Gamepad gamepad) {
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
+        super(opMode, hardwareMap, useEncoder, length);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults length = 0.0
+     */
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
+    }
+
+    /**
+     * Constructor
+     */
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length, Gamepad gamepad) {
+        super(opMode, hardwareMap, useEncoder, length, gamepad);
     }
 
     /**
@@ -74,26 +95,31 @@ public class DualArm extends Arm {
             // Instantiate motors
             left_armEx = hardwareMap.get(DcMotorEx.class, "left_arm");
             right_armEx = hardwareMap.get(DcMotorEx.class, "right_arm");
+            
+            MotorConfigurationType[] motorType =
+                    {left_armEx.getMotorType(), right_armEx.getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if arm is backwards)
             left_armEx.setDirection(DcMotorEx.Direction.REVERSE);
             right_armEx.setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
-            left_armEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-            right_armEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Set motors to run using the encoder (velocity, not position)
-            left_armEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
-            right_armEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            // Sets velocityMultiplier to minimum ticks/rev of all arm motors (reduces the impact of
-            // mixing motor types)
-            MotorConfigurationType[] motorType =
-                    {left_armEx.getMotorType(), right_armEx.getMotorType()};
-            double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                    motorType[1].getAchieveableMaxTicksPerSecond()};
-            velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            if (length == 0.0) {
+                // Sets velocityMultiplier to minimum ticks/sec of all lift motors
+                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
+                        motorType[1].getAchieveableMaxTicksPerSecond()};
+                velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+            } else {
+                // sets distanceMultiplier to minimum ticks/rev of all lift motors
+                double[] distanceMultiplierArr =
+                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev()};
+                distanceMultiplier = Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]);
+            }
         } else {
             // Instantiate motors
             left_arm = hardwareMap.get(DcMotor.class, "left_arm");
@@ -104,8 +130,7 @@ public class DualArm extends Arm {
             right_arm.setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
-            left_arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            right_arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -140,11 +165,82 @@ public class DualArm extends Arm {
      * Valid directions are: up, down
      */
     @Override
-    public void move(double power, String direction, double time) {
+    public void move(double power, String direction, double measurement) {
         double[] movements = DualArmUtil.languageToDirection(power, direction);
-        setAllPower(movements);
-        wait(time);
-        setAllPower();
+
+        if (length == 0.0) {
+            setAllPower(movements);
+            wait(measurement);
+            setAllPower();
+        } else {
+            double[] unscaledMovements = DualArmUtil.languageToDirection(1, direction);
+            // length is the radius of arm's ROM, so double it for arc length = distance
+            int[] positions = DualArmUtil.calculatePositions(measurement, 2.0*length,
+                    distanceMultiplier, unscaledMovements);
+            int[] currentPositions =
+                    {left_armEx.getCurrentPosition(), right_armEx.getCurrentPosition()};
+
+            // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
+            setAllPower(movements);
+            while (left_armEx.isBusy() || right_armEx.isBusy()) {
+                setAllPower(movements);
+            }
+            setAllPower();
+
+            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // tele())
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    /**
+     * Correct the gear-ratio of all arm motors using encoders. Automatically updates
+     * distanceMultiplier, velocityMultiplier
+     */
+    public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to DualArm.setGearing(). Valid values are numbers > 0");
+        }
+        MotorConfigurationType[] motorType = {left_armEx.getMotorType(),
+                right_armEx.getMotorType()};
+
+        // find current gearing (minimum of all motors)
+        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
+        double currentGearing = Math.min(currentGearings[0], currentGearings[1]);
+
+        // update multipliers based on ratio of current and new
+        velocityMultiplier *= currentGearing / gearing;
+        distanceMultiplier *= gearing / currentGearing;
+    }
+
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    private void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        left_armEx.setTargetPosition(positions[0] + currentPositions[0]);
+        right_armEx.setTargetPosition(positions[1] + currentPositions[1]);
+
+        // Set motors to run using the encoder (position, not velocity)
+        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * Sets all extended motors to the specified mode
+     */
+    private void setModesEx(DcMotorEx.RunMode runMode) {
+        left_armEx.setMode(runMode);
+        right_armEx.setMode(runMode);
+    }
+
+    /**
+     * Sets all basic motors to the specified mode
+     */
+    private void setModes(DcMotor.RunMode runMode) {
+        left_arm.setMode(runMode);
+        right_arm.setMode(runMode);
     }
 
     /**

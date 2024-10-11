@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract arm, providing basic functionalities, options, and objects common to all
- * lifts. Cannot be instantiated, only extended by actual lift classes (see {@link SoloArm} and
+ * arms. Cannot be instantiated, only extended by actual arm classes (see {@link SoloArm} and
  * {@link DualArm}).
  * <p>
  * 
@@ -15,13 +15,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 abstract class Arm extends Mechanism {
     protected boolean useEncoder;
-    protected double velocityMultiplier; // scales user-provided power (-1 to 1) to useable unit for
-                                         // setVelocity()
+    protected double velocityMultiplier;
+    protected double distanceMultiplier;
+    protected double length;
 
     /**
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>length = 0.0
      *           <li>gamepad = null
      */
     public Arm(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -31,7 +33,8 @@ abstract class Arm extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults gamepad = null
+     * @Defaults length = 0.0
+     *           <li>gamepad = null
      */
     public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
         this(opMode, hardwareMap, useEncoder, null);
@@ -41,6 +44,7 @@ abstract class Arm extends Mechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
+     *           <li>length = 0.0
      */
     public Arm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
         this(opMode, hardwareMap, false, gamepad);
@@ -48,18 +52,37 @@ abstract class Arm extends Mechanism {
 
     /**
      * Constructor
+     * 
+     * @Defaults gamepad = null
+     */
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
+        this(opMode, hardwareMap, useEncoder, length, null);
+    }
+
+    /**
+     * Constructor
+     * 
+     * @Defaults length = 0.0
      */
     public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+        this(opMode, hardwareMap, useEncoder, 0.0, gamepad);
+    }
+
+    /**
+     * Constructor
+     */
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length, Gamepad gamepad) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.useEncoder = useEncoder;
+        this.length = length;
         this.gamepad = gamepad;
         hardwareInit();
     }
 
     public abstract void tele(double power);
 
-    public abstract void move(double power, String direction, double time);
+    public abstract void move(double power, String direction, double measurement);
 
     public abstract void setAllPower(double[] movements);
 

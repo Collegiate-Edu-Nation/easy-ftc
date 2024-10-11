@@ -22,6 +22,7 @@ public class TestSoloArm {
         when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotorEx.class, "arm")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
 
     @Test
@@ -32,7 +33,9 @@ public class TestSoloArm {
             new SoloArm(mockedOpMode, mockedHardwareMap);
             new SoloArm(mockedOpMode, mockedHardwareMap, true);
             new SoloArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            new SoloArm(mockedOpMode, mockedHardwareMap, true, 4);
             new SoloArm(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            new SoloArm(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -46,7 +49,9 @@ public class TestSoloArm {
             SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
             SoloArm armEnc = new SoloArm(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             arm.tele();
+            arm.tele(0.5);
             armEnc.tele();
+            armEnc.tele(0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -59,8 +64,10 @@ public class TestSoloArm {
         try {
             SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap);
             SoloArm armEnc = new SoloArm(mockedOpMode, mockedHardwareMap, true);
+            SoloArm armPos = new SoloArm(mockedOpMode, mockedHardwareMap, true, 4);
             arm.move(0.5, "up", 1);
             armEnc.move(0.5, "up", 1);
+            armPos.move(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -78,5 +85,25 @@ public class TestSoloArm {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void setGearing_isCalled() {
+        mockInit();
+
+        try {
+            SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap, true, 4);
+            arm.setGearing(19.2);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setGearing_ThrowsException() {
+        mockInit();
+
+        SoloArm arm = new SoloArm(mockedOpMode, mockedHardwareMap, true, 4);
+        arm.setGearing(0);
     }
 }

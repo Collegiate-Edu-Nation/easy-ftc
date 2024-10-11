@@ -24,6 +24,7 @@ public class TestDualArm {
         when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
         when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
+        when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
 
     @Test
@@ -34,7 +35,9 @@ public class TestDualArm {
             new DualArm(mockedOpMode, mockedHardwareMap);
             new DualArm(mockedOpMode, mockedHardwareMap, true);
             new DualArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            new DualArm(mockedOpMode, mockedHardwareMap, true, 4);
             new DualArm(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            new DualArm(mockedOpMode, mockedHardwareMap, true, 4, mockedGamepad);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -48,7 +51,9 @@ public class TestDualArm {
             DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap, mockedGamepad);
             DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             arm.tele();
+            arm.tele(5);
             armEnc.tele();
+            armEnc.tele(5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -61,8 +66,10 @@ public class TestDualArm {
         try {
             DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap);
             DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true);
+            DualArm armPos = new DualArm(mockedOpMode, mockedHardwareMap, true, 4);
             arm.move(0.5, "up", 1);
             armEnc.move(0.5, "up", 1);
+            armPos.move(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -96,5 +103,25 @@ public class TestDualArm {
         arm.reverse("");
         armEnc.reverse("abc");
         armEnc.reverse("");
+    }
+
+    @Test
+    public void setGearing_isCalled() {
+        mockInit();
+
+        try {
+            DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap, true, 4);
+            arm.setGearing(19.2);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setGearing_ThrowsException() {
+        mockInit();
+
+        DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap, true, 4);
+        arm.setGearing(0);
     }
 }
