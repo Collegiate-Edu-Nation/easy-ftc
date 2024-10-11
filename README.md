@@ -92,7 +92,7 @@ For either approach, gradlew builds are supported
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
-- [ ] Support RUN_TO_POSITION for encoders
+- [x] Support RUN_TO_POSITION for encoders
 - [ ] Support moving until sensor says otherwise
 - [ ] Add telemetry for status indicators
 - [x] Add support for Blockly
