@@ -65,7 +65,8 @@ public class DualLift extends Lift {
      * 
      * @Defaults gamepad = null
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter) {
         super(opMode, hardwareMap, useEncoder, diameter);
     }
 
@@ -74,14 +75,16 @@ public class DualLift extends Lift {
      * 
      * @Defaults diameter = 0.0
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
 
     /**
      * Constructor
      */
-    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
+    public DualLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 
@@ -94,9 +97,9 @@ public class DualLift extends Lift {
             // Instantiate motors
             left_liftEx = hardwareMap.get(DcMotorEx.class, "left_lift");
             right_liftEx = hardwareMap.get(DcMotorEx.class, "right_lift");
-            
+
             MotorConfigurationType[] motorType =
-            {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
+                    {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
             left_liftEx.setDirection(DcMotorEx.Direction.REVERSE);
@@ -191,8 +194,8 @@ public class DualLift extends Lift {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to DualLift.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType[] motorType = {left_liftEx.getMotorType(),
-                right_liftEx.getMotorType()};
+        MotorConfigurationType[] motorType =
+                {left_liftEx.getMotorType(), right_liftEx.getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};

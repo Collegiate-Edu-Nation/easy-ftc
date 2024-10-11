@@ -40,7 +40,8 @@ public class TestDualClaw {
 
         try {
             DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            DualClaw clawNotSmooth = new DualClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
+            DualClaw clawNotSmooth =
+                    new DualClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
             claw.tele();
             clawNotSmooth.tele();
         } catch (Exception e) {

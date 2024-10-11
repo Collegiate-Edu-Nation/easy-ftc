@@ -3,8 +3,7 @@ package org.edu_nation.easy_ftc.sensor;
 import java.lang.Math;
 
 /**
- * Provides static utility methods to {@link Color} for identifying the dominant
- * color from given
+ * Provides static utility methods to {@link Color} for identifying the dominant color from given
  * rgb and calibration values
  * 
  * @Methods {@link #dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue)}
@@ -15,8 +14,7 @@ import java.lang.Math;
  */
 class ColorUtil {
     /**
-     * Converts the maximum, normalized rgb value to the corresponding color as a
-     * String
+     * Converts the maximum, normalized rgb value to the corresponding color as a String
      * 
      * @param rgbRaw
      * @param rgbOffsets
@@ -49,8 +47,7 @@ class ColorUtil {
     }
 
     /**
-     * Converts the minimum, normalized rgb value to the corresponding color as a
-     * String
+     * Converts the minimum, normalized rgb value to the corresponding color as a String
      * 
      * @param rgbRaw
      * @param rgbOffsets
@@ -86,7 +83,7 @@ class ColorUtil {
      * @return <b>rgbNormalized</b>
      */
     private static int[] normalize(int[] rgbRaw, int[] rgbOffsets) {
-        int[] rgbNormalized = { 0, 0, 0 };
+        int[] rgbNormalized = {0, 0, 0};
         for (int i = 0; i < rgbRaw.length; i++) {
             rgbNormalized[i] = rgbRaw[i] + rgbOffsets[i];
         }

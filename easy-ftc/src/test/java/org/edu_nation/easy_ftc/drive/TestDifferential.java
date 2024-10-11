@@ -56,7 +56,8 @@ public class TestDifferential {
 
         try {
             Differential drive = new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            Differential driveEnc =
+                    new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             drive.tele();
             driveEnc.tele();
         } catch (Exception e) {
@@ -103,7 +104,8 @@ public class TestDifferential {
         mockInit();
 
         Differential drive = new Differential(mockedOpMode, mockedHardwareMap, mockedGamepad);
-        Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+        Differential driveEnc =
+                new Differential(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
         drive.reverse("abc");
         drive.reverse("");
         driveEnc.reverse("abc");

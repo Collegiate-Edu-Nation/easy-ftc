@@ -66,7 +66,8 @@ public class DualArm extends Arm {
      * 
      * @Defaults gamepad = null
      */
-    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double length) {
         super(opMode, hardwareMap, useEncoder, length);
     }
 
@@ -75,14 +76,16 @@ public class DualArm extends Arm {
      * 
      * @Defaults length = 0.0
      */
-    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
 
     /**
      * Constructor
      */
-    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length, Gamepad gamepad) {
+    public DualArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, length, gamepad);
     }
 
@@ -95,7 +98,7 @@ public class DualArm extends Arm {
             // Instantiate motors
             left_armEx = hardwareMap.get(DcMotorEx.class, "left_arm");
             right_armEx = hardwareMap.get(DcMotorEx.class, "right_arm");
-            
+
             MotorConfigurationType[] motorType =
                     {left_armEx.getMotorType(), right_armEx.getMotorType()};
 
@@ -175,7 +178,7 @@ public class DualArm extends Arm {
         } else {
             double[] unscaledMovements = DualArmUtil.languageToDirection(1, direction);
             // length is the radius of arm's ROM, so double it for arc length = distance
-            int[] positions = DualArmUtil.calculatePositions(measurement, 2.0*length,
+            int[] positions = DualArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
                     {left_armEx.getCurrentPosition(), right_armEx.getCurrentPosition()};
@@ -203,8 +206,8 @@ public class DualArm extends Arm {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to DualArm.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType[] motorType = {left_armEx.getMotorType(),
-                right_armEx.getMotorType()};
+        MotorConfigurationType[] motorType =
+                {left_armEx.getMotorType(), right_armEx.getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};

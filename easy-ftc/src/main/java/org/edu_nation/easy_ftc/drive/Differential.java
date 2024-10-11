@@ -113,7 +113,8 @@ public class Differential extends Drive {
      * @Defaults useEncoder = false
      *           <li>diameter = 0.0
      */
-    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad, String layout) {
+    public Differential(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad,
+            String layout) {
         super(opMode, hardwareMap, gamepad, layout);
     }
 
@@ -261,8 +262,8 @@ public class Differential extends Drive {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to Differential.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType[] motorType = {left_driveEx.getMotorType(),
-                right_driveEx.getMotorType()};
+        MotorConfigurationType[] motorType =
+                {left_driveEx.getMotorType(), right_driveEx.getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};

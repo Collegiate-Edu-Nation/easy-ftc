@@ -72,7 +72,8 @@ abstract class Lift extends Mechanism {
     /**
      * Constructor
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
+    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+            Gamepad gamepad) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.useEncoder = useEncoder;

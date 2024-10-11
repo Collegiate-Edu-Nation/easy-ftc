@@ -64,7 +64,8 @@ public class SoloLift extends Lift {
      * 
      * @Defaults gamepad = null
      */
-    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter) {
         super(opMode, hardwareMap, useEncoder, diameter);
     }
 
@@ -73,14 +74,16 @@ public class SoloLift extends Lift {
      * 
      * @Defaults diameter = 0.0
      */
-    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
 
     /**
      * Constructor
      */
-    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter, Gamepad gamepad) {
+    public SoloLift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double diameter, Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, diameter, gamepad);
     }
 

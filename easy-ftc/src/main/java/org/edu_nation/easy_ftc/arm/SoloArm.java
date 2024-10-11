@@ -65,7 +65,8 @@ public class SoloArm extends Arm {
      * 
      * @Defaults gamepad = null
      */
-    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
+    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            double length) {
         super(opMode, hardwareMap, useEncoder, length);
     }
 
@@ -74,14 +75,16 @@ public class SoloArm extends Arm {
      * 
      * @Defaults length = 0.0
      */
-    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, gamepad);
     }
 
     /**
      * Constructor
      */
-    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length, Gamepad gamepad) {
+    public SoloArm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length,
+            Gamepad gamepad) {
         super(opMode, hardwareMap, useEncoder, length, gamepad);
     }
 
@@ -165,7 +168,7 @@ public class SoloArm extends Arm {
         } else {
             double[] unscaledMovements = SoloArmUtil.languageToDirection(1, direction);
             // length is the radius of arm's ROM, so double it for arc length = distance
-            int[] positions = SoloArmUtil.calculatePositions(measurement, 2.0*length,
+            int[] positions = SoloArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions = {armEx.getCurrentPosition()};
 
@@ -234,8 +237,7 @@ public class SoloArm extends Arm {
     public void setAllPower(double[] movements) {
         if (useEncoder && length != 0.0) {
             armEx.setPower(movements[0]);
-        } else 
-        if (useEncoder) {
+        } else if (useEncoder) {
             armEx.setVelocity(movements[0] * velocityMultiplier);
         } else {
             arm.setPower(movements[0]);

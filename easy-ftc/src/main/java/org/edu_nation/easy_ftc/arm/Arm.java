@@ -71,7 +71,8 @@ abstract class Arm extends Mechanism {
     /**
      * Constructor
      */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length, Gamepad gamepad) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length,
+            Gamepad gamepad) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.useEncoder = useEncoder;

@@ -39,7 +39,8 @@ public class TestSoloClaw {
 
         try {
             SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
+            SoloClaw clawNotSmooth =
+                    new SoloClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
             claw.tele();
             clawNotSmooth.tele();
         } catch (Exception e) {
