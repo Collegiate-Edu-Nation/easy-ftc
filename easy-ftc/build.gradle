@@ -47,8 +47,18 @@ task coverage(dependsOn: jacocoTestReport) {
     description = "Generates Jacoco coverage report as HTML in build/jacoco/jacocoHtml"
 }
 
+// create task for generating uml
+task uml(type: Exec) {
+    group = "build"
+    description = "Generate UML in docs/uml from uml.puml"
+
+    workingDir ".."
+    commandLine "/nix/store/7yikgfacxcl69wxaq7fxh017gl8p1ma6-plantuml-1.2024.7/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
+    ignoreExitValue true
+}
+
 // create task for generating docs
-task docs(type: Exec) {
+task docs(type: Exec, dependsOn: uml) {
     group = "build"
     description = "Generate Javadoc in docs/ for public classes, not including Mechanism or Tests"
 

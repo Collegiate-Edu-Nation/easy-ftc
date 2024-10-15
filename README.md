@@ -15,7 +15,7 @@ Library for easily leveraging in-the-box FTC mechanisms and features, including
 * Sensors
 
 Docs deployed at https://camdenboren.github.io/easy-ftc<br>
-<i>Docs cover examples, controls, and API reference</i>
+<i>Docs cover examples, controls, diagrams, and API reference</i>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), reverse(), and state()) due to a reliance on sane defaults and constructor-enabled features.
 
@@ -102,10 +102,13 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Support moving until sensor says otherwise
 - [ ] Add telemetry for status indicators
 - [x] Add support for Blockly
-- [ ] Investigate instrumentation and/or manual hardware tests
 
-### Fixes
+### Chores
+- [ ] Use camelCase for hardware naming
+- [ ] Make smoothServo opt-in
+- [ ] Investigate layout approach for lift, arm, claw
 - [ ] Investigate multi-threading for smoothServo control
+- [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
 - [ ] Add hardware naming section

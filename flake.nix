@@ -32,6 +32,7 @@
           bashInteractive 
           jdk17
           aapt
+          plantuml
         ]);
 
         # override aapt2 binary w/ nixpkgs'
@@ -44,6 +45,7 @@
           echo -e "Test:     ./gradlew test"
           echo -e "Coverage: ./gradlew coverage"
           echo -e "Docs:     ./gradlew docs"
+          echo -e "UML:      ./gradlew uml"
           echo -e "myBlocks: ./gradlew myBlocks\n"
           java --version
           echo -e ""
