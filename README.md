@@ -106,7 +106,10 @@ Note that LightWeight and Standard modes do not give identical output when forma
 ### Chores
 - [x] Use camelCase for hardware naming
 - [x] Make smoothServo opt-in
-- [ ] Investigate layout approach for lift, arm, claw
+- [ ] Implement layout approach, move to builder pattern
+    - [ ] Use arrays for servos, motors to generalize functions
+    - [ ] Consolidate Arm, Claw, Lift to one class w/ layout switch
+    - [ ] Implement builder pattern to enforce immutability, make parameters explicit
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate instrumentation and/or manual hardware tests
 
