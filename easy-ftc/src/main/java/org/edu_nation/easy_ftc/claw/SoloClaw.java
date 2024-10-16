@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class SoloClaw extends Claw {
-    private Servo claw;
+    private Servo[] clawServos;
 
     /**
      * Constructor
@@ -64,10 +64,11 @@ public class SoloClaw extends Claw {
     @Override
     protected void hardwareInit() {
         // Instantiate servo
-        claw = hardwareMap.get(Servo.class, "claw");
+        clawServos = new Servo[1];
+        clawServos[0] = hardwareMap.get(Servo.class, "claw");
 
         // Set direction of servo (switch to FORWARD if claw is backwards)
-        claw.setDirection(Servo.Direction.REVERSE);
+        clawServos[0].setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -77,14 +78,16 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void tele() {
-        double current = claw.getPosition();
+        double current = clawServos[0].getPosition();
         double movement =
                 SoloClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         if (smoothServo) {
             double position = current;
             setPositionByIncrement(position, movement);
         } else {
-            claw.setPosition(movement);
+            for (Servo claw : clawServos) {
+                claw.setPosition(movement);
+            }
         }
     }
 
@@ -100,10 +103,12 @@ public class SoloClaw extends Claw {
     public void move(String direction) {
         double servoDirection = SoloClawUtil.languageToDirection(direction, open, close);
         if (smoothServo) {
-            double position = claw.getPosition();
+            double position = clawServos[0].getPosition();
             setPositionByIncrement(position, servoDirection);
         } else {
-            claw.setPosition(servoDirection);
+            for (Servo claw : clawServos) {
+                claw.setPosition(servoDirection);
+            }
             wait(delay);
         }
     }
@@ -113,7 +118,7 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void reverse() {
-        claw.setDirection(Servo.Direction.FORWARD);
+        clawServos[0].setDirection(Servo.Direction.FORWARD);
     }
 
     /**
@@ -124,7 +129,9 @@ public class SoloClaw extends Claw {
         while (opMode.opModeIsActive() && position != movement) {
             position += (movement - position > 0) ? increment : -increment;
             position = Math.min(Math.max(position, 0), 1);
-            claw.setPosition(position);
+            for (Servo claw : clawServos) {
+                claw.setPosition(position);
+            }
             wait(incrementDelay);
         }
     }

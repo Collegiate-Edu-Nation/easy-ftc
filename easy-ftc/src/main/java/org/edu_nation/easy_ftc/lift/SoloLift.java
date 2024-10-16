@@ -25,8 +25,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class SoloLift extends Lift {
-    private DcMotor lift;
-    private DcMotorEx liftEx; // w/ encoder
+    private DcMotor[] liftMotors;
+    private DcMotorEx[] liftMotorsEx;
 
     /**
      * Constructor
@@ -94,18 +94,19 @@ public class SoloLift extends Lift {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motor
-            liftEx = hardwareMap.get(DcMotorEx.class, "lift");
+            liftMotorsEx = new DcMotorEx[1];
+            liftMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "lift");
 
-            MotorConfigurationType motorType = liftEx.getMotorType();
+            MotorConfigurationType motorType = liftMotorsEx[0].getMotorType();
 
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
-            liftEx.setDirection(DcMotor.Direction.FORWARD);
+            liftMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Reset encoder
-            liftEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            liftMotorsEx[0].setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Sets motor to run using the encoder (velocity, not position)
-            liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
                 // Sets velocityMultiplier to ticks/sec of lift motor
@@ -116,13 +117,14 @@ public class SoloLift extends Lift {
             }
         } else {
             // Instantiate motor
-            lift = hardwareMap.get(DcMotor.class, "lift");
+            liftMotors = new DcMotor[1];
+            liftMotors[0] = hardwareMap.get(DcMotor.class, "lift");
 
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
-            lift.setDirection(DcMotor.Direction.FORWARD);
+            liftMotors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
-            lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            liftMotors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -158,19 +160,19 @@ public class SoloLift extends Lift {
             double[] unscaledMovements = SoloLiftUtil.languageToDirection(1, direction);
             int[] positions = SoloLiftUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions = {liftEx.getCurrentPosition()};
+            int[] currentPositions = {liftMotorsEx[0].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (liftEx.isBusy()) {
+            while (liftMotorsEx[0].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
 
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
-            liftEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -183,7 +185,7 @@ public class SoloLift extends Lift {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to SoloLift.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType motorType = liftEx.getMotorType();
+        MotorConfigurationType motorType = liftMotorsEx[0].getMotorType();
 
         // find current gearing
         double currentGearing = motorType.getGearing();
@@ -197,10 +199,10 @@ public class SoloLift extends Lift {
      */
     private void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        liftEx.setTargetPosition(positions[0] + currentPositions[0]);
+        liftMotorsEx[0].setTargetPosition(positions[0] + currentPositions[0]);
 
         // Set motors to run using the encoder (position, not velocity)
-        liftEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     /**
@@ -209,9 +211,9 @@ public class SoloLift extends Lift {
     @Override
     public void reverse() {
         if (useEncoder) {
-            liftEx.setDirection(DcMotorEx.Direction.REVERSE);
+            liftMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            lift.setDirection(DcMotor.Direction.REVERSE);
+            liftMotors[0].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -224,11 +226,11 @@ public class SoloLift extends Lift {
     @Override
     public void setAllPower(double[] movements) {
         if (useEncoder && diameter != 0.0) {
-            liftEx.setPower(movements[0]);
+            liftMotorsEx[0].setPower(movements[0]);
         } else if (useEncoder) {
-            liftEx.setVelocity(movements[0] * velocityMultiplier);
+            liftMotorsEx[0].setVelocity(movements[0] * velocityMultiplier);
         } else {
-            lift.setPower(movements[0]);
+            liftMotors[0].setPower(movements[0]);
         }
     }
 
@@ -239,7 +241,12 @@ public class SoloLift extends Lift {
      */
     @Override
     public void setAllPower() {
-        double[] zeros = {0};
+        double[] zeros;
+        if (useEncoder) {
+            zeros = new double[liftMotorsEx.length];
+        } else {
+            zeros = new double[liftMotors.length];
+        }
         setAllPower(zeros);
     }
 }

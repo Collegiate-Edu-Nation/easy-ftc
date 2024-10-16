@@ -107,8 +107,9 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Use camelCase for hardware naming
 - [x] Make smoothServo opt-in
 - [ ] Implement layout approach, move to builder pattern
-    - [ ] Use arrays for servos, motors to generalize functions
+    - [x] Use arrays for servos, motors to generalize functions
     - [ ] Consolidate Arm, Claw, Lift to one class w/ layout switch
+    - [ ] Move most drive functions to Drive.java
     - [ ] Implement builder pattern to enforce immutability, make parameters explicit
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate instrumentation and/or manual hardware tests

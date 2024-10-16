@@ -26,8 +26,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class SoloArm extends Arm {
-    private DcMotor arm;
-    private DcMotorEx armEx; // w/ encoder
+    private DcMotor[] armMotors;
+    private DcMotorEx[] armMotorsEx;
 
     /**
      * Constructor
@@ -95,18 +95,19 @@ public class SoloArm extends Arm {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motor
-            armEx = hardwareMap.get(DcMotorEx.class, "arm");
+            armMotorsEx = new DcMotorEx[1];
+            armMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "arm");
 
-            MotorConfigurationType motorType = armEx.getMotorType();
+            MotorConfigurationType motorType = armMotorsEx[0].getMotorType();
 
             // Set direction of arm motor (switch to BACKWARD if motor orientation is flipped)
-            armEx.setDirection(DcMotor.Direction.FORWARD);
+            armMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Reset encoder
-            armEx.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            armMotorsEx[0].setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Sets motor to run using the encoder (velocity, not position)
-            armEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (length == 0.0) {
                 // Sets velocityMultiplier to ticks/sec of lift motor
@@ -117,13 +118,14 @@ public class SoloArm extends Arm {
             }
         } else {
             // Instantiate motor
-            arm = hardwareMap.get(DcMotor.class, "arm");
+            armMotors = new DcMotor[1];
+            armMotors[0] = hardwareMap.get(DcMotor.class, "arm");
 
             // Set direction of arm motor (switch to BACKWARD if motor orientation is flipped)
-            arm.setDirection(DcMotor.Direction.FORWARD);
+            armMotors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
-            arm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            armMotors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -170,19 +172,19 @@ public class SoloArm extends Arm {
             // length is the radius of arm's ROM, so double it for arc length = distance
             int[] positions = SoloArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions = {armEx.getCurrentPosition()};
+            int[] currentPositions = {armMotorsEx[0].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (armEx.isBusy()) {
+            while (armMotorsEx[0].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
 
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
-            armEx.setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -195,7 +197,7 @@ public class SoloArm extends Arm {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to SoloArm.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType motorType = armEx.getMotorType();
+        MotorConfigurationType motorType = armMotorsEx[0].getMotorType();
 
         // find current gearing
         double currentGearing = motorType.getGearing();
@@ -209,10 +211,10 @@ public class SoloArm extends Arm {
      */
     private void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        armEx.setTargetPosition(positions[0] + currentPositions[0]);
+        armMotorsEx[0].setTargetPosition(positions[0] + currentPositions[0]);
 
         // Set motors to run using the encoder (position, not velocity)
-        armEx.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
+        armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
     /**
@@ -221,9 +223,9 @@ public class SoloArm extends Arm {
     @Override
     public void reverse() {
         if (useEncoder) {
-            armEx.setDirection(DcMotorEx.Direction.REVERSE);
+            armMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            arm.setDirection(DcMotor.Direction.REVERSE);
+            armMotors[0].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -236,11 +238,11 @@ public class SoloArm extends Arm {
     @Override
     public void setAllPower(double[] movements) {
         if (useEncoder && length != 0.0) {
-            armEx.setPower(movements[0]);
+            armMotorsEx[0].setPower(movements[0]);
         } else if (useEncoder) {
-            armEx.setVelocity(movements[0] * velocityMultiplier);
+            armMotorsEx[0].setVelocity(movements[0] * velocityMultiplier);
         } else {
-            arm.setPower(movements[0]);
+            armMotors[0].setPower(movements[0]);
         }
     }
 
@@ -251,7 +253,12 @@ public class SoloArm extends Arm {
      */
     @Override
     public void setAllPower() {
-        double[] zeros = {0};
+        double[] zeros;
+        if (useEncoder) {
+            zeros = new double[armMotorsEx.length];
+        } else {
+            zeros = new double[armMotors.length];
+        }
         setAllPower(zeros);
     }
 }

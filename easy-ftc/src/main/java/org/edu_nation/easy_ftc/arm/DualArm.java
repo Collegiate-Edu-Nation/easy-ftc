@@ -27,8 +27,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class DualArm extends Arm {
-    private DcMotor armLeft, armRight;
-    private DcMotorEx armLeftEx, armRightEx; // w/ encoder
+    private DcMotor[] armMotors;
+    private DcMotorEx[] armMotorsEx;
 
     /**
      * Constructor
@@ -96,15 +96,16 @@ public class DualArm extends Arm {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motors
-            armLeftEx = hardwareMap.get(DcMotorEx.class, "armLeft");
-            armRightEx = hardwareMap.get(DcMotorEx.class, "armRight");
+            armMotorsEx = new DcMotorEx[2];
+            armMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "armLeft");
+            armMotorsEx[1] = hardwareMap.get(DcMotorEx.class, "armRight");
 
             MotorConfigurationType[] motorType =
-                    {armLeftEx.getMotorType(), armRightEx.getMotorType()};
+                    {armMotorsEx[0].getMotorType(), armMotorsEx[1].getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if arm is backwards)
-            armLeftEx.setDirection(DcMotorEx.Direction.REVERSE);
-            armRightEx.setDirection(DcMotorEx.Direction.FORWARD);
+            armMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            armMotorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -125,12 +126,13 @@ public class DualArm extends Arm {
             }
         } else {
             // Instantiate motors
-            armLeft = hardwareMap.get(DcMotor.class, "armLeft");
-            armRight = hardwareMap.get(DcMotor.class, "armRight");
+            armMotors = new DcMotor[2];
+            armMotors[0] = hardwareMap.get(DcMotor.class, "armLeft");
+            armMotors[1] = hardwareMap.get(DcMotor.class, "armRight");
 
             // Reverse direction of left motor for convenience (switch if arm is backwards)
-            armLeft.setDirection(DcMotor.Direction.REVERSE);
-            armRight.setDirection(DcMotor.Direction.FORWARD);
+            armMotors[0].setDirection(DcMotor.Direction.REVERSE);
+            armMotors[1].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -181,12 +183,12 @@ public class DualArm extends Arm {
             int[] positions = DualArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
-                    {armLeftEx.getCurrentPosition(), armRightEx.getCurrentPosition()};
+                    {armMotorsEx[0].getCurrentPosition(), armMotorsEx[1].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (armLeftEx.isBusy() || armRightEx.isBusy()) {
+            while (armMotorsEx[0].isBusy() || armMotorsEx[1].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -207,7 +209,7 @@ public class DualArm extends Arm {
                     + ", passed to DualArm.setGearing(). Valid values are numbers > 0");
         }
         MotorConfigurationType[] motorType =
-                {armLeftEx.getMotorType(), armRightEx.getMotorType()};
+                {armMotorsEx[0].getMotorType(), armMotorsEx[1].getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
@@ -222,8 +224,9 @@ public class DualArm extends Arm {
      */
     private void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        armLeftEx.setTargetPosition(positions[0] + currentPositions[0]);
-        armRightEx.setTargetPosition(positions[1] + currentPositions[1]);
+        for (int i = 0; i < armMotorsEx.length; i++) {
+            armMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
+        }
 
         // Set motors to run using the encoder (position, not velocity)
         setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -233,16 +236,18 @@ public class DualArm extends Arm {
      * Sets all extended motors to the specified mode
      */
     private void setModesEx(DcMotorEx.RunMode runMode) {
-        armLeftEx.setMode(runMode);
-        armRightEx.setMode(runMode);
+        for (DcMotorEx armMotorEx : armMotorsEx) {
+            armMotorEx.setMode(runMode);
+        }
     }
 
     /**
      * Sets all basic motors to the specified mode
      */
     private void setModes(DcMotor.RunMode runMode) {
-        armLeft.setMode(runMode);
-        armRight.setMode(runMode);
+        for (DcMotor armMotor : armMotors) {
+            armMotor.setMode(runMode);
+        }
     }
 
     /**
@@ -251,11 +256,11 @@ public class DualArm extends Arm {
     @Override
     public void reverse() {
         if (useEncoder) {
-            armLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
-            armRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+            armMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+            armMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            armLeft.setDirection(DcMotor.Direction.FORWARD);
-            armRight.setDirection(DcMotor.Direction.REVERSE);
+            armMotors[0].setDirection(DcMotor.Direction.FORWARD);
+            armMotors[1].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -266,16 +271,16 @@ public class DualArm extends Arm {
         switch (motorName) {
             case "armLeft":
                 if (useEncoder) {
-                    armLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+                    armMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    armLeft.setDirection(DcMotor.Direction.FORWARD);
+                    armMotors[0].setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
             case "armRight":
                 if (useEncoder) {
-                    armRightEx.setDirection(DcMotorEx.Direction.REVERSE);
+                    armMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    armRight.setDirection(DcMotor.Direction.REVERSE);
+                    armMotors[1].setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             default:
@@ -294,14 +299,17 @@ public class DualArm extends Arm {
     @Override
     public void setAllPower(double[] movements) {
         if (useEncoder && length != 0.0) {
-            armLeftEx.setPower(movements[0]);
-            armRightEx.setPower(movements[1]);
+            for (int i = 0; i < armMotorsEx.length; i++) {
+                armMotorsEx[i].setPower(movements[i]);
+            }
         } else if (useEncoder) {
-            armLeftEx.setVelocity(movements[0] * velocityMultiplier);
-            armRightEx.setVelocity(movements[1] * velocityMultiplier);
+            for (int i = 0; i < armMotorsEx.length; i++) {
+                armMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
+            }
         } else {
-            armLeft.setPower(movements[0]);
-            armRight.setPower(movements[1]);
+            for (int i = 0; i < armMotors.length; i++) {
+                armMotors[i].setPower(movements[i]);
+            }
         }
     }
 
@@ -312,7 +320,12 @@ public class DualArm extends Arm {
      */
     @Override
     public void setAllPower() {
-        double[] zeros = {0, 0};
+        double[] zeros;
+        if (useEncoder) {
+            zeros = new double[armMotorsEx.length];
+        } else {
+            zeros = new double[armMotors.length];
+        }
         setAllPower(zeros);
     }
 }
