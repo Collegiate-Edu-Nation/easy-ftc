@@ -22,11 +22,11 @@ abstract class Claw extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults smoothServo = true
+     * @Defaults smoothServo = false
      *           <li>gamepad = null
      */
     public Claw(LinearOpMode opMode, HardwareMap hardwareMap) {
-        this(opMode, hardwareMap, true);
+        this(opMode, hardwareMap, false);
     }
 
     /**
@@ -41,10 +41,10 @@ abstract class Claw extends Mechanism {
     /**
      * Constructor
      * 
-     * @Defaults smoothServo = true
+     * @Defaults smoothServo = false
      */
     public Claw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        this(opMode, hardwareMap, true, gamepad);
+        this(opMode, hardwareMap, false, gamepad);
     }
 
     /**

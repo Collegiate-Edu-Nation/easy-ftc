@@ -19,7 +19,7 @@ Docs deployed at https://camdenboren.github.io/easy-ftc<br>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), reverse(), and state()) due to a reliance on sane defaults and constructor-enabled features.
 
-<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features leverage smooth-servo control by default, enabling multi-servo synchronization. This causes blocking when used in TeleOp, however, so it can be disabled if that causes issues (e.g. the robot must be able to drive while the servos are moving to the desired position). Supported sensors are: AprilTag, color, distance, and touch</i>
+<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling multi-servo synchronization (at the expense of thread-blocking). Supported sensors are: AprilTag, color, distance, and touch</i>
 
 ## Usage
 
@@ -105,7 +105,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ### Chores
 - [x] Use camelCase for hardware naming
-- [ ] Make smoothServo opt-in
+- [x] Make smoothServo opt-in
 - [ ] Investigate layout approach for lift, arm, claw
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate instrumentation and/or manual hardware tests

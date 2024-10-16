@@ -29,7 +29,7 @@ public class SoloClaw extends Claw {
      *           <li>gamepad = null
      */
     public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap) {
-        super(opMode, hardwareMap, true);
+        super(opMode, hardwareMap);
     }
 
     /**
@@ -38,7 +38,7 @@ public class SoloClaw extends Claw {
      * @Defaults gamepad = null
      */
     public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo) {
-        super(opMode, hardwareMap, smoothServo, null);
+        super(opMode, hardwareMap, smoothServo);
     }
 
     /**
@@ -47,7 +47,7 @@ public class SoloClaw extends Claw {
      * @Defaults smoothServo = true
      */
     public SoloClaw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        super(opMode, hardwareMap, true, gamepad);
+        super(opMode, hardwareMap, gamepad);
     }
 
     /**
