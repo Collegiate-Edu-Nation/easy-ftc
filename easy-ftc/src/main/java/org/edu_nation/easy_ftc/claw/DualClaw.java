@@ -22,7 +22,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class DualClaw extends Claw {
-    private Servo left_claw, right_claw;
+    private Servo clawLeft, clawRight;
 
     /**
      * Constructor
@@ -66,12 +66,12 @@ public class DualClaw extends Claw {
     @Override
     protected void hardwareInit() {
         // Instantiate servos
-        left_claw = hardwareMap.get(Servo.class, "left_claw");
-        right_claw = hardwareMap.get(Servo.class, "right_claw");
+        clawLeft = hardwareMap.get(Servo.class, "clawLeft");
+        clawRight = hardwareMap.get(Servo.class, "clawRight");
 
         // Reverse direction of right servo for convenience (switch if claw is backwards)
-        left_claw.setDirection(Servo.Direction.FORWARD);
-        right_claw.setDirection(Servo.Direction.REVERSE);
+        clawLeft.setDirection(Servo.Direction.FORWARD);
+        clawRight.setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -81,15 +81,15 @@ public class DualClaw extends Claw {
      */
     @Override
     public void tele() {
-        double current = left_claw.getPosition();
+        double current = clawLeft.getPosition();
         double movement =
                 DualClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         if (smoothServo) {
             double position = current;
             setPositionByIncrement(position, movement);
         } else {
-            left_claw.setPosition(movement);
-            right_claw.setPosition(movement);
+            clawLeft.setPosition(movement);
+            clawRight.setPosition(movement);
         }
     }
 
@@ -105,11 +105,11 @@ public class DualClaw extends Claw {
     public void move(String direction) {
         double servoDirection = DualClawUtil.languageToDirection(direction, open, close);
         if (smoothServo) {
-            double position = left_claw.getPosition();
+            double position = clawLeft.getPosition();
             setPositionByIncrement(position, servoDirection);
         } else {
-            left_claw.setPosition(servoDirection);
-            right_claw.setPosition(servoDirection);
+            clawLeft.setPosition(servoDirection);
+            clawRight.setPosition(servoDirection);
             wait(delay);
         }
     }
@@ -119,8 +119,8 @@ public class DualClaw extends Claw {
      */
     @Override
     public void reverse() {
-        left_claw.setDirection(Servo.Direction.REVERSE);
-        right_claw.setDirection(Servo.Direction.FORWARD);
+        clawLeft.setDirection(Servo.Direction.REVERSE);
+        clawRight.setDirection(Servo.Direction.FORWARD);
     }
 
     /**
@@ -128,15 +128,15 @@ public class DualClaw extends Claw {
      */
     public void reverse(String servoName) {
         switch (servoName) {
-            case "left_claw":
-                left_claw.setDirection(Servo.Direction.REVERSE);
+            case "clawLeft":
+                clawLeft.setDirection(Servo.Direction.REVERSE);
                 break;
-            case "right_claw":
-                right_claw.setDirection(Servo.Direction.FORWARD);
+            case "clawRight":
+                clawRight.setDirection(Servo.Direction.FORWARD);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected servoName: " + servoName
-                        + ", passed to DualClaw.reverse(). Valid names are: left_claw, right_claw");
+                        + ", passed to DualClaw.reverse(). Valid names are: clawLeft, clawRight");
         }
     }
 
@@ -148,8 +148,8 @@ public class DualClaw extends Claw {
         while (opMode.opModeIsActive() && position != movement) {
             position += (movement - position > 0) ? increment : -increment;
             position = Math.min(Math.max(position, 0), 1);
-            left_claw.setPosition(position);
-            right_claw.setPosition(position);
+            clawLeft.setPosition(position);
+            clawRight.setPosition(position);
             wait(incrementDelay);
         }
     }

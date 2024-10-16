@@ -15,8 +15,8 @@ public class TestDualClaw {
     Servo mockedClaw = mock(Servo.class);
 
     private void mockInit() {
-        when(mockedHardwareMap.get(Servo.class, "left_claw")).thenReturn(mockedClaw);
-        when(mockedHardwareMap.get(Servo.class, "right_claw")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "clawLeft")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "clawRight")).thenReturn(mockedClaw);
         when(mockedClaw.getPosition()).thenReturn(0.0);
     }
 
@@ -70,8 +70,8 @@ public class TestDualClaw {
         try {
             DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap);
             claw.reverse();
-            claw.reverse("left_claw");
-            claw.reverse("right_claw");
+            claw.reverse("clawLeft");
+            claw.reverse("clawRight");
         } catch (Exception e) {
             fail(e.getMessage());
         }

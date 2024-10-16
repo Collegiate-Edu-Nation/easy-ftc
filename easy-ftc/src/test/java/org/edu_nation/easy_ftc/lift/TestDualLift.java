@@ -19,10 +19,10 @@ public class TestDualLift {
     MotorConfigurationType motorType = new MotorConfigurationType();
 
     private void mockInit() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_lift")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_lift")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_lift")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotor.class, "liftLeft")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "liftRight")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "liftLeft")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "liftRight")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
         when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
@@ -81,11 +81,11 @@ public class TestDualLift {
             DualLift lift = new DualLift(mockedOpMode, mockedHardwareMap);
             DualLift liftEnc = new DualLift(mockedOpMode, mockedHardwareMap, true);
             lift.reverse();
-            lift.reverse("left_lift");
-            lift.reverse("right_lift");
+            lift.reverse("liftLeft");
+            lift.reverse("liftRight");
             liftEnc.reverse();
-            liftEnc.reverse("left_lift");
-            liftEnc.reverse("right_lift");
+            liftEnc.reverse("liftLeft");
+            liftEnc.reverse("liftRight");
         } catch (Exception e) {
             fail(e.getMessage());
         }

@@ -27,8 +27,8 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Drive})
  */
 public class Differential extends Drive {
-    private DcMotor left_drive, right_drive;
-    private DcMotorEx left_driveEx, right_driveEx; // w/ encoder
+    private DcMotor driveLeft, driveRight;
+    private DcMotorEx driveLeftEx, driveRightEx; // w/ encoder
 
     /**
      * Constructor
@@ -163,15 +163,15 @@ public class Differential extends Drive {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motors
-            left_driveEx = hardwareMap.get(DcMotorEx.class, "left_drive");
-            right_driveEx = hardwareMap.get(DcMotorEx.class, "right_drive");
+            driveLeftEx = hardwareMap.get(DcMotorEx.class, "driveLeft");
+            driveRightEx = hardwareMap.get(DcMotorEx.class, "driveRight");
 
             MotorConfigurationType[] motorType =
-                    {left_driveEx.getMotorType(), right_driveEx.getMotorType()};
+                    {driveLeftEx.getMotorType(), driveRightEx.getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if robot drives backwards)
-            left_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
-            right_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
+            driveLeftEx.setDirection(DcMotorEx.Direction.REVERSE);
+            driveRightEx.setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -192,12 +192,12 @@ public class Differential extends Drive {
             }
         } else {
             // Instantiate motors
-            left_drive = hardwareMap.get(DcMotor.class, "left_drive");
-            right_drive = hardwareMap.get(DcMotor.class, "right_drive");
+            driveLeft = hardwareMap.get(DcMotor.class, "driveLeft");
+            driveRight = hardwareMap.get(DcMotor.class, "driveRight");
 
             // Reverse direction of left motor for convenience (switch if robot drives backwards)
-            left_drive.setDirection(DcMotor.Direction.REVERSE);
-            right_drive.setDirection(DcMotor.Direction.FORWARD);
+            driveLeft.setDirection(DcMotor.Direction.REVERSE);
+            driveRight.setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -237,12 +237,12 @@ public class Differential extends Drive {
             int[] positions = DifferentialUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
-                    {left_driveEx.getCurrentPosition(), right_driveEx.getCurrentPosition()};
+                    {driveLeftEx.getCurrentPosition(), driveRightEx.getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (left_driveEx.isBusy() || right_driveEx.isBusy()) {
+            while (driveLeftEx.isBusy() || driveRightEx.isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -263,7 +263,7 @@ public class Differential extends Drive {
                     + ", passed to Differential.setGearing(). Valid values are numbers > 0");
         }
         MotorConfigurationType[] motorType =
-                {left_driveEx.getMotorType(), right_driveEx.getMotorType()};
+                {driveLeftEx.getMotorType(), driveRightEx.getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
@@ -278,8 +278,8 @@ public class Differential extends Drive {
      */
     private void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        left_driveEx.setTargetPosition(positions[0] + currentPositions[0]);
-        right_driveEx.setTargetPosition(positions[1] + currentPositions[1]);
+        driveLeftEx.setTargetPosition(positions[0] + currentPositions[0]);
+        driveRightEx.setTargetPosition(positions[1] + currentPositions[1]);
 
         // Set motors to run using the encoder (position, not velocity)
         setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
@@ -289,16 +289,16 @@ public class Differential extends Drive {
      * Sets all extended motors to the specified mode
      */
     private void setModesEx(DcMotorEx.RunMode runMode) {
-        left_driveEx.setMode(runMode);
-        right_driveEx.setMode(runMode);
+        driveLeftEx.setMode(runMode);
+        driveRightEx.setMode(runMode);
     }
 
     /**
      * Sets all basic motors to the specified mode
      */
     private void setModes(DcMotor.RunMode runMode) {
-        left_drive.setMode(runMode);
-        right_drive.setMode(runMode);
+        driveLeft.setMode(runMode);
+        driveRight.setMode(runMode);
     }
 
     /**
@@ -307,11 +307,11 @@ public class Differential extends Drive {
     @Override
     public void reverse() {
         if (useEncoder) {
-            left_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
-            right_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
+            driveLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
+            driveRightEx.setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            left_drive.setDirection(DcMotor.Direction.FORWARD);
-            right_drive.setDirection(DcMotor.Direction.REVERSE);
+            driveLeft.setDirection(DcMotor.Direction.FORWARD);
+            driveRight.setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -320,23 +320,23 @@ public class Differential extends Drive {
      */
     public void reverse(String motorName) {
         switch (motorName) {
-            case "left_drive":
+            case "driveLeft":
                 if (useEncoder) {
-                    left_driveEx.setDirection(DcMotorEx.Direction.FORWARD);
+                    driveLeftEx.setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    left_drive.setDirection(DcMotor.Direction.FORWARD);
+                    driveLeft.setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
-            case "right_drive":
+            case "driveRight":
                 if (useEncoder) {
-                    right_driveEx.setDirection(DcMotorEx.Direction.REVERSE);
+                    driveRightEx.setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    right_drive.setDirection(DcMotor.Direction.REVERSE);
+                    driveRight.setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected motorName: " + motorName
-                        + ", passed to Differential.reverse(). Valid names are: left_drive, right_drive");
+                        + ", passed to Differential.reverse(). Valid names are: driveLeft, driveRight");
         }
     }
 
@@ -350,14 +350,14 @@ public class Differential extends Drive {
     @Override
     public void setAllPower(double[] movements) {
         if (useEncoder && diameter != 0.0) {
-            left_driveEx.setPower(movements[0]);
-            right_driveEx.setPower(movements[1]);
+            driveLeftEx.setPower(movements[0]);
+            driveRightEx.setPower(movements[1]);
         } else if (useEncoder) {
-            left_driveEx.setVelocity(movements[0] * velocityMultiplier);
-            right_driveEx.setVelocity(movements[1] * velocityMultiplier);
+            driveLeftEx.setVelocity(movements[0] * velocityMultiplier);
+            driveRightEx.setVelocity(movements[1] * velocityMultiplier);
         } else {
-            left_drive.setPower(movements[0]);
-            right_drive.setPower(movements[1]);
+            driveLeft.setPower(movements[0]);
+            driveRight.setPower(movements[1]);
         }
     }
 

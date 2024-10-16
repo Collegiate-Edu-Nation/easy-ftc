@@ -19,10 +19,10 @@ public class TestDifferential {
     MotorConfigurationType motorType = new MotorConfigurationType();
 
     private void mockInit() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_drive")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_drive")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_drive")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotor.class, "driveLeft")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "driveRight")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "driveLeft")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "driveRight")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
         when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
@@ -89,11 +89,11 @@ public class TestDifferential {
             Differential drive = new Differential(mockedOpMode, mockedHardwareMap);
             Differential driveEnc = new Differential(mockedOpMode, mockedHardwareMap, true);
             drive.reverse();
-            drive.reverse("left_drive");
-            drive.reverse("right_drive");
+            drive.reverse("driveLeft");
+            drive.reverse("driveRight");
             driveEnc.reverse();
-            driveEnc.reverse("left_drive");
-            driveEnc.reverse("right_drive");
+            driveEnc.reverse("driveLeft");
+            driveEnc.reverse("driveRight");
         } catch (Exception e) {
             fail(e.getMessage());
         }

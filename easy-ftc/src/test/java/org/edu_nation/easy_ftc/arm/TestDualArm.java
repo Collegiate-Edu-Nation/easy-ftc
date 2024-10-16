@@ -19,10 +19,10 @@ public class TestDualArm {
     MotorConfigurationType motorType = new MotorConfigurationType();
 
     private void mockInit() {
-        when(mockedHardwareMap.get(DcMotor.class, "left_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "right_arm")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "left_arm")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "right_arm")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotor.class, "armLeft")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "armRight")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotorEx.class, "armLeft")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotorEx.class, "armRight")).thenReturn(mockedMotorEx);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
         when(mockedMotorEx.isBusy()).thenReturn(true, false);
     }
@@ -83,11 +83,11 @@ public class TestDualArm {
             DualArm arm = new DualArm(mockedOpMode, mockedHardwareMap);
             DualArm armEnc = new DualArm(mockedOpMode, mockedHardwareMap, true);
             arm.reverse();
-            arm.reverse("left_arm");
-            arm.reverse("right_arm");
+            arm.reverse("armLeft");
+            arm.reverse("armRight");
             armEnc.reverse();
-            armEnc.reverse("left_arm");
-            armEnc.reverse("right_arm");
+            armEnc.reverse("armLeft");
+            armEnc.reverse("armRight");
         } catch (Exception e) {
             fail(e.getMessage());
         }

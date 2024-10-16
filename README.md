@@ -104,7 +104,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Add support for Blockly
 
 ### Chores
-- [ ] Use camelCase for hardware naming
+- [x] Use camelCase for hardware naming
 - [ ] Make smoothServo opt-in
 - [ ] Investigate layout approach for lift, arm, claw
 - [ ] Investigate multi-threading for smoothServo control
