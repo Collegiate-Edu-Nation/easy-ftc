@@ -109,7 +109,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Implement layout approach, move to builder pattern
     - [x] Use arrays for servos, motors to generalize functions
     - [ ] Make solo and dual arms, claws, lifts identical other than numMotors
-    - [ ] Move most drive functions to Drive.java
+    - [x] Move most drive functions to Drive.java
     - [ ] Consolidate Arm, Claw, Lift to one class w/ layout switch
     - [ ] Implement builder pattern to enforce immutability, make parameters explicit
 - [ ] Investigate multi-threading for smoothServo control

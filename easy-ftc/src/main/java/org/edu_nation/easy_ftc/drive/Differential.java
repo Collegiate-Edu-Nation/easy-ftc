@@ -27,9 +27,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Drive})
  */
 public class Differential extends Drive {
-    private DcMotor[] driveMotors;
-    private DcMotorEx[] driveMotorsEx;
-
     /**
      * Constructor
      * 
@@ -276,37 +273,6 @@ public class Differential extends Drive {
     }
 
     /**
-     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
-     */
-    private void setPositions(int[] positions, int[] currentPositions) {
-        // set target-position (relative + current = desired)
-        for (int i = 0; i < driveMotorsEx.length; i++) {
-            driveMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
-        }
-
-        // Set motors to run using the encoder (position, not velocity)
-        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
-    }
-
-    /**
-     * Sets all extended motors to the specified mode
-     */
-    private void setModesEx(DcMotorEx.RunMode runMode) {
-        for (DcMotorEx driveMotorEx : driveMotorsEx) {
-            driveMotorEx.setMode(runMode);
-        }
-    }
-
-    /**
-     * Sets all basic motors to the specified mode
-     */
-    private void setModes(DcMotor.RunMode runMode) {
-        for (DcMotor driveMotor : driveMotors) {
-            driveMotor.setMode(runMode);
-        }
-    }
-
-    /**
      * Reverse the direction of the drive motors
      */
     @Override
@@ -343,45 +309,5 @@ public class Differential extends Drive {
                 throw new IllegalArgumentException("Unexpected motorName: " + motorName
                         + ", passed to Differential.reverse(). Valid names are: driveLeft, driveRight");
         }
-    }
-
-    /**
-     * Helper function to set all motor powers to received values (defaults to 0 if no args
-     * provided).
-     * <p>
-     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
-     * this).
-     */
-    @Override
-    public void setAllPower(double[] movements) {
-        if (useEncoder && diameter != 0.0) {
-            for (int i = 0; i < driveMotorsEx.length; i++) {
-                driveMotorsEx[i].setPower(movements[i]);
-            }
-        } else if (useEncoder) {
-            for (int i = 0; i < driveMotorsEx.length; i++) {
-                driveMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
-            }
-        } else {
-            for (int i = 0; i < driveMotors.length; i++) {
-                driveMotors[i].setPower(movements[i]);
-            }
-        }
-    }
-
-    /**
-     * Helper function to set all motor powers to zero (this is the default case).
-     * <p>
-     * Public, so motors can be stopped if needed (tele() is an example of this).
-     */
-    @Override
-    public void setAllPower() {
-        double[] zeros;
-        if (useEncoder) {
-            zeros = new double[driveMotorsEx.length];
-        } else {
-            zeros = new double[driveMotors.length];
-        }
-        setAllPower(zeros);
     }
 }

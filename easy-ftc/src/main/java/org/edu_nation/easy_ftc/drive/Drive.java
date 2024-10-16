@@ -3,6 +3,8 @@ package org.edu_nation.easy_ftc.drive;
 import org.edu_nation.easy_ftc.mechanism.Mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
@@ -14,6 +16,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
 abstract class Drive extends Mechanism {
+    protected DcMotor[] driveMotors;
+    protected DcMotorEx[] driveMotorsEx;
     protected boolean useEncoder;
     protected String layout;
     protected double velocityMultiplier;
@@ -153,9 +157,74 @@ abstract class Drive extends Mechanism {
 
     public abstract void move(double power, String direction, double measurement);
 
-    public abstract void setAllPower(double[] movements);
+    /**
+     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
+     */
+    protected void setPositions(int[] positions, int[] currentPositions) {
+        // set target-position (relative + current = desired)
+        for (int i = 0; i < driveMotorsEx.length; i++) {
+            driveMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
+        }
 
-    public abstract void setAllPower();
+        // Set motors to run using the encoder (position, not velocity)
+        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+    }
+
+    /**
+     * Sets all extended motors to the specified mode
+     */
+    protected void setModesEx(DcMotorEx.RunMode runMode) {
+        for (DcMotorEx driveMotorEx : driveMotorsEx) {
+            driveMotorEx.setMode(runMode);
+        }
+    }
+
+    /**
+     * Sets all basic motors to the specified mode
+     */
+    protected void setModes(DcMotor.RunMode runMode) {
+        for (DcMotor driveMotor : driveMotors) {
+            driveMotor.setMode(runMode);
+        }
+    }
+
+    /**
+     * Helper function to set all motor powers to received values (defaults to 0 if no args
+     * provided).
+     * <p>
+     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
+     * this).
+     */
+    public void setAllPower(double[] movements) {
+        if (useEncoder && diameter != 0.0) {
+            for (int i = 0; i < driveMotorsEx.length; i++) {
+                driveMotorsEx[i].setPower(movements[i]);
+            }
+        } else if (useEncoder) {
+            for (int i = 0; i < driveMotorsEx.length; i++) {
+                driveMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
+            }
+        } else {
+            for (int i = 0; i < driveMotors.length; i++) {
+                driveMotors[i].setPower(movements[i]);
+            }
+        }
+    }
+
+    /**
+     * Helper function to set all motor powers to zero (this is the default case).
+     * <p>
+     * Public, so motors can be stopped if needed (tele() is an example of this).
+     */
+    public void setAllPower() {
+        double[] zeros;
+        if (useEncoder) {
+            zeros = new double[driveMotorsEx.length];
+        } else {
+            zeros = new double[driveMotors.length];
+        }
+        setAllPower(zeros);
+    }
 
     /**
      * Set the deadZone from 0-1. Default is 0.1
