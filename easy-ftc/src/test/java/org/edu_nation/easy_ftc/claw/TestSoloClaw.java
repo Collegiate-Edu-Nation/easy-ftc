@@ -39,10 +39,10 @@ public class TestSoloClaw {
 
         try {
             SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            SoloClaw clawNotSmooth =
-                    new SoloClaw(mockedOpMode, mockedHardwareMap, false, mockedGamepad);
+            SoloClaw clawSmooth =
+                    new SoloClaw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             claw.tele();
-            clawNotSmooth.tele();
+            clawSmooth.tele();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -54,9 +54,9 @@ public class TestSoloClaw {
 
         try {
             SoloClaw claw = new SoloClaw(mockedOpMode, mockedHardwareMap);
-            SoloClaw clawNotSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, false);
+            SoloClaw clawSmooth = new SoloClaw(mockedOpMode, mockedHardwareMap, true);
             claw.move("open");
-            clawNotSmooth.move("open");
+            clawSmooth.move("open");
         } catch (Exception e) {
             fail(e.getMessage());
         }
