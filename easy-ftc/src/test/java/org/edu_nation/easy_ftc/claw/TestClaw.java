@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class TestDualClaw {
+public class TestClaw {
     LinearOpMode mockedOpMode = mock(LinearOpMode.class);
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);
     Gamepad mockedGamepad = mock(Gamepad.class);
@@ -17,18 +17,19 @@ public class TestDualClaw {
     private void mockInit() {
         when(mockedHardwareMap.get(Servo.class, "clawLeft")).thenReturn(mockedClaw);
         when(mockedHardwareMap.get(Servo.class, "clawRight")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
         when(mockedClaw.getPosition()).thenReturn(0.0);
     }
 
     @Test
-    public void DualClaw_initializes() {
+    public void Claw_initializes() {
         mockInit();
 
         try {
-            new DualClaw(mockedOpMode, mockedHardwareMap);
-            new DualClaw(mockedOpMode, mockedHardwareMap, true);
-            new DualClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            new DualClaw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            new Claw(mockedOpMode, mockedHardwareMap);
+            new Claw(mockedOpMode, mockedHardwareMap, true);
+            new Claw(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            new Claw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -39,9 +40,9 @@ public class TestDualClaw {
         mockInit();
 
         try {
-            DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap, mockedGamepad);
-            DualClaw clawSmooth =
-                    new DualClaw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            Claw clawSmooth =
+                    new Claw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
             claw.tele();
             clawSmooth.tele();
         } catch (Exception e) {
@@ -54,8 +55,8 @@ public class TestDualClaw {
         mockInit();
 
         try {
-            DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap);
-            DualClaw clawSmooth = new DualClaw(mockedOpMode, mockedHardwareMap, true);
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap);
+            Claw clawSmooth = new Claw(mockedOpMode, mockedHardwareMap, true);
             claw.move("open");
             clawSmooth.move("open");
         } catch (Exception e) {
@@ -68,7 +69,7 @@ public class TestDualClaw {
         mockInit();
 
         try {
-            DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap);
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap);
             claw.reverse();
             claw.reverse("clawLeft");
             claw.reverse("clawRight");
@@ -81,7 +82,7 @@ public class TestDualClaw {
     public void reverse_ThrowsException() {
         mockInit();
 
-        DualClaw claw = new DualClaw(mockedOpMode, mockedHardwareMap);
+        Claw claw = new Claw(mockedOpMode, mockedHardwareMap, 2);
         claw.reverse("abc");
         claw.reverse("");
     }
