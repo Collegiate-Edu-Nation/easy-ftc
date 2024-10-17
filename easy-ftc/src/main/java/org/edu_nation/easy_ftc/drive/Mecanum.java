@@ -164,21 +164,21 @@ public class Mecanum extends Drive {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motors
-            driveMotorsEx = new DcMotorEx[4];
-            driveMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "frontLeft");
-            driveMotorsEx[1] = hardwareMap.get(DcMotorEx.class, "frontRight");
-            driveMotorsEx[2] = hardwareMap.get(DcMotorEx.class, "backLeft");
-            driveMotorsEx[3] = hardwareMap.get(DcMotorEx.class, "backRight");
+            motorsEx = new DcMotorEx[4];
+            motorsEx[0] = hardwareMap.get(DcMotorEx.class, "frontLeft");
+            motorsEx[1] = hardwareMap.get(DcMotorEx.class, "frontRight");
+            motorsEx[2] = hardwareMap.get(DcMotorEx.class, "backLeft");
+            motorsEx[3] = hardwareMap.get(DcMotorEx.class, "backRight");
 
             MotorConfigurationType[] motorType =
-                    {driveMotorsEx[0].getMotorType(), driveMotorsEx[1].getMotorType(),
-                        driveMotorsEx[2].getMotorType(), driveMotorsEx[3].getMotorType()};
+                    {motorsEx[0].getMotorType(), motorsEx[1].getMotorType(),
+                        motorsEx[2].getMotorType(), motorsEx[3].getMotorType()};
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            driveMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
-            driveMotorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
-            driveMotorsEx[2].setDirection(DcMotorEx.Direction.REVERSE);
-            driveMotorsEx[3].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[2].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[3].setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -209,17 +209,17 @@ public class Mecanum extends Drive {
             }
         } else {
             // Instantiate motors
-            driveMotors = new DcMotor[4];
-            driveMotors[0] = hardwareMap.get(DcMotor.class, "frontLeft");
-            driveMotors[1] = hardwareMap.get(DcMotor.class, "frontRight");
-            driveMotors[2] = hardwareMap.get(DcMotor.class, "backLeft");
-            driveMotors[3] = hardwareMap.get(DcMotor.class, "backRight");
+            motors = new DcMotor[4];
+            motors[0] = hardwareMap.get(DcMotor.class, "frontLeft");
+            motors[1] = hardwareMap.get(DcMotor.class, "frontRight");
+            motors[2] = hardwareMap.get(DcMotor.class, "backLeft");
+            motors[3] = hardwareMap.get(DcMotor.class, "backRight");
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            driveMotors[0].setDirection(DcMotor.Direction.REVERSE);
-            driveMotors[1].setDirection(DcMotor.Direction.FORWARD);
-            driveMotors[2].setDirection(DcMotor.Direction.REVERSE);
-            driveMotors[3].setDirection(DcMotor.Direction.FORWARD);
+            motors[0].setDirection(DcMotor.Direction.REVERSE);
+            motors[1].setDirection(DcMotor.Direction.FORWARD);
+            motors[2].setDirection(DcMotor.Direction.REVERSE);
+            motors[3].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -283,14 +283,14 @@ public class Mecanum extends Drive {
             int[] positions = MecanumUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
-                    {driveMotorsEx[0].getCurrentPosition(), driveMotorsEx[1].getCurrentPosition(),
-                        driveMotorsEx[2].getCurrentPosition(), driveMotorsEx[3].getCurrentPosition()};
+                    {motorsEx[0].getCurrentPosition(), motorsEx[1].getCurrentPosition(),
+                        motorsEx[2].getCurrentPosition(), motorsEx[3].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (driveMotorsEx[0].isBusy() || driveMotorsEx[1].isBusy() || driveMotorsEx[2].isBusy()
-                    || driveMotorsEx[3].isBusy()) {
+            while (motorsEx[0].isBusy() || motorsEx[1].isBusy() || motorsEx[2].isBusy()
+                    || motorsEx[3].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -310,8 +310,8 @@ public class Mecanum extends Drive {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to Mecanum.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType[] motorType = {driveMotorsEx[0].getMotorType(),
-            driveMotorsEx[1].getMotorType(), driveMotorsEx[2].getMotorType(), driveMotorsEx[3].getMotorType()};
+        MotorConfigurationType[] motorType = {motorsEx[0].getMotorType(),
+            motorsEx[1].getMotorType(), motorsEx[2].getMotorType(), motorsEx[3].getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing(),
@@ -329,15 +329,15 @@ public class Mecanum extends Drive {
     @Override
     public void reverse() {
         if (useEncoder) {
-            driveMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-            driveMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-            driveMotorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
-            driveMotorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            driveMotors[0].setDirection(DcMotor.Direction.FORWARD);
-            driveMotors[1].setDirection(DcMotor.Direction.REVERSE);
-            driveMotors[2].setDirection(DcMotor.Direction.FORWARD);
-            driveMotors[3].setDirection(DcMotor.Direction.REVERSE);
+            motors[0].setDirection(DcMotor.Direction.FORWARD);
+            motors[1].setDirection(DcMotor.Direction.REVERSE);
+            motors[2].setDirection(DcMotor.Direction.FORWARD);
+            motors[3].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -348,30 +348,30 @@ public class Mecanum extends Drive {
         switch (motorName) {
             case "frontLeft":
                 if (useEncoder) {
-                    driveMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+                    motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    driveMotors[0].setDirection(DcMotor.Direction.FORWARD);
+                    motors[0].setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
             case "frontRight":
                 if (useEncoder) {
-                    driveMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+                    motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    driveMotors[1].setDirection(DcMotor.Direction.REVERSE);
+                    motors[1].setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             case "backLeft":
                 if (useEncoder) {
-                    driveMotorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
+                    motorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    driveMotors[2].setDirection(DcMotor.Direction.FORWARD);
+                    motors[2].setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
             case "backRight":
                 if (useEncoder) {
-                    driveMotorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
+                    motorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    driveMotors[3].setDirection(DcMotor.Direction.REVERSE);
+                    motors[3].setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             default:

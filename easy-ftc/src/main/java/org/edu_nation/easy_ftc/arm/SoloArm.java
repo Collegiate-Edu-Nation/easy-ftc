@@ -92,13 +92,13 @@ public class SoloArm extends Arm {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motor
-            armMotorsEx = new DcMotorEx[1];
-            armMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "arm");
+            motorsEx = new DcMotorEx[1];
+            motorsEx[0] = hardwareMap.get(DcMotorEx.class, "arm");
 
-            MotorConfigurationType motorType = armMotorsEx[0].getMotorType();
+            MotorConfigurationType motorType = motorsEx[0].getMotorType();
 
             // Set direction of arm motor (switch to BACKWARD if motor orientation is flipped)
-            armMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
+            motorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Reset encoder
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -115,11 +115,11 @@ public class SoloArm extends Arm {
             }
         } else {
             // Instantiate motor
-            armMotors = new DcMotor[1];
-            armMotors[0] = hardwareMap.get(DcMotor.class, "arm");
+            motors = new DcMotor[1];
+            motors[0] = hardwareMap.get(DcMotor.class, "arm");
 
             // Set direction of arm motor (switch to BACKWARD if motor orientation is flipped)
-            armMotors[0].setDirection(DcMotor.Direction.FORWARD);
+            motors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -169,12 +169,12 @@ public class SoloArm extends Arm {
             // length is the radius of arm's ROM, so double it for arc length = distance
             int[] positions = SoloArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions = {armMotorsEx[0].getCurrentPosition()};
+            int[] currentPositions = {motorsEx[0].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (armMotorsEx[0].isBusy()) {
+            while (motorsEx[0].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -194,7 +194,7 @@ public class SoloArm extends Arm {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to SoloArm.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType motorType = armMotorsEx[0].getMotorType();
+        MotorConfigurationType motorType = motorsEx[0].getMotorType();
 
         // find current gearing
         double currentGearing = motorType.getGearing();
@@ -209,9 +209,9 @@ public class SoloArm extends Arm {
     @Override
     public void reverse() {
         if (useEncoder) {
-            armMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            armMotors[0].setDirection(DcMotor.Direction.REVERSE);
+            motors[0].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 }

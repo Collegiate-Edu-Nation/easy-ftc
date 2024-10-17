@@ -62,11 +62,11 @@ public class SoloClaw extends Claw {
     @Override
     protected void hardwareInit() {
         // Instantiate servo
-        clawServos = new Servo[1];
-        clawServos[0] = hardwareMap.get(Servo.class, "claw");
+        servos = new Servo[1];
+        servos[0] = hardwareMap.get(Servo.class, "claw");
 
         // Set direction of servo (switch to FORWARD if claw is backwards)
-        clawServos[0].setDirection(Servo.Direction.REVERSE);
+        servos[0].setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -76,14 +76,14 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void tele() {
-        double current = clawServos[0].getPosition();
+        double current = servos[0].getPosition();
         double movement =
                 SoloClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         if (smoothServo) {
             double position = current;
             setPositionByIncrement(position, movement);
         } else {
-            for (Servo claw : clawServos) {
+            for (Servo claw : servos) {
                 claw.setPosition(movement);
             }
         }
@@ -101,10 +101,10 @@ public class SoloClaw extends Claw {
     public void move(String direction) {
         double servoDirection = SoloClawUtil.languageToDirection(direction, open, close);
         if (smoothServo) {
-            double position = clawServos[0].getPosition();
+            double position = servos[0].getPosition();
             setPositionByIncrement(position, servoDirection);
         } else {
-            for (Servo claw : clawServos) {
+            for (Servo claw : servos) {
                 claw.setPosition(servoDirection);
             }
             wait(delay);
@@ -116,6 +116,6 @@ public class SoloClaw extends Claw {
      */
     @Override
     public void reverse() {
-        clawServos[0].setDirection(Servo.Direction.FORWARD);
+        servos[0].setDirection(Servo.Direction.FORWARD);
     }
 }

@@ -92,16 +92,16 @@ public class DualLift extends Lift {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motors
-            liftMotorsEx = new DcMotorEx[2];
-            liftMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "liftLeft");
-            liftMotorsEx[1] = hardwareMap.get(DcMotorEx.class, "liftRight");
+            motorsEx = new DcMotorEx[2];
+            motorsEx[0] = hardwareMap.get(DcMotorEx.class, "liftLeft");
+            motorsEx[1] = hardwareMap.get(DcMotorEx.class, "liftRight");
 
             MotorConfigurationType[] motorType =
-                    {liftMotorsEx[0].getMotorType(), liftMotorsEx[1].getMotorType()};
+                    {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
-            liftMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
-            liftMotorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -122,13 +122,13 @@ public class DualLift extends Lift {
             }
         } else {
             // Instantiate motors
-            liftMotors = new DcMotor[2];
-            liftMotors[0] = hardwareMap.get(DcMotor.class, "liftLeft");
-            liftMotors[1] = hardwareMap.get(DcMotor.class, "liftRight");
+            motors = new DcMotor[2];
+            motors[0] = hardwareMap.get(DcMotor.class, "liftLeft");
+            motors[1] = hardwareMap.get(DcMotor.class, "liftRight");
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
-            liftMotors[0].setDirection(DcMotor.Direction.REVERSE);
-            liftMotors[1].setDirection(DcMotor.Direction.FORWARD);
+            motors[0].setDirection(DcMotor.Direction.REVERSE);
+            motors[1].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -168,12 +168,12 @@ public class DualLift extends Lift {
             int[] positions = DualLiftUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
-                    {liftMotorsEx[0].getCurrentPosition(), liftMotorsEx[1].getCurrentPosition()};
+                    {motorsEx[0].getCurrentPosition(), motorsEx[1].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (liftMotorsEx[0].isBusy() || liftMotorsEx[1].isBusy()) {
+            while (motorsEx[0].isBusy() || motorsEx[1].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -194,7 +194,7 @@ public class DualLift extends Lift {
                     + ", passed to DualLift.setGearing(). Valid values are numbers > 0");
         }
         MotorConfigurationType[] motorType =
-                {liftMotorsEx[0].getMotorType(), liftMotorsEx[1].getMotorType()};
+                {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
@@ -210,11 +210,11 @@ public class DualLift extends Lift {
     @Override
     public void reverse() {
         if (useEncoder) {
-            liftMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-            liftMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            liftMotors[0].setDirection(DcMotor.Direction.FORWARD);
-            liftMotors[1].setDirection(DcMotor.Direction.REVERSE);
+            motors[0].setDirection(DcMotor.Direction.FORWARD);
+            motors[1].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -225,16 +225,16 @@ public class DualLift extends Lift {
         switch (motorName) {
             case "liftLeft":
                 if (useEncoder) {
-                    liftMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+                    motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    liftMotors[0].setDirection(DcMotor.Direction.FORWARD);
+                    motors[0].setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
             case "liftRight":
                 if (useEncoder) {
-                    liftMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+                    motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    liftMotors[1].setDirection(DcMotor.Direction.REVERSE);
+                    motors[1].setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             default:

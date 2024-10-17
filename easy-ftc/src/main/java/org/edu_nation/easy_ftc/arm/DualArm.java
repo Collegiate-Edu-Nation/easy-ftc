@@ -93,16 +93,16 @@ public class DualArm extends Arm {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motors
-            armMotorsEx = new DcMotorEx[2];
-            armMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "armLeft");
-            armMotorsEx[1] = hardwareMap.get(DcMotorEx.class, "armRight");
+            motorsEx = new DcMotorEx[2];
+            motorsEx[0] = hardwareMap.get(DcMotorEx.class, "armLeft");
+            motorsEx[1] = hardwareMap.get(DcMotorEx.class, "armRight");
 
             MotorConfigurationType[] motorType =
-                    {armMotorsEx[0].getMotorType(), armMotorsEx[1].getMotorType()};
+                    {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
 
             // Reverse direction of left motor for convenience (switch if arm is backwards)
-            armMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
-            armMotorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -123,13 +123,13 @@ public class DualArm extends Arm {
             }
         } else {
             // Instantiate motors
-            armMotors = new DcMotor[2];
-            armMotors[0] = hardwareMap.get(DcMotor.class, "armLeft");
-            armMotors[1] = hardwareMap.get(DcMotor.class, "armRight");
+            motors = new DcMotor[2];
+            motors[0] = hardwareMap.get(DcMotor.class, "armLeft");
+            motors[1] = hardwareMap.get(DcMotor.class, "armRight");
 
             // Reverse direction of left motor for convenience (switch if arm is backwards)
-            armMotors[0].setDirection(DcMotor.Direction.REVERSE);
-            armMotors[1].setDirection(DcMotor.Direction.FORWARD);
+            motors[0].setDirection(DcMotor.Direction.REVERSE);
+            motors[1].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -180,12 +180,12 @@ public class DualArm extends Arm {
             int[] positions = DualArmUtil.calculatePositions(measurement, 2.0 * length,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions =
-                    {armMotorsEx[0].getCurrentPosition(), armMotorsEx[1].getCurrentPosition()};
+                    {motorsEx[0].getCurrentPosition(), motorsEx[1].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (armMotorsEx[0].isBusy() || armMotorsEx[1].isBusy()) {
+            while (motorsEx[0].isBusy() || motorsEx[1].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -206,7 +206,7 @@ public class DualArm extends Arm {
                     + ", passed to DualArm.setGearing(). Valid values are numbers > 0");
         }
         MotorConfigurationType[] motorType =
-                {armMotorsEx[0].getMotorType(), armMotorsEx[1].getMotorType()};
+                {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
 
         // find current gearing (minimum of all motors)
         double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
@@ -222,11 +222,11 @@ public class DualArm extends Arm {
     @Override
     public void reverse() {
         if (useEncoder) {
-            armMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-            armMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+            motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            armMotors[0].setDirection(DcMotor.Direction.FORWARD);
-            armMotors[1].setDirection(DcMotor.Direction.REVERSE);
+            motors[0].setDirection(DcMotor.Direction.FORWARD);
+            motors[1].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 
@@ -237,16 +237,16 @@ public class DualArm extends Arm {
         switch (motorName) {
             case "armLeft":
                 if (useEncoder) {
-                    armMotorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+                    motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                 } else {
-                    armMotors[0].setDirection(DcMotor.Direction.FORWARD);
+                    motors[0].setDirection(DcMotor.Direction.FORWARD);
                 }
                 break;
             case "armRight":
                 if (useEncoder) {
-                    armMotorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
+                    motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                 } else {
-                    armMotors[1].setDirection(DcMotor.Direction.REVERSE);
+                    motors[1].setDirection(DcMotor.Direction.REVERSE);
                 }
                 break;
             default:

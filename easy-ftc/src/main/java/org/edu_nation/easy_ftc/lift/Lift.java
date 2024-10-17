@@ -16,8 +16,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
 abstract class Lift extends Mechanism {
-    protected DcMotor[] liftMotors;
-    protected DcMotorEx[] liftMotorsEx;
+    protected DcMotor[] motors;
+    protected DcMotorEx[] motorsEx;
     protected boolean useEncoder;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
@@ -93,8 +93,8 @@ abstract class Lift extends Mechanism {
      */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        for (int i = 0; i < liftMotorsEx.length; i++) {
-            liftMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
+        for (int i = 0; i < motorsEx.length; i++) {
+            motorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
         }
 
         // Set motors to run using the encoder (position, not velocity)
@@ -105,7 +105,7 @@ abstract class Lift extends Mechanism {
      * Sets all extended motors to the specified mode
      */
     protected void setModesEx(DcMotorEx.RunMode runMode) {
-        for (DcMotorEx liftMotorEx : liftMotorsEx) {
+        for (DcMotorEx liftMotorEx : motorsEx) {
             liftMotorEx.setMode(runMode);
         }
     }
@@ -114,7 +114,7 @@ abstract class Lift extends Mechanism {
      * Sets all basic motors to the specified mode
      */
     protected void setModes(DcMotor.RunMode runMode) {
-        for (DcMotor liftMotor : liftMotors) {
+        for (DcMotor liftMotor : motors) {
             liftMotor.setMode(runMode);
         }
     }
@@ -128,16 +128,16 @@ abstract class Lift extends Mechanism {
      */
     public void setAllPower(double[] movements) {
         if (useEncoder && diameter != 0.0) {
-            for (int i = 0; i < liftMotorsEx.length; i++) {
-                liftMotorsEx[i].setPower(movements[i]);
+            for (int i = 0; i < motorsEx.length; i++) {
+                motorsEx[i].setPower(movements[i]);
             }
         } else if (useEncoder) {
-            for (int i = 0; i < liftMotorsEx.length; i++) {
-                liftMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
+            for (int i = 0; i < motorsEx.length; i++) {
+                motorsEx[i].setVelocity(movements[i] * velocityMultiplier);
             }
         } else {
-            for (int i = 0; i < liftMotors.length; i++) {
-                liftMotors[i].setPower(movements[i]);
+            for (int i = 0; i < motors.length; i++) {
+                motors[i].setPower(movements[i]);
             }
         }
     }
@@ -150,9 +150,9 @@ abstract class Lift extends Mechanism {
     public void setAllPower() {
         double[] zeros;
         if (useEncoder) {
-            zeros = new double[liftMotorsEx.length];
+            zeros = new double[motorsEx.length];
         } else {
-            zeros = new double[liftMotors.length];
+            zeros = new double[motors.length];
         }
         setAllPower(zeros);
     }

@@ -16,8 +16,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
 abstract class Drive extends Mechanism {
-    protected DcMotor[] driveMotors;
-    protected DcMotorEx[] driveMotorsEx;
+    protected DcMotor[] motors;
+    protected DcMotorEx[] motorsEx;
     protected boolean useEncoder;
     protected String layout;
     protected double velocityMultiplier;
@@ -162,8 +162,8 @@ abstract class Drive extends Mechanism {
      */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        for (int i = 0; i < driveMotorsEx.length; i++) {
-            driveMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
+        for (int i = 0; i < motorsEx.length; i++) {
+            motorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
         }
 
         // Set motors to run using the encoder (position, not velocity)
@@ -174,7 +174,7 @@ abstract class Drive extends Mechanism {
      * Sets all extended motors to the specified mode
      */
     protected void setModesEx(DcMotorEx.RunMode runMode) {
-        for (DcMotorEx driveMotorEx : driveMotorsEx) {
+        for (DcMotorEx driveMotorEx : motorsEx) {
             driveMotorEx.setMode(runMode);
         }
     }
@@ -183,7 +183,7 @@ abstract class Drive extends Mechanism {
      * Sets all basic motors to the specified mode
      */
     protected void setModes(DcMotor.RunMode runMode) {
-        for (DcMotor driveMotor : driveMotors) {
+        for (DcMotor driveMotor : motors) {
             driveMotor.setMode(runMode);
         }
     }
@@ -197,16 +197,16 @@ abstract class Drive extends Mechanism {
      */
     public void setAllPower(double[] movements) {
         if (useEncoder && diameter != 0.0) {
-            for (int i = 0; i < driveMotorsEx.length; i++) {
-                driveMotorsEx[i].setPower(movements[i]);
+            for (int i = 0; i < motorsEx.length; i++) {
+                motorsEx[i].setPower(movements[i]);
             }
         } else if (useEncoder) {
-            for (int i = 0; i < driveMotorsEx.length; i++) {
-                driveMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
+            for (int i = 0; i < motorsEx.length; i++) {
+                motorsEx[i].setVelocity(movements[i] * velocityMultiplier);
             }
         } else {
-            for (int i = 0; i < driveMotors.length; i++) {
-                driveMotors[i].setPower(movements[i]);
+            for (int i = 0; i < motors.length; i++) {
+                motors[i].setPower(movements[i]);
             }
         }
     }
@@ -219,9 +219,9 @@ abstract class Drive extends Mechanism {
     public void setAllPower() {
         double[] zeros;
         if (useEncoder) {
-            zeros = new double[driveMotorsEx.length];
+            zeros = new double[motorsEx.length];
         } else {
-            zeros = new double[driveMotors.length];
+            zeros = new double[motors.length];
         }
         setAllPower(zeros);
     }

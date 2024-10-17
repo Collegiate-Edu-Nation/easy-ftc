@@ -64,13 +64,13 @@ public class DualClaw extends Claw {
     @Override
     protected void hardwareInit() {
         // Instantiate servos
-        clawServos = new Servo[2];
-        clawServos[0] = hardwareMap.get(Servo.class, "clawLeft");
-        clawServos[1] = hardwareMap.get(Servo.class, "clawRight");
+        servos = new Servo[2];
+        servos[0] = hardwareMap.get(Servo.class, "clawLeft");
+        servos[1] = hardwareMap.get(Servo.class, "clawRight");
 
         // Reverse direction of right servo for convenience (switch if claw is backwards)
-        clawServos[0].setDirection(Servo.Direction.FORWARD);
-        clawServos[1].setDirection(Servo.Direction.REVERSE);
+        servos[0].setDirection(Servo.Direction.FORWARD);
+        servos[1].setDirection(Servo.Direction.REVERSE);
     }
 
     /**
@@ -80,14 +80,14 @@ public class DualClaw extends Claw {
      */
     @Override
     public void tele() {
-        double current = clawServos[0].getPosition();
+        double current = servos[0].getPosition();
         double movement =
                 DualClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
         if (smoothServo) {
             double position = current;
             setPositionByIncrement(position, movement);
         } else {
-            for (Servo claw : clawServos) {
+            for (Servo claw : servos) {
                 claw.setPosition(movement);
             }
         }
@@ -105,10 +105,10 @@ public class DualClaw extends Claw {
     public void move(String direction) {
         double servoDirection = DualClawUtil.languageToDirection(direction, open, close);
         if (smoothServo) {
-            double position = clawServos[0].getPosition();
+            double position = servos[0].getPosition();
             setPositionByIncrement(position, servoDirection);
         } else {
-            for (Servo claw : clawServos) {
+            for (Servo claw : servos) {
                 claw.setPosition(servoDirection);
             }
             wait(delay);
@@ -120,8 +120,8 @@ public class DualClaw extends Claw {
      */
     @Override
     public void reverse() {
-        clawServos[0].setDirection(Servo.Direction.REVERSE);
-        clawServos[1].setDirection(Servo.Direction.FORWARD);
+        servos[0].setDirection(Servo.Direction.REVERSE);
+        servos[1].setDirection(Servo.Direction.FORWARD);
     }
 
     /**
@@ -130,10 +130,10 @@ public class DualClaw extends Claw {
     public void reverse(String servoName) {
         switch (servoName) {
             case "clawLeft":
-                clawServos[0].setDirection(Servo.Direction.REVERSE);
+                servos[0].setDirection(Servo.Direction.REVERSE);
                 break;
             case "clawRight":
-                clawServos[1].setDirection(Servo.Direction.FORWARD);
+                servos[1].setDirection(Servo.Direction.FORWARD);
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected servoName: " + servoName

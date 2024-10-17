@@ -91,13 +91,13 @@ public class SoloLift extends Lift {
     protected void hardwareInit() {
         if (useEncoder) {
             // Instantiate motor
-            liftMotorsEx = new DcMotorEx[1];
-            liftMotorsEx[0] = hardwareMap.get(DcMotorEx.class, "lift");
+            motorsEx = new DcMotorEx[1];
+            motorsEx[0] = hardwareMap.get(DcMotorEx.class, "lift");
 
-            MotorConfigurationType motorType = liftMotorsEx[0].getMotorType();
+            MotorConfigurationType motorType = motorsEx[0].getMotorType();
 
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
-            liftMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
+            motorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -114,11 +114,11 @@ public class SoloLift extends Lift {
             }
         } else {
             // Instantiate motor
-            liftMotors = new DcMotor[1];
-            liftMotors[0] = hardwareMap.get(DcMotor.class, "lift");
+            motors = new DcMotor[1];
+            motors[0] = hardwareMap.get(DcMotor.class, "lift");
 
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
-            liftMotors[0].setDirection(DcMotor.Direction.FORWARD);
+            motors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -157,12 +157,12 @@ public class SoloLift extends Lift {
             double[] unscaledMovements = SoloLiftUtil.languageToDirection(1, direction);
             int[] positions = SoloLiftUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions = {liftMotorsEx[0].getCurrentPosition()};
+            int[] currentPositions = {motorsEx[0].getCurrentPosition()};
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (liftMotorsEx[0].isBusy()) {
+            while (motorsEx[0].isBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -182,7 +182,7 @@ public class SoloLift extends Lift {
             throw new IllegalArgumentException("Unexpected gearing value: " + gearing
                     + ", passed to SoloLift.setGearing(). Valid values are numbers > 0");
         }
-        MotorConfigurationType motorType = liftMotorsEx[0].getMotorType();
+        MotorConfigurationType motorType = motorsEx[0].getMotorType();
 
         // find current gearing
         double currentGearing = motorType.getGearing();
@@ -197,9 +197,9 @@ public class SoloLift extends Lift {
     @Override
     public void reverse() {
         if (useEncoder) {
-            liftMotorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
+            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
         } else {
-            liftMotors[0].setDirection(DcMotor.Direction.REVERSE);
+            motors[0].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 }
