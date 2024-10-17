@@ -164,12 +164,10 @@ public class Differential extends Drive {
             motorsEx[0] = hardwareMap.get(DcMotorEx.class, "driveLeft");
             motorsEx[1] = hardwareMap.get(DcMotorEx.class, "driveRight");
 
-            MotorConfigurationType[] motorType =
-                    {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
+            MotorConfigurationType[] motorTypes = getMotorTypes();
 
             // Reverse direction of left motor for convenience (switch if robot drives backwards)
-            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
-            motorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
+            setDirections();
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -178,15 +176,9 @@ public class Differential extends Drive {
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
-                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
-                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                        motorType[1].getAchieveableMaxTicksPerSecond()};
-                velocityMultiplier = Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]);
+                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
-                // sets distanceMultiplier to minimum ticks/rev of all drive motors
-                double[] distanceMultiplierArr =
-                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev()};
-                distanceMultiplier = Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]);
+                distanceMultiplier = getTicksPerRev(motorTypes);
             }
         } else {
             // Instantiate motors
@@ -195,8 +187,7 @@ public class Differential extends Drive {
             motors[1] = hardwareMap.get(DcMotor.class, "driveRight");
 
             // Reverse direction of left motor for convenience (switch if robot drives backwards)
-            motors[0].setDirection(DcMotor.Direction.REVERSE);
-            motors[1].setDirection(DcMotor.Direction.FORWARD);
+            setDirections();
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -235,13 +226,12 @@ public class Differential extends Drive {
             double[] unscaledMovements = DifferentialUtil.languageToDirection(1, direction);
             int[] positions = DifferentialUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions =
-                    {motorsEx[0].getCurrentPosition(), motorsEx[1].getCurrentPosition()};
+            int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (motorsEx[0].isBusy() || motorsEx[1].isBusy()) {
+            while (motorsAreBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -249,40 +239,6 @@ public class Differential extends Drive {
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    /**
-     * Correct the gear-ratio of all drive motors using encoders. Automatically updates
-     * distanceMultiplier
-     */
-    public void setGearing(double gearing) {
-        if (gearing <= 0) {
-            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
-                    + ", passed to Differential.setGearing(). Valid values are numbers > 0");
-        }
-        MotorConfigurationType[] motorType =
-                {motorsEx[0].getMotorType(), motorsEx[1].getMotorType()};
-
-        // find current gearing (minimum of all motors)
-        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing()};
-        double currentGearing = Math.min(currentGearings[0], currentGearings[1]);
-
-        // update multiplier based on ratio of current and new
-        distanceMultiplier *= gearing / currentGearing;
-    }
-
-    /**
-     * Reverse the direction of the drive motors
-     */
-    @Override
-    public void reverse() {
-        if (useEncoder) {
-            motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-            motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-        } else {
-            motors[0].setDirection(DcMotor.Direction.FORWARD);
-            motors[1].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 

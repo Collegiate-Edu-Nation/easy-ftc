@@ -143,6 +143,7 @@ abstract class Drive extends MotorMechanism {
         this.diameter = diameter;
         this.gamepad = gamepad;
         this.layout = layout;
+        this.mechanismName = "Drive";
         hardwareInit();
     }
 

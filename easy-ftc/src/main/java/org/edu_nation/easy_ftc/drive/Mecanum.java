@@ -170,15 +170,10 @@ public class Mecanum extends Drive {
             motorsEx[2] = hardwareMap.get(DcMotorEx.class, "backLeft");
             motorsEx[3] = hardwareMap.get(DcMotorEx.class, "backRight");
 
-            MotorConfigurationType[] motorType =
-                    {motorsEx[0].getMotorType(), motorsEx[1].getMotorType(),
-                        motorsEx[2].getMotorType(), motorsEx[3].getMotorType()};
+            MotorConfigurationType[] motorTypes = getMotorTypes();
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            motorsEx[0].setDirection(DcMotorEx.Direction.REVERSE);
-            motorsEx[1].setDirection(DcMotorEx.Direction.FORWARD);
-            motorsEx[2].setDirection(DcMotorEx.Direction.REVERSE);
-            motorsEx[3].setDirection(DcMotorEx.Direction.FORWARD);
+            setDirections();
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -187,25 +182,9 @@ public class Mecanum extends Drive {
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
-                // Sets velocityMultiplier to minimum ticks/sec of all drive motors
-                double[] velocityMultiplierArr = {motorType[0].getAchieveableMaxTicksPerSecond(),
-                        motorType[1].getAchieveableMaxTicksPerSecond(),
-                        motorType[2].getAchieveableMaxTicksPerSecond(),
-                        motorType[3].getAchieveableMaxTicksPerSecond()};
-
-                // Banking on the associativity of min():
-                // https://proofwiki.org/wiki/Min_Operation_is_Associative
-                velocityMultiplier =
-                        Math.min(Math.min(velocityMultiplierArr[0], velocityMultiplierArr[1]),
-                                Math.min(velocityMultiplierArr[2], velocityMultiplierArr[3]));
+                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
-                // sets distanceMultiplier to minimum ticks/rev of all drive motors
-                double[] distanceMultiplierArr =
-                        {motorType[0].getTicksPerRev(), motorType[1].getTicksPerRev(),
-                                motorType[2].getTicksPerRev(), motorType[3].getTicksPerRev()};
-                distanceMultiplier =
-                        Math.min(Math.min(distanceMultiplierArr[0], distanceMultiplierArr[1]),
-                                Math.min(distanceMultiplierArr[2], distanceMultiplierArr[3]));
+                distanceMultiplier = getTicksPerRev(motorTypes);
             }
         } else {
             // Instantiate motors
@@ -216,10 +195,7 @@ public class Mecanum extends Drive {
             motors[3] = hardwareMap.get(DcMotor.class, "backRight");
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            motors[0].setDirection(DcMotor.Direction.REVERSE);
-            motors[1].setDirection(DcMotor.Direction.FORWARD);
-            motors[2].setDirection(DcMotor.Direction.REVERSE);
-            motors[3].setDirection(DcMotor.Direction.FORWARD);
+            setDirections();
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -282,15 +258,12 @@ public class Mecanum extends Drive {
             double[] unscaledMovements = MecanumUtil.languageToDirection(1, direction);
             int[] positions = MecanumUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
-            int[] currentPositions =
-                    {motorsEx[0].getCurrentPosition(), motorsEx[1].getCurrentPosition(),
-                        motorsEx[2].getCurrentPosition(), motorsEx[3].getCurrentPosition()};
+            int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setAllPower(movements);
-            while (motorsEx[0].isBusy() || motorsEx[1].isBusy() || motorsEx[2].isBusy()
-                    || motorsEx[3].isBusy()) {
+            while (motorsAreBusy()) {
                 setAllPower(movements);
             }
             setAllPower();
@@ -298,46 +271,6 @@ public class Mecanum extends Drive {
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    /**
-     * Correct the gear-ratio of all drive motors using encoders. Automatically updates
-     * distanceMultiplier
-     */
-    public void setGearing(double gearing) {
-        if (gearing <= 0) {
-            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
-                    + ", passed to Mecanum.setGearing(). Valid values are numbers > 0");
-        }
-        MotorConfigurationType[] motorType = {motorsEx[0].getMotorType(),
-            motorsEx[1].getMotorType(), motorsEx[2].getMotorType(), motorsEx[3].getMotorType()};
-
-        // find current gearing (minimum of all motors)
-        double[] currentGearings = {motorType[0].getGearing(), motorType[1].getGearing(),
-                motorType[2].getGearing(), motorType[3].getGearing()};
-        double currentGearing = Math.min(Math.min(currentGearings[0], currentGearings[1]),
-                Math.min(currentGearings[2], currentGearings[3]));
-
-        // update multiplier based on ratio of current and new
-        distanceMultiplier *= gearing / currentGearing;
-    }
-
-    /**
-     * Reverse the direction of the drive motors
-     */
-    @Override
-    public void reverse() {
-        if (useEncoder) {
-            motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-            motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-            motorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
-            motorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
-        } else {
-            motors[0].setDirection(DcMotor.Direction.FORWARD);
-            motors[1].setDirection(DcMotor.Direction.REVERSE);
-            motors[2].setDirection(DcMotor.Direction.FORWARD);
-            motors[3].setDirection(DcMotor.Direction.REVERSE);
         }
     }
 

@@ -116,24 +116,24 @@ public abstract class MotorMechanism extends Mechanism {
         if (!reverse) {
             if (useEncoder) {
                 for (int i = 0; i < motorsEx.length; i++) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD : DcMotorEx.Direction.REVERSE;
-                    motorsEx[i].setDirection(direction);
-                }
-            } else {
-                for (int i = 0; i < motors.length; i++) {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
-                    motors[i].setDirection(direction);
-                }
-            }
-        } else {
-            if (useEncoder) {
-                for (int i = 0; i < motorsEx.length; i++) {
                     DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE : DcMotorEx.Direction.FORWARD;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
                 for (int i = 0; i < motors.length; i++) {
                     DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    motors[i].setDirection(direction);
+                }
+            }
+        } else {
+            if (useEncoder) {
+                for (int i = 0; i < motorsEx.length; i++) {
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD : DcMotorEx.Direction.REVERSE;
+                    motorsEx[i].setDirection(direction);
+                }
+            } else {
+                for (int i = 0; i < motors.length; i++) {
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
