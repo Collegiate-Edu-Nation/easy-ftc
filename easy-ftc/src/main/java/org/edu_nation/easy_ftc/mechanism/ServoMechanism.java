@@ -69,7 +69,7 @@ public abstract class ServoMechanism extends Mechanism {
     }
 
     /**
-     * Reverse the direction of the claw servos
+     * Reverse the direction of all servos
      */
     public void reverse() {
         setDirections(true);

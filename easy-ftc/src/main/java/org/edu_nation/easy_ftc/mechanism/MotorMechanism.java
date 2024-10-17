@@ -2,6 +2,7 @@ package org.edu_nation.easy_ftc.mechanism;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects common to
@@ -12,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
+    protected int numMotors;
     protected boolean useEncoder;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
@@ -19,6 +21,7 @@ public abstract class MotorMechanism extends Mechanism {
     protected double length;
     protected String layout;
     protected double deadZone = 0.1;
+    protected String mechanismName;
 
     /**
      * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
@@ -56,7 +59,7 @@ public abstract class MotorMechanism extends Mechanism {
      * provided).
      */
     protected void setAllPower(double[] movements) {
-        if (useEncoder && diameter != 0.0) {
+        if (useEncoder && (diameter != 0.0 || length != 0.0)) {
             for (int i = 0; i < motorsEx.length; i++) {
                 motorsEx[i].setPower(movements[i]);
             }
@@ -82,6 +85,157 @@ public abstract class MotorMechanism extends Mechanism {
             zeros = new double[motors.length];
         }
         setAllPower(zeros);
+    }
+
+    /**
+     * Reverse the direction of all motors
+     */
+    public void reverse() {
+        setDirections(true);
+    }
+
+    /**
+     * Correct the gear-ratio of all motors using encoders. Automatically updates
+     * distanceMultiplier
+     */
+    public void setGearing(double gearing) {
+        if (gearing <= 0) {
+            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                    + ", passed to " + mechanismName + ".setGearing(). Valid values are numbers > 0");
+        }
+
+        MotorConfigurationType[] motorTypes = getMotorTypes();
+        double currentGearing = getGearing(motorTypes);
+        distanceMultiplier *= gearing / currentGearing;
+    }
+
+    /**
+     * Wrapper around setDirection for all motors
+     */
+    protected void setDirections(boolean reverse) {
+        if (!reverse) {
+            if (useEncoder) {
+                for (int i = 0; i < motorsEx.length; i++) {
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD : DcMotorEx.Direction.REVERSE;
+                    motorsEx[i].setDirection(direction);
+                }
+            } else {
+                for (int i = 0; i < motors.length; i++) {
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    motors[i].setDirection(direction);
+                }
+            }
+        } else {
+            if (useEncoder) {
+                for (int i = 0; i < motorsEx.length; i++) {
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE : DcMotorEx.Direction.FORWARD;
+                    motorsEx[i].setDirection(direction);
+                }
+            } else {
+                for (int i = 0; i < motors.length; i++) {
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    motors[i].setDirection(direction);
+                }
+            }
+        }
+    }
+
+    /**
+     * Wrapper around setDirection for all motors, default case doesn't reverse
+     */
+    protected void setDirections() {
+        setDirections(false);
+    }
+
+    /**
+     * Wrapper around getMotorType for all motors
+     */
+    protected MotorConfigurationType[] getMotorTypes() {
+        MotorConfigurationType[] motorTypes = new MotorConfigurationType[motorsEx.length];
+        for (int i = 0; i < motorsEx.length; i++) {
+            motorTypes[i] = motorsEx[i].getMotorType();
+        }
+        return motorTypes;
+    }
+
+    /**
+     * Wrapper around getGearing to get the minimum of all motors
+     */
+    protected double getGearing(MotorConfigurationType[] motorTypes) {
+        double[] gearings = new double[motorTypes.length];
+        for (int i = 0; i < motorTypes.length; i++) {
+            gearings[i] = motorTypes[i].getGearing();
+        }
+        double gearing = min(gearings);
+        return gearing;
+    }
+
+    /**
+     * Wrapper around isBusy to see if any motors are busy
+     */
+    protected boolean motorsAreBusy() {
+        boolean isBusy = false;
+        for (DcMotorEx motorEx : motorsEx) {
+            if (motorEx.isBusy()) {
+                isBusy = true;
+            }
+        }
+        return isBusy;
+    }
+
+    /**
+     * Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors
+     */
+    protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
+        double[] achieveableMaxTicksPerSecondArr = new double[motorTypes.length];
+        for (int i = 0; i < motorTypes.length; i++) {
+            achieveableMaxTicksPerSecondArr[i] = motorTypes[i].getAchieveableMaxTicksPerSecond();
+        }
+        double achieveableMaxTicksPerSecond = min(achieveableMaxTicksPerSecondArr);
+        return achieveableMaxTicksPerSecond;
+    }
+
+    /**
+     * Wrapper around getTicksPerRev to return minimum of all motors
+     */
+    protected double getTicksPerRev(MotorConfigurationType[] motorTypes) {
+        double[] ticksPerRevArr = new double[motorTypes.length];
+        for (int i = 0; i < motorTypes.length; i++) {
+            ticksPerRevArr[i] = motorTypes[i].getTicksPerRev();
+        }
+        double ticksPerRev = min(ticksPerRevArr);
+        return ticksPerRev;
+    }
+
+    /**
+     * Wrapper around getCurrentPosition to return it for all motors
+     */
+    protected int[] getCurrentPositions() {
+        int[] currentPositions = new int[motorsEx.length];
+        for (int i = 0; i < motorsEx.length; i++) {
+            currentPositions[i] = motorsEx[i].getCurrentPosition();
+        }
+        return currentPositions;
+    }
+
+    /**
+     * Helper for calculating minimum value in array
+     */
+    private double min(double[] arr) {
+        if (arr.length == 1) {
+            return arr[0];
+        } else if (arr.length == 2) {
+            return Math.min(arr[0], arr[1]);
+        } else {
+            return min(arr[0], arr[1], arr[2], arr[3]);
+        }
+    }
+
+    /**
+     * Helper for calculating minimum of 4 values
+     */
+    private double min(double a, double b, double c, double d) {
+        return Math.min(Math.min(a, b), Math.min(c, d));
     }
 
     /**

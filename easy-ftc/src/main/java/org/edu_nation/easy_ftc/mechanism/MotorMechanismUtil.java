@@ -37,7 +37,7 @@ public abstract class MotorMechanismUtil {
     /**
      * Scale directions by a factor of power to derive actual, intended motor movements
      */
-    protected static double[] scaleDirections(double power, double[] motorDirections) {
+    public static double[] scaleDirections(double power, double[] motorDirections) {
         double[] movements = new double[motorDirections.length];
         for (int i = 0; i < motorDirections.length; i++) {
             movements[i] = power * motorDirections[i];
