@@ -3,7 +3,7 @@ package org.edu_nation.easy_ftc.lift;
 import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
 
 /**
- * Provides static utility methods for moving a two-motor lift by extending the functionality of
+ * Provides static utility methods for moving a lift by extending the functionality of
  * {@link LiftUtil}.
  * 
  * @Methods {@link #controlToDirection(double deadZone, float lt, float rt)}
@@ -15,35 +15,31 @@ import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
  *          <li>{@link #calculatePositions(double, double, double, double[])} (inherited from
  *          {@link MotorMechanismUtil})
  */
-class DualLiftUtil extends MotorMechanismUtil {
+class LiftUtil extends MotorMechanismUtil {
     /**
      * Set lift motor movements based on triggers
      */
-    protected static double[] controlToDirection(double deadZone, float lt, float rt) {
+    protected static double controlToDirection(double deadZone, float lt, float rt) {
         double lift = map(rt, deadZone) - map(lt, deadZone);
-        double[] movements = {lift, lift};
-        return movements;
+        return lift;
     }
 
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(double power, String direction) {
-        double[] motorDirections = {0, 0};
+    protected static double languageToDirection(String direction) {
+        double motorDirection;
         switch (direction) {
             case "up":
-                motorDirections[0] = 1;
-                motorDirections[1] = 1;
+                motorDirection = 1;
                 break;
             case "down":
-                motorDirections[0] = -1;
-                motorDirections[1] = -1;
+                motorDirection = -1;
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to DualLift.move(). Valid directions are: up, down");
+                        + ", passed to Lift.move(). Valid directions are: up, down");
         }
-        double[] movements = scaleDirections(power, motorDirections);
-        return movements;
+        return motorDirection;
     }
 }

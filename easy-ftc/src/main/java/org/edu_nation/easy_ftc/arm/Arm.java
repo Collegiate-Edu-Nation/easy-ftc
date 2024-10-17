@@ -212,8 +212,8 @@ public class Arm extends MotorMechanism {
     public void tele(double power) {
         double[] movements = new double[numMotors];
         double direction = ArmUtil.controlToDirection(power, gamepad.left_bumper, gamepad.right_bumper);
-        for (double movement : movements) {
-            movement = direction;
+        for (int i = 0; i < movements.length; i++) {
+            movements[i] = direction;
         }
         setAllPower(movements);
     }
