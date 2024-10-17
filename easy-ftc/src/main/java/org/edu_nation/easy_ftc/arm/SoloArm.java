@@ -26,9 +26,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class SoloArm extends Arm {
-    private DcMotor[] armMotors;
-    private DcMotorEx[] armMotorsEx;
-
     /**
      * Constructor
      * 
@@ -104,10 +101,10 @@ public class SoloArm extends Arm {
             armMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Reset encoder
-            armMotorsEx[0].setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
             // Sets motor to run using the encoder (velocity, not position)
-            armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (length == 0.0) {
                 // Sets velocityMultiplier to ticks/sec of lift motor
@@ -125,7 +122,7 @@ public class SoloArm extends Arm {
             armMotors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
-            armMotors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -184,7 +181,7 @@ public class SoloArm extends Arm {
 
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
-            armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -207,17 +204,6 @@ public class SoloArm extends Arm {
     }
 
     /**
-     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
-     */
-    private void setPositions(int[] positions, int[] currentPositions) {
-        // set target-position (relative + current = desired)
-        armMotorsEx[0].setTargetPosition(positions[0] + currentPositions[0]);
-
-        // Set motors to run using the encoder (position, not velocity)
-        armMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-    }
-
-    /**
      * Reverse the direction of the arm motor
      */
     @Override
@@ -227,38 +213,5 @@ public class SoloArm extends Arm {
         } else {
             armMotors[0].setDirection(DcMotor.Direction.REVERSE);
         }
-    }
-
-    /**
-     * Helper function to set motor power to received values (defaults to 0 if no args provided).
-     * <p>
-     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
-     * this).
-     */
-    @Override
-    public void setAllPower(double[] movements) {
-        if (useEncoder && length != 0.0) {
-            armMotorsEx[0].setPower(movements[0]);
-        } else if (useEncoder) {
-            armMotorsEx[0].setVelocity(movements[0] * velocityMultiplier);
-        } else {
-            armMotors[0].setPower(movements[0]);
-        }
-    }
-
-    /**
-     * Helper function to set motor power to zero (this is the default case).
-     * <p>
-     * Public, so motor can be stopped if needed (tele() is an example of this).
-     */
-    @Override
-    public void setAllPower() {
-        double[] zeros;
-        if (useEncoder) {
-            zeros = new double[armMotorsEx.length];
-        } else {
-            zeros = new double[armMotors.length];
-        }
-        setAllPower(zeros);
     }
 }

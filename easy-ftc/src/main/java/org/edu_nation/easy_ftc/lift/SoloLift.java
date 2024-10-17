@@ -25,9 +25,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class SoloLift extends Lift {
-    private DcMotor[] liftMotors;
-    private DcMotorEx[] liftMotorsEx;
-
     /**
      * Constructor
      * 
@@ -102,11 +99,11 @@ public class SoloLift extends Lift {
             // Set direction of lift motor (switch to BACKWARD if motor orientation is flipped)
             liftMotorsEx[0].setDirection(DcMotor.Direction.FORWARD);
 
-            // Reset encoder
-            liftMotorsEx[0].setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            // Reset encoders
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
-            // Sets motor to run using the encoder (velocity, not position)
-            liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            // Set motors to run using the encoder (velocity, not position)
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
                 // Sets velocityMultiplier to ticks/sec of lift motor
@@ -124,7 +121,7 @@ public class SoloLift extends Lift {
             liftMotors[0].setDirection(DcMotor.Direction.FORWARD);
 
             // Set motor to run without the encoders (power, not velocity or position)
-            liftMotors[0].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -172,7 +169,7 @@ public class SoloLift extends Lift {
 
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
-            liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -195,17 +192,6 @@ public class SoloLift extends Lift {
     }
 
     /**
-     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
-     */
-    private void setPositions(int[] positions, int[] currentPositions) {
-        // set target-position (relative + current = desired)
-        liftMotorsEx[0].setTargetPosition(positions[0] + currentPositions[0]);
-
-        // Set motors to run using the encoder (position, not velocity)
-        liftMotorsEx[0].setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-    }
-
-    /**
      * Reverse the direction of the lift motor
      */
     @Override
@@ -215,38 +201,5 @@ public class SoloLift extends Lift {
         } else {
             liftMotors[0].setDirection(DcMotor.Direction.REVERSE);
         }
-    }
-
-    /**
-     * Helper function to set motor power to received values (defaults to 0 if no args provided).
-     * <p>
-     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
-     * this).
-     */
-    @Override
-    public void setAllPower(double[] movements) {
-        if (useEncoder && diameter != 0.0) {
-            liftMotorsEx[0].setPower(movements[0]);
-        } else if (useEncoder) {
-            liftMotorsEx[0].setVelocity(movements[0] * velocityMultiplier);
-        } else {
-            liftMotors[0].setPower(movements[0]);
-        }
-    }
-
-    /**
-     * Helper function to set motor power to zero (this is the default case).
-     * <p>
-     * Public, so motor can be stopped if needed (tele() is an example of this).
-     */
-    @Override
-    public void setAllPower() {
-        double[] zeros;
-        if (useEncoder) {
-            zeros = new double[liftMotorsEx.length];
-        } else {
-            zeros = new double[liftMotors.length];
-        }
-        setAllPower(zeros);
     }
 }

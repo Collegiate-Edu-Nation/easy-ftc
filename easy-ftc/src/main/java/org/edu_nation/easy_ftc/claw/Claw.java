@@ -3,6 +3,7 @@ package org.edu_nation.easy_ftc.claw;
 import org.edu_nation.easy_ftc.mechanism.Mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
@@ -13,6 +14,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @Methods {@link #wait(double time)} (inherited from {@link Mechanism})
  */
 abstract class Claw extends Mechanism {
+    protected Servo[] clawServos;
     protected boolean smoothServo;
     protected double open, close;
     protected double increment;
@@ -66,5 +68,17 @@ abstract class Claw extends Mechanism {
 
     public abstract void move(String direction);
 
-    protected abstract void setPositionByIncrement(double position, double movement);
+    /**
+     * Wrapper around setPosition that enables smooth, synchronized servo control
+     */
+    protected void setPositionByIncrement(double position, double movement) {
+        while (opMode.opModeIsActive() && position != movement) {
+            position += (movement - position > 0) ? increment : -increment;
+            position = Math.min(Math.max(position, 0), 1);
+            for (Servo claw : clawServos) {
+                claw.setPosition(position);
+            }
+            wait(incrementDelay);
+        }
+    }
 }

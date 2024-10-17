@@ -27,9 +27,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class DualArm extends Arm {
-    private DcMotor[] armMotors;
-    private DcMotorEx[] armMotorsEx;
-
     /**
      * Constructor
      * 
@@ -220,37 +217,6 @@ public class DualArm extends Arm {
     }
 
     /**
-     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
-     */
-    private void setPositions(int[] positions, int[] currentPositions) {
-        // set target-position (relative + current = desired)
-        for (int i = 0; i < armMotorsEx.length; i++) {
-            armMotorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
-        }
-
-        // Set motors to run using the encoder (position, not velocity)
-        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
-    }
-
-    /**
-     * Sets all extended motors to the specified mode
-     */
-    private void setModesEx(DcMotorEx.RunMode runMode) {
-        for (DcMotorEx armMotorEx : armMotorsEx) {
-            armMotorEx.setMode(runMode);
-        }
-    }
-
-    /**
-     * Sets all basic motors to the specified mode
-     */
-    private void setModes(DcMotor.RunMode runMode) {
-        for (DcMotor armMotor : armMotors) {
-            armMotor.setMode(runMode);
-        }
-    }
-
-    /**
      * Reverse the direction of the arm motors
      */
     @Override
@@ -287,45 +253,5 @@ public class DualArm extends Arm {
                 throw new IllegalArgumentException("Unexpected motorName: " + motorName
                         + ", passed to DualArm.reverse(). Valid names are: armLeft, armRight");
         }
-    }
-
-    /**
-     * Helper function to set all motor powers to received values (defaults to 0 if no args
-     * provided).
-     * <p>
-     * Public, so custom movements [] can be passed directly if needed (tele() is an example of
-     * this).
-     */
-    @Override
-    public void setAllPower(double[] movements) {
-        if (useEncoder && length != 0.0) {
-            for (int i = 0; i < armMotorsEx.length; i++) {
-                armMotorsEx[i].setPower(movements[i]);
-            }
-        } else if (useEncoder) {
-            for (int i = 0; i < armMotorsEx.length; i++) {
-                armMotorsEx[i].setVelocity(movements[i] * velocityMultiplier);
-            }
-        } else {
-            for (int i = 0; i < armMotors.length; i++) {
-                armMotors[i].setPower(movements[i]);
-            }
-        }
-    }
-
-    /**
-     * Helper function to set all motor powers to zero (this is the default case).
-     * <p>
-     * Public, so motors can be stopped if needed (tele() is an example of this).
-     */
-    @Override
-    public void setAllPower() {
-        double[] zeros;
-        if (useEncoder) {
-            zeros = new double[armMotorsEx.length];
-        } else {
-            zeros = new double[armMotors.length];
-        }
-        setAllPower(zeros);
     }
 }

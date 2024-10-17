@@ -20,8 +20,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class SoloClaw extends Claw {
-    private Servo[] clawServos;
-
     /**
      * Constructor
      * 
@@ -119,20 +117,5 @@ public class SoloClaw extends Claw {
     @Override
     public void reverse() {
         clawServos[0].setDirection(Servo.Direction.FORWARD);
-    }
-
-    /**
-     * Wrapper around setPosition that enables smooth, synchronized servo control
-     */
-    @Override
-    protected void setPositionByIncrement(double position, double movement) {
-        while (opMode.opModeIsActive() && position != movement) {
-            position += (movement - position > 0) ? increment : -increment;
-            position = Math.min(Math.max(position, 0), 1);
-            for (Servo claw : clawServos) {
-                claw.setPosition(position);
-            }
-            wait(incrementDelay);
-        }
     }
 }
