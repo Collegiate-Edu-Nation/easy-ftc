@@ -59,5 +59,43 @@ abstract class Claw extends ServoMechanism {
         hardwareInit();
     }
 
-    public abstract void move(String direction);
+    /**
+     * Enables teleoperated claw movement with gamepad.
+     * <p>
+     * Calling this directly is one of the primary use-cases of this class.
+     */
+    public void tele() {
+        double current = servos[0].getPosition();
+        double movement =
+                ClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
+        if (smoothServo) {
+            double position = current;
+            setPositionByIncrement(position, movement);
+        } else {
+            for (Servo claw : servos) {
+                claw.setPosition(movement);
+            }
+        }
+    }
+
+    /**
+     * Intermediate function that assigns individual servo positions based on direction specified in
+     * runOpMode() calls.
+     * <p>
+     * Calling this directly is one of the primary use-cases of this class.
+     * <p>
+     * Valid directions are: open, close
+     */
+    public void move(String direction) {
+        double servoDirection = ClawUtil.languageToDirection(direction, open, close);
+        if (smoothServo) {
+            double position = servos[0].getPosition();
+            setPositionByIncrement(position, servoDirection);
+        } else {
+            for (Servo claw : servos) {
+                claw.setPosition(servoDirection);
+            }
+            wait(delay);
+        }
+    }
 }

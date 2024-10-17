@@ -70,48 +70,6 @@ public class SoloClaw extends Claw {
     }
 
     /**
-     * Enables teleoperated claw movement with gamepad.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     */
-    @Override
-    public void tele() {
-        double current = servos[0].getPosition();
-        double movement =
-                SoloClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
-        if (smoothServo) {
-            double position = current;
-            setPositionByIncrement(position, movement);
-        } else {
-            for (Servo claw : servos) {
-                claw.setPosition(movement);
-            }
-        }
-    }
-
-    /**
-     * Intermediate function that assigns servo position based on direction specified in runOpMode()
-     * calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     * <p>
-     * Valid directions are: open, close
-     */
-    @Override
-    public void move(String direction) {
-        double servoDirection = SoloClawUtil.languageToDirection(direction, open, close);
-        if (smoothServo) {
-            double position = servos[0].getPosition();
-            setPositionByIncrement(position, servoDirection);
-        } else {
-            for (Servo claw : servos) {
-                claw.setPosition(servoDirection);
-            }
-            wait(delay);
-        }
-    }
-
-    /**
      * Reverse the direction of the claw servo
      */
     @Override
