@@ -27,16 +27,20 @@ public class TestClaw {
 
         try {
             new Claw(mockedOpMode, mockedHardwareMap);
+            new Claw(mockedOpMode, mockedHardwareMap, 2);
             new Claw(mockedOpMode, mockedHardwareMap, true);
             new Claw(mockedOpMode, mockedHardwareMap, mockedGamepad);
+            new Claw(mockedOpMode, mockedHardwareMap, 2, true);
+            new Claw(mockedOpMode, mockedHardwareMap, 2, mockedGamepad);
             new Claw(mockedOpMode, mockedHardwareMap, true, mockedGamepad);
+            new Claw(mockedOpMode, mockedHardwareMap, 2, true, mockedGamepad);
         } catch (Exception e) {
             fail(e.getMessage());
         }
     }
 
     @Test
-    public void tele_isCalled() {
+    public void teleSolo_isCalled() {
         mockInit();
 
         try {
@@ -51,7 +55,22 @@ public class TestClaw {
     }
 
     @Test
-    public void move_isCalled() {
+    public void teleDual_isCalled() {
+        mockInit();
+
+        try {
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap, 2, mockedGamepad);
+            Claw clawSmooth =
+                    new Claw(mockedOpMode, mockedHardwareMap, 2, true, mockedGamepad);
+            claw.tele();
+            clawSmooth.tele();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void moveSolo_isCalled() {
         mockInit();
 
         try {
@@ -65,11 +84,38 @@ public class TestClaw {
     }
 
     @Test
-    public void reverse_isCalledWithValidInputs() {
+    public void moveDual_isCalled() {
+        mockInit();
+
+        try {
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap, 2);
+            Claw clawSmooth = new Claw(mockedOpMode, mockedHardwareMap, 2, true);
+            claw.move("open");
+            clawSmooth.move("open");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reverseSolo_isCalledWithValidInputs() {
         mockInit();
 
         try {
             Claw claw = new Claw(mockedOpMode, mockedHardwareMap);
+            claw.reverse();
+            claw.reverse("claw");
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void reverseDual_isCalledWithValidInputs() {
+        mockInit();
+
+        try {
+            Claw claw = new Claw(mockedOpMode, mockedHardwareMap, 2);
             claw.reverse();
             claw.reverse("clawLeft");
             claw.reverse("clawRight");
@@ -79,10 +125,19 @@ public class TestClaw {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void reverse_ThrowsException() {
+    public void reverseDual_ThrowsException() {
         mockInit();
 
         Claw claw = new Claw(mockedOpMode, mockedHardwareMap, 2);
+        claw.reverse("abc");
+        claw.reverse("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void reverseSolo_ThrowsException() {
+        mockInit();
+
+        Claw claw = new Claw(mockedOpMode, mockedHardwareMap);
         claw.reverse("abc");
         claw.reverse("");
     }

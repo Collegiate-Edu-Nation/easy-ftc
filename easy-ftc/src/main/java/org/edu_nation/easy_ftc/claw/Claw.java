@@ -108,6 +108,7 @@ public class Claw extends ServoMechanism {
         this.incrementDelay = 0.02;
         this.delay = 2;
         this.gamepad = gamepad;
+        this.mechanismName = "Claw";
         hardwareInit();
     }
 
@@ -118,73 +119,13 @@ public class Claw extends ServoMechanism {
     protected void hardwareInit() {
         // Instantiate servos
         servos = new Servo[numServos];
-
         if (numServos == 2) {
             servos[0] = hardwareMap.get(Servo.class, "clawLeft");
             servos[1] = hardwareMap.get(Servo.class, "clawRight");
-
-            // Reverse direction of right servo for convenience (switch if claw is backwards)
-            servos[0].setDirection(Servo.Direction.FORWARD);
-            servos[1].setDirection(Servo.Direction.REVERSE);
         } else {
             servos[0] = hardwareMap.get(Servo.class, "claw");
-
-            // Set direction of servo (switch to FORWARD if claw is backwards)
-            servos[0].setDirection(Servo.Direction.REVERSE);
         }
-    }
-
-    /**
-     * Enables teleoperated claw movement with gamepad.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     */
-    public void tele() {
-        double current = servos[0].getPosition();
-        double movement =
-                ClawUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
-        if (smoothServo) {
-            double position = current;
-            setPositionByIncrement(position, movement);
-        } else {
-            for (Servo claw : servos) {
-                claw.setPosition(movement);
-            }
-        }
-    }
-
-    /**
-     * Intermediate function that assigns individual servo positions based on direction specified in
-     * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     * <p>
-     * Valid directions are: open, close
-     */
-    public void move(String direction) {
-        double servoDirection = ClawUtil.languageToDirection(direction, open, close);
-        if (smoothServo) {
-            double position = servos[0].getPosition();
-            setPositionByIncrement(position, servoDirection);
-        } else {
-            for (Servo claw : servos) {
-                claw.setPosition(servoDirection);
-            }
-            wait(delay);
-        }
-    }
-
-    /**
-     * Reverse the direction of the claw servos
-     */
-    @Override
-    public void reverse() {
-        if (numServos == 2) {
-            servos[0].setDirection(Servo.Direction.REVERSE);
-            servos[1].setDirection(Servo.Direction.FORWARD);
-        } else {
-            servos[0].setDirection(Servo.Direction.FORWARD);
-        }
+        setDirections();
     }
 
     /**
@@ -201,10 +142,17 @@ public class Claw extends ServoMechanism {
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected servoName: " + servoName
-                            + ", passed to DualClaw.reverse(). Valid names are: clawLeft, clawRight");
+                            + ", passed to Claw.reverse(). Valid names are: clawLeft, clawRight");
             }
         } else {
-            reverse();
+            switch (servoName) {
+                case "claw":
+                    reverse();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unexpected servoName: " + servoName
+                            + ", passed to Claw.reverse(). Valid names are: claw");
+            }
         }
     }
 }

@@ -22,4 +22,27 @@ public class TestServoMechanismUtil {
         result = ServoMechanismUtil.controlToDirection(1, 0, 1, true, true);
         assertEquals(1, result, 0.01);
     }
+
+    @Test
+    public void languageToDirection_isCorrect() {
+        // Test "open"
+        double result = ServoMechanismUtil.languageToDirection("open", 1, 0, "Claw");
+        assertEquals(1, result, 0.01);
+
+        // Test "close"
+        result = ServoMechanismUtil.languageToDirection("close", 1, 0, "Claw");
+        assertEquals(0, result, 0.01);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_garbageThrowsException() {
+        // Test "abc"
+        ServoMechanismUtil.languageToDirection("abc", 1, 0, "Claw");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void languageToDirection_emptyThrowsException() {
+        // Test ""
+        ServoMechanismUtil.languageToDirection("", 1, 0, "Claw");
+    }
 }
