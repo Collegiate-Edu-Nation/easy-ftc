@@ -19,56 +19,6 @@ public abstract class ServoMechanism extends Mechanism {
     protected double delay;
 
     /**
-     * Enables teleoperated claw movement with gamepad.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     */
-    public void tele() {
-        boolean openButton, closeButton;
-        switch (mechanismName) {
-            case "Claw":
-                openButton = gamepad.b;
-                closeButton = gamepad.a;
-                break;
-            default:
-                openButton = gamepad.b;
-                closeButton = gamepad.a;
-        }
-        double current = servos[0].getPosition();
-        double movement =
-                ServoMechanismUtil.controlToDirection(open, close, current, openButton, closeButton);
-        if (smoothServo) {
-            double position = current;
-            setPositionByIncrement(position, movement);
-        } else {
-            for (Servo servo : servos) {
-                servo.setPosition(movement);
-            }
-        }
-    }
-
-    /**
-     * Intermediate function that assigns individual servo positions based on direction specified in
-     * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
-     * <p>
-     * Valid directions are: open, close
-     */
-    public void move(String direction) {
-        double servoDirection = ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
-        if (smoothServo) {
-            double position = servos[0].getPosition();
-            setPositionByIncrement(position, servoDirection);
-        } else {
-            for (Servo servo : servos) {
-                servo.setPosition(servoDirection);
-            }
-            wait(delay);
-        }
-    }
-
-    /**
      * Reverse the direction of all servos
      */
     public void reverse() {
@@ -86,6 +36,15 @@ public abstract class ServoMechanism extends Mechanism {
                 claw.setPosition(position);
             }
             wait(incrementDelay);
+        }
+    }
+
+    /**
+     * Wrapper around setPosition for all servos
+     */
+    protected void setPositions(double movement) {
+        for (Servo servo : servos) {
+            servo.setPosition(movement);
         }
     }
 

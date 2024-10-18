@@ -25,10 +25,11 @@ public abstract class ServoMechanismUtil {
         }
         return movement;
     }
+    
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double languageToDirection(String direction, double open, double close, String mechanismName) {
+    public static double languageToDirection(String direction, double open, double close, String mechanismName) {
         double servoDirection;
         switch (direction) {
             case "open":
