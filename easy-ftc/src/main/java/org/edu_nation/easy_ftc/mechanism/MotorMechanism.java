@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
- * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects common to
- * all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
+ * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
+ * common to all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
@@ -19,7 +19,6 @@ abstract class MotorMechanism extends Mechanism {
     protected double distanceMultiplier;
     protected double diameter;
     protected double length;
-    protected String layout;
     protected double deadZone = 0.1;
     protected String mechanismName;
 
@@ -95,13 +94,13 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     /**
-     * Correct the gear-ratio of all motors using encoders. Automatically updates
-     * distanceMultiplier
+     * Correct the gear-ratio of all motors using encoders. Automatically updates distanceMultiplier
      */
     public void setGearing(double gearing) {
         if (gearing <= 0) {
-            throw new IllegalArgumentException("Unexpected gearing value: " + gearing
-                    + ", passed to " + mechanismName + ".setGearing(). Valid values are numbers > 0");
+            throw new IllegalArgumentException(
+                    "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
+                            + ".setGearing(). Valid values are numbers > 0");
         }
 
         MotorConfigurationType[] motorTypes = getMotorTypes();
@@ -116,24 +115,28 @@ abstract class MotorMechanism extends Mechanism {
         if (!reverse) {
             if (useEncoder) {
                 for (int i = 0; i < motorsEx.length; i++) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE : DcMotorEx.Direction.FORWARD;
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE
+                            : DcMotorEx.Direction.FORWARD;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
                 for (int i = 0; i < motors.length; i++) {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
                     motors[i].setDirection(direction);
                 }
             }
         } else {
             if (useEncoder) {
                 for (int i = 0; i < motorsEx.length; i++) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD : DcMotorEx.Direction.REVERSE;
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
+                            : DcMotorEx.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
                 for (int i = 0; i < motors.length; i++) {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }

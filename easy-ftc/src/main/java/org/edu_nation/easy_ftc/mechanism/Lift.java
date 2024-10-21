@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
+ * @param Integer numMotors (1-2)
  * @param Boolean useEncoder (true or false)
  * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
@@ -26,134 +27,83 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class Lift extends MotorMechanism {
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>useEncoder = false
-     *           <li>diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap) {
-        this(opMode, hardwareMap, 1);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors) {
-        this(opMode, hardwareMap, numMotors, false);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
-        this(opMode, hardwareMap, 1, useEncoder);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>useEncoder = false
-     *           <li>diameter = 0.0
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder) {
-        this(opMode, hardwareMap, numMotors, useEncoder, 0.0);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, Gamepad gamepad) {
-        this(opMode, hardwareMap, numMotors, false, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
-        this(opMode, hardwareMap, 1, useEncoder, diameter);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>diameter = 0.0
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, useEncoder, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults gamepad = null
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double diameter) {
-        this(opMode, hardwareMap, numMotors, useEncoder, diameter, null);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, Gamepad gamepad) {
-        this(opMode, hardwareMap, numMotors, useEncoder, 0.0, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, useEncoder, diameter, gamepad);
-    }
 
     /**
      * Constructor
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double diameter,
-            Gamepad gamepad) {
-        this.opMode = opMode;
-        this.hardwareMap = hardwareMap;
-        this.numMotors = numMotors;
-        this.useEncoder = useEncoder;
-        this.diameter = diameter;
-        this.gamepad = gamepad;
-        this.mechanismName = "Lift";
+    private Lift(Builder builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.numMotors = builder.numMotors;
+        this.useEncoder = builder.useEncoder;
+        this.diameter = builder.diameter;
+        this.gamepad = builder.gamepad;
+        this.mechanismName = builder.mechanismName;
         hardwareInit();
     }
-    
+
+    public static class Builder {
+        private LinearOpMode opMode;
+        private HardwareMap hardwareMap;
+        private int numMotors = 1;
+        private boolean useEncoder = false;
+        private double diameter = 0.0;
+        private Gamepad gamepad = null;
+        private String mechanismName = "Lift";
+
+        /**
+         * Lift Builder
+         * 
+         * @Defaults numMotors = 1
+         *           <li>useEncoder = false
+         *           <li>diameter = 0.0
+         *           <li>gamepad = null
+         */
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Specify the number of motors (1-2)
+         */
+        public Builder numMotors(int numMotors) {
+            this.numMotors = numMotors;
+            return this;
+        }
+
+        /**
+         * Whether to enable encoders (time-based)
+         */
+        public Builder useEncoder(boolean useEncoder) {
+            this.useEncoder = useEncoder;
+            return this;
+        }
+
+        /**
+         * Specify the diameter of the lift for encoder control (distance-based)
+         */
+        public Builder diameter(double diameter) {
+            this.diameter = diameter;
+            return this;
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public Builder gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return this;
+        }
+
+        /**
+         * Build the lift
+         */
+        public Lift build() {
+            return new Lift(this);
+        }
+    }
+
     /**
      * Initializes lift motors based on constructor args (e.g. numMotors and using encoders or not)
      */
@@ -211,7 +161,8 @@ public class Lift extends MotorMechanism {
     @Override
     public void tele() {
         double[] movements = new double[numMotors];
-        double direction = LiftUtil.controlToDirection(deadZone, gamepad.left_trigger, gamepad.right_trigger);
+        double direction =
+                LiftUtil.controlToDirection(deadZone, gamepad.left_trigger, gamepad.right_trigger);
         for (int i = 0; i < movements.length; i++) {
             movements[i] = direction;
         }
@@ -239,8 +190,8 @@ public class Lift extends MotorMechanism {
             wait(measurement);
             setAllPower();
         } else {
-            int[] positions = LiftUtil.calculatePositions(measurement, diameter,
-            distanceMultiplier, unscaledMovements);
+            int[] positions = LiftUtil.calculatePositions(measurement, diameter, distanceMultiplier,
+                    unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position

@@ -16,9 +16,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
+ * @param Integer numMotors (2 or 4)
  * @param Boolean useEncoder (true or false)
  * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
+ * @param String type ("mecanum" or "differential")
  * @param String layout ("tank" or "arcade")
  *        <p>
  * @Methods {@link #tele()}
@@ -32,142 +34,108 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class Drive extends MotorMechanism {
     private IMU imu;
     private String type;
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     *           <li>gamepad = null
-     *           <li>layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type) {
-        this(opMode, hardwareMap, type, false);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     *           <li>gamepad = null
-     *           <li>layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder) {
-        this(opMode, hardwareMap, type, useEncoder, "");
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     *           <li>layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, Gamepad gamepad) {
-        this(opMode, hardwareMap, type, false, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, String layout) {
-        this(opMode, hardwareMap, type, false, layout);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder,
-            double diameter) {
-        this(opMode, hardwareMap, type, useEncoder, diameter, "");
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     *           <li>layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, type, useEncoder, gamepad, "");
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     *           <li>gamepad = null
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder, String layout) {
-        this(opMode, hardwareMap, type, useEncoder, null, layout);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, Gamepad gamepad, String layout) {
-        this(opMode, hardwareMap, type, false, gamepad, layout);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults diameter = 0.0
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder, Gamepad gamepad,
-            String layout) {
-        this(opMode, hardwareMap, type, useEncoder, 0.0, gamepad, layout);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults gamepad = null
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder, double diameter,
-            String layout) {
-        this(opMode, hardwareMap, type, useEncoder, diameter, null, layout);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults layout = ""
-     */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder, double diameter,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, type, useEncoder, diameter, gamepad, "");
-    }
+    private String layout;
 
     /**
      * Constructor
      */
-    public Drive(LinearOpMode opMode, HardwareMap hardwareMap, String type, boolean useEncoder, double diameter,
-            Gamepad gamepad, String layout) {
-        this.opMode = opMode;
-        this.hardwareMap = hardwareMap;
-        this.type = type;
-        if (type == "differential") {
-            this.numMotors = 2;
-        } else {
-            this.numMotors = 4;
-        }
-        this.useEncoder = useEncoder;
-        this.diameter = diameter;
-        this.gamepad = gamepad;
-        this.layout = layout;
-        this.mechanismName = "Drive";
+    private Drive(Builder builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.numMotors = builder.numMotors;
+        this.useEncoder = builder.useEncoder;
+        this.diameter = builder.diameter;
+        this.gamepad = builder.gamepad;
+        this.type = builder.type;
+        this.layout = builder.layout;
+        this.mechanismName = builder.mechanismName;
         hardwareInit();
+    }
+
+    public static class Builder {
+        private LinearOpMode opMode;
+        private HardwareMap hardwareMap;
+        private int numMotors = 2;
+        private boolean useEncoder = false;
+        private double diameter = 0.0;
+        private Gamepad gamepad = null;
+        private String type = "";
+        private String layout = "";
+        private String mechanismName = "Drive";
+
+        /**
+         * Drive Builder
+         * 
+         * @Defaults numMotors = 2
+         *           <li>useEncoder = false
+         *           <li>diameter = 0.0
+         *           <li>gamepad = null
+         *           <li>type = ""
+         *           <li>layout = ""
+         */
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Specify the number of motors (2, 4)
+         */
+        public Builder numMotors(int numMotors) {
+            this.numMotors = numMotors;
+            return this;
+        }
+
+        /**
+         * Whether to enable encoders (time-based)
+         */
+        public Builder useEncoder(boolean useEncoder) {
+            this.useEncoder = useEncoder;
+            return this;
+        }
+
+        /**
+         * Specify the diameter of the drive wheels for encoder control (distance-based)
+         */
+        public Builder diameter(double diameter) {
+            this.diameter = diameter;
+            return this;
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public Builder gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return this;
+        }
+
+        /**
+         * Specify the drivetrain type: "differential" (default) or "mecanum"
+         */
+        public Builder type(String type) {
+            this.type = type;
+            if (type == "mecanum" && this.numMotors == 2) {
+                this.numMotors = 4;
+            }
+            return this;
+        }
+
+        /**
+         * Specify the control layout. For Differential, "tank" (default) or "arcade". For Mecanum,
+         * "robot" (default) or "field"
+         */
+        public Builder layout(String layout) {
+            this.layout = layout;
+            return this;
+        }
+
+        /**
+         * Build the arm
+         */
+        public Drive build() {
+            return new Drive(this);
+        }
     }
 
     /**
@@ -256,9 +224,10 @@ public class Drive extends MotorMechanism {
                 imu.resetYaw();
             }
         }
-        
-        double[] movements = DriveUtil.controlToDirection(type, layout, deadZone, heading,
-                gamepad.left_stick_y, gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
+
+        double[] movements =
+                DriveUtil.controlToDirection(type, layout, deadZone, heading, gamepad.left_stick_y,
+                        gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
         setAllPower(movements);
     }
 

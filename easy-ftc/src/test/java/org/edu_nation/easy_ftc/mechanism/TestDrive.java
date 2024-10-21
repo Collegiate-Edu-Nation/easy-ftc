@@ -40,32 +40,53 @@ public class TestDrive {
         mockInit();
 
         try {
-            new Drive(mockedOpMode, mockedHardwareMap, "differential");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true);
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", "");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", "arcade");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4);
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", mockedGamepad, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4, mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, mockedGamepad, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4, mockedGamepad, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true);
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", "");
-            // new Drive(mockedOpMode, mockedHardwareMap, "mecanum", "field");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4);
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", mockedGamepad, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4, mockedGamepad);
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, mockedGamepad, "");
-            new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4, mockedGamepad, "");
+            // differential
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).layout("arcade")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
+                    .layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gamepad(mockedGamepad).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gamepad(mockedGamepad).layout("arcade").build();
+
+            // mecanum
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
+                    .type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").layout("robot")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).type("mecanum")
+                    .layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
+                    .type("mecanum").layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .type("mecanum").layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gamepad(mockedGamepad).type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).useEncoder(true)
+                    .diameter(4).gamepad(mockedGamepad).type("mecanum").layout("robot").build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -76,8 +97,11 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", mockedGamepad);
-            Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, mockedGamepad);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
+                    .type("mecanum").build();
+            Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).type("mecanum").build();
+
             drive.tele();
             driveEnc.tele();
         } catch (Exception e) {
@@ -90,9 +114,11 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential", mockedGamepad);
-            Drive driveEnc =
-                    new Drive(mockedOpMode, mockedHardwareMap, "differential", true, mockedGamepad);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
+                    .build();
+            Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .gamepad(mockedGamepad).build();
+
             drive.tele();
             driveEnc.tele();
         } catch (Exception e) {
@@ -105,9 +131,12 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential");
-            Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "differential", true);
-            Drive drivePos = new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+            Drive driveEnc =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+            Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .diameter(4).build();
+
             drive.move(0.5, "forward", 1);
             driveEnc.move(0.5, "forward", 1);
             drivePos.move(0.5, "forward", 12);
@@ -121,9 +150,13 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum");
-            Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true);
-            Drive drivePos = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4);
+            Drive drive =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
+            Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .type("mecanum").build();
+            Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .diameter(4).type("mecanum").build();
+
             drive.move(0.5, "forward", 1);
             driveEnc.move(0.5, "forward", 1);
             drivePos.move(0.5, "forward", 12);
@@ -137,8 +170,10 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential");
-            Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "differential", true);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+            Drive driveEnc =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+
             drive.reverse();
             drive.reverse("driveLeft");
             drive.reverse("driveRight");
@@ -155,8 +190,11 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum");
-            Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true);
+            Drive drive =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
+            Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .type("mecanum").build();
+
             drive.reverse();
             drive.reverse("frontLeft");
             drive.reverse("frontRight");
@@ -176,9 +214,10 @@ public class TestDrive {
     public void reverseDif_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential", mockedGamepad);
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
         Drive driveEnc =
-                new Drive(mockedOpMode, mockedHardwareMap, "differential", true, mockedGamepad);
+                new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+
         drive.reverse("abc");
         drive.reverse("");
         driveEnc.reverse("abc");
@@ -189,8 +228,10 @@ public class TestDrive {
     public void reverseMec_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", mockedGamepad);
-        Drive driveEnc = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, mockedGamepad);
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
+        Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .type("mecanum").build();
+
         drive.reverse("abc");
         drive.reverse("");
         driveEnc.reverse("abc");
@@ -202,7 +243,9 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .diameter(4).build();
+
             drive.setGearing(19.2);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -214,7 +257,9 @@ public class TestDrive {
         mockInit();
 
         try {
-            Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4);
+            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                    .diameter(4).type("mecanum").build();
+
             drive.setGearing(19.2);
         } catch (Exception e) {
             fail(e.getMessage());
@@ -225,7 +270,9 @@ public class TestDrive {
     public void setGearingDif_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "differential", true, 4);
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .diameter(4).build();
+
         drive.setGearing(0);
     }
 
@@ -233,7 +280,9 @@ public class TestDrive {
     public void setGearingMec_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive(mockedOpMode, mockedHardwareMap, "mecanum", true, 4);
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .diameter(4).type("mecanum").build();
+
         drive.setGearing(0);
     }
 }

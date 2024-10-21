@@ -19,9 +19,9 @@ class DriveUtil extends MotorMechanismUtil {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */
-    protected static double[] controlToDirection(String type, String layout, double deadZone, double heading,
-            float leftY, float leftX, float rightY, float rightX) {
-        if (type == "differential") {
+    protected static double[] controlToDirection(String type, String layout, double deadZone,
+            double heading, float leftY, float leftX, float rightY, float rightX) {
+        if (type == "differential" || type == "") {
             double left, right;
             if (layout == "tank" || layout == "") {
                 left = map(-leftY, deadZone);
@@ -42,11 +42,13 @@ class DriveUtil extends MotorMechanismUtil {
             double axial = map(-leftY, deadZone);
             double lateral = map(leftX, deadZone);
             double yaw = map(rightX, deadZone);
-    
-            // Calculate desired individual motor values (orientation factored in for else-if statement
+
+            // Calculate desired individual motor values (orientation factored in for else-if
+            // statement
             // i.e. field-centric driving)
             if (layout == "robot" || layout == "") {
-                // Scaled individual motor movements derived from axes (left to right, front to back)
+                // Scaled individual motor movements derived from axes (left to right, front to
+                // back)
                 // Scaling is needed to ensure intended ratios of motor powers
                 // (otherwise, for example, 1.1 would become 1, while 0.9 would be unaffected)
                 double max = Math.max(Math.abs(axial) + Math.abs(lateral) + Math.abs(yaw), 1);
@@ -55,13 +57,14 @@ class DriveUtil extends MotorMechanismUtil {
                 backLeft = ((axial - lateral + yaw) / max);
                 backRight = ((axial + lateral - yaw) / max);
             } else if (layout == "field") {
-                // Scaled individual motor movements derived from axes and orientation (left to right,
+                // Scaled individual motor movements derived from axes and orientation (left to
+                // right,
                 // front to back)
                 // Heading is the current yaw of the robot, which is used to calculate relative axes
                 double axial_relative = lateral * Math.sin(-heading) + axial * Math.cos(-heading);
                 double lateral_relative = lateral * Math.cos(-heading) - axial * Math.sin(-heading);
-                double max = Math
-                        .max(Math.abs(axial_relative) + Math.abs(lateral_relative) + Math.abs(yaw), 1);
+                double max = Math.max(
+                        Math.abs(axial_relative) + Math.abs(lateral_relative) + Math.abs(yaw), 1);
                 frontLeft = ((axial_relative + lateral_relative + yaw) / max);
                 frontRight = ((axial_relative - lateral_relative - yaw) / max);
                 backLeft = ((axial_relative - lateral_relative + yaw) / max);
@@ -70,7 +73,7 @@ class DriveUtil extends MotorMechanismUtil {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
                         + ", passed to Mecanum.tele(). Valid layouts are: robot, field");
             }
-    
+
             double[] movements = {frontLeft, frontRight, backLeft, backRight};
             return movements;
         }
@@ -80,7 +83,7 @@ class DriveUtil extends MotorMechanismUtil {
      * Translate natural-language direction to numeric values
      */
     protected static double[] languageToDirection(String type, double power, String direction) {
-        if (type == "differential") {
+        if (type == "differential" || type == "") {
             double[] motorDirections = {0, 0};
             switch (direction) {
                 case "forward":

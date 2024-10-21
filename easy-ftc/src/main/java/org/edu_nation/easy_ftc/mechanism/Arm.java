@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
+ * @param Integer numMotors (1-2)
  * @param Boolean useEncoder (true or false)
  * @param Double length (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
@@ -26,134 +27,83 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class Arm extends MotorMechanism {
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>useEncoder = false
-     *           <li>length = 0.0
-     *           <li>gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap) {
-        this(opMode, hardwareMap, 1);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>length = 0.0
-     *           <li>gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors) {
-        this(opMode, hardwareMap, numMotors, false);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>length = 0.0
-     *           <li>gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
-        this(opMode, hardwareMap, 1, useEncoder);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>useEncoder = false
-     *           <li>length = 0.0
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults length = 0.0
-     *           <li>gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder) {
-        this(opMode, hardwareMap, numMotors, useEncoder, 0.0);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults useEncoder = false
-     *           <li>length = 0.0
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, Gamepad gamepad) {
-        this(opMode, hardwareMap, numMotors, false, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
-        this(opMode, hardwareMap, 1, useEncoder, length);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     *           <li>length = 0.0
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, useEncoder, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults gamepad = null
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double length) {
-        this(opMode, hardwareMap, numMotors, useEncoder, length, null);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults length = 0.0
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, Gamepad gamepad) {
-        this(opMode, hardwareMap, numMotors, useEncoder, 0.0, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numMotors = 1
-     */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, useEncoder, length, gamepad);
-    }
 
     /**
      * Constructor
      */
-    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double length,
-            Gamepad gamepad) {
-        this.opMode = opMode;
-        this.hardwareMap = hardwareMap;
-        this.numMotors = numMotors;
-        this.useEncoder = useEncoder;
-        this.length = length;
-        this.gamepad = gamepad;
-        this.mechanismName = "Arm";
+    private Arm(Builder builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.numMotors = builder.numMotors;
+        this.useEncoder = builder.useEncoder;
+        this.length = builder.length;
+        this.gamepad = builder.gamepad;
+        this.mechanismName = builder.mechanismName;
         hardwareInit();
     }
-    
+
+    public static class Builder {
+        private LinearOpMode opMode;
+        private HardwareMap hardwareMap;
+        private int numMotors = 1;
+        private boolean useEncoder = false;
+        private double length = 0.0;
+        private Gamepad gamepad = null;
+        private String mechanismName = "Arm";
+
+        /**
+         * Arm Builder
+         * 
+         * @Defaults numMotors = 1
+         *           <li>useEncoder = false
+         *           <li>length = 0.0
+         *           <li>gamepad = null
+         */
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Specify the number of motors (1-2)
+         */
+        public Builder numMotors(int numMotors) {
+            this.numMotors = numMotors;
+            return this;
+        }
+
+        /**
+         * Whether to enable encoders (time-based)
+         */
+        public Builder useEncoder(boolean useEncoder) {
+            this.useEncoder = useEncoder;
+            return this;
+        }
+
+        /**
+         * Specify the length of the arm for encoder control (distance-based)
+         */
+        public Builder length(double length) {
+            this.length = length;
+            return this;
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public Builder gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return this;
+        }
+
+        /**
+         * Build the arm
+         */
+        public Arm build() {
+            return new Arm(this);
+        }
+    }
+
     /**
      * Initializes arm motors based on constructor args (e.g. numMotors and using encoders or not)
      */
@@ -210,7 +160,8 @@ public class Arm extends MotorMechanism {
      */
     public void tele(double power) {
         double[] movements = new double[numMotors];
-        double direction = ArmUtil.controlToDirection(power, gamepad.left_bumper, gamepad.right_bumper);
+        double direction =
+                ArmUtil.controlToDirection(power, gamepad.left_bumper, gamepad.right_bumper);
         for (int i = 0; i < movements.length; i++) {
             movements[i] = direction;
         }
