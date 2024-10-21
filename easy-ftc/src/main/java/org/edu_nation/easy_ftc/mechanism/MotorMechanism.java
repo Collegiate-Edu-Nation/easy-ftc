@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-public abstract class MotorMechanism extends Mechanism {
+abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
     protected int numMotors;

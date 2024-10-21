@@ -9,11 +9,11 @@ package org.edu_nation.easy_ftc.mechanism;
  * @Methods {@link #controlToDirection(double open, double close, double current, boolean openButton, boolean closeButton)}
  *          (used by subclasses)
  */
-public abstract class ServoMechanismUtil {
+abstract class ServoMechanismUtil {
     /**
      * Set claw servo movement based on open, close values as well as current position
      */
-    public static double controlToDirection(double open, double close, double current,
+    protected static double controlToDirection(double open, double close, double current,
             boolean openButton, boolean closeButton) {
         double movement;
         if (openButton && !closeButton) {
@@ -29,7 +29,7 @@ public abstract class ServoMechanismUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    public static double languageToDirection(String direction, double open, double close, String mechanismName) {
+    protected static double languageToDirection(String direction, double open, double close, String mechanismName) {
         double servoDirection;
         switch (direction) {
             case "open":

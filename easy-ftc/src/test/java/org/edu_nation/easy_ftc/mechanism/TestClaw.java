@@ -1,4 +1,4 @@
-package org.edu_nation.easy_ftc.claw;
+package org.edu_nation.easy_ftc.mechanism;
 
 import org.junit.Test;
 import static org.junit.Assert.*;

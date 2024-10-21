@@ -1,27 +1,25 @@
-package org.edu_nation.easy_ftc.arm;
-
-import org.edu_nation.easy_ftc.mechanism.MotorMechanismUtil;
+package org.edu_nation.easy_ftc.mechanism;
 
 /**
- * Provides static utility methods for moving an arm by extending the functionality of
- * {@link MotorMechanismUtil}.
+ * Provides static utility methods for moving a lift by extending the functionality of
+ * {@link LiftUtil}.
  * 
- * @Methods {@link #controlToDirection(double power, boolean lb, boolean rb)}
+ * @Methods {@link #controlToDirection(double deadZone, float lt, float rt)}
  *          <li>{@link #languageToDirection(String direction)}
+ *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
+ *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
  *          <li>{@link #calculatePositions(double, double, double, double[])} (inherited from
  *          {@link MotorMechanismUtil})
  */
-class ArmUtil extends MotorMechanismUtil {
+class LiftUtil extends MotorMechanismUtil {
     /**
-     * Sets arm motor movements based on bumpers
+     * Set lift motor movements based on triggers
      */
-    protected static double controlToDirection(double power, boolean lb, boolean rb) {
-        int down = lb ? 1 : 0;
-        int up = rb ? 1 : 0;
-        double arm = power * (up - down);
-        return arm;
+    protected static double controlToDirection(double deadZone, float lt, float rt) {
+        double lift = map(rt, deadZone) - map(lt, deadZone);
+        return lift;
     }
 
     /**
@@ -38,7 +36,7 @@ class ArmUtil extends MotorMechanismUtil {
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to Arm.move(). Valid directions are: up, down");
+                        + ", passed to Lift.move(). Valid directions are: up, down");
         }
         return motorDirection;
     }

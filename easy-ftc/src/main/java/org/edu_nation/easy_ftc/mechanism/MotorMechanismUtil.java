@@ -14,7 +14,7 @@ import java.lang.Math;
  *          <li>{@link #calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements)}
  *          (used by subclasses)
  */
-public abstract class MotorMechanismUtil {
+abstract class MotorMechanismUtil {
     /**
      * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller
      * deadZone
@@ -37,7 +37,7 @@ public abstract class MotorMechanismUtil {
     /**
      * Scale directions by a factor of power to derive actual, intended motor movements
      */
-    public static double[] scaleDirections(double power, double[] motorDirections) {
+    protected static double[] scaleDirections(double power, double[] motorDirections) {
         double[] movements = new double[motorDirections.length];
         for (int i = 0; i < motorDirections.length; i++) {
             movements[i] = power * motorDirections[i];
@@ -48,7 +48,7 @@ public abstract class MotorMechanismUtil {
     /**
      * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
      */
-    public static int[] calculatePositions(double distance, double diameter,
+    protected static int[] calculatePositions(double distance, double diameter,
             double distanceMultiplier, double[] movements) {
         double circumference = Math.PI * diameter;
         double revolutions = distance / circumference;

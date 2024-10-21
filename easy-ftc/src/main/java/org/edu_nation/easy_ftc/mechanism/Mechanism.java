@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-public abstract class Mechanism {
+abstract class Mechanism {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected Gamepad gamepad;

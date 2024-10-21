@@ -1,6 +1,5 @@
-package org.edu_nation.easy_ftc.lift;
+package org.edu_nation.easy_ftc.mechanism;
 
-import org.edu_nation.easy_ftc.mechanism.MotorMechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,33 +8,33 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Implements a lift by extending the functionality of {@link MotorMechanism}.
+ * Implements an arm by extending the functionality of {@link MotorMechanism}.
  * <p>
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Boolean useEncoder (true or false)
- * @param Double diameter (> 0.0)
+ * @param Double length (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
- * @Methods {@link #tele()}
+ * @Methods {@link #tele(double power)}
+ *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
  *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
- *          <li>{@link #reverse(String motorName)}
  *          <li>{@link #setAllPower(double [] movements)}
  *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
- *          <li>{@link #wait(double time)} (inherited from {@link Lift})
+ *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
-public class Lift extends MotorMechanism {
+public class Arm extends MotorMechanism {
     /**
      * Constructor
      * 
      * @Defaults numMotors = 1
      *           <li>useEncoder = false
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap) {
         this(opMode, hardwareMap, 1);
     }
 
@@ -43,10 +42,10 @@ public class Lift extends MotorMechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors) {
         this(opMode, hardwareMap, numMotors, false);
     }
 
@@ -54,10 +53,10 @@ public class Lift extends MotorMechanism {
      * Constructor
      * 
      * @Defaults numMotors = 1
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder) {
         this(opMode, hardwareMap, 1, useEncoder);
     }
 
@@ -66,19 +65,19 @@ public class Lift extends MotorMechanism {
      * 
      * @Defaults numMotors = 1
      *           <li>useEncoder = false
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
         this(opMode, hardwareMap, 1, gamepad);
     }
 
     /**
      * Constructor
      * 
-     * @Defaults diameter = 0.0
+     * @Defaults length = 0.0
      *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder) {
         this(opMode, hardwareMap, numMotors, useEncoder, 0.0);
     }
 
@@ -86,9 +85,9 @@ public class Lift extends MotorMechanism {
      * Constructor
      * 
      * @Defaults useEncoder = false
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, Gamepad gamepad) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, Gamepad gamepad) {
         this(opMode, hardwareMap, numMotors, false, gamepad);
     }
 
@@ -98,17 +97,17 @@ public class Lift extends MotorMechanism {
      * @Defaults numMotors = 1
      *           <li>gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter) {
-        this(opMode, hardwareMap, 1, useEncoder, diameter);
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length) {
+        this(opMode, hardwareMap, 1, useEncoder, length);
     }
 
     /**
      * Constructor
      * 
      * @Defaults numMotors = 1
-     *           <li>diameter = 0.0
+     *           <li>length = 0.0
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, Gamepad gamepad) {
         this(opMode, hardwareMap, 1, useEncoder, gamepad);
     }
 
@@ -117,16 +116,16 @@ public class Lift extends MotorMechanism {
      * 
      * @Defaults gamepad = null
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double diameter) {
-        this(opMode, hardwareMap, numMotors, useEncoder, diameter, null);
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double length) {
+        this(opMode, hardwareMap, numMotors, useEncoder, length, null);
     }
 
     /**
      * Constructor
      * 
-     * @Defaults diameter = 0.0
+     * @Defaults length = 0.0
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, Gamepad gamepad) {
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, Gamepad gamepad) {
         this(opMode, hardwareMap, numMotors, useEncoder, 0.0, gamepad);
     }
 
@@ -135,28 +134,28 @@ public class Lift extends MotorMechanism {
      * 
      * @Defaults numMotors = 1
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double diameter,
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, boolean useEncoder, double length,
             Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, useEncoder, diameter, gamepad);
+        this(opMode, hardwareMap, 1, useEncoder, length, gamepad);
     }
 
     /**
      * Constructor
      */
-    public Lift(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double diameter,
+    public Arm(LinearOpMode opMode, HardwareMap hardwareMap, int numMotors, boolean useEncoder, double length,
             Gamepad gamepad) {
         this.opMode = opMode;
         this.hardwareMap = hardwareMap;
         this.numMotors = numMotors;
         this.useEncoder = useEncoder;
-        this.diameter = diameter;
+        this.length = length;
         this.gamepad = gamepad;
-        this.mechanismName = "Lift";
+        this.mechanismName = "Arm";
         hardwareInit();
     }
     
     /**
-     * Initializes lift motors based on constructor args (e.g. numMotors and using encoders or not)
+     * Initializes arm motors based on constructor args (e.g. numMotors and using encoders or not)
      */
     @Override
     protected void hardwareInit() {
@@ -164,15 +163,15 @@ public class Lift extends MotorMechanism {
             // Instantiate motors
             motorsEx = new DcMotorEx[numMotors];
             if (numMotors == 2) {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "liftLeft");
-                motorsEx[1] = hardwareMap.get(DcMotorEx.class, "liftRight");
+                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "armLeft");
+                motorsEx[1] = hardwareMap.get(DcMotorEx.class, "armRight");
             } else {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "lift");
+                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "arm");
             }
 
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
-            // Reverse direction of left motor for convenience (switch if lift is backwards)
+            // Reverse direction of left motor for convenience (switch if arm is backwards)
             setDirections();
 
             // Reset encoders
@@ -181,7 +180,7 @@ public class Lift extends MotorMechanism {
             // Set motors to run using the encoder (velocity, not position)
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            if (diameter == 0.0) {
+            if (length == 0.0) {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
@@ -190,13 +189,13 @@ public class Lift extends MotorMechanism {
             // Instantiate motors
             motors = new DcMotor[numMotors];
             if (numMotors == 2) {
-                motors[0] = hardwareMap.get(DcMotor.class, "liftLeft");
-                motors[1] = hardwareMap.get(DcMotor.class, "liftRight");
+                motors[0] = hardwareMap.get(DcMotor.class, "armLeft");
+                motors[1] = hardwareMap.get(DcMotor.class, "armRight");
             } else {
-                motors[0] = hardwareMap.get(DcMotor.class, "lift");
+                motors[0] = hardwareMap.get(DcMotor.class, "arm");
             }
 
-            // Reverse direction of left motor for convenience (switch if lift is backwards)
+            // Reverse direction of left motor for convenience (switch if arm is backwards)
             setDirections();
 
             // Set motors to run without the encoders (power, not velocity or position)
@@ -205,18 +204,27 @@ public class Lift extends MotorMechanism {
     }
 
     /**
-     * Enables teleoperated lift movement with gamepad.
+     * Enables teleoperated arm movement with gamepad at a specified power (defaults to 0.5).
+     * <p>
+     * Calling this directly is one of the primary use-cases of this class.
+     */
+    public void tele(double power) {
+        double[] movements = new double[numMotors];
+        double direction = ArmUtil.controlToDirection(power, gamepad.left_bumper, gamepad.right_bumper);
+        for (int i = 0; i < movements.length; i++) {
+            movements[i] = direction;
+        }
+        setAllPower(movements);
+    }
+
+    /**
+     * Enables teleoperated arm movement with gamepad at a power of 0.5 (this is the default case).
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void tele() {
-        double[] movements = new double[numMotors];
-        double direction = LiftUtil.controlToDirection(deadZone, gamepad.left_trigger, gamepad.right_trigger);
-        for (int i = 0; i < movements.length; i++) {
-            movements[i] = direction;
-        }
-        setAllPower(movements);
+        tele(0.5);
     }
 
     /**
@@ -228,20 +236,21 @@ public class Lift extends MotorMechanism {
      * Valid directions are: up, down
      */
     public void move(double power, String direction, double measurement) {
-        double movement = LiftUtil.languageToDirection(direction);
+        double movement = ArmUtil.languageToDirection(direction);
         double[] unscaledMovements = new double[numMotors];
         for (int i = 0; i < numMotors; i++) {
             unscaledMovements[i] = movement;
         }
-        double[] movements = LiftUtil.scaleDirections(power, unscaledMovements);
+        double[] movements = ArmUtil.scaleDirections(power, unscaledMovements);
 
-        if (diameter == 0.0) {
+        if (length == 0.0) {
             setAllPower(movements);
             wait(measurement);
             setAllPower();
         } else {
-            int[] positions = LiftUtil.calculatePositions(measurement, diameter,
-            distanceMultiplier, unscaledMovements);
+            // length is the radius of arm's ROM, so double it for arc length = distance
+            int[] positions = ArmUtil.calculatePositions(measurement, 2.0 * length,
+                    distanceMultiplier, unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position
@@ -252,7 +261,7 @@ public class Lift extends MotorMechanism {
             }
             setAllPower();
 
-            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
+            // Reset motors to run using velocity (allows for using move() w/ length along w/
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
@@ -264,14 +273,14 @@ public class Lift extends MotorMechanism {
     public void reverse(String motorName) {
         if (numMotors == 2) {
             switch (motorName) {
-                case "liftLeft":
+                case "armLeft":
                     if (useEncoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[0].setDirection(DcMotor.Direction.FORWARD);
                     }
                     break;
-                case "liftRight":
+                case "armRight":
                     if (useEncoder) {
                         motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                     } else {
@@ -280,16 +289,16 @@ public class Lift extends MotorMechanism {
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected motorName: " + motorName
-                            + ", passed to Lift.reverse(). Valid names are: liftLeft, liftRight");
+                            + ", passed to Arm.reverse(). Valid names are: armLeft, armRight");
             }
         } else {
             switch (motorName) {
-                case "lift":
+                case "arm":
                     reverse();
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected motorName: " + motorName
-                            + ", passed to Lift.reverse(). Valid names are: lift");
+                            + ", passed to Arm.reverse(). Valid names are: arm");
             }
         }
     }

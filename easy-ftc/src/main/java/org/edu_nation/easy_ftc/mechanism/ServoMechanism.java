@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-public abstract class ServoMechanism extends Mechanism {
+abstract class ServoMechanism extends Mechanism {
     protected Servo[] servos;
     protected int numServos;
     protected boolean smoothServo;

@@ -1,6 +1,5 @@
-package org.edu_nation.easy_ftc.drive;
+package org.edu_nation.easy_ftc.mechanism;
 
-import org.edu_nation.easy_ftc.mechanism.MotorMechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;

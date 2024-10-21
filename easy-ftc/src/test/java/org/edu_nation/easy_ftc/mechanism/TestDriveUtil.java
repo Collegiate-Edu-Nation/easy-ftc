@@ -1,4 +1,4 @@
-package org.edu_nation.easy_ftc.drive;
+package org.edu_nation.easy_ftc.mechanism;
 
 import java.lang.Math;
 import org.junit.Test;

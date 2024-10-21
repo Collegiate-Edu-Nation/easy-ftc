@@ -1,7 +1,5 @@
-package org.edu_nation.easy_ftc.claw;
+package org.edu_nation.easy_ftc.mechanism;
 
-import org.edu_nation.easy_ftc.mechanism.ServoMechanism;
-import org.edu_nation.easy_ftc.mechanism.ServoMechanismUtil;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
