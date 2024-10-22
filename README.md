@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/Android_API-29-blue)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-17.0.10-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
-![Static Badge](https://img.shields.io/badge/Coverage-95%25-green)
+![Static Badge](https://img.shields.io/badge/Coverage-94%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and features, including
@@ -17,7 +17,7 @@ Library for easily leveraging in-the-box FTC mechanisms and features, including
 Docs deployed at https://camdenboren.github.io/easy-ftc<br>
 <i>Docs cover examples, controls, diagrams, and API reference</i>
 
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), reverse(), and state()) due to a reliance on sane defaults and constructor-enabled features.
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and the builder design-pattern.
 
 <i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling multi-servo synchronization (at the expense of thread-blocking). Supported sensors are: AprilTag, color, distance, and touch</i>
 
@@ -106,13 +106,13 @@ Note that LightWeight and Standard modes do not give identical output when forma
 ### Chores
 - [x] Use camelCase for hardware naming
 - [x] Make smoothServo opt-in
-- [ ] Implement layout approach, move to builder pattern
+- [x] Implement layout approach, move to builder pattern
     - [x] Use arrays for servos, motors to generalize functions
     - [x] Make solo and dual arms, claws, lifts identical other than numMotors
     - [x] Move most drive functions to Drive.java
     - [x] Consolidate Arm, Claw, Lift to one class w/ layout switch
     - [x] Utilize more MotorMechanism function in drive classes
-    - [ ] Implement builder pattern to enforce immutability, make parameters explicit
+    - [x] Implement builder pattern to enforce immutability, make parameters explicit
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate instrumentation and/or manual hardware tests
 
