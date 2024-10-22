@@ -21,8 +21,17 @@ public class TestDistance {
         mockInit();
 
         try {
-            new Distance(mockedHardwareMap);
-            new Distance(mockedHardwareMap, 7);
+            new Distance.Builder(mockedHardwareMap).build();
+            new Distance.Builder(mockedHardwareMap)
+                .calibrationValue(7)
+                .build();
+            new Distance.Builder(mockedHardwareMap)
+                .reverse()
+                .build();
+            new Distance.Builder(mockedHardwareMap)
+                .calibrationValue(7)
+                .reverse()
+                .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -31,7 +40,8 @@ public class TestDistance {
     @Test
     public void state_isCorrect() {
         mockInit();
-        Distance mockedDistance = new Distance(mockedHardwareMap);
+        
+        Distance mockedDistance = new Distance.Builder(mockedHardwareMap).build();
 
         // getDistance() >= calibrationValue
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
@@ -44,28 +54,18 @@ public class TestDistance {
         assertEquals(true, result);
 
         // reversed-state
-        mockedDistance.reverse();
+        Distance mockedDistanceReverse = new Distance.Builder(mockedHardwareMap)
+            .reverse()
+            .build();
 
         // getDistance() >= calibrationValue
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
-        result = mockedDistance.state();
+        result = mockedDistanceReverse.state();
         assertEquals(true, result);
 
         // getDistance() < calibrationValue
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
-        result = mockedDistance.state();
+        result = mockedDistanceReverse.state();
         assertEquals(false, result);
-    }
-
-    @Test
-    public void reverse_isCalled() {
-        mockInit();
-
-        try {
-            Distance mockedDistance = new Distance(mockedHardwareMap);
-            mockedDistance.reverse();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
     }
 }

@@ -9,28 +9,61 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
+ * @param Boolean reverseState
  * @param Double calibrationValue (in CM)
  *        <p>
  * @Methods {@link #state()}
- *          <li>{@link #reverse()}
  */
 public class Distance extends Sensor<Boolean> {
     private DistanceSensor sensor;
 
     /**
      * Constructor
-     * 
-     * @defaults calibrationValue = 7.0
      */
-    public Distance(HardwareMap hardwareMap) {
-        super(hardwareMap, 7.0);
+    private Distance(Builder builder) {
+        this.hardwareMap = builder.hardwareMap;
+        this.reverseState = builder.reverseState;
+        this.calibrationValue = builder.calibrationValue;
+        hardwareInit();
     }
 
-    /**
-     * Constructor
-     */
-    public Distance(HardwareMap hardwareMap, double calibrationValue) {
-        super(hardwareMap, calibrationValue);
+    public static class Builder {
+        private HardwareMap hardwareMap;
+        private boolean reverseState = false;
+        private double calibrationValue = 7.0;
+
+        /**
+         * Distance Builder
+         * 
+         * @Defaults reverseState = false
+         *           <li>calibrationValue = 7.0
+         */
+        public Builder(HardwareMap hardwareMap) {
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Reverse the sensor's state
+         */
+        public Builder reverse() {
+            this.reverseState = true;
+            return this;
+        }
+        
+        /**
+         * Specify the calibration value
+         */
+        public Builder calibrationValue(double calibrationValue) {
+            this.calibrationValue = calibrationValue;
+            return this;
+        }
+
+        /**
+         * Build the sensor
+         */
+        public Distance build() {
+            return new Distance(this);
+        }
     }
 
     /**
@@ -51,13 +84,5 @@ public class Distance extends Sensor<Boolean> {
         } else {
             return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
         }
-    }
-
-    /**
-     * Reverses sensor state
-     */
-    @Override
-    public void reverse() {
-        this.reverseState = true;
     }
 }

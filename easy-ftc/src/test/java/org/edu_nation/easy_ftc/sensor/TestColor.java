@@ -25,8 +25,34 @@ public class TestColor {
         mockInit();
 
         try {
-            new Color(mockedHardwareMap);
-            new Color(mockedHardwareMap, 1);
+            new Color.Builder(mockedHardwareMap).build();
+            new Color.Builder(mockedHardwareMap)
+                .calibrationValue(1)
+                .build();
+            int[] offsets = {9, -26, -1};
+            new Color.Builder(mockedHardwareMap)
+                .rgbOffsets(offsets)
+                .build();
+            new Color.Builder(mockedHardwareMap)
+                .reverse()
+                .build();
+            new Color.Builder(mockedHardwareMap)
+                .calibrationValue(1)
+                .rgbOffsets(offsets)
+                .build();
+            new Color.Builder(mockedHardwareMap)
+                .calibrationValue(1)
+                .reverse()
+                .build();
+            new Color.Builder(mockedHardwareMap)
+                .rgbOffsets(offsets)
+                .reverse()
+                .build();
+            new Color.Builder(mockedHardwareMap)
+                .calibrationValue(1)
+                .rgbOffsets(offsets)
+                .reverse()
+                .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -35,7 +61,8 @@ public class TestColor {
     @Test
     public void state_isCorrect() {
         mockInit();
-        Color mockedColor = new Color(mockedHardwareMap);
+
+        Color mockedColor = new Color.Builder(mockedHardwareMap).build();
 
         // red is the max after offset
         mockRGB(76, 110, 85);
@@ -53,33 +80,24 @@ public class TestColor {
         assertEquals("blue", result);
 
         // reversed-state
-        mockedColor.reverse();
+
+        Color mockedColorReverse = new Color.Builder(mockedHardwareMap)
+            .reverse()
+            .build();
 
         // red is the max after offset
         mockRGB(74, 110, 85);
-        result = mockedColor.state();
+        result = mockedColorReverse.state();
         assertEquals("red", result);
 
         // green is the max after offset
         mockRGB(75, 109, 85);
-        result = mockedColor.state();
+        result = mockedColorReverse.state();
         assertEquals("green", result);
 
         // blue is the max after offset
         mockRGB(75, 110, 84);
-        result = mockedColor.state();
+        result = mockedColorReverse.state();
         assertEquals("blue", result);
-    }
-
-    @Test
-    public void reverse_isCalled() {
-        mockInit();
-
-        try {
-            Color mockedColor = new Color(mockedHardwareMap);
-            mockedColor.reverse();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
     }
 }

@@ -12,9 +12,9 @@ import java.util.List;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
+ * @param Boolean reverseState
  *        <p>
  * @Methods {@link #state()}
- *          <li>{@link #reverse()}
  */
 public class Apriltag extends Sensor<Boolean> {
     private AprilTagProcessor sensor;
@@ -24,8 +24,39 @@ public class Apriltag extends Sensor<Boolean> {
     /**
      * Constructor
      */
-    public Apriltag(HardwareMap hardwareMap) {
-        super(hardwareMap);
+    private Apriltag(Builder builder) {
+        this.hardwareMap = builder.hardwareMap;
+        this.reverseState = builder.reverseState;
+        hardwareInit();
+    }
+
+    public static class Builder {
+        private HardwareMap hardwareMap;
+        private boolean reverseState = false;
+
+        /**
+         * Apriltag Builder
+         * 
+         * @Defaults reverseState = false
+         */
+        public Builder(HardwareMap hardwareMap) {
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Reverse the sensor's state
+         */
+        public Builder reverse() {
+            this.reverseState = true;
+            return this;
+        }
+
+        /**
+         * Build the sensor
+         */
+        public Apriltag build() {
+            return new Apriltag(this);
+        }
     }
 
     /**
@@ -56,13 +87,5 @@ public class Apriltag extends Sensor<Boolean> {
     private boolean objectDetected() {
         detections = sensor.getDetections();
         return (detections.size() > 0);
-    }
-
-    /**
-     * Reverses sensor state
-     */
-    @Override
-    public void reverse() {
-        this.reverseState = true;
     }
 }
