@@ -115,6 +115,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
     - [x] Utilize more MotorMechanism function in drive classes
     - [x] Implement builder pattern to enforce immutability, make parameters explicit
 - [ ] Update MyBlocks
+- [ ] Make 'sensor' var generic
 - [ ] Make wait protected
 - [ ] Move to reverse instead of reverseState
 - [ ] Move reverse(), reverse(name), gearing() to builder
@@ -123,7 +124,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
-- [ ] Update uml, examples
+- [x] Update uml, examples
 - [ ] Improve code comments
 - [ ] Add hardware naming section
 - [ ] Improve usage instructions

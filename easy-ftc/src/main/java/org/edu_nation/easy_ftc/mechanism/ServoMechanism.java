@@ -13,10 +13,10 @@ abstract class ServoMechanism extends Mechanism {
     protected int numServos;
     protected boolean smoothServo;
     protected double open, close;
-    protected String mechanismName;
     protected double increment;
     protected double incrementDelay;
     protected double delay;
+    protected String mechanismName;
 
     /**
      * Reverse the direction of all servos
