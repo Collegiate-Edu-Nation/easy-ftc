@@ -13,6 +13,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param HardwareMap hardwareMap (required)
  * @param Integer numServos (1 or 2)
  * @param Boolean smoothServo (true or false)
+ * @param Double open (0-1)
+ * @param Double close (0-1)
+ * @param Double increment (0-1)
+ * @param Double incrementDelay (> 0, in s)
+ * @param Double delay (> 0, in s)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
@@ -22,93 +27,125 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class Claw extends ServoMechanism {
-    /**
-     * Constructor
-     * 
-     * @Defaults numServos = 1
-     *           <li>smoothServo = false
-     *           <li>gamepad = null
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap) {
-        this(opMode, hardwareMap, 1);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults smoothServo = false
-     *           <li>gamepad = null
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, int numServos) {
-        this(opMode, hardwareMap, numServos, false);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numServos = 1
-     *           <li>gamepad = null
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo) {
-        this(opMode, hardwareMap, 1, smoothServo);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numServos = 1
-     *           <li>smoothServo = false
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults gamepad = null
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, int numServos,
-            boolean smoothServo) {
-        this(opMode, hardwareMap, numServos, smoothServo, null);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults smoothServo = false
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, int numServos,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, numServos, false, gamepad);
-    }
-
-    /**
-     * Constructor
-     * 
-     * @Defaults numServos = 1
-     */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, boolean smoothServo,
-            Gamepad gamepad) {
-        this(opMode, hardwareMap, 1, smoothServo, gamepad);
-    }
 
     /**
      * Constructor
      */
-    public Claw(LinearOpMode opMode, HardwareMap hardwareMap, int numServos, boolean smoothServo, Gamepad gamepad) {
-        this.opMode = opMode;
-        this.hardwareMap = hardwareMap;
-        this.numServos = numServos;
-        this.smoothServo = smoothServo;
-        this.open = 1.0;
-        this.close = 0.0;
-        this.increment = 0.02;
-        this.incrementDelay = 0.02;
-        this.delay = 2;
-        this.gamepad = gamepad;
-        this.mechanismName = "Claw";
+    private Claw(Builder builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.numServos = builder.numServos;
+        this.smoothServo = builder.smoothServo;
+        this.open = builder.open;
+        this.close = builder.close;
+        this.increment = builder.increment;
+        this.incrementDelay = builder.incrementDelay;
+        this.delay = builder.delay;
+        this.gamepad = builder.gamepad;
+        this.mechanismName = builder.mechanismName;
         hardwareInit();
+    }
+
+    public static class Builder {
+        private LinearOpMode opMode;
+        private HardwareMap hardwareMap;
+        private int numServos = 1;
+        private boolean smoothServo = false;
+        private double open = 1.0;
+        private double close = 0.0;
+        private double increment = 0.02;
+        private double incrementDelay = 0.02;
+        private double delay = 2;
+        private Gamepad gamepad = null;
+        private String mechanismName = "Claw";
+
+        /**
+         * Claw Builder
+         * 
+         * @Defaults numServos = 1
+         *           <li>smoothServo = false
+         *           <li>open = 1.0
+         *           <li>close = 0.0
+         *           <li>increment = 0.02
+         *           <li>incrementDelay = 0.02
+         *           <li>delay = 2
+         *           <li>gamepad = null
+         */
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Specify the number of servos (1-2)
+         */
+        public Builder numServos(int numServos) {
+            this.numServos = numServos;
+            return this;
+        }
+
+        /**
+         * Whether to enable smooth-servo control
+         */
+        public Builder smoothServo(boolean smoothServo) {
+            this.smoothServo = smoothServo;
+            return this;
+        }
+
+        /**
+         * Specify the open posiiton of the servo(s) (0-1)
+         */
+        public Builder open(double open) {
+            this.open = open;
+            return this;
+        }
+
+        /**
+         * Specify the close position of the servo(s) (0-1)
+         */
+        public Builder close(double close) {
+            this.close = close;
+            return this;
+        }
+
+        /**
+         * Specify the increment to move by for smooth-servo control (0-1)
+         */
+        public Builder increment(double increment) {
+            this.increment = increment;
+            return this;
+        }
+
+        /**
+         * Specify the time (s) to wait between each increment for smooth-servo control (> 0)
+         */
+        public Builder incrementDelay(double incrementDelay) {
+            this.incrementDelay = incrementDelay;
+            return this;
+        }
+
+        /**
+         * Specify the time to wait for servo movements to complete (for normal servo control) (> 0)
+         */
+        public Builder delay(double delay) {
+            this.delay = delay;
+            return this;
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public Builder gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return this;
+        }
+
+        /**
+         * Build the claw
+         */
+        public Claw build() {
+            return new Claw(this);
+        }
     }
 
     /**

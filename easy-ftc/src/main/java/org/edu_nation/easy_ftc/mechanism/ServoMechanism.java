@@ -32,8 +32,8 @@ abstract class ServoMechanism extends Mechanism {
         while (opMode.opModeIsActive() && position != movement) {
             position += (movement - position > 0) ? increment : -increment;
             position = Math.min(Math.max(position, 0), 1);
-            for (Servo claw : servos) {
-                claw.setPosition(position);
+            for (Servo servo : servos) {
+                servo.setPosition(position);
             }
             wait(incrementDelay);
         }
