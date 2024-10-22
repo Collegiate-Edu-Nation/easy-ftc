@@ -22,16 +22,9 @@ public class TestDistance {
 
         try {
             new Distance.Builder(mockedHardwareMap).build();
-            new Distance.Builder(mockedHardwareMap)
-                .calibrationValue(7)
-                .build();
-            new Distance.Builder(mockedHardwareMap)
-                .reverse()
-                .build();
-            new Distance.Builder(mockedHardwareMap)
-                .calibrationValue(7)
-                .reverse()
-                .build();
+            new Distance.Builder(mockedHardwareMap).calibrationValue(7).build();
+            new Distance.Builder(mockedHardwareMap).reverse().build();
+            new Distance.Builder(mockedHardwareMap).calibrationValue(7).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -40,7 +33,7 @@ public class TestDistance {
     @Test
     public void state_isCorrect() {
         mockInit();
-        
+
         Distance mockedDistance = new Distance.Builder(mockedHardwareMap).build();
 
         // getDistance() >= calibrationValue
@@ -54,9 +47,7 @@ public class TestDistance {
         assertEquals(true, result);
 
         // reversed-state
-        Distance mockedDistanceReverse = new Distance.Builder(mockedHardwareMap)
-            .reverse()
-            .build();
+        Distance mockedDistanceReverse = new Distance.Builder(mockedHardwareMap).reverse().build();
 
         // getDistance() >= calibrationValue
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);

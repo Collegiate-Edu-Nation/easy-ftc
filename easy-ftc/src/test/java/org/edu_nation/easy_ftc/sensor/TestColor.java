@@ -26,33 +26,15 @@ public class TestColor {
 
         try {
             new Color.Builder(mockedHardwareMap).build();
-            new Color.Builder(mockedHardwareMap)
-                .calibrationValue(1)
-                .build();
+            new Color.Builder(mockedHardwareMap).calibrationValue(1).build();
             int[] offsets = {9, -26, -1};
-            new Color.Builder(mockedHardwareMap)
-                .rgbOffsets(offsets)
-                .build();
-            new Color.Builder(mockedHardwareMap)
-                .reverse()
-                .build();
-            new Color.Builder(mockedHardwareMap)
-                .calibrationValue(1)
-                .rgbOffsets(offsets)
-                .build();
-            new Color.Builder(mockedHardwareMap)
-                .calibrationValue(1)
-                .reverse()
-                .build();
-            new Color.Builder(mockedHardwareMap)
-                .rgbOffsets(offsets)
-                .reverse()
-                .build();
-            new Color.Builder(mockedHardwareMap)
-                .calibrationValue(1)
-                .rgbOffsets(offsets)
-                .reverse()
-                .build();
+            new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).build();
+            new Color.Builder(mockedHardwareMap).reverse().build();
+            new Color.Builder(mockedHardwareMap).calibrationValue(1).rgbOffsets(offsets).build();
+            new Color.Builder(mockedHardwareMap).calibrationValue(1).reverse().build();
+            new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).reverse().build();
+            new Color.Builder(mockedHardwareMap).calibrationValue(1).rgbOffsets(offsets).reverse()
+                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -81,9 +63,7 @@ public class TestColor {
 
         // reversed-state
 
-        Color mockedColorReverse = new Color.Builder(mockedHardwareMap)
-            .reverse()
-            .build();
+        Color mockedColorReverse = new Color.Builder(mockedHardwareMap).reverse().build();
 
         // red is the max after offset
         mockRGB(74, 110, 85);

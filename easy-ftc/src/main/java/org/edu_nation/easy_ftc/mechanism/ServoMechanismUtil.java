@@ -25,11 +25,12 @@ abstract class ServoMechanismUtil {
         }
         return movement;
     }
-    
+
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double languageToDirection(String direction, double open, double close, String mechanismName) {
+    protected static double languageToDirection(String direction, double open, double close,
+            String mechanismName) {
         double servoDirection;
         switch (direction) {
             case "open":
@@ -39,8 +40,9 @@ abstract class ServoMechanismUtil {
                 servoDirection = close;
                 break;
             default:
-                throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to " + mechanismName + ".move(). Valid directions are: open, close");
+                throw new IllegalArgumentException(
+                        "Unexpected direction: " + direction + ", passed to " + mechanismName
+                                + ".move(). Valid directions are: open, close");
         }
         return servoDirection;
     }

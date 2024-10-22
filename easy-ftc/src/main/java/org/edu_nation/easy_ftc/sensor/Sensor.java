@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Blueprints an abstract sensor, providing basic functionalities, options, and objects common to
- * all sensors. Cannot be instantiated, only extended by actual sensor classes (see {@link Touch}
- * , {@link Distance}, {@link Apriltag}, {@link Color}).
+ * all sensors. Cannot be instantiated, only extended by actual sensor classes (see {@link Touch} ,
+ * {@link Distance}, {@link Apriltag}, {@link Color}).
  * <p>
  * 
  * @Methods {@link #state()} (used by subclasses)

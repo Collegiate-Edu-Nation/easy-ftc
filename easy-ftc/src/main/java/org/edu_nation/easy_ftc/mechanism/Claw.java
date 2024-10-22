@@ -190,7 +190,8 @@ public class Claw extends ServoMechanism {
      * Valid directions are: open, close
      */
     public void move(String direction) {
-        double servoDirection = ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
+        double servoDirection =
+                ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
         if (smoothServo) {
             double position = servos[0].getPosition();
             setPositionByIncrement(position, servoDirection);

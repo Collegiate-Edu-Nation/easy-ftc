@@ -49,7 +49,7 @@ public class Distance extends Sensor<Boolean> {
             this.reverseState = true;
             return this;
         }
-        
+
         /**
          * Specify the calibration value
          */

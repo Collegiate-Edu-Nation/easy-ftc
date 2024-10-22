@@ -20,9 +20,7 @@ public class TestTouch {
 
         try {
             new Touch.Builder(mockedHardwareMap).build();
-            new Touch.Builder(mockedHardwareMap)
-                .reverse()
-                .build();
+            new Touch.Builder(mockedHardwareMap).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -44,9 +42,7 @@ public class TestTouch {
         assertEquals(false, result);
 
         // reversed-state
-        Touch mockedTouchReverse = new Touch.Builder(mockedHardwareMap)
-            .reverse()
-            .build();
+        Touch mockedTouchReverse = new Touch.Builder(mockedHardwareMap).reverse().build();
 
         // getDistance() >= calibrationValue
         when(mockedTouchSensor.isPressed()).thenReturn(true);

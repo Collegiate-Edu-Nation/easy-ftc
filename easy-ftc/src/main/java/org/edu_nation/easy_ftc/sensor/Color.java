@@ -10,7 +10,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * @param HardwareMap hardwareMap (required)
  * @param Boolean reverseState
  * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
- * @param Integer[] rgbOffsets (array of three integers, 0-255, shifts raw rgb readings for determining dominant color)
+ * @param Integer[] rgbOffsets (array of three integers, 0-255, shifts raw rgb readings for
+ *        determining dominant color)
  *        <p>
  * @Methods {@link #state()}
  */
@@ -53,7 +54,7 @@ public class Color extends Sensor<String> {
             this.reverseState = true;
             return this;
         }
-        
+
         /**
          * Specify the calibration value
          */
@@ -61,7 +62,7 @@ public class Color extends Sensor<String> {
             this.calibrationValue = calibrationValue;
             return this;
         }
-        
+
         /**
          * Specify the rgbOffsets (array of 3 integers, 0-255)
          */

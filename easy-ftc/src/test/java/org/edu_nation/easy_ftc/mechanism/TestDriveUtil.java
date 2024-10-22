@@ -37,7 +37,8 @@ public class TestDriveUtil {
         double heading = 0;
 
         // Test "", no movement
-        double[] result = DriveUtil.controlToDirection(type, "arcade", deadZone, heading, 0, 0, 0, 0);
+        double[] result =
+                DriveUtil.controlToDirection(type, "arcade", deadZone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
@@ -88,7 +89,8 @@ public class TestDriveUtil {
         final String type = "mecanum";
 
         // Test no movement
-        double[] result = DriveUtil.controlToDirection(type, "field", deadZone, heading, 0, 0, 0, 0);
+        double[] result =
+                DriveUtil.controlToDirection(type, "field", deadZone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[0][i], result[i], 0.01);
         }
