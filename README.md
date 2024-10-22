@@ -95,6 +95,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Unit Tests (motors)
 - [x] Unit Tests (servos, sensors)
 - [x] Add reverse()
+- [ ] Unit Test (Apriltag)
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
@@ -113,10 +114,17 @@ Note that LightWeight and Standard modes do not give identical output when forma
     - [x] Consolidate Arm, Claw, Lift to one class w/ layout switch
     - [x] Utilize more MotorMechanism function in drive classes
     - [x] Implement builder pattern to enforce immutability, make parameters explicit
+- [ ] Update MyBlocks
+- [ ] Make wait protected
+- [ ] Move to reverse instead of reverseState
+- [ ] Move reverse(), reverse(name), gearing() to builder
+- [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
+- [ ] Update uml, examples
+- [ ] Improve code comments
 - [ ] Add hardware naming section
 - [ ] Improve usage instructions
 - [ ] Add more examples
