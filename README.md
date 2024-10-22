@@ -114,7 +114,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
     - [x] Consolidate Arm, Claw, Lift to one class w/ layout switch
     - [x] Utilize more MotorMechanism function in drive classes
     - [x] Implement builder pattern to enforce immutability, make parameters explicit
-- [ ] Update MyBlocks
+- [x] Update MyBlocks
 - [ ] Make 'sensor' var generic
 - [ ] Make wait protected
 - [ ] Move to reverse instead of reverseState

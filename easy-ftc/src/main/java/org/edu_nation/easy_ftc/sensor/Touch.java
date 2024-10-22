@@ -29,7 +29,7 @@ public class Touch extends Sensor<Boolean> {
         private boolean reverseState = false;
 
         /**
-         * Distance Builder
+         * Touch Builder
          * 
          * @Defaults reverseState = false
          */
