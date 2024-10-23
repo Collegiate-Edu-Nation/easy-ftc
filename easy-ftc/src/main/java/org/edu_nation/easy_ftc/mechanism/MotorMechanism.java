@@ -21,7 +21,8 @@ abstract class MotorMechanism extends Mechanism {
     protected double length;
     protected double gearing;
     protected double deadzone;
-    protected String mechanismName;
+
+    public abstract void move(double power, String direction, double measurement);
 
     /**
      * Sets the target position for each motor before setting the mode to RUN_TO_POSITION

@@ -29,11 +29,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double measurement)}
- *          <li>{@link #reverse()}
- *          <li>{@link #reverse(String motorName)}
- *          <li>{@link #setPowers(double [] movements)}
- *          <li>{@link #setPowers()} (defaults to array of zeros if nothing is passed)
- *          <li>{@link #wait(double time)} (inherited from {@link Drive})
  */
 public class Drive extends MotorMechanism {
     private IMU imu;
@@ -121,13 +116,13 @@ public class Drive extends MotorMechanism {
         /**
          * Reverse the specified motor
          */
-        public Builder reverse(String motorName) {
+        public Builder reverse(String deviceName) {
             int arrLength = reverseDevices.length;
             String[] reverseDevices = new String[arrLength + 1];
             for (int i = 0; i < arrLength; i++) {
                 reverseDevices[i] = this.reverseDevices[i];
             }
-            reverseDevices[arrLength] = motorName;
+            reverseDevices[arrLength] = deviceName;
 
             this.reverseDevices = reverseDevices;
             return this;
@@ -313,6 +308,7 @@ public class Drive extends MotorMechanism {
      * Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft,
      * forwardRight, backwardLeft, backwardRight
      */
+    @Override
     public void move(double power, String direction, double measurement) {
         double[] movements = DriveUtil.languageToDirection(type, power, direction);
 
@@ -343,9 +339,10 @@ public class Drive extends MotorMechanism {
     /**
      * Reverse the direction of the specified motor
      */
-    protected void reverse(String motorName) {
+    @Override
+    protected void reverse(String deviceName) {
         if (numMotors == 4) {
-            switch (motorName) {
+            switch (deviceName) {
                 case "frontLeft":
                     if (useEncoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
@@ -375,11 +372,11 @@ public class Drive extends MotorMechanism {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Lift.reverse(). Valid names are: frontLeft, frontRight, backLeft, backRight");
             }
         } else {
-            switch (motorName) {
+            switch (deviceName) {
                 case "driveLeft":
                     if (useEncoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
@@ -395,7 +392,7 @@ public class Drive extends MotorMechanism {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Lift.reverse(). Valid names are: driveLeft, driveRight");
             }
         }

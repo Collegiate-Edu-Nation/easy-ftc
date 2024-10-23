@@ -16,7 +16,8 @@ abstract class ServoMechanism extends Mechanism {
     protected double increment;
     protected double incrementDelay;
     protected double delay;
-    protected String mechanismName;
+
+    public abstract void move(String direction);
 
     /**
      * Wrapper around setPosition that enables smooth, synchronized servo control

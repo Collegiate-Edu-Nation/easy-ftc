@@ -24,11 +24,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double measurement)}
- *          <li>{@link #reverse()}
- *          <li>{@link #reverse(String motorName)}
- *          <li>{@link #setPowers(double [] movements)}
- *          <li>{@link #setPowers()} (defaults to array of zeros if nothing is passed)
- *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class Lift extends MotorMechanism {
 
@@ -107,13 +102,13 @@ public class Lift extends MotorMechanism {
         /**
          * Reverse the specified motor
          */
-        public Builder reverse(String motorName) {
+        public Builder reverse(String deviceName) {
             int arrLength = reverseDevices.length;
             String[] reverseDevices = new String[arrLength + 1];
             for (int i = 0; i < arrLength; i++) {
                 reverseDevices[i] = this.reverseDevices[i];
             }
-            reverseDevices[arrLength] = motorName;
+            reverseDevices[arrLength] = deviceName;
 
             this.reverseDevices = reverseDevices;
             return this;
@@ -250,6 +245,7 @@ public class Lift extends MotorMechanism {
      * <p>
      * Valid directions are: up, down
      */
+    @Override
     public void move(double power, String direction, double measurement) {
         double movement = LiftUtil.languageToDirection(direction);
         double[] unscaledMovements = new double[numMotors];
@@ -284,9 +280,10 @@ public class Lift extends MotorMechanism {
     /**
      * Reverse the direction of the specified motor
      */
-    protected void reverse(String motorName) {
+    @Override
+    protected void reverse(String deviceName) {
         if (numMotors == 2) {
-            switch (motorName) {
+            switch (deviceName) {
                 case "liftLeft":
                     if (useEncoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
@@ -302,11 +299,11 @@ public class Lift extends MotorMechanism {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Lift.reverse(). Valid names are: liftLeft, liftRight");
             }
         } else {
-            switch (motorName) {
+            switch (deviceName) {
                 case "lift":
                     if (useEncoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
@@ -315,7 +312,7 @@ public class Lift extends MotorMechanism {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected motorName: " + motorName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Lift.reverse(). Valid names are: lift");
             }
         }

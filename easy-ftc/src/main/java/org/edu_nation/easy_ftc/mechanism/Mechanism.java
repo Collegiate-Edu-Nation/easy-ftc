@@ -18,10 +18,13 @@ abstract class Mechanism {
     protected ElapsedTime timer = new ElapsedTime();
     protected boolean reverse;
     protected String[] reverseDevices;
+    protected String mechanismName;
 
     protected abstract void init();
 
     public abstract void tele();
+
+    protected abstract void reverse(String deviceName);
 
     /**
      * Helper function to wait (but not suspend) for specified time in s.

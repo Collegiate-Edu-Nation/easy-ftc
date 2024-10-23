@@ -118,7 +118,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Update MyBlocks
 - [ ] Make 'sensor' var generic
 - [x] Make wait protected
-- [ ] Substitute protected for private where possible
+- [x] Clean up abstract methods and overrides
 - [x] Move to reverse instead of reverseState
 - [x] Move to init instead of hardwareInit
 - [x] move to deadzone instead of deadZone

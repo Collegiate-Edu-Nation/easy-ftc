@@ -24,9 +24,6 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(String direction)}
- *          <li>{@link #reverse()}
- *          <li>{@link #reverse(String servoName)}
- *          <li>{@link #wait(double time)} (inherited from {@link Claw})
  */
 public class Claw extends ServoMechanism {
 
@@ -111,13 +108,13 @@ public class Claw extends ServoMechanism {
         /**
          * Reverse the specified servo
          */
-        public Builder reverse(String motorName) {
+        public Builder reverse(String deviceName) {
             int arrLength = reverseDevices.length;
             String[] reverseDevices = new String[arrLength + 1];
             for (int i = 0; i < arrLength; i++) {
                 reverseDevices[i] = this.reverseDevices[i];
             }
-            reverseDevices[arrLength] = motorName;
+            reverseDevices[arrLength] = deviceName;
 
             this.reverseDevices = reverseDevices;
             return this;
@@ -205,6 +202,7 @@ public class Claw extends ServoMechanism {
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      */
+    @Override
     public void tele() {
         double current = servos[0].getPosition();
         double movement =
@@ -225,6 +223,7 @@ public class Claw extends ServoMechanism {
      * <p>
      * Valid directions are: open, close
      */
+    @Override
     public void move(String direction) {
         double servoDirection =
                 ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
@@ -240,9 +239,10 @@ public class Claw extends ServoMechanism {
     /**
      * Reverse the direction of the specified servo
      */
-    protected void reverse(String servoName) {
+    @Override
+    protected void reverse(String deviceName) {
         if (numServos == 2) {
-            switch (servoName) {
+            switch (deviceName) {
                 case "clawLeft":
                     servos[0].setDirection(Servo.Direction.REVERSE);
                     break;
@@ -250,16 +250,16 @@ public class Claw extends ServoMechanism {
                     servos[1].setDirection(Servo.Direction.FORWARD);
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected servoName: " + servoName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Claw.reverse(). Valid names are: clawLeft, clawRight");
             }
         } else {
-            switch (servoName) {
+            switch (deviceName) {
                 case "claw":
                     servos[0].setDirection(Servo.Direction.REVERSE);
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected servoName: " + servoName
+                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
                             + ", passed to Claw.reverse(). Valid names are: claw");
             }
         }
