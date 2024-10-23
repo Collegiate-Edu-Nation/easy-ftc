@@ -125,6 +125,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] move to setPowers instead of setAllPower
 - [x] Move reverse(), reverse(name), gearing() to builder
 - [x] Move deadzone to builder 
+- [ ] Make smoothServo, useEncoder argument-less a la reverse()
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate builder inheritance
