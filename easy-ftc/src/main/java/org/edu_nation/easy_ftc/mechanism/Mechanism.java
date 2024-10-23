@@ -25,10 +25,8 @@ abstract class Mechanism {
 
     /**
      * Helper function to wait (but not suspend) for specified time in s.
-     * <p>
-     * Public, so custom movements [] use-case can also be timed.
      */
-    public void wait(double time) {
+    protected void wait(double time) {
         this.timer.reset();
         while (opMode.opModeIsActive() && (this.timer.time() < time)) {
         }

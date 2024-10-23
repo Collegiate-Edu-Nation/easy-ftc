@@ -103,6 +103,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Support moving until sensor says otherwise
 - [ ] Add telemetry for status indicators
 - [x] Add support for Blockly
+- [ ] Specify stop-behavior
 
 ### Chores
 - [x] Use camelCase for hardware naming
@@ -116,7 +117,8 @@ Note that LightWeight and Standard modes do not give identical output when forma
     - [x] Implement builder pattern to enforce immutability, make parameters explicit
 - [x] Update MyBlocks
 - [ ] Make 'sensor' var generic
-- [ ] Make wait protected
+- [x] Make wait protected
+- [ ] Substitute protected for private where possible
 - [x] Move to reverse instead of reverseState
 - [x] Move to init instead of hardwareInit
 - [x] move to deadzone instead of deadZone
