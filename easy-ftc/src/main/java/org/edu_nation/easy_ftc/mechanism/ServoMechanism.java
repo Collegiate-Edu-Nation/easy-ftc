@@ -19,13 +19,6 @@ abstract class ServoMechanism extends Mechanism {
     protected String mechanismName;
 
     /**
-     * Reverse the direction of all servos
-     */
-    public void reverse() {
-        setDirections(true);
-    }
-
-    /**
      * Wrapper around setPosition that enables smooth, synchronized servo control
      */
     protected void setPositionByIncrement(double position, double movement) {
@@ -65,12 +58,5 @@ abstract class ServoMechanism extends Mechanism {
                 servos[i].setDirection(direction);
             }
         }
-    }
-
-    /**
-     * Wrapper around setDirection for all servos, default case doesn't reverse
-     */
-    protected void setDirections() {
-        setDirections(false);
     }
 }

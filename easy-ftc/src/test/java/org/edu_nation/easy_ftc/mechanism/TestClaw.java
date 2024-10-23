@@ -41,6 +41,9 @@ public class TestClaw {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smoothServo(true)
                     .open(0.9).close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
                     .gamepad(mockedGamepad).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smoothServo(true)
+                    .reverse().open(0.9).close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
+                    .gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -114,7 +117,6 @@ public class TestClaw {
 
         try {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
-            claw.reverse();
             claw.reverse("claw");
         } catch (Exception e) {
             fail(e.getMessage());
@@ -127,7 +129,6 @@ public class TestClaw {
 
         try {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
-            claw.reverse();
             claw.reverse("clawLeft");
             claw.reverse("clawRight");
         } catch (Exception e) {

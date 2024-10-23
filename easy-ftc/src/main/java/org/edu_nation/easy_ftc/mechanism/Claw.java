@@ -36,6 +36,7 @@ public class Claw extends ServoMechanism {
         this.hardwareMap = builder.hardwareMap;
         this.numServos = builder.numServos;
         this.smoothServo = builder.smoothServo;
+        this.reverse = builder.reverse;
         this.open = builder.open;
         this.close = builder.close;
         this.increment = builder.increment;
@@ -51,6 +52,7 @@ public class Claw extends ServoMechanism {
         private HardwareMap hardwareMap;
         private int numServos = 1;
         private boolean smoothServo = false;
+        private boolean reverse = false;
         private double open = 1.0;
         private double close = 0.0;
         private double increment = 0.02;
@@ -64,6 +66,7 @@ public class Claw extends ServoMechanism {
          * 
          * @Defaults numServos = 1
          *           <li>smoothServo = false
+         *           <li>reverse = false
          *           <li>open = 1.0
          *           <li>close = 0.0
          *           <li>increment = 0.02
@@ -89,6 +92,14 @@ public class Claw extends ServoMechanism {
          */
         public Builder smoothServo(boolean smoothServo) {
             this.smoothServo = smoothServo;
+            return this;
+        }
+
+        /**
+         * Whether to reverse servos
+         */
+        public Builder reverse() {
+            this.reverse = true;
             return this;
         }
 
@@ -161,7 +172,7 @@ public class Claw extends ServoMechanism {
         } else {
             servos[0] = hardwareMap.get(Servo.class, "claw");
         }
-        setDirections();
+        setDirections(reverse);
     }
 
     /**
@@ -220,7 +231,7 @@ public class Claw extends ServoMechanism {
         } else {
             switch (servoName) {
                 case "claw":
-                    reverse();
+                    servos[0].setDirection(Servo.Direction.REVERSE);
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected servoName: " + servoName
