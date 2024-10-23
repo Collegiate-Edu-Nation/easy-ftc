@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param HardwareMap hardwareMap (required)
  * @param Integer numServos (1 or 2)
  * @param Boolean smoothServo (true or false)
+ * @param Boolean reverse
+ * @param String[] reverseDevices
  * @param Double open (0-1)
  * @param Double close (0-1)
  * @param Double increment (0-1)
@@ -37,6 +39,7 @@ public class Claw extends ServoMechanism {
         this.numServos = builder.numServos;
         this.smoothServo = builder.smoothServo;
         this.reverse = builder.reverse;
+        this.reverseDevices = builder.reverseDevices;
         this.open = builder.open;
         this.close = builder.close;
         this.increment = builder.increment;
@@ -53,6 +56,7 @@ public class Claw extends ServoMechanism {
         private int numServos = 1;
         private boolean smoothServo = false;
         private boolean reverse = false;
+        private String[] reverseDevices = {};
         private double open = 1.0;
         private double close = 0.0;
         private double increment = 0.02;
@@ -67,6 +71,7 @@ public class Claw extends ServoMechanism {
          * @Defaults numServos = 1
          *           <li>smoothServo = false
          *           <li>reverse = false
+         *           <li>reverseDevices = {}
          *           <li>open = 1.0
          *           <li>close = 0.0
          *           <li>increment = 0.02
@@ -100,6 +105,21 @@ public class Claw extends ServoMechanism {
          */
         public Builder reverse() {
             this.reverse = true;
+            return this;
+        }
+
+        /**
+         * Reverse the specified servo
+         */
+        public Builder reverse(String motorName) {
+            int arrLength = reverseDevices.length;
+            String[] reverseDevices = new String[arrLength + 1];
+            for (int i = 0; i < arrLength; i++) {
+                reverseDevices[i] = this.reverseDevices[i];
+            }
+            reverseDevices[arrLength] = motorName;
+
+            this.reverseDevices = reverseDevices;
             return this;
         }
 
@@ -173,6 +193,11 @@ public class Claw extends ServoMechanism {
             servos[0] = hardwareMap.get(Servo.class, "claw");
         }
         setDirections(reverse);
+
+        // reverse direction of specified motors
+        for (String device : reverseDevices) {
+            reverse(device);
+        }
     }
 
     /**
@@ -215,7 +240,7 @@ public class Claw extends ServoMechanism {
     /**
      * Reverse the direction of the specified servo
      */
-    public void reverse(String servoName) {
+    protected void reverse(String servoName) {
         if (numServos == 2) {
             switch (servoName) {
                 case "clawLeft":

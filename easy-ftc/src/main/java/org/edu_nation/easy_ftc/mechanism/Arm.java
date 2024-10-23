@@ -15,6 +15,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param HardwareMap hardwareMap (required)
  * @param Integer numMotors (1-2)
  * @param Boolean useEncoder (true or false)
+ * @param Boolean reverse
+ * @param String[] reverseDevices
  * @param Double length (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
@@ -37,6 +39,7 @@ public class Arm extends MotorMechanism {
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
         this.reverse = builder.reverse;
+        this.reverseDevices = builder.reverseDevices;
         this.length = builder.length;
         this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
@@ -50,6 +53,7 @@ public class Arm extends MotorMechanism {
         private int numMotors = 1;
         private boolean useEncoder = false;
         private boolean reverse = false;
+        private String[] reverseDevices = {};
         private double length = 0.0;
         private double gearing = 0.0;
         private Gamepad gamepad = null;
@@ -61,6 +65,7 @@ public class Arm extends MotorMechanism {
          * @Defaults numMotors = 1
          *           <li>useEncoder = false
          *           <li>reverse = false
+         *           <li>reverseDevices = {}
          *           <li>length = 0.0
          *           <li>gearing = 0.0
          *           <li>gamepad = null
@@ -91,6 +96,21 @@ public class Arm extends MotorMechanism {
          */
         public Builder reverse() {
             this.reverse = true;
+            return this;
+        }
+
+        /**
+         * Reverse the specified motor
+         */
+        public Builder reverse(String motorName) {
+            int arrLength = reverseDevices.length;
+            String[] reverseDevices = new String[arrLength + 1];
+            for (int i = 0; i < arrLength; i++) {
+                reverseDevices[i] = this.reverseDevices[i];
+            }
+            reverseDevices[arrLength] = motorName;
+
+            this.reverseDevices = reverseDevices;
             return this;
         }
 
@@ -181,6 +201,11 @@ public class Arm extends MotorMechanism {
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+
+        // reverse direction of specified motors
+        for (String device : reverseDevices) {
+            reverse(device);
+        }
     }
 
     /**
@@ -251,7 +276,7 @@ public class Arm extends MotorMechanism {
     /**
      * Reverse the direction of the specified motor
      */
-    public void reverse(String motorName) {
+    protected void reverse(String motorName) {
         if (numMotors == 2) {
             switch (motorName) {
                 case "armLeft":

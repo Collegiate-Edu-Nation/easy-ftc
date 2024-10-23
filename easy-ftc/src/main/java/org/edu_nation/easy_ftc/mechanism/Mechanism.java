@@ -17,6 +17,7 @@ abstract class Mechanism {
     protected Gamepad gamepad;
     protected ElapsedTime timer = new ElapsedTime();
     protected boolean reverse;
+    protected String[] reverseDevices;
 
     protected abstract void hardwareInit();
 

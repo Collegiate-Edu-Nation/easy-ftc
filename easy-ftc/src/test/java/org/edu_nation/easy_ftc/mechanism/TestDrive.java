@@ -43,6 +43,13 @@ public class TestDrive {
             // differential
             new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("driveLeft").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("driveRight").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("driveLeft")
+                    .reverse("driveRight").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse("driveLeft")
+                    .reverse("driveRight").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).layout("arcade").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4).build();
@@ -68,6 +75,20 @@ public class TestDrive {
             // mecanum
             new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontLeft").type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontRight").type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backLeft").type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backRight").type("mecanum")
+                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backRight")
+                    .reverse("frontLeft").type("mecanum").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse("backRight")
+                    .reverse("frontLeft").reverse("frontRight").reverse("backLeft").type("mecanum")
                     .build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
                     .type("mecanum").build();
@@ -175,73 +196,23 @@ public class TestDrive {
         }
     }
 
-    @Test
-    public void reverseDif_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-            Drive driveEnc =
-                    new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-            drive.reverse("driveLeft");
-            drive.reverse("driveRight");
-            driveEnc.reverse("driveLeft");
-            driveEnc.reverse("driveRight");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void reverseMec_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Drive drive =
-                    new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
-            Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                    .type("mecanum").build();
-
-            drive.reverse("frontLeft");
-            drive.reverse("frontRight");
-            drive.reverse("backLeft");
-            drive.reverse("backRight");
-            driveEnc.reverse("frontLeft");
-            driveEnc.reverse("frontRight");
-            driveEnc.reverse("backLeft");
-            driveEnc.reverse("backRight");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void reverseDif_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-        Drive driveEnc =
-                new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-        drive.reverse("abc");
-        drive.reverse("");
-        driveEnc.reverse("abc");
-        driveEnc.reverse("");
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
+        Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseMec_ThrowsException() {
         mockInit();
 
-        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
-        Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("abc")
                 .type("mecanum").build();
-
-        drive.reverse("abc");
-        drive.reverse("");
-        driveEnc.reverse("abc");
-        driveEnc.reverse("");
+        Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .reverse("abc").type("mecanum").build();
     }
 
     @Test(expected = IllegalArgumentException.class)

@@ -18,6 +18,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param HardwareMap hardwareMap (required)
  * @param Integer numMotors (2 or 4)
  * @param Boolean useEncoder (true or false)
+ * @param Boolean reverse
+ * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  * @param String type ("mecanum" or "differential")
@@ -45,6 +47,7 @@ public class Drive extends MotorMechanism {
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
         this.reverse = builder.reverse;
+        this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
@@ -60,6 +63,7 @@ public class Drive extends MotorMechanism {
         private int numMotors = 2;
         private boolean useEncoder = false;
         private boolean reverse = false;
+        private String[] reverseDevices = {};
         private double diameter = 0.0;
         private double gearing = 0.0;
         private Gamepad gamepad = null;
@@ -73,6 +77,7 @@ public class Drive extends MotorMechanism {
          * @Defaults numMotors = 2
          *           <li>useEncoder = false
          *           <li>reverse = false
+         *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
          *           <li>gamepad = null
@@ -105,6 +110,21 @@ public class Drive extends MotorMechanism {
          */
         public Builder reverse() {
             this.reverse = true;
+            return this;
+        }
+
+        /**
+         * Reverse the specified motor
+         */
+        public Builder reverse(String motorName) {
+            int arrLength = reverseDevices.length;
+            String[] reverseDevices = new String[arrLength + 1];
+            for (int i = 0; i < arrLength; i++) {
+                reverseDevices[i] = this.reverseDevices[i];
+            }
+            reverseDevices[arrLength] = motorName;
+
+            this.reverseDevices = reverseDevices;
             return this;
         }
 
@@ -232,6 +252,11 @@ public class Drive extends MotorMechanism {
             imu.initialize(parameters);
             imu.resetYaw();
         }
+
+        // reverse direction of specified motors
+        for (String device : reverseDevices) {
+            reverse(device);
+        }
     }
 
     /**
@@ -300,7 +325,7 @@ public class Drive extends MotorMechanism {
     /**
      * Reverse the direction of the specified motor
      */
-    public void reverse(String motorName) {
+    protected void reverse(String motorName) {
         if (numMotors == 4) {
             switch (motorName) {
                 case "frontLeft":

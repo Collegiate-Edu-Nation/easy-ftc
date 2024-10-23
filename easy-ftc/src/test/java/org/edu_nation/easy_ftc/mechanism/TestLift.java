@@ -36,6 +36,11 @@ public class TestLift {
         try {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("lift").build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse("lift")
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse().build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
@@ -49,6 +54,19 @@ public class TestLift {
 
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse().build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftLeft")
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .reverse().build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .reverse("liftLeft").build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftLeft")
+                    .reverse("liftRight").build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftRight")
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .reverse("liftRight").build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).gamepad(mockedGamepad)
                     .build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
@@ -138,65 +156,23 @@ public class TestLift {
         }
     }
 
-    @Test
-    public void reverseSolo_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-            Lift liftEnc =
-                    new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-            lift.reverse("lift");
-            liftEnc.reverse("lift");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-        Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-        lift.reverse("abc");
-        lift.reverse("");
-        liftEnc.reverse("abc");
-        liftEnc.reverse("");
-    }
-
-    @Test
-    public void reverseDual_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
-                    .useEncoder(true).build();
-
-            lift.reverse("liftLeft");
-            lift.reverse("liftRight");
-            liftEnc.reverse("liftLeft");
-            liftEnc.reverse("liftRight");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
+        Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+                .reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
+                .build();
         Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
-                .useEncoder(true).build();
-
-        lift.reverse("abc");
-        lift.reverse("");
-        liftEnc.reverse("abc");
-        liftEnc.reverse("");
+                .useEncoder(true).reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)

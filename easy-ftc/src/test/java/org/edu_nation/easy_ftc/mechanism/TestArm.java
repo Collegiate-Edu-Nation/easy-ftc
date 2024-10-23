@@ -36,6 +36,11 @@ public class TestArm {
         try {
             new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse().build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("arm").build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse("arm")
+                    .build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).gamepad(mockedGamepad)
@@ -49,6 +54,19 @@ public class TestArm {
 
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse().build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).reverse()
+                    .build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armLeft")
+                    .build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armLeft")
+                    .reverse("armRight").build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armRight")
+                    .build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .reverse("armLeft").build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .reverse("armRight").build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).gamepad(mockedGamepad)
                     .build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).length(4)
@@ -141,65 +159,24 @@ public class TestArm {
         }
     }
 
-    @Test
-    public void reverseSolo_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-            arm.reverse("arm");
-            armEnc.reverse("arm");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc")
                 .gamepad(mockedGamepad).build();
-
-        arm.reverse("abc");
-        arm.reverse("");
-        armEnc.reverse("abc");
-        armEnc.reverse("");
-    }
-
-    @Test
-    public void reverseDual_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
-                    .useEncoder(true).build();
-
-            arm.reverse("armLeft");
-            arm.reverse("armRight");
-            armEnc.reverse("armLeft");
-            armEnc.reverse("armRight");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc")
+                .useEncoder(true).gamepad(mockedGamepad).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
                 .build();
-
-        arm.reverse("abc");
-        arm.reverse("");
-        armEnc.reverse("abc");
-        armEnc.reverse("");
+        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
+                .useEncoder(true).build();
     }
 
     @Test(expected = IllegalArgumentException.class)

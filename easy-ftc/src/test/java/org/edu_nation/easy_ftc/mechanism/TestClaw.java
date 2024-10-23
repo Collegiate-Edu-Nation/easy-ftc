@@ -27,7 +27,10 @@ public class TestClaw {
 
         try {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("claw").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).reverse("clawLeft")
+                    .reverse("clawRight").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).smoothServo(true).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smoothServo(true)
@@ -111,46 +114,18 @@ public class TestClaw {
         }
     }
 
-    @Test
-    public void reverseSolo_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
-            claw.reverse("claw");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void reverseDual_isCalledWithValidInputs() {
-        mockInit();
-
-        try {
-            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
-            claw.reverse("clawLeft");
-            claw.reverse("clawRight");
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
-        claw.reverse("abc");
-        claw.reverse("");
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).reverse("abc")
+                .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
-        claw.reverse("abc");
-        claw.reverse("");
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
     }
 }
