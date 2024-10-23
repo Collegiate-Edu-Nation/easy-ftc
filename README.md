@@ -118,8 +118,11 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Make 'sensor' var generic
 - [ ] Make wait protected
 - [ ] Move to reverse instead of reverseState
+- [ ] Move to init instead of hardwareInit
+- [ ] move to deadzone instead of deadZone
+- [ ] move to setPowers instead of setAllPower
 - [x] Move reverse(), reverse(name), gearing() to builder
-- [ ] Move deadZone to builder 
+- [x] Move deadZone to builder 
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate builder inheritance

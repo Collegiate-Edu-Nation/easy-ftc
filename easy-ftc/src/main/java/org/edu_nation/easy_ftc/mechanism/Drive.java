@@ -21,6 +21,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
+ * @param Double gearing (> 0.0)
+ * @param Double deadZone (>= 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  * @param String type ("mecanum" or "differential")
  * @param String layout ("tank" or "arcade")
@@ -50,6 +52,7 @@ public class Drive extends MotorMechanism {
         this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
+        this.deadZone = builder.deadZone;
         this.gamepad = builder.gamepad;
         this.type = builder.type;
         this.layout = builder.layout;
@@ -66,6 +69,7 @@ public class Drive extends MotorMechanism {
         private String[] reverseDevices = {};
         private double diameter = 0.0;
         private double gearing = 0.0;
+        private double deadZone = 0.0;
         private Gamepad gamepad = null;
         private String type = "";
         private String layout = "";
@@ -80,6 +84,7 @@ public class Drive extends MotorMechanism {
          *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
+         *           <li>deadZone = 0.0
          *           <li>gamepad = null
          *           <li>type = ""
          *           <li>layout = ""
@@ -146,6 +151,19 @@ public class Drive extends MotorMechanism {
                                 + ".gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
+            return this;
+        }
+
+        /**
+         * Specify the joystick deadZone (minimum value registered as input)
+         */
+        public Builder deadZone(double deadZone) {
+            if (deadZone < 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected deadZone value: " + deadZone + ", passed to " + mechanismName
+                                + ".deadZone(). Valid values are numbers >= 0");
+            }
+            this.deadZone = deadZone;
             return this;
         }
 

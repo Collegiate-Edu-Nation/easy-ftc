@@ -18,6 +18,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double length (> 0.0)
+ * @param Double gearing (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele(double power)}

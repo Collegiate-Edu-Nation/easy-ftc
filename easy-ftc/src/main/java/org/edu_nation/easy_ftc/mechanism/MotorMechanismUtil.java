@@ -19,7 +19,7 @@ abstract class MotorMechanismUtil {
      * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller
      * deadZone
      * 
-     * @Defaults deadZone = 0.1
+     * @Defaults deadZone = 0.0
      */
     protected static double map(double controllerValue, double deadZone) {
         double mappedValue;

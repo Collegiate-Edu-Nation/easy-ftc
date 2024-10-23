@@ -18,6 +18,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
+ * @param Double gearing (> 0.0)
+ * @param Double deadZone (>= 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
@@ -42,6 +44,7 @@ public class Lift extends MotorMechanism {
         this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
+        this.deadZone = builder.deadZone;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
         hardwareInit();
@@ -56,6 +59,7 @@ public class Lift extends MotorMechanism {
         private String[] reverseDevices = {};
         private double diameter = 0.0;
         private double gearing = 0.0;
+        private double deadZone = 0.0;
         private Gamepad gamepad = null;
         private String mechanismName = "Lift";
 
@@ -68,6 +72,7 @@ public class Lift extends MotorMechanism {
          *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
+         *           <li>deadZone = 0.0
          *           <li>gamepad = null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -132,6 +137,19 @@ public class Lift extends MotorMechanism {
                                 + ".gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
+            return this;
+        }
+
+        /**
+         * Specify the trigger deadZone (minimum value registered as input)
+         */
+        public Builder deadZone(double deadZone) {
+            if (deadZone < 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected deadZone value: " + deadZone + ", passed to " + mechanismName
+                                + ".deadZone(). Valid values are numbers >= 0");
+            }
+            this.deadZone = deadZone;
             return this;
         }
 

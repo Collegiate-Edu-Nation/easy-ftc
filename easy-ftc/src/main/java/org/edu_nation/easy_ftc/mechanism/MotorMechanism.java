@@ -20,7 +20,7 @@ abstract class MotorMechanism extends Mechanism {
     protected double diameter;
     protected double length;
     protected double gearing;
-    protected double deadZone = 0.1;
+    protected double deadZone;
     protected String mechanismName;
 
     /**
@@ -220,12 +220,5 @@ abstract class MotorMechanism extends Mechanism {
      */
     private double min(double a, double b, double c, double d) {
         return Math.min(Math.min(a, b), Math.min(c, d));
-    }
-
-    /**
-     * Set the deadZone from 0-1. Default is 0.1
-     */
-    public void setDeadZone(double deadZone) {
-        this.deadZone = deadZone;
     }
 }
