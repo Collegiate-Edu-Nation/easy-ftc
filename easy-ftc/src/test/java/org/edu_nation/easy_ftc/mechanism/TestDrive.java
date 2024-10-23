@@ -62,6 +62,8 @@ public class TestDrive {
                     .gamepad(mockedGamepad).layout("arcade").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
                     .gearing(19.2).gamepad(mockedGamepad).layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .reverse().gamepad(mockedGamepad).layout("arcade").build();
 
             // mecanum
             new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
@@ -92,6 +94,9 @@ public class TestDrive {
             new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).useEncoder(true)
                     .diameter(4).gearing(19.2).gamepad(mockedGamepad).type("mecanum")
                     .layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).useEncoder(true)
+                    .diameter(4).reverse().gamepad(mockedGamepad).type("mecanum").layout("robot")
+                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -179,10 +184,8 @@ public class TestDrive {
             Drive driveEnc =
                     new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
 
-            drive.reverse();
             drive.reverse("driveLeft");
             drive.reverse("driveRight");
-            driveEnc.reverse();
             driveEnc.reverse("driveLeft");
             driveEnc.reverse("driveRight");
         } catch (Exception e) {
@@ -200,12 +203,10 @@ public class TestDrive {
             Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
                     .type("mecanum").build();
 
-            drive.reverse();
             drive.reverse("frontLeft");
             drive.reverse("frontRight");
             drive.reverse("backLeft");
             drive.reverse("backRight");
-            driveEnc.reverse();
             driveEnc.reverse("frontLeft");
             driveEnc.reverse("frontRight");
             driveEnc.reverse("backLeft");

@@ -44,6 +44,7 @@ public class Drive extends MotorMechanism {
         this.hardwareMap = builder.hardwareMap;
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
+        this.reverse = builder.reverse;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
@@ -58,6 +59,7 @@ public class Drive extends MotorMechanism {
         private HardwareMap hardwareMap;
         private int numMotors = 2;
         private boolean useEncoder = false;
+        private boolean reverse = false;
         private double diameter = 0.0;
         private double gearing = 0.0;
         private Gamepad gamepad = null;
@@ -70,6 +72,7 @@ public class Drive extends MotorMechanism {
          * 
          * @Defaults numMotors = 2
          *           <li>useEncoder = false
+         *           <li>reverse = false
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
          *           <li>gamepad = null
@@ -94,6 +97,14 @@ public class Drive extends MotorMechanism {
          */
         public Builder useEncoder(boolean useEncoder) {
             this.useEncoder = useEncoder;
+            return this;
+        }
+
+        /**
+         * Whether to reverse motors
+         */
+        public Builder reverse() {
+            this.reverse = true;
             return this;
         }
 
@@ -176,7 +187,7 @@ public class Drive extends MotorMechanism {
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            setDirections();
+            setDirections(reverse);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -206,7 +217,7 @@ public class Drive extends MotorMechanism {
             }
 
             // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            setDirections();
+            setDirections(reverse);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

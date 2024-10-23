@@ -15,6 +15,7 @@ abstract class MotorMechanism extends Mechanism {
     protected DcMotorEx[] motorsEx;
     protected int numMotors;
     protected boolean useEncoder;
+    protected boolean reverse;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
     protected double diameter;
@@ -88,13 +89,6 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     /**
-     * Reverse the direction of all motors
-     */
-    public void reverse() {
-        setDirections(true);
-    }
-
-    /**
      * Wrapper around setDirection for all motors
      */
     protected void setDirections(boolean reverse) {
@@ -127,13 +121,6 @@ abstract class MotorMechanism extends Mechanism {
                 }
             }
         }
-    }
-
-    /**
-     * Wrapper around setDirection for all motors, default case doesn't reverse
-     */
-    protected void setDirections() {
-        setDirections(false);
     }
 
     /**

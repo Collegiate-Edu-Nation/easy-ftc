@@ -42,6 +42,10 @@ public class TestArm {
                     .build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4)
                     .gamepad(mockedGamepad).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4)
+                    .gearing(19.2).gamepad(mockedGamepad).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4).reverse()
+                    .gamepad(mockedGamepad).build();
 
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).build();
@@ -55,6 +59,8 @@ public class TestArm {
                     .gamepad(mockedGamepad).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).length(4)
                     .gearing(19.2).gamepad(mockedGamepad).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).length(4)
+                    .reverse().gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -136,21 +142,6 @@ public class TestArm {
     }
 
     @Test
-    public void reverseSolo_isCalled() {
-        mockInit();
-
-        try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-            arm.reverse();
-            armEnc.reverse();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
     public void reverseSolo_isCalledWithValidInputs() {
         mockInit();
 
@@ -158,9 +149,7 @@ public class TestArm {
             Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
             Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
 
-            arm.reverse();
             arm.reverse("arm");
-            armEnc.reverse();
             armEnc.reverse("arm");
         } catch (Exception e) {
             fail(e.getMessage());
@@ -190,10 +179,8 @@ public class TestArm {
             Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
                     .useEncoder(true).build();
 
-            arm.reverse();
             arm.reverse("armLeft");
             arm.reverse("armRight");
-            armEnc.reverse();
             armEnc.reverse("armLeft");
             armEnc.reverse("armRight");
         } catch (Exception e) {

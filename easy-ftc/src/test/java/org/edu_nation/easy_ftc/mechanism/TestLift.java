@@ -42,6 +42,10 @@ public class TestLift {
                     .gamepad(mockedGamepad).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
                     .gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gearing(19.2).gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4).reverse()
+                    .gamepad(mockedGamepad).build();
 
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).build();
@@ -55,6 +59,8 @@ public class TestLift {
                     .diameter(4).gamepad(mockedGamepad).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
                     .diameter(4).gearing(19.2).gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .diameter(4).reverse().gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -133,22 +139,6 @@ public class TestLift {
     }
 
     @Test
-    public void reverseSolo_isCalled() {
-        mockInit();
-
-        try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-            Lift liftEnc =
-                    new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
-
-            lift.reverse();
-            liftEnc.reverse();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
     public void reverseSolo_isCalledWithValidInputs() {
         mockInit();
 
@@ -157,9 +147,7 @@ public class TestLift {
             Lift liftEnc =
                     new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
 
-            lift.reverse();
             lift.reverse("lift");
-            liftEnc.reverse();
             liftEnc.reverse("lift");
         } catch (Exception e) {
             fail(e.getMessage());
@@ -188,10 +176,8 @@ public class TestLift {
             Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
                     .useEncoder(true).build();
 
-            lift.reverse();
             lift.reverse("liftLeft");
             lift.reverse("liftRight");
-            liftEnc.reverse();
             liftEnc.reverse("liftLeft");
             liftEnc.reverse("liftRight");
         } catch (Exception e) {

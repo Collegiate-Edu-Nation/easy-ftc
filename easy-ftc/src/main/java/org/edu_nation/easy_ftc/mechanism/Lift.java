@@ -36,6 +36,7 @@ public class Lift extends MotorMechanism {
         this.hardwareMap = builder.hardwareMap;
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
+        this.reverse = builder.reverse;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
@@ -48,6 +49,7 @@ public class Lift extends MotorMechanism {
         private HardwareMap hardwareMap;
         private int numMotors = 1;
         private boolean useEncoder = false;
+        private boolean reverse = false;
         private double diameter = 0.0;
         private double gearing = 0.0;
         private Gamepad gamepad = null;
@@ -58,6 +60,7 @@ public class Lift extends MotorMechanism {
          * 
          * @Defaults numMotors = 1
          *           <li>useEncoder = false
+         *           <li>reverse = false
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
          *           <li>gamepad = null
@@ -80,6 +83,14 @@ public class Lift extends MotorMechanism {
          */
         public Builder useEncoder(boolean useEncoder) {
             this.useEncoder = useEncoder;
+            return this;
+        }
+
+        /**
+         * Whether to reverse motors
+         */
+        public Builder reverse() {
+            this.reverse = true;
             return this;
         }
 
@@ -138,7 +149,7 @@ public class Lift extends MotorMechanism {
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
-            setDirections();
+            setDirections(reverse);
 
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
@@ -165,7 +176,7 @@ public class Lift extends MotorMechanism {
             }
 
             // Reverse direction of left motor for convenience (switch if lift is backwards)
-            setDirections();
+            setDirections(reverse);
 
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -254,7 +265,11 @@ public class Lift extends MotorMechanism {
         } else {
             switch (motorName) {
                 case "lift":
-                    reverse();
+                    if (useEncoder) {
+                        motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
+                    } else {
+                        motors[0].setDirection(DcMotor.Direction.FORWARD);
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected motorName: " + motorName
