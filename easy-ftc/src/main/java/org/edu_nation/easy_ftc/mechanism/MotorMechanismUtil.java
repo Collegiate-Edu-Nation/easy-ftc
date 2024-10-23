@@ -8,7 +8,7 @@ import java.lang.Math;
  * other classes providing static methods.
  * <p>
  * 
- * @Methods {@link #map(double controllerValue, double deadZone)} (used by subclasses)
+ * @Methods {@link #map(double controllerValue, double deadzone)} (used by subclasses)
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (used by
  *          subclasses)
  *          <li>{@link #calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements)}
@@ -16,17 +16,17 @@ import java.lang.Math;
  */
 abstract class MotorMechanismUtil {
     /**
-     * Maps controller value from [-1,-deadZone] U [deadZone,1] -> [-1,1], enabling controller
-     * deadZone
+     * Maps controller value from [-1,-deadzone] U [deadzone,1] -> [-1,1], enabling controller
+     * deadzone
      * 
-     * @Defaults deadZone = 0.0
+     * @Defaults deadzone = 0.0
      */
-    protected static double map(double controllerValue, double deadZone) {
+    protected static double map(double controllerValue, double deadzone) {
         double mappedValue;
-        if (Math.abs(controllerValue) < Math.abs(deadZone)) {
+        if (Math.abs(controllerValue) < Math.abs(deadzone)) {
             mappedValue = 0;
         } else {
-            mappedValue = ((Math.abs(controllerValue) - deadZone) / (1.0 - deadZone));
+            mappedValue = ((Math.abs(controllerValue) - deadzone) / (1.0 - deadzone));
             if (controllerValue < 0) {
                 mappedValue *= -1;
             }

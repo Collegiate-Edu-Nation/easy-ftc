@@ -25,8 +25,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
  *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
- *          <li>{@link #setAllPower(double [] movements)}
- *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
+ *          <li>{@link #setPowers(double [] movements)}
+ *          <li>{@link #setPowers()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Arm})
  */
 public class Arm extends MotorMechanism {
@@ -45,7 +45,7 @@ public class Arm extends MotorMechanism {
         this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
-        hardwareInit();
+        init();
     }
 
     public static class Builder {
@@ -156,7 +156,7 @@ public class Arm extends MotorMechanism {
      * Initializes arm motors based on constructor args (e.g. numMotors and using encoders or not)
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         if (useEncoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[numMotors];
@@ -221,7 +221,7 @@ public class Arm extends MotorMechanism {
         for (int i = 0; i < movements.length; i++) {
             movements[i] = direction;
         }
-        setAllPower(movements);
+        setPowers(movements);
     }
 
     /**
@@ -251,9 +251,9 @@ public class Arm extends MotorMechanism {
         double[] movements = ArmUtil.scaleDirections(power, unscaledMovements);
 
         if (length == 0.0) {
-            setAllPower(movements);
+            setPowers(movements);
             wait(measurement);
-            setAllPower();
+            setPowers();
         } else {
             // length is the radius of arm's ROM, so double it for arc length = distance
             int[] positions = ArmUtil.calculatePositions(measurement, 2.0 * length,
@@ -262,11 +262,11 @@ public class Arm extends MotorMechanism {
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
-            setAllPower(movements);
+            setPowers(movements);
             while (motorsAreBusy()) {
-                setAllPower(movements);
+                setPowers(movements);
             }
-            setAllPower();
+            setPowers();
 
             // Reset motors to run using velocity (allows for using move() w/ length along w/
             // tele())

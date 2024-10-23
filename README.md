@@ -117,12 +117,12 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Update MyBlocks
 - [ ] Make 'sensor' var generic
 - [ ] Make wait protected
-- [ ] Move to reverse instead of reverseState
-- [ ] Move to init instead of hardwareInit
-- [ ] move to deadzone instead of deadZone
-- [ ] move to setPowers instead of setAllPower
+- [x] Move to reverse instead of reverseState
+- [x] Move to init instead of hardwareInit
+- [x] move to deadzone instead of deadZone
+- [x] move to setPowers instead of setAllPower
 - [x] Move reverse(), reverse(name), gearing() to builder
-- [x] Move deadZone to builder 
+- [x] Move deadzone to builder 
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smoothServo control
 - [ ] Investigate builder inheritance

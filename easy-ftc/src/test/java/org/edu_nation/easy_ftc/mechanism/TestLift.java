@@ -35,7 +35,7 @@ public class TestLift {
 
         try {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).deadZone(0.1).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("lift").build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).reverse("lift")
@@ -54,7 +54,7 @@ public class TestLift {
                     .gamepad(mockedGamepad).build();
 
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).deadZone(0.1).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).deadzone(0.1).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse().build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftLeft")
@@ -194,18 +194,18 @@ public class TestLift {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setDeadZoneSolo_ThrowsException() {
+    public void setdeadzoneSolo_ThrowsException() {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
-                .deadZone(-1).build();
+                .deadzone(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setDeadZoneDual_ThrowsException() {
+    public void setdeadzoneDual_ThrowsException() {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
-                .diameter(4).deadZone(-1).build();
+                .diameter(4).deadzone(-1).build();
     }
 }

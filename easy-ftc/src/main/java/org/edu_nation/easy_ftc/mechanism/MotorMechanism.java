@@ -20,7 +20,7 @@ abstract class MotorMechanism extends Mechanism {
     protected double diameter;
     protected double length;
     protected double gearing;
-    protected double deadZone;
+    protected double deadzone;
     protected String mechanismName;
 
     /**
@@ -58,7 +58,7 @@ abstract class MotorMechanism extends Mechanism {
      * Helper function to set all motor powers to received values (defaults to 0 if no args
      * provided).
      */
-    protected void setAllPower(double[] movements) {
+    protected void setPowers(double[] movements) {
         if (useEncoder && (diameter != 0.0 || length != 0.0)) {
             for (int i = 0; i < motorsEx.length; i++) {
                 motorsEx[i].setPower(movements[i]);
@@ -77,14 +77,14 @@ abstract class MotorMechanism extends Mechanism {
     /**
      * Helper function to set all motor powers to zero (this is the default case).
      */
-    protected void setAllPower() {
+    protected void setPowers() {
         double[] zeros;
         if (useEncoder) {
             zeros = new double[motorsEx.length];
         } else {
             zeros = new double[motors.length];
         }
-        setAllPower(zeros);
+        setPowers(zeros);
     }
 
     /**

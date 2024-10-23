@@ -42,7 +42,7 @@ public class TestDrive {
         try {
             // differential
             new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).deadZone(0.1).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("driveLeft").build();
@@ -75,7 +75,7 @@ public class TestDrive {
 
             // mecanum
             new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").deadZone(0.1)
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").deadzone(0.1)
                     .build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).type("mecanum")
                     .build();
@@ -235,18 +235,18 @@ public class TestDrive {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setDeadZoneDif_ThrowsException() {
+    public void setdeadzoneDif_ThrowsException() {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                .diameter(4).deadZone(-1).build();
+                .diameter(4).deadzone(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setDeadZoneMec_ThrowsException() {
+    public void setdeadzoneMec_ThrowsException() {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                .diameter(4).deadZone(-1).type("mecanum").build();
+                .diameter(4).deadzone(-1).type("mecanum").build();
     }
 }

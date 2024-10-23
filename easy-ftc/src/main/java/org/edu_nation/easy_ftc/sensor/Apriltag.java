@@ -12,7 +12,7 @@ import java.util.List;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState
+ * @param Boolean reverse
  *        <p>
  * @Methods {@link #state()}
  */
@@ -26,18 +26,18 @@ public class Apriltag extends Sensor<Boolean> {
      */
     private Apriltag(Builder builder) {
         this.hardwareMap = builder.hardwareMap;
-        this.reverseState = builder.reverseState;
-        hardwareInit();
+        this.reverse = builder.reverse;
+        init();
     }
 
     public static class Builder {
         private HardwareMap hardwareMap;
-        private boolean reverseState = false;
+        private boolean reverse = false;
 
         /**
          * Apriltag Builder
          * 
-         * @Defaults reverseState = false
+         * @Defaults reverse = false
          */
         public Builder(HardwareMap hardwareMap) {
             this.hardwareMap = hardwareMap;
@@ -47,7 +47,7 @@ public class Apriltag extends Sensor<Boolean> {
          * Reverse the sensor's state
          */
         public Builder reverse() {
-            this.reverseState = true;
+            this.reverse = true;
             return this;
         }
 
@@ -63,7 +63,7 @@ public class Apriltag extends Sensor<Boolean> {
      * Initializes AprilTag sensor via Webcam1
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         sensor = AprilTagProcessor.easyCreateWithDefaults();
         portal = VisionPortal.easyCreateWithDefaults(hardwareMap.get(WebcamName.class, "Webcam 1"),
                 sensor);
@@ -74,7 +74,7 @@ public class Apriltag extends Sensor<Boolean> {
      */
     @Override
     public Boolean state() {
-        if (reverseState) {
+        if (reverse) {
             return !(objectDetected());
         } else {
             return objectDetected();

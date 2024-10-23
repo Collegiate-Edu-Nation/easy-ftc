@@ -47,7 +47,7 @@ public class Claw extends ServoMechanism {
         this.delay = builder.delay;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
-        hardwareInit();
+        init();
     }
 
     public static class Builder {
@@ -183,7 +183,7 @@ public class Claw extends ServoMechanism {
      * Initializes claw servos
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         // Instantiate servos
         servos = new Servo[numServos];
         if (numServos == 2) {

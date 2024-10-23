@@ -6,27 +6,27 @@ import static org.junit.Assert.*;
 public class TestLiftUtil {
     @Test
     public void controlToDirection_iscorrect() {
-        final double deadZone = 0.1;
+        final double deadzone = 0.1;
         final float[] controllerValues = {0.1f, 0.5f, 1};
         final double[] expectedValues = {0, 0.45, 1};
 
         // Test no movement (both 1)
-        double result = LiftUtil.controlToDirection(deadZone, 1, 1);
+        double result = LiftUtil.controlToDirection(deadzone, 1, 1);
         assertEquals(0, result, 0.01);
 
         // Test no movement (both 0)
-        result = LiftUtil.controlToDirection(deadZone, 0, 0);
+        result = LiftUtil.controlToDirection(deadzone, 0, 0);
         assertEquals(0, result, 0.01);
 
         // Test up
         for (int i = 0; i < controllerValues.length; i++) {
-            result = LiftUtil.controlToDirection(deadZone, 0, controllerValues[i]);
+            result = LiftUtil.controlToDirection(deadzone, 0, controllerValues[i]);
             assertEquals(expectedValues[i], result, 0.01);
         }
 
         // Test down
         for (int i = 0; i < controllerValues.length; i++) {
-            result = LiftUtil.controlToDirection(deadZone, controllerValues[i], 0);
+            result = LiftUtil.controlToDirection(deadzone, controllerValues[i], 0);
             assertEquals(-expectedValues[i], result, 0.01);
         }
     }

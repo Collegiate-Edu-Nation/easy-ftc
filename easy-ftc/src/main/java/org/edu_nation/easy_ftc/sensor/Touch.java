@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState
+ * @param Boolean reverse
  *        <p>
  * @Methods {@link #state()}
  */
@@ -20,18 +20,18 @@ public class Touch extends Sensor<Boolean> {
      */
     private Touch(Builder builder) {
         this.hardwareMap = builder.hardwareMap;
-        this.reverseState = builder.reverseState;
-        hardwareInit();
+        this.reverse = builder.reverse;
+        init();
     }
 
     public static class Builder {
         private HardwareMap hardwareMap;
-        private boolean reverseState = false;
+        private boolean reverse = false;
 
         /**
          * Touch Builder
          * 
-         * @Defaults reverseState = false
+         * @Defaults reverse = false
          */
         public Builder(HardwareMap hardwareMap) {
             this.hardwareMap = hardwareMap;
@@ -41,7 +41,7 @@ public class Touch extends Sensor<Boolean> {
          * Reverse the sensor's state
          */
         public Builder reverse() {
-            this.reverseState = true;
+            this.reverse = true;
             return this;
         }
 
@@ -57,7 +57,7 @@ public class Touch extends Sensor<Boolean> {
      * Initializes touch sensor
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         sensor = hardwareMap.get(TouchSensor.class, "touchSensor");
     }
 
@@ -66,7 +66,7 @@ public class Touch extends Sensor<Boolean> {
      */
     @Override
     public Boolean state() {
-        if (reverseState) {
+        if (reverse) {
             return !(sensor.isPressed());
         } else {
             return sensor.isPressed();

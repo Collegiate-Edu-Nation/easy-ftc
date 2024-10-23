@@ -6,9 +6,9 @@ import java.lang.Math;
  * Provides static utility methods for driving a mecanum drivetrain by extending the functionality
  * of {@link DriveUtil}.
  * 
- * @Methods {@link #controlToDirection(String layout, double deadZone, double heading, float leftY, float leftX, float rightX)}
+ * @Methods {@link #controlToDirection(String layout, double deadzone, double heading, float leftY, float leftX, float rightX)}
  *          <li>{@link #languageToDirection(String direction)}
- *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
+ *          <li>{@link #map(double controllerValue, double deadzone)} (inherited from
  *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
@@ -19,16 +19,16 @@ class DriveUtil extends MotorMechanismUtil {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */
-    protected static double[] controlToDirection(String type, String layout, double deadZone,
+    protected static double[] controlToDirection(String type, String layout, double deadzone,
             double heading, float leftY, float leftX, float rightY, float rightX) {
         if (type == "differential" || type == "") {
             double left, right;
             if (layout == "tank" || layout == "") {
-                left = map(-leftY, deadZone);
-                right = map(-rightY, deadZone);
+                left = map(-leftY, deadzone);
+                right = map(-rightY, deadzone);
             } else if (layout == "arcade") {
-                left = map(-leftY, deadZone) + map(rightX, deadZone);
-                right = map(-leftY, deadZone) - map(rightX, deadZone);
+                left = map(-leftY, deadzone) + map(rightX, deadzone);
+                right = map(-leftY, deadzone) - map(rightX, deadzone);
             } else {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
                         + ", passed to Differential.tele(). Valid layouts are: tank, arcade");
@@ -39,9 +39,9 @@ class DriveUtil extends MotorMechanismUtil {
         } else {
             double frontLeft, frontRight, backLeft, backRight;
             // Axes (used for both robot-centric and field-centric)
-            double axial = map(-leftY, deadZone);
-            double lateral = map(leftX, deadZone);
-            double yaw = map(rightX, deadZone);
+            double axial = map(-leftY, deadzone);
+            double lateral = map(leftX, deadzone);
+            double yaw = map(rightX, deadzone);
 
             // Calculate desired individual motor values (orientation factored in for else-if
             // statement

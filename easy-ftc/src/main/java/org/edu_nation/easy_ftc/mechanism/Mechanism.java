@@ -19,7 +19,7 @@ abstract class Mechanism {
     protected boolean reverse;
     protected String[] reverseDevices;
 
-    protected abstract void hardwareInit();
+    protected abstract void init();
 
     public abstract void tele();
 

@@ -12,10 +12,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 abstract class Sensor<V> {
     protected HardwareMap hardwareMap;
-    protected boolean reverseState;
+    protected boolean reverse;
     protected double calibrationValue;
 
-    protected abstract void hardwareInit();
+    protected abstract void init();
 
     public abstract V state();
 }

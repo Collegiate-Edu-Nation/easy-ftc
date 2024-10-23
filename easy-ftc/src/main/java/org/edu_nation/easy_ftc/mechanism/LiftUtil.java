@@ -4,9 +4,9 @@ package org.edu_nation.easy_ftc.mechanism;
  * Provides static utility methods for moving a lift by extending the functionality of
  * {@link LiftUtil}.
  * 
- * @Methods {@link #controlToDirection(double deadZone, float lt, float rt)}
+ * @Methods {@link #controlToDirection(double deadzone, float lt, float rt)}
  *          <li>{@link #languageToDirection(String direction)}
- *          <li>{@link #map(double controllerValue, double deadZone)} (inherited from
+ *          <li>{@link #map(double controllerValue, double deadzone)} (inherited from
  *          {@link MotorMechanismUtil})
  *          <li>{@link #scaleDirections(double power, double [] motorDirections)} (inherited from
  *          {@link MotorMechanismUtil})
@@ -17,8 +17,8 @@ class LiftUtil extends MotorMechanismUtil {
     /**
      * Set lift motor movements based on triggers
      */
-    protected static double controlToDirection(double deadZone, float lt, float rt) {
-        double lift = map(rt, deadZone) - map(lt, deadZone);
+    protected static double controlToDirection(double deadzone, float lt, float rt) {
+        double lift = map(rt, deadzone) - map(lt, deadzone);
         return lift;
     }
 

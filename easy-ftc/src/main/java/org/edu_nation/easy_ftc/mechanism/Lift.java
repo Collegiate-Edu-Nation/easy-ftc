@@ -19,15 +19,15 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
  * @param Double gearing (> 0.0)
- * @param Double deadZone (>= 0.0)
+ * @param Double deadzone (>= 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #tele()}
  *          <li>{@link #move(double power, String direction, double measurement)}
  *          <li>{@link #reverse()}
  *          <li>{@link #reverse(String motorName)}
- *          <li>{@link #setAllPower(double [] movements)}
- *          <li>{@link #setAllPower()} (defaults to array of zeros if nothing is passed)
+ *          <li>{@link #setPowers(double [] movements)}
+ *          <li>{@link #setPowers()} (defaults to array of zeros if nothing is passed)
  *          <li>{@link #wait(double time)} (inherited from {@link Lift})
  */
 public class Lift extends MotorMechanism {
@@ -44,10 +44,10 @@ public class Lift extends MotorMechanism {
         this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
         this.gearing = builder.gearing;
-        this.deadZone = builder.deadZone;
+        this.deadzone = builder.deadzone;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
-        hardwareInit();
+        init();
     }
 
     public static class Builder {
@@ -59,7 +59,7 @@ public class Lift extends MotorMechanism {
         private String[] reverseDevices = {};
         private double diameter = 0.0;
         private double gearing = 0.0;
-        private double deadZone = 0.0;
+        private double deadzone = 0.0;
         private Gamepad gamepad = null;
         private String mechanismName = "Lift";
 
@@ -72,7 +72,7 @@ public class Lift extends MotorMechanism {
          *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
          *           <li>gearing = 0.0
-         *           <li>deadZone = 0.0
+         *           <li>deadzone = 0.0
          *           <li>gamepad = null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -141,15 +141,15 @@ public class Lift extends MotorMechanism {
         }
 
         /**
-         * Specify the trigger deadZone (minimum value registered as input)
+         * Specify the trigger deadzone (minimum value registered as input)
          */
-        public Builder deadZone(double deadZone) {
-            if (deadZone < 0) {
+        public Builder deadzone(double deadzone) {
+            if (deadzone < 0) {
                 throw new IllegalArgumentException(
-                        "Unexpected deadZone value: " + deadZone + ", passed to " + mechanismName
-                                + ".deadZone(). Valid values are numbers >= 0");
+                        "Unexpected deadzone value: " + deadzone + ", passed to " + mechanismName
+                                + ".deadzone(). Valid values are numbers >= 0");
             }
-            this.deadZone = deadZone;
+            this.deadzone = deadzone;
             return this;
         }
 
@@ -173,7 +173,7 @@ public class Lift extends MotorMechanism {
      * Initializes lift motors based on constructor args (e.g. numMotors and using encoders or not)
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         if (useEncoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[numMotors];
@@ -235,11 +235,11 @@ public class Lift extends MotorMechanism {
     public void tele() {
         double[] movements = new double[numMotors];
         double direction =
-                LiftUtil.controlToDirection(deadZone, gamepad.left_trigger, gamepad.right_trigger);
+                LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
         for (int i = 0; i < movements.length; i++) {
             movements[i] = direction;
         }
-        setAllPower(movements);
+        setPowers(movements);
     }
 
     /**
@@ -259,9 +259,9 @@ public class Lift extends MotorMechanism {
         double[] movements = LiftUtil.scaleDirections(power, unscaledMovements);
 
         if (diameter == 0.0) {
-            setAllPower(movements);
+            setPowers(movements);
             wait(measurement);
-            setAllPower();
+            setPowers();
         } else {
             int[] positions = LiftUtil.calculatePositions(measurement, diameter, distanceMultiplier,
                     unscaledMovements);
@@ -269,11 +269,11 @@ public class Lift extends MotorMechanism {
 
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
-            setAllPower(movements);
+            setPowers(movements);
             while (motorsAreBusy()) {
-                setAllPower(movements);
+                setPowers(movements);
             }
-            setAllPower();
+            setPowers();
 
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())

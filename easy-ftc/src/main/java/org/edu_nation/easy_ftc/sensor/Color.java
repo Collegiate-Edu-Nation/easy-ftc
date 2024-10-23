@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState
+ * @param Boolean reverse
  * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
  * @param Integer[] rgbOffsets (array of three integers, 0-255, shifts raw rgb readings for
  *        determining dominant color)
@@ -24,22 +24,22 @@ public class Color extends Sensor<String> {
      */
     private Color(Builder builder) {
         this.hardwareMap = builder.hardwareMap;
-        this.reverseState = builder.reverseState;
+        this.reverse = builder.reverse;
         this.calibrationValue = builder.calibrationValue;
         this.rgbOffsets = builder.rgbOffsets;
-        hardwareInit();
+        init();
     }
 
     public static class Builder {
         private HardwareMap hardwareMap;
-        private boolean reverseState = false;
+        private boolean reverse = false;
         private double calibrationValue = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 
         /**
          * Color Builder
          * 
-         * @Defaults reverseState = false
+         * @Defaults reverse = false
          *           <li>calibrationValue = 85.0
          *           <li>rgbOffsets = {10, -25, 0}
          */
@@ -51,7 +51,7 @@ public class Color extends Sensor<String> {
          * Reverse the sensor's state
          */
         public Builder reverse() {
-            this.reverseState = true;
+            this.reverse = true;
             return this;
         }
 
@@ -83,7 +83,7 @@ public class Color extends Sensor<String> {
      * Initializes color sensor
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         sensor = hardwareMap.get(ColorSensor.class, "colorSensor");
     }
 
@@ -94,7 +94,7 @@ public class Color extends Sensor<String> {
     public String state() {
         int[] rgbRaw = {sensor.red(), sensor.green(), sensor.blue()};
         String color;
-        if (reverseState) {
+        if (reverse) {
             color = ColorUtil.weakColor(rgbRaw, rgbOffsets);
         } else {
             color = ColorUtil.dominantColor(rgbRaw, rgbOffsets, calibrationValue);

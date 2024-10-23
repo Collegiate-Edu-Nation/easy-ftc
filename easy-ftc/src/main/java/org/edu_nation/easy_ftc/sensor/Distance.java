@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
- * @param Boolean reverseState
+ * @param Boolean reverse
  * @param Double calibrationValue (in CM)
  *        <p>
  * @Methods {@link #state()}
@@ -22,20 +22,20 @@ public class Distance extends Sensor<Boolean> {
      */
     private Distance(Builder builder) {
         this.hardwareMap = builder.hardwareMap;
-        this.reverseState = builder.reverseState;
+        this.reverse = builder.reverse;
         this.calibrationValue = builder.calibrationValue;
-        hardwareInit();
+        init();
     }
 
     public static class Builder {
         private HardwareMap hardwareMap;
-        private boolean reverseState = false;
+        private boolean reverse = false;
         private double calibrationValue = 7.0;
 
         /**
          * Distance Builder
          * 
-         * @Defaults reverseState = false
+         * @Defaults reverse = false
          *           <li>calibrationValue = 7.0
          */
         public Builder(HardwareMap hardwareMap) {
@@ -46,7 +46,7 @@ public class Distance extends Sensor<Boolean> {
          * Reverse the sensor's state
          */
         public Builder reverse() {
-            this.reverseState = true;
+            this.reverse = true;
             return this;
         }
 
@@ -70,7 +70,7 @@ public class Distance extends Sensor<Boolean> {
      * Initializes distance sensor
      */
     @Override
-    protected void hardwareInit() {
+    protected void init() {
         sensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
     }
 
@@ -79,7 +79,7 @@ public class Distance extends Sensor<Boolean> {
      */
     @Override
     public Boolean state() {
-        if (reverseState) {
+        if (reverse) {
             return !(sensor.getDistance(DistanceUnit.CM) < calibrationValue);
         } else {
             return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
