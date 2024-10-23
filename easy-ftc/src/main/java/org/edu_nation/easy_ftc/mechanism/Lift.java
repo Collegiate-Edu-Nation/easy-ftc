@@ -37,6 +37,7 @@ public class Lift extends MotorMechanism {
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
         this.diameter = builder.diameter;
+        this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
         hardwareInit();
@@ -48,6 +49,7 @@ public class Lift extends MotorMechanism {
         private int numMotors = 1;
         private boolean useEncoder = false;
         private double diameter = 0.0;
+        private double gearing = 0.0;
         private Gamepad gamepad = null;
         private String mechanismName = "Lift";
 
@@ -57,6 +59,7 @@ public class Lift extends MotorMechanism {
          * @Defaults numMotors = 1
          *           <li>useEncoder = false
          *           <li>diameter = 0.0
+         *           <li>gearing = 0.0
          *           <li>gamepad = null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -85,6 +88,19 @@ public class Lift extends MotorMechanism {
          */
         public Builder diameter(double diameter) {
             this.diameter = diameter;
+            return this;
+        }
+
+        /**
+         * Specify the gearing of the lift motors (increases accuracy of distance-based movement)
+         */
+        public Builder gearing(double gearing) {
+            if (gearing <= 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
+                                + ".gearing(). Valid values are numbers > 0");
+            }
+            this.gearing = gearing;
             return this;
         }
 
@@ -134,6 +150,9 @@ public class Lift extends MotorMechanism {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
+                if (gearing != 0.0) {
+                    setGearing(gearing);
+                }
             }
         } else {
             // Instantiate motors

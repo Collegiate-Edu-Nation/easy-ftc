@@ -37,6 +37,7 @@ public class Arm extends MotorMechanism {
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
         this.length = builder.length;
+        this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
         hardwareInit();
@@ -48,6 +49,7 @@ public class Arm extends MotorMechanism {
         private int numMotors = 1;
         private boolean useEncoder = false;
         private double length = 0.0;
+        private double gearing = 0.0;
         private Gamepad gamepad = null;
         private String mechanismName = "Arm";
 
@@ -57,6 +59,7 @@ public class Arm extends MotorMechanism {
          * @Defaults numMotors = 1
          *           <li>useEncoder = false
          *           <li>length = 0.0
+         *           <li>gearing = 0.0
          *           <li>gamepad = null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -85,6 +88,19 @@ public class Arm extends MotorMechanism {
          */
         public Builder length(double length) {
             this.length = length;
+            return this;
+        }
+
+        /**
+         * Specify the gearing of the arm motors (increases accuracy of distance-based movement)
+         */
+        public Builder gearing(double gearing) {
+            if (gearing <= 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
+                                + ".gearing(). Valid values are numbers > 0");
+            }
+            this.gearing = gearing;
             return this;
         }
 
@@ -134,6 +150,9 @@ public class Arm extends MotorMechanism {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
+                if (gearing != 0.0) {
+                    setGearing(gearing);
+                }
             }
         } else {
             // Instantiate motors

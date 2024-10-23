@@ -53,6 +53,8 @@ public class TestLift {
                     .gamepad(mockedGamepad).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
                     .diameter(4).gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
+                    .diameter(4).gearing(19.2).gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -211,42 +213,12 @@ public class TestLift {
         liftEnc.reverse("");
     }
 
-    @Test
-    public void setGearingSolo_isCalled() {
-        mockInit();
-
-        try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                    .diameter(4).build();
-
-            lift.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void setGearingSolo_ThrowsException() {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
-                .build();
-
-        lift.setGearing(0);
-    }
-
-    @Test
-    public void setGearingDual_isCalled() {
-        mockInit();
-
-        try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
-                    .useEncoder(true).diameter(4).build();
-
-            lift.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
+                .gearing(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -254,8 +226,6 @@ public class TestLift {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
-                .diameter(4).build();
-
-        lift.setGearing(0);
+                .diameter(4).gearing(-1).build();
     }
 }

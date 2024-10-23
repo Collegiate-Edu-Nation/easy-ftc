@@ -60,6 +60,8 @@ public class TestDrive {
                     .gamepad(mockedGamepad).layout("arcade").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
                     .gamepad(mockedGamepad).layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).diameter(4)
+                    .gearing(19.2).gamepad(mockedGamepad).layout("arcade").build();
 
             // mecanum
             new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
@@ -87,6 +89,9 @@ public class TestDrive {
                     .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).useEncoder(true)
                     .diameter(4).gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).useEncoder(true)
+                    .diameter(4).gearing(19.2).gamepad(mockedGamepad).type("mecanum")
+                    .layout("robot").build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -238,42 +243,12 @@ public class TestDrive {
         driveEnc.reverse("");
     }
 
-    @Test
-    public void setGearingDif_isCalled() {
-        mockInit();
-
-        try {
-            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                    .diameter(4).build();
-
-            drive.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
-    @Test
-    public void setGearingMec_isCalled() {
-        mockInit();
-
-        try {
-            Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                    .diameter(4).type("mecanum").build();
-
-            drive.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void setGearingDif_ThrowsException() {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                .diameter(4).build();
-
-        drive.setGearing(0);
+                .diameter(4).gearing(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -281,8 +256,6 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true)
-                .diameter(4).type("mecanum").build();
-
-        drive.setGearing(0);
+                .diameter(4).gearing(-1).type("mecanum").build();
     }
 }

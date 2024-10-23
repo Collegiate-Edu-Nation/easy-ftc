@@ -19,6 +19,7 @@ abstract class MotorMechanism extends Mechanism {
     protected double distanceMultiplier;
     protected double diameter;
     protected double length;
+    protected double gearing;
     protected double deadZone = 0.1;
     protected String mechanismName;
 
@@ -94,21 +95,6 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     /**
-     * Correct the gear-ratio of all motors using encoders. Automatically updates distanceMultiplier
-     */
-    public void setGearing(double gearing) {
-        if (gearing <= 0) {
-            throw new IllegalArgumentException(
-                    "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
-                            + ".setGearing(). Valid values are numbers > 0");
-        }
-
-        MotorConfigurationType[] motorTypes = getMotorTypes();
-        double currentGearing = getGearing(motorTypes);
-        distanceMultiplier *= gearing / currentGearing;
-    }
-
-    /**
      * Wrapper around setDirection for all motors
      */
     protected void setDirections(boolean reverse) {
@@ -171,6 +157,15 @@ abstract class MotorMechanism extends Mechanism {
         }
         double gearing = min(gearings);
         return gearing;
+    }
+
+    /**
+     * Correct the gear-ratio of all motors using encoders. Automatically updates distanceMultiplier
+     */
+    protected void setGearing(double gearing) {
+        MotorConfigurationType[] motorTypes = getMotorTypes();
+        double currentGearing = getGearing(motorTypes);
+        distanceMultiplier *= gearing / currentGearing;
     }
 
     /**

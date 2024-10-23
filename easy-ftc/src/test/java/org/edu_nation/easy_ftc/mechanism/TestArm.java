@@ -53,6 +53,8 @@ public class TestArm {
                     .gamepad(mockedGamepad).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).length(4)
                     .gamepad(mockedGamepad).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true).length(4)
+                    .gearing(19.2).gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -213,42 +215,14 @@ public class TestArm {
         armEnc.reverse("");
     }
 
-    @Test
-    public void setGearingSolo_isCalled() {
-        mockInit();
-
-        try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4)
-                    .build();
-
-            arm.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void setGearingSolo_ThrowsException() {
         mockInit();
 
-        Arm arm =
-                new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4).build();
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).useEncoder(true).length(4)
+                .gearing(-1).build();
 
         arm.setGearing(0);
-    }
-
-    @Test
-    public void setGearingDual_isCalled() {
-        mockInit();
-
-        try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
-                    .length(4).build();
-
-            arm.setGearing(19.2);
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -256,8 +230,6 @@ public class TestArm {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).useEncoder(true)
-                .length(4).build();
-
-        arm.setGearing(0);
+                .length(4).gearing(-1).build();
     }
 }

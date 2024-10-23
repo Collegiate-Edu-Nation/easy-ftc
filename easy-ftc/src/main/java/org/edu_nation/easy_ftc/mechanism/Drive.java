@@ -45,6 +45,7 @@ public class Drive extends MotorMechanism {
         this.numMotors = builder.numMotors;
         this.useEncoder = builder.useEncoder;
         this.diameter = builder.diameter;
+        this.gearing = builder.gearing;
         this.gamepad = builder.gamepad;
         this.type = builder.type;
         this.layout = builder.layout;
@@ -58,6 +59,7 @@ public class Drive extends MotorMechanism {
         private int numMotors = 2;
         private boolean useEncoder = false;
         private double diameter = 0.0;
+        private double gearing = 0.0;
         private Gamepad gamepad = null;
         private String type = "";
         private String layout = "";
@@ -69,6 +71,7 @@ public class Drive extends MotorMechanism {
          * @Defaults numMotors = 2
          *           <li>useEncoder = false
          *           <li>diameter = 0.0
+         *           <li>gearing = 0.0
          *           <li>gamepad = null
          *           <li>type = ""
          *           <li>layout = ""
@@ -99,6 +102,19 @@ public class Drive extends MotorMechanism {
          */
         public Builder diameter(double diameter) {
             this.diameter = diameter;
+            return this;
+        }
+
+        /**
+         * Specify the gearing of the drive motors (increases accuracy of distance-based movement)
+         */
+        public Builder gearing(double gearing) {
+            if (gearing <= 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
+                                + ".gearing(). Valid values are numbers > 0");
+            }
+            this.gearing = gearing;
             return this;
         }
 
@@ -172,6 +188,9 @@ public class Drive extends MotorMechanism {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
+                if (gearing != 0.0) {
+                    setGearing(gearing);
+                }
             }
         } else {
             // Instantiate motors
