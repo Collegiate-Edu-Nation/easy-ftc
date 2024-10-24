@@ -62,7 +62,7 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T encoder() {
             this.encoder = true;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -70,7 +70,7 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T reverse() {
             this.reverse = true;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -85,7 +85,7 @@ abstract class MotorMechanism extends Mechanism {
             reverseDevices[arrLength] = deviceName;
 
             this.reverseDevices = reverseDevices;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -93,7 +93,7 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T diameter(double diameter) {
             this.diameter = diameter;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -101,7 +101,7 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T length(double length) {
             this.length = length;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -114,7 +114,7 @@ abstract class MotorMechanism extends Mechanism {
                                 + ".gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -127,7 +127,7 @@ abstract class MotorMechanism extends Mechanism {
                                 + ".deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -135,8 +135,12 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T gamepad(Gamepad gamepad) {
             this.gamepad = gamepad;
-            return (T) this;
+            return self();
         }
+
+        public abstract MotorMechanism build();
+
+        public abstract T self();
     }
 
     public abstract void move(double power, String direction, double measurement);

@@ -67,8 +67,14 @@ public class Lift extends MotorMechanism {
         /**
          * Build the lift
          */
+        @Override
         public Lift build() {
             return new Lift(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

@@ -59,8 +59,14 @@ public class Claw extends ServoMechanism {
         /**
          * Build the claw
          */
+        @Override
         public Claw build() {
             return new Claw(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

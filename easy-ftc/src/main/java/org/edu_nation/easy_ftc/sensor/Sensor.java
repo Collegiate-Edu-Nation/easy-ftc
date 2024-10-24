@@ -33,8 +33,12 @@ abstract class Sensor<V> {
          */
         public T reverse() {
             this.reverse = true;
-            return (T) this;
+            return self();
         }
+
+        public abstract Sensor<?> build();
+
+        public abstract T self();
     }
 
     protected abstract void init();

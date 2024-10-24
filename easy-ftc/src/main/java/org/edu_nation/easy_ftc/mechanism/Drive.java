@@ -101,8 +101,14 @@ public class Drive extends MotorMechanism {
         /**
          * Build the arm
          */
+        @Override
         public Drive build() {
             return new Drive(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

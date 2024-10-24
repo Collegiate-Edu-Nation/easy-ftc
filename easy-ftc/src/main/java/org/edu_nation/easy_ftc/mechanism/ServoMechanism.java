@@ -58,7 +58,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T count(int count) {
             this.count = count;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -66,7 +66,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T smooth() {
             this.smooth = true;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -74,7 +74,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T reverse() {
             this.reverse = true;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -89,7 +89,7 @@ abstract class ServoMechanism extends Mechanism {
             reverseDevices[arrLength] = deviceName;
 
             this.reverseDevices = reverseDevices;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -97,7 +97,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T open(double open) {
             this.open = open;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -105,7 +105,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T close(double close) {
             this.close = close;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -113,7 +113,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T increment(double increment) {
             this.increment = increment;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -121,7 +121,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T incrementDelay(double incrementDelay) {
             this.incrementDelay = incrementDelay;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -129,7 +129,7 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T delay(double delay) {
             this.delay = delay;
-            return (T) this;
+            return self();
         }
 
         /**
@@ -137,8 +137,12 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T gamepad(Gamepad gamepad) {
             this.gamepad = gamepad;
-            return (T) this;
+            return self();
         }
+
+        public abstract ServoMechanism build();
+        
+        public abstract T self();
     }
 
     public abstract void move(String direction);

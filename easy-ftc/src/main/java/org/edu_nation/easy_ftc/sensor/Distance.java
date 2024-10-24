@@ -50,8 +50,14 @@ public class Distance extends Sensor<Boolean> {
         /**
          * Build the sensor
          */
+        @Override
         public Distance build() {
             return new Distance(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

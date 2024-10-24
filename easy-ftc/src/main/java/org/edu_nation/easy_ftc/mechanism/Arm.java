@@ -66,8 +66,14 @@ public class Arm extends MotorMechanism {
         /**
          * Build the arm
          */
+        @Override
         public Arm build() {
             return new Arm(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

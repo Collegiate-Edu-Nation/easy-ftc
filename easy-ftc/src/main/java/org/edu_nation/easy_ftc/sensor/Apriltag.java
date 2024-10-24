@@ -43,8 +43,14 @@ public class Apriltag extends Sensor<Boolean> {
         /**
          * Build the sensor
          */
+        @Override
         public Apriltag build() {
             return new Apriltag(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 

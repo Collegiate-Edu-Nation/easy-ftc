@@ -37,8 +37,14 @@ public class Touch extends Sensor<Boolean> {
         /**
          * Build the sensor
          */
+        @Override
         public Touch build() {
             return new Touch(this);
+        }
+
+        @Override
+        public Builder self() {
+            return this;
         }
     }
 
