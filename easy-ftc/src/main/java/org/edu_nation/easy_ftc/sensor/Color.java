@@ -23,16 +23,13 @@ public class Color extends Sensor<String> {
      * Constructor
      */
     private Color(Builder builder) {
-        this.hardwareMap = builder.hardwareMap;
-        this.reverse = builder.reverse;
+        super(builder);
         this.calibrationValue = builder.calibrationValue;
         this.rgbOffsets = builder.rgbOffsets;
         init();
     }
 
-    public static class Builder {
-        private HardwareMap hardwareMap;
-        private boolean reverse = false;
+    public static class Builder extends Sensor.Builder<Builder> {
         private double calibrationValue = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 
@@ -44,15 +41,7 @@ public class Color extends Sensor<String> {
          *           <li>rgbOffsets = {10, -25, 0}
          */
         public Builder(HardwareMap hardwareMap) {
-            this.hardwareMap = hardwareMap;
-        }
-
-        /**
-         * Reverse the sensor's state
-         */
-        public Builder reverse() {
-            this.reverse = true;
-            return this;
+            super(hardwareMap);
         }
 
         /**

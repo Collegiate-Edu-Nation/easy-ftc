@@ -25,14 +25,11 @@ public class Apriltag extends Sensor<Boolean> {
      * Constructor
      */
     private Apriltag(Builder builder) {
-        this.hardwareMap = builder.hardwareMap;
-        this.reverse = builder.reverse;
+        super(builder);
         init();
     }
 
-    public static class Builder {
-        private HardwareMap hardwareMap;
-        private boolean reverse = false;
+    public static class Builder extends Sensor.Builder<Builder> {
 
         /**
          * Apriltag Builder
@@ -40,15 +37,7 @@ public class Apriltag extends Sensor<Boolean> {
          * @Defaults reverse = false
          */
         public Builder(HardwareMap hardwareMap) {
-            this.hardwareMap = hardwareMap;
-        }
-
-        /**
-         * Reverse the sensor's state
-         */
-        public Builder reverse() {
-            this.reverse = true;
-            return this;
+            super(hardwareMap);
         }
 
         /**

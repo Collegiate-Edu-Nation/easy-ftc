@@ -15,6 +15,28 @@ abstract class Sensor<V> {
     protected boolean reverse;
     protected double calibrationValue;
 
+    protected Sensor(Builder<?> builder) {
+        this.hardwareMap = builder.hardwareMap;
+        this.reverse = builder.reverse;
+    }
+
+    public abstract static class Builder<T extends Builder<T>> {
+        protected HardwareMap hardwareMap;
+        protected boolean reverse = false;
+
+        public Builder(HardwareMap hardwareMap) {
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Reverse the sensor's state
+         */
+        public T reverse() {
+            this.reverse = true;
+            return (T) this;
+        }
+    }
+
     protected abstract void init();
 
     public abstract V state();

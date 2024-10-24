@@ -21,15 +21,12 @@ public class Distance extends Sensor<Boolean> {
      * Constructor
      */
     private Distance(Builder builder) {
-        this.hardwareMap = builder.hardwareMap;
-        this.reverse = builder.reverse;
+        super(builder);
         this.calibrationValue = builder.calibrationValue;
         init();
     }
 
-    public static class Builder {
-        private HardwareMap hardwareMap;
-        private boolean reverse = false;
+    public static class Builder extends Sensor.Builder<Builder> {
         private double calibrationValue = 7.0;
 
         /**
@@ -39,15 +36,7 @@ public class Distance extends Sensor<Boolean> {
          *           <li>calibrationValue = 7.0
          */
         public Builder(HardwareMap hardwareMap) {
-            this.hardwareMap = hardwareMap;
-        }
-
-        /**
-         * Reverse the sensor's state
-         */
-        public Builder reverse() {
-            this.reverse = true;
-            return this;
+            super(hardwareMap);
         }
 
         /**
