@@ -14,7 +14,7 @@ abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
     protected int numMotors;
-    protected boolean useEncoder;
+    protected boolean encoder;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
     protected double diameter;
@@ -60,11 +60,11 @@ abstract class MotorMechanism extends Mechanism {
      * provided).
      */
     protected void setPowers(double[] movements) {
-        if (useEncoder && (diameter != 0.0 || length != 0.0)) {
+        if (encoder && (diameter != 0.0 || length != 0.0)) {
             for (int i = 0; i < motorsEx.length; i++) {
                 motorsEx[i].setPower(movements[i]);
             }
-        } else if (useEncoder) {
+        } else if (encoder) {
             for (int i = 0; i < motorsEx.length; i++) {
                 motorsEx[i].setVelocity(movements[i] * velocityMultiplier);
             }
@@ -80,7 +80,7 @@ abstract class MotorMechanism extends Mechanism {
      */
     protected void setPowers() {
         double[] zeros;
-        if (useEncoder) {
+        if (encoder) {
             zeros = new double[motorsEx.length];
         } else {
             zeros = new double[motors.length];
@@ -93,7 +93,7 @@ abstract class MotorMechanism extends Mechanism {
      */
     protected void setDirections(boolean reverse) {
         if (!reverse) {
-            if (useEncoder) {
+            if (encoder) {
                 for (int i = 0; i < motorsEx.length; i++) {
                     DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE
                             : DcMotorEx.Direction.FORWARD;
@@ -107,7 +107,7 @@ abstract class MotorMechanism extends Mechanism {
                 }
             }
         } else {
-            if (useEncoder) {
+            if (encoder) {
                 for (int i = 0; i < motorsEx.length; i++) {
                     DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
                             : DcMotorEx.Direction.REVERSE;

@@ -17,7 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer numMotors (2 or 4)
- * @param Boolean useEncoder (true or false)
+ * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
@@ -42,7 +42,7 @@ public class Drive extends MotorMechanism {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
         this.numMotors = builder.numMotors;
-        this.useEncoder = builder.useEncoder;
+        this.encoder = builder.encoder;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
@@ -59,7 +59,7 @@ public class Drive extends MotorMechanism {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
         private int numMotors = 2;
-        private boolean useEncoder = false;
+        private boolean encoder = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
         private double diameter = 0.0;
@@ -74,7 +74,7 @@ public class Drive extends MotorMechanism {
          * Drive Builder
          * 
          * @Defaults numMotors = 2
-         *           <li>useEncoder = false
+         *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
@@ -100,8 +100,8 @@ public class Drive extends MotorMechanism {
         /**
          * Whether to enable encoders (time-based)
          */
-        public Builder useEncoder(boolean useEncoder) {
-            this.useEncoder = useEncoder;
+        public Builder encoder() {
+            this.encoder = true;
             return this;
         }
 
@@ -203,7 +203,7 @@ public class Drive extends MotorMechanism {
      */
     @Override
     protected void init() {
-        if (useEncoder) {
+        if (encoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[numMotors];
 
@@ -344,28 +344,28 @@ public class Drive extends MotorMechanism {
         if (numMotors == 4) {
             switch (deviceName) {
                 case "frontLeft":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[0].setDirection(DcMotor.Direction.FORWARD);
                     }
                     break;
                 case "frontRight":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                     } else {
                         motors[1].setDirection(DcMotor.Direction.REVERSE);
                     }
                     break;
                 case "backLeft":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[2].setDirection(DcMotor.Direction.FORWARD);
                     }
                     break;
                 case "backRight":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
                     } else {
                         motors[3].setDirection(DcMotor.Direction.REVERSE);
@@ -378,14 +378,14 @@ public class Drive extends MotorMechanism {
         } else {
             switch (deviceName) {
                 case "driveLeft":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[0].setDirection(DcMotor.Direction.FORWARD);
                     }
                     break;
                 case "driveRight":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                     } else {
                         motors[1].setDirection(DcMotor.Direction.REVERSE);

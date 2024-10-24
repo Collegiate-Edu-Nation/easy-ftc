@@ -14,7 +14,7 @@ Library for easily leveraging in-the-box FTC mechanisms and features, including
 * Lift
 * Sensors
 
-Docs deployed at https://camdenboren.github.io/easy-ftc<br>
+Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 <i>Docs cover examples, controls, diagrams, and API reference</i>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and the builder design-pattern.
@@ -25,7 +25,7 @@ This library greatly simplifies hardware initialization and control by abstracti
 
 ### Download release archive
 * Each option requires that you download this repo's latest Android archive
-* Click on 'easy-ftc-release.aar' at https://github.com/camdenboren/easy-ftc/releases
+* Click on 'easy-ftc-release.aar' at https://github.com/collegiate-edu-nation/easy-ftc/releases
 
 ### Blockly
 * While at the previous link, also click on 'myBlocks.zip'
@@ -107,7 +107,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ### Chores
 - [x] Use camelCase for hardware naming
-- [x] Make smoothServo opt-in
+- [x] Make smooth opt-in
 - [x] Implement layout approach, move to builder pattern
     - [x] Use arrays for servos, motors to generalize functions
     - [x] Make solo and dual arms, claws, lifts identical other than numMotors
@@ -125,11 +125,12 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] move to setPowers instead of setAllPower
 - [x] Move reverse(), reverse(name), gearing() to builder
 - [x] Move deadzone to builder 
-- [ ] Make smoothServo, useEncoder argument-less a la reverse()
+- [x] Make smooth, encoder argument-less a la reverse()
 - [ ] Optimize arrays, opt for switch when possible
-- [ ] Investigate multi-threading for smoothServo control
+- [ ] Investigate multi-threading for smooth control
 - [ ] Investigate builder inheritance
 - [ ] Investigate using array for deviceNames
+- [ ] Use public enums for direction, type, layout
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation

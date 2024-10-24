@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer numMotors (1-2)
- * @param Boolean useEncoder (true or false)
+ * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double diameter (> 0.0)
@@ -34,7 +34,7 @@ public class Lift extends MotorMechanism {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
         this.numMotors = builder.numMotors;
-        this.useEncoder = builder.useEncoder;
+        this.encoder = builder.encoder;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
@@ -49,7 +49,7 @@ public class Lift extends MotorMechanism {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
         private int numMotors = 1;
-        private boolean useEncoder = false;
+        private boolean encoder = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
         private double diameter = 0.0;
@@ -62,7 +62,7 @@ public class Lift extends MotorMechanism {
          * Lift Builder
          * 
          * @Defaults numMotors = 1
-         *           <li>useEncoder = false
+         *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
          *           <li>diameter = 0.0
@@ -86,8 +86,8 @@ public class Lift extends MotorMechanism {
         /**
          * Whether to enable encoders (time-based)
          */
-        public Builder useEncoder(boolean useEncoder) {
-            this.useEncoder = useEncoder;
+        public Builder encoder() {
+            this.encoder = true;
             return this;
         }
 
@@ -169,7 +169,7 @@ public class Lift extends MotorMechanism {
      */
     @Override
     protected void init() {
-        if (useEncoder) {
+        if (encoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[numMotors];
             if (numMotors == 2) {
@@ -285,14 +285,14 @@ public class Lift extends MotorMechanism {
         if (numMotors == 2) {
             switch (deviceName) {
                 case "liftLeft":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[0].setDirection(DcMotor.Direction.FORWARD);
                     }
                     break;
                 case "liftRight":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
                     } else {
                         motors[1].setDirection(DcMotor.Direction.REVERSE);
@@ -305,7 +305,7 @@ public class Lift extends MotorMechanism {
         } else {
             switch (deviceName) {
                 case "lift":
-                    if (useEncoder) {
+                    if (encoder) {
                         motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
                     } else {
                         motors[0].setDirection(DcMotor.Direction.FORWARD);

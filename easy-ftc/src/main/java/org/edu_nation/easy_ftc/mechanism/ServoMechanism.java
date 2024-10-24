@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 abstract class ServoMechanism extends Mechanism {
     protected Servo[] servos;
     protected int numServos;
-    protected boolean smoothServo;
+    protected boolean smooth;
     protected double open, close;
     protected double increment;
     protected double incrementDelay;

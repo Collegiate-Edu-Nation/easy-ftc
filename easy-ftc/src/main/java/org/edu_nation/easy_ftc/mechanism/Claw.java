@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer numServos (1 or 2)
- * @param Boolean smoothServo (true or false)
+ * @param Boolean smooth
  * @param Boolean reverse
  * @param String[] reverseDevices
  * @param Double open (0-1)
@@ -34,7 +34,7 @@ public class Claw extends ServoMechanism {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
         this.numServos = builder.numServos;
-        this.smoothServo = builder.smoothServo;
+        this.smooth = builder.smooth;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
         this.open = builder.open;
@@ -51,7 +51,7 @@ public class Claw extends ServoMechanism {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
         private int numServos = 1;
-        private boolean smoothServo = false;
+        private boolean smooth = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
         private double open = 1.0;
@@ -66,7 +66,7 @@ public class Claw extends ServoMechanism {
          * Claw Builder
          * 
          * @Defaults numServos = 1
-         *           <li>smoothServo = false
+         *           <li>smooth = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
          *           <li>open = 1.0
@@ -92,8 +92,8 @@ public class Claw extends ServoMechanism {
         /**
          * Whether to enable smooth-servo control
          */
-        public Builder smoothServo(boolean smoothServo) {
-            this.smoothServo = smoothServo;
+        public Builder smooth() {
+            this.smooth = true;
             return this;
         }
 
@@ -207,7 +207,7 @@ public class Claw extends ServoMechanism {
         double current = servos[0].getPosition();
         double movement =
                 ServoMechanismUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
-        if (smoothServo) {
+        if (smooth) {
             double position = current;
             setPositionByIncrement(position, movement);
         } else {
@@ -227,7 +227,7 @@ public class Claw extends ServoMechanism {
     public void move(String direction) {
         double servoDirection =
                 ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
-        if (smoothServo) {
+        if (smooth) {
             double position = servos[0].getPosition();
             setPositionByIncrement(position, servoDirection);
         } else {
