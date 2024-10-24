@@ -28,33 +28,23 @@ abstract class MotorMechanism extends Mechanism {
      * Constructor
      */
     protected MotorMechanism(Builder<?> builder) {
-        this.opMode = builder.opMode;
-        this.hardwareMap = builder.hardwareMap;
+        super(builder);
         this.encoder = builder.encoder;
-        this.reverse = builder.reverse;
-        this.reverseDevices = builder.reverseDevices;
         this.diameter = builder.diameter;
         this.length = builder.length;
         this.gearing = builder.gearing;
         this.deadzone = builder.deadzone;
-        this.gamepad = builder.gamepad;
     }
 
-    public abstract static class Builder<T extends Builder<T>>  {
-        protected LinearOpMode opMode;
-        protected HardwareMap hardwareMap;
+    public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected boolean encoder = false;
-        protected boolean reverse = false;
-        protected String[] reverseDevices = {};
         private double diameter = 0.0;
         private double length = 0.0;
         protected double gearing = 0.0;
         private double deadzone = 0.0;
-        protected Gamepad gamepad = null;
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
-            this.opMode = opMode;
-            this.hardwareMap = hardwareMap;
+            super(opMode, hardwareMap);
         }
 
         /**
@@ -62,29 +52,6 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T encoder() {
             this.encoder = true;
-            return self();
-        }
-
-        /**
-         * Whether to reverse motors
-         */
-        public T reverse() {
-            this.reverse = true;
-            return self();
-        }
-
-        /**
-         * Reverse the specified motor
-         */
-        public T reverse(String deviceName) {
-            int arrLength = reverseDevices.length;
-            String[] reverseDevices = new String[arrLength + 1];
-            for (int i = 0; i < arrLength; i++) {
-                reverseDevices[i] = this.reverseDevices[i];
-            }
-            reverseDevices[arrLength] = deviceName;
-
-            this.reverseDevices = reverseDevices;
             return self();
         }
 
@@ -127,14 +94,6 @@ abstract class MotorMechanism extends Mechanism {
                                 + ".deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
-            return self();
-        }
-
-        /**
-         * Pass the gamepad instance for teleop control
-         */
-        public T gamepad(Gamepad gamepad) {
-            this.gamepad = gamepad;
             return self();
         }
 

@@ -20,37 +20,27 @@ abstract class ServoMechanism extends Mechanism {
     protected double delay;
 
     protected ServoMechanism(Builder<?> builder) {
-        this.opMode = builder.opMode;
-        this.hardwareMap = builder.hardwareMap;
+        super(builder);
         this.count = builder.count;
         this.smooth = builder.smooth;
-        this.reverse = builder.reverse;
-        this.reverseDevices = builder.reverseDevices;
         this.open = builder.open;
         this.close = builder.close;
         this.increment = builder.increment;
         this.incrementDelay = builder.incrementDelay;
         this.delay = builder.delay;
-        this.gamepad = builder.gamepad;
     }
 
-    public abstract static class Builder<T extends Builder<T>> {
-        protected LinearOpMode opMode;
-        protected HardwareMap hardwareMap;
+    public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected int count = 1;
         protected boolean smooth = false;
-        protected boolean reverse = false;
-        protected String[] reverseDevices = {};
         protected double open = 1.0;
         protected double close = 0.0;
         protected double increment = 0.02;
         protected double incrementDelay = 0.02;
         protected double delay = 2;
-        protected Gamepad gamepad = null;
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
-            this.opMode = opMode;
-            this.hardwareMap = hardwareMap;
+            super(opMode, hardwareMap);
         }
 
         /**
@@ -66,29 +56,6 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T smooth() {
             this.smooth = true;
-            return self();
-        }
-
-        /**
-         * Whether to reverse servos
-         */
-        public T reverse() {
-            this.reverse = true;
-            return self();
-        }
-
-        /**
-         * Reverse the specified servo
-         */
-        public T reverse(String deviceName) {
-            int arrLength = reverseDevices.length;
-            String[] reverseDevices = new String[arrLength + 1];
-            for (int i = 0; i < arrLength; i++) {
-                reverseDevices[i] = this.reverseDevices[i];
-            }
-            reverseDevices[arrLength] = deviceName;
-
-            this.reverseDevices = reverseDevices;
             return self();
         }
 

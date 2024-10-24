@@ -15,11 +15,70 @@ abstract class Mechanism {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected int count;
-    protected Gamepad gamepad;
-    protected ElapsedTime timer = new ElapsedTime();
     protected boolean reverse;
     protected String[] reverseDevices;
+    protected Gamepad gamepad;
+    protected ElapsedTime timer = new ElapsedTime();
     protected String mechanismName;
+
+    /**
+     * Constructor
+     */
+    protected Mechanism(Builder<?> builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.reverse = builder.reverse;
+        this.reverseDevices = builder.reverseDevices;
+        this.gamepad = builder.gamepad;
+    }
+
+    public abstract static class Builder<T extends Builder<T>> {
+        protected LinearOpMode opMode;
+        protected HardwareMap hardwareMap;
+        protected boolean reverse = false;
+        protected String[] reverseDevices = {};
+        protected Gamepad gamepad = null;
+
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Whether to reverse devices
+         */
+        public T reverse() {
+            this.reverse = true;
+            return self();
+        }
+
+        /**
+         * Reverse the specified device
+         */
+        public T reverse(String deviceName) {
+            int arrLength = reverseDevices.length;
+            String[] reverseDevices = new String[arrLength + 1];
+            for (int i = 0; i < arrLength; i++) {
+                reverseDevices[i] = this.reverseDevices[i];
+            }
+            reverseDevices[arrLength] = deviceName;
+
+            this.reverseDevices = reverseDevices;
+            return self();
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public T gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return self();
+        }
+
+        public abstract Mechanism build();
+
+        public abstract T self();
+    }
 
     protected abstract void init();
 

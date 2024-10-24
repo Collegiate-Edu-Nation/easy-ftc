@@ -102,7 +102,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Make 'sensor' var generic
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smooth control
-- [ ] Investigate builder inheritance
+- [x] Investigate builder inheritance
 - [ ] Investigate using array for deviceNames, enabling generalization of init, reverse
 - [ ] Investigate using OpMode rather than LinearOpMode
 - [ ] Use public enums for direction, type, layout
