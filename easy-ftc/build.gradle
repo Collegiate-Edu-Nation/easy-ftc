@@ -78,13 +78,8 @@ task myBlocks(type: Zip) {
 }
 
 dependencies {
-    compileOnly 'org.firstinspires.ftc:Inspection:10.1.0'
-    compileOnly 'org.firstinspires.ftc:Blocks:10.1.0'
     compileOnly 'org.firstinspires.ftc:RobotCore:10.1.0'
-    compileOnly 'org.firstinspires.ftc:RobotServer:10.1.0'
-    compileOnly 'org.firstinspires.ftc:OnBotJava:10.1.0'
     compileOnly 'org.firstinspires.ftc:Hardware:10.1.0'
-    compileOnly 'org.firstinspires.ftc:FtcCommon:10.1.0'
     compileOnly 'org.firstinspires.ftc:Vision:10.1.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'

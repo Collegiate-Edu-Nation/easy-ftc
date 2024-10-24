@@ -87,15 +87,7 @@ If contributing, this project uses the Google Java Style Guide. I use the Red Ha
 Note that LightWeight and Standard modes do not give identical output when formatting.
 
 ## ToDo
-### Update
-- [x] Move to FTC SDK v10.1 (update javadoc cmd as well)
-- [ ] Clean up unused deps
-
 ### Features
-- [x] Unit Tests (motors)
-- [x] Unit Tests (servos, sensors)
-- [x] Add reverse()
-- [ ] Unit Test (Apriltag)
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
@@ -106,26 +98,8 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Specify stop-behavior
 
 ### Chores
-- [x] Use camelCase for hardware naming
-- [x] Make smooth opt-in
-- [x] Implement layout approach, move to builder pattern
-    - [x] Use arrays for servos, motors to generalize functions
-    - [x] Make solo and dual arms, claws, lifts identical other than count
-    - [x] Move most drive functions to Drive.java
-    - [x] Consolidate Arm, Claw, Lift to one class w/ layout switch
-    - [x] Utilize more MotorMechanism function in drive classes
-    - [x] Implement builder pattern to enforce immutability, make parameters explicit
-- [x] Update MyBlocks
+- [ ] Unit Test (Apriltag)
 - [ ] Make 'sensor' var generic
-- [x] Make wait protected
-- [x] Clean up abstract methods and overrides
-- [x] Move to reverse instead of reverseState
-- [x] Move to init instead of hardwareInit
-- [x] move to deadzone instead of deadZone
-- [x] move to setPowers instead of setAllPower
-- [x] Move reverse(), reverse(name), gearing() to builder
-- [x] Move deadzone to builder 
-- [x] Make smooth, encoder argument-less a la reverse()
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smooth control
 - [ ] Investigate builder inheritance
