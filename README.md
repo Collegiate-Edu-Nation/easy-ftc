@@ -88,6 +88,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ## ToDo
 ### Features
+- [ ] Add support for 4wd differential
 - [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add support for OpenCV
 - [ ] Flesh out AprilTag
