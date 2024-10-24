@@ -52,15 +52,6 @@ abstract class MotorMechanism extends Mechanism {
         private double deadzone = 0.0;
         protected Gamepad gamepad = null;
 
-        /**
-         * MotorMechanism Builder
-         * 
-         * @Defaults encoder = false
-         *           <li>reverse = false
-         *           <li>reverseDevices = {}
-         *           <li>gearing = 0.0
-         *           <li>gamepad = null
-         */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             this.opMode = opMode;
             this.hardwareMap = hardwareMap;
