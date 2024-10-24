@@ -104,7 +104,6 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate multi-threading for smooth control
 - [x] Investigate builder inheritance
 - [ ] Investigate using array for deviceNames, enabling generalization of init, reverse
-- [ ] Investigate using OpMode rather than LinearOpMode
 - [ ] Use public enums for direction, type, layout
 - [ ] Investigate instrumentation and/or manual hardware tests
 
