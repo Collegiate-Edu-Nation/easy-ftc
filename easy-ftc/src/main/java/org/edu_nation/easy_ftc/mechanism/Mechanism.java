@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 abstract class Mechanism {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
+    protected int count;
     protected Gamepad gamepad;
     protected ElapsedTime timer = new ElapsedTime();
     protected boolean reverse;

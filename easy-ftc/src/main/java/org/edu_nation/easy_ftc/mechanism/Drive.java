@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
- * @param Integer numMotors (2 or 4)
+ * @param Integer count (2 or 4)
  * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -41,7 +41,7 @@ public class Drive extends MotorMechanism {
     private Drive(Builder builder) {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
-        this.numMotors = builder.numMotors;
+        this.count = builder.count;
         this.encoder = builder.encoder;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
@@ -58,7 +58,7 @@ public class Drive extends MotorMechanism {
     public static class Builder {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
-        private int numMotors = 2;
+        private int count = 2;
         private boolean encoder = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
@@ -73,7 +73,7 @@ public class Drive extends MotorMechanism {
         /**
          * Drive Builder
          * 
-         * @Defaults numMotors = 2
+         * @Defaults count = 2
          *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -92,8 +92,8 @@ public class Drive extends MotorMechanism {
         /**
          * Specify the number of motors (2, 4)
          */
-        public Builder numMotors(int numMotors) {
-            this.numMotors = numMotors;
+        public Builder count(int count) {
+            this.count = count;
             return this;
         }
 
@@ -175,8 +175,8 @@ public class Drive extends MotorMechanism {
          */
         public Builder type(String type) {
             this.type = type;
-            if (type == "mecanum" && this.numMotors == 2) {
-                this.numMotors = 4;
+            if (type == "mecanum" && this.count == 2) {
+                this.count = 4;
             }
             return this;
         }
@@ -205,9 +205,9 @@ public class Drive extends MotorMechanism {
     protected void init() {
         if (encoder) {
             // Instantiate motors
-            motorsEx = new DcMotorEx[numMotors];
+            motorsEx = new DcMotorEx[count];
 
-            if (numMotors == 4) {
+            if (count == 4) {
                 motorsEx[0] = hardwareMap.get(DcMotorEx.class, "frontLeft");
                 motorsEx[1] = hardwareMap.get(DcMotorEx.class, "frontRight");
                 motorsEx[2] = hardwareMap.get(DcMotorEx.class, "backLeft");
@@ -238,8 +238,8 @@ public class Drive extends MotorMechanism {
             }
         } else {
             // Instantiate motors
-            motors = new DcMotor[numMotors];
-            if (numMotors == 4) {
+            motors = new DcMotor[count];
+            if (count == 4) {
                 motors[0] = hardwareMap.get(DcMotor.class, "frontLeft");
                 motors[1] = hardwareMap.get(DcMotor.class, "frontRight");
                 motors[2] = hardwareMap.get(DcMotor.class, "backLeft");
@@ -341,7 +341,7 @@ public class Drive extends MotorMechanism {
      */
     @Override
     protected void reverse(String deviceName) {
-        if (numMotors == 4) {
+        if (count == 4) {
             switch (deviceName) {
                 case "frontLeft":
                     if (encoder) {

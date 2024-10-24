@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
- * @param Integer numServos (1 or 2)
+ * @param Integer count (1 or 2)
  * @param Boolean smooth
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -33,7 +33,7 @@ public class Claw extends ServoMechanism {
     private Claw(Builder builder) {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
-        this.numServos = builder.numServos;
+        this.count = builder.count;
         this.smooth = builder.smooth;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
@@ -50,7 +50,7 @@ public class Claw extends ServoMechanism {
     public static class Builder {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
-        private int numServos = 1;
+        private int count = 1;
         private boolean smooth = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
@@ -65,7 +65,7 @@ public class Claw extends ServoMechanism {
         /**
          * Claw Builder
          * 
-         * @Defaults numServos = 1
+         * @Defaults count = 1
          *           <li>smooth = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -84,8 +84,8 @@ public class Claw extends ServoMechanism {
         /**
          * Specify the number of servos (1-2)
          */
-        public Builder numServos(int numServos) {
-            this.numServos = numServos;
+        public Builder count(int count) {
+            this.count = count;
             return this;
         }
 
@@ -182,8 +182,8 @@ public class Claw extends ServoMechanism {
     @Override
     protected void init() {
         // Instantiate servos
-        servos = new Servo[numServos];
-        if (numServos == 2) {
+        servos = new Servo[count];
+        if (count == 2) {
             servos[0] = hardwareMap.get(Servo.class, "clawLeft");
             servos[1] = hardwareMap.get(Servo.class, "clawRight");
         } else {
@@ -241,7 +241,7 @@ public class Claw extends ServoMechanism {
      */
     @Override
     protected void reverse(String deviceName) {
-        if (numServos == 2) {
+        if (count == 2) {
             switch (deviceName) {
                 case "clawLeft":
                     servos[0].setDirection(Servo.Direction.REVERSE);

@@ -13,7 +13,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
-    protected int numMotors;
     protected boolean encoder;
     protected double velocityMultiplier;
     protected double distanceMultiplier;

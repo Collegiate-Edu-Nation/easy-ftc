@@ -52,32 +52,32 @@ public class TestArm {
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).reverse()
                     .gamepad(mockedGamepad).build();
 
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().reverse()
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse()
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armLeft")
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("armLeft")
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armLeft")
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("armLeft")
                     .reverse("armRight").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("armRight")
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("armRight")
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .reverse("armLeft").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .reverse("armRight").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).gamepad(mockedGamepad)
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).gamepad(mockedGamepad)
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().length(4)
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4)
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .gamepad(mockedGamepad).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().length(4)
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4)
                     .gamepad(mockedGamepad).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().length(4)
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4)
                     .gearing(19.2).gamepad(mockedGamepad).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().length(4)
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4)
                     .reverse().gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
@@ -108,9 +108,9 @@ public class TestArm {
         mockInit();
 
         try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .gamepad(mockedGamepad).build();
-            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().gamepad(mockedGamepad).build();
 
             arm.tele();
@@ -145,10 +145,10 @@ public class TestArm {
         mockInit();
 
         try {
-            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().build();
-            Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().length(4).build();
 
             arm.move(0.5, "up", 1);
@@ -173,9 +173,9 @@ public class TestArm {
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc")
                 .build();
-        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
+        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc")
                 .encoder().build();
     }
 
@@ -193,7 +193,7 @@ public class TestArm {
     public void setGearingDual_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                 .length(4).gearing(-1).build();
     }
 }

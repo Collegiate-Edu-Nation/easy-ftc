@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * 
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
- * @param Integer numMotors (1-2)
+ * @param Integer count (1-2)
  * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -33,7 +33,7 @@ public class Lift extends MotorMechanism {
     private Lift(Builder builder) {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
-        this.numMotors = builder.numMotors;
+        this.count = builder.count;
         this.encoder = builder.encoder;
         this.reverse = builder.reverse;
         this.reverseDevices = builder.reverseDevices;
@@ -48,7 +48,7 @@ public class Lift extends MotorMechanism {
     public static class Builder {
         private LinearOpMode opMode;
         private HardwareMap hardwareMap;
-        private int numMotors = 1;
+        private int count = 1;
         private boolean encoder = false;
         private boolean reverse = false;
         private String[] reverseDevices = {};
@@ -61,7 +61,7 @@ public class Lift extends MotorMechanism {
         /**
          * Lift Builder
          * 
-         * @Defaults numMotors = 1
+         * @Defaults count = 1
          *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -78,8 +78,8 @@ public class Lift extends MotorMechanism {
         /**
          * Specify the number of motors (1-2)
          */
-        public Builder numMotors(int numMotors) {
-            this.numMotors = numMotors;
+        public Builder count(int count) {
+            this.count = count;
             return this;
         }
 
@@ -165,14 +165,14 @@ public class Lift extends MotorMechanism {
     }
 
     /**
-     * Initializes lift motors based on constructor args (e.g. numMotors and using encoders or not)
+     * Initializes lift motors based on constructor args (e.g. count and using encoders or not)
      */
     @Override
     protected void init() {
         if (encoder) {
             // Instantiate motors
-            motorsEx = new DcMotorEx[numMotors];
-            if (numMotors == 2) {
+            motorsEx = new DcMotorEx[count];
+            if (count == 2) {
                 motorsEx[0] = hardwareMap.get(DcMotorEx.class, "liftLeft");
                 motorsEx[1] = hardwareMap.get(DcMotorEx.class, "liftRight");
             } else {
@@ -200,8 +200,8 @@ public class Lift extends MotorMechanism {
             }
         } else {
             // Instantiate motors
-            motors = new DcMotor[numMotors];
-            if (numMotors == 2) {
+            motors = new DcMotor[count];
+            if (count == 2) {
                 motors[0] = hardwareMap.get(DcMotor.class, "liftLeft");
                 motors[1] = hardwareMap.get(DcMotor.class, "liftRight");
             } else {
@@ -228,7 +228,7 @@ public class Lift extends MotorMechanism {
      */
     @Override
     public void tele() {
-        double[] movements = new double[numMotors];
+        double[] movements = new double[count];
         double direction =
                 LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
         for (int i = 0; i < movements.length; i++) {
@@ -248,8 +248,8 @@ public class Lift extends MotorMechanism {
     @Override
     public void move(double power, String direction, double measurement) {
         double movement = LiftUtil.languageToDirection(direction);
-        double[] unscaledMovements = new double[numMotors];
-        for (int i = 0; i < numMotors; i++) {
+        double[] unscaledMovements = new double[count];
+        for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
         double[] movements = LiftUtil.scaleDirections(power, unscaledMovements);
@@ -282,7 +282,7 @@ public class Lift extends MotorMechanism {
      */
     @Override
     protected void reverse(String deviceName) {
-        if (numMotors == 2) {
+        if (count == 2) {
             switch (deviceName) {
                 case "liftLeft":
                     if (encoder) {

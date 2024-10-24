@@ -28,23 +28,23 @@ public class TestClaw {
         try {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("claw").build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).reverse("clawLeft")
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("clawLeft")
                     .reverse("clawRight").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smooth()
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
                     .build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).gamepad(mockedGamepad)
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).gamepad(mockedGamepad)
                     .build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth()
                     .gamepad(mockedGamepad).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smooth()
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
                     .gamepad(mockedGamepad);
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smooth()
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
                     .open(0.9).close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
                     .gamepad(mockedGamepad).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).smooth()
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
                     .reverse().open(0.9).close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
                     .gamepad(mockedGamepad).build();
         } catch (Exception e) {
@@ -73,9 +73,9 @@ public class TestClaw {
         mockInit();
 
         try {
-            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2)
+            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .gamepad(mockedGamepad).build();
-            Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2)
+            Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .smooth().gamepad(mockedGamepad).build();
             claw.tele();
             clawSmooth.tele();
@@ -104,8 +104,8 @@ public class TestClaw {
         mockInit();
 
         try {
-            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).build();
-            Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2)
+            Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .smooth().build();
             claw.move("open");
             clawSmooth.move("open");
@@ -118,7 +118,7 @@ public class TestClaw {
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).numServos(2).reverse("abc")
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc")
                 .build();
     }
 

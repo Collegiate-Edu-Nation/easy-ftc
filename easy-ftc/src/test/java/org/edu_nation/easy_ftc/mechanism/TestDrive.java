@@ -113,12 +113,12 @@ public class TestDrive {
                     .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
                     .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).encoder()
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder()
                     .diameter(4).gamepad(mockedGamepad).type("mecanum").layout("robot").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).encoder()
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder()
                     .diameter(4).gearing(19.2).gamepad(mockedGamepad).type("mecanum")
                     .layout("robot").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).numMotors(4).encoder()
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder()
                     .diameter(4).reverse().gamepad(mockedGamepad).type("mecanum").layout("robot")
                     .build();
         } catch (Exception e) {

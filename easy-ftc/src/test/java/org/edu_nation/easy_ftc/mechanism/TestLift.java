@@ -53,33 +53,33 @@ public class TestLift {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).reverse()
                     .gamepad(mockedGamepad).build();
 
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).deadzone(0.1).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftLeft")
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).deadzone(0.1).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftLeft")
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .reverse().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .reverse("liftLeft").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftLeft")
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftLeft")
                     .reverse("liftRight").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("liftRight")
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftRight")
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .reverse("liftRight").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).gamepad(mockedGamepad)
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).gamepad(mockedGamepad)
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).gearing(19.2).gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).reverse().gamepad(mockedGamepad).build();
         } catch (Exception e) {
             fail(e.getMessage());
@@ -108,9 +108,9 @@ public class TestLift {
         mockInit();
 
         try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .gamepad(mockedGamepad).build();
-            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().gamepad(mockedGamepad).build();
 
             lift.tele();
@@ -144,10 +144,10 @@ public class TestLift {
         mockInit();
 
         try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).build();
-            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().build();
-            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
                     .encoder().diameter(4).build();
 
             lift.move(0.5, "up", 1);
@@ -171,9 +171,9 @@ public class TestLift {
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).reverse("abc")
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc")
                 .build();
-        Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2)
+        Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
                 .encoder().reverse("abc").build();
     }
 
@@ -189,7 +189,7 @@ public class TestLift {
     public void setGearingDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                 .diameter(4).gearing(-1).build();
     }
 
@@ -205,7 +205,7 @@ public class TestLift {
     public void setdeadzoneDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).numMotors(2).encoder()
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                 .diameter(4).deadzone(-1).build();
     }
 }
