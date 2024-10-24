@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Implements a lift by extending the functionality of {@link MotorMechanism}.
@@ -31,31 +30,14 @@ public class Lift extends MotorMechanism {
      * Constructor
      */
     private Lift(Builder builder) {
-        this.opMode = builder.opMode;
-        this.hardwareMap = builder.hardwareMap;
+        super(builder);
         this.count = builder.count;
-        this.encoder = builder.encoder;
-        this.reverse = builder.reverse;
-        this.reverseDevices = builder.reverseDevices;
-        this.diameter = builder.diameter;
-        this.gearing = builder.gearing;
-        this.deadzone = builder.deadzone;
-        this.gamepad = builder.gamepad;
         this.mechanismName = builder.mechanismName;
         init();
     }
 
-    public static class Builder {
-        private LinearOpMode opMode;
-        private HardwareMap hardwareMap;
+    public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
-        private boolean encoder = false;
-        private boolean reverse = false;
-        private String[] reverseDevices = {};
-        private double diameter = 0.0;
-        private double gearing = 0.0;
-        private double deadzone = 0.0;
-        private Gamepad gamepad = null;
         private String mechanismName = "Lift";
 
         /**
@@ -71,8 +53,7 @@ public class Lift extends MotorMechanism {
          *           <li>gamepad = null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
-            this.opMode = opMode;
-            this.hardwareMap = hardwareMap;
+            super(opMode, hardwareMap);
         }
 
         /**
@@ -80,79 +61,6 @@ public class Lift extends MotorMechanism {
          */
         public Builder count(int count) {
             this.count = count;
-            return this;
-        }
-
-        /**
-         * Whether to enable encoders (time-based)
-         */
-        public Builder encoder() {
-            this.encoder = true;
-            return this;
-        }
-
-        /**
-         * Whether to reverse motors
-         */
-        public Builder reverse() {
-            this.reverse = true;
-            return this;
-        }
-
-        /**
-         * Reverse the specified motor
-         */
-        public Builder reverse(String deviceName) {
-            int arrLength = reverseDevices.length;
-            String[] reverseDevices = new String[arrLength + 1];
-            for (int i = 0; i < arrLength; i++) {
-                reverseDevices[i] = this.reverseDevices[i];
-            }
-            reverseDevices[arrLength] = deviceName;
-
-            this.reverseDevices = reverseDevices;
-            return this;
-        }
-
-        /**
-         * Specify the diameter of the lift for encoder control (distance-based)
-         */
-        public Builder diameter(double diameter) {
-            this.diameter = diameter;
-            return this;
-        }
-
-        /**
-         * Specify the gearing of the lift motors (increases accuracy of distance-based movement)
-         */
-        public Builder gearing(double gearing) {
-            if (gearing <= 0) {
-                throw new IllegalArgumentException(
-                        "Unexpected gearing value: " + gearing + ", passed to " + mechanismName
-                                + ".gearing(). Valid values are numbers > 0");
-            }
-            this.gearing = gearing;
-            return this;
-        }
-
-        /**
-         * Specify the trigger deadzone (minimum value registered as input)
-         */
-        public Builder deadzone(double deadzone) {
-            if (deadzone < 0) {
-                throw new IllegalArgumentException(
-                        "Unexpected deadzone value: " + deadzone + ", passed to " + mechanismName
-                                + ".deadzone(). Valid values are numbers >= 0");
-            }
-            this.deadzone = deadzone;
-            return this;
-        }
-
-        /**
-         * Pass the gamepad instance for teleop control
-         */
-        public Builder gamepad(Gamepad gamepad) {
-            this.gamepad = gamepad;
             return this;
         }
 

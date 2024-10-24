@@ -1,8 +1,11 @@
 package org.edu_nation.easy_ftc.mechanism;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
@@ -20,6 +23,130 @@ abstract class MotorMechanism extends Mechanism {
     protected double length;
     protected double gearing;
     protected double deadzone;
+
+    /**
+     * Constructor
+     */
+    protected MotorMechanism(Builder<?> builder) {
+        this.opMode = builder.opMode;
+        this.hardwareMap = builder.hardwareMap;
+        this.encoder = builder.encoder;
+        this.reverse = builder.reverse;
+        this.reverseDevices = builder.reverseDevices;
+        this.diameter = builder.diameter;
+        this.length = builder.length;
+        this.gearing = builder.gearing;
+        this.deadzone = builder.deadzone;
+        this.gamepad = builder.gamepad;
+    }
+
+    public abstract static class Builder<T extends Builder<T>>  {
+        protected LinearOpMode opMode;
+        protected HardwareMap hardwareMap;
+        protected boolean encoder = false;
+        protected boolean reverse = false;
+        protected String[] reverseDevices = {};
+        private double diameter = 0.0;
+        private double length = 0.0;
+        protected double gearing = 0.0;
+        private double deadzone = 0.0;
+        protected Gamepad gamepad = null;
+
+        /**
+         * MotorMechanism Builder
+         * 
+         * @Defaults encoder = false
+         *           <li>reverse = false
+         *           <li>reverseDevices = {}
+         *           <li>gearing = 0.0
+         *           <li>gamepad = null
+         */
+        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+            this.opMode = opMode;
+            this.hardwareMap = hardwareMap;
+        }
+
+        /**
+         * Whether to enable encoders (time-based)
+         */
+        public T encoder() {
+            this.encoder = true;
+            return (T) this;
+        }
+
+        /**
+         * Whether to reverse motors
+         */
+        public T reverse() {
+            this.reverse = true;
+            return (T) this;
+        }
+
+        /**
+         * Reverse the specified motor
+         */
+        public T reverse(String deviceName) {
+            int arrLength = reverseDevices.length;
+            String[] reverseDevices = new String[arrLength + 1];
+            for (int i = 0; i < arrLength; i++) {
+                reverseDevices[i] = this.reverseDevices[i];
+            }
+            reverseDevices[arrLength] = deviceName;
+
+            this.reverseDevices = reverseDevices;
+            return (T) this;
+        }
+
+        /**
+         * Specify the diameter of the wheels/axel for encoder control (distance-based)
+         */
+        public T diameter(double diameter) {
+            this.diameter = diameter;
+            return (T) this;
+        }
+
+        /**
+         * Specify the length of the arm for encoder control (distance-based)
+         */
+        public T length(double length) {
+            this.length = length;
+            return (T) this;
+        }
+
+        /**
+         * Specify the gearing of the motors (increases accuracy of distance-based movement)
+         */
+        public T gearing(double gearing) {
+            if (gearing <= 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected gearing value: " + gearing + ", passed to "
+                                + ".gearing(). Valid values are numbers > 0");
+            }
+            this.gearing = gearing;
+            return (T) this;
+        }
+
+        /**
+         * Specify the joystick deadzone (minimum value registered as input)
+         */
+        public T deadzone(double deadzone) {
+            if (deadzone < 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected deadzone value: " + deadzone + ", passed to " 
+                                + ".deadzone(). Valid values are numbers >= 0");
+            }
+            this.deadzone = deadzone;
+            return (T) this;
+        }
+
+        /**
+         * Pass the gamepad instance for teleop control
+         */
+        public T gamepad(Gamepad gamepad) {
+            this.gamepad = gamepad;
+            return (T) this;
+        }
+    }
 
     public abstract void move(double power, String direction, double measurement);
 
