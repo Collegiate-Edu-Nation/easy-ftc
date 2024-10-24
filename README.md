@@ -99,7 +99,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ### Chores
 - [ ] Unit Test (Apriltag)
-- [ ] Make 'sensor' var generic
+- [x] Make 'sensor' var generic
 - [ ] Optimize arrays, opt for switch when possible
 - [ ] Investigate multi-threading for smooth control
 - [x] Investigate builder inheritance

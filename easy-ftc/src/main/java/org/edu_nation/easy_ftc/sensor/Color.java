@@ -15,8 +15,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Color extends Sensor<String> {
-    private ColorSensor sensor;
+public class Color extends Sensor<ColorSensor, String> {
     private int[] rgbOffsets;
 
     /**

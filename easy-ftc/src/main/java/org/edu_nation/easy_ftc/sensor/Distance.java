@@ -14,8 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Distance extends Sensor<Boolean> {
-    private DistanceSensor sensor;
+public class Distance extends Sensor<DistanceSensor, Boolean> {
 
     /**
      * Constructor

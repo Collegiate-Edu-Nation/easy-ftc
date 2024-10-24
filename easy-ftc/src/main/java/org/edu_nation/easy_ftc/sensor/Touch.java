@@ -12,8 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Touch extends Sensor<Boolean> {
-    private TouchSensor sensor;
+public class Touch extends Sensor<TouchSensor, Boolean> {
 
     /**
      * Constructor

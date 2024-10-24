@@ -16,8 +16,7 @@ import java.util.List;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Apriltag extends Sensor<Boolean> {
-    private AprilTagProcessor sensor;
+public class Apriltag extends Sensor<AprilTagProcessor, Boolean> {
     private VisionPortal portal;
     private List<AprilTagDetection> detections;
 

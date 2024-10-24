@@ -10,8 +10,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * 
  * @Methods {@link #state()} (used by subclasses)
  */
-abstract class Sensor<V> {
+abstract class Sensor<S, V> {
     protected HardwareMap hardwareMap;
+    protected S sensor;
     protected boolean reverse;
     protected double calibrationValue;
 
@@ -36,7 +37,7 @@ abstract class Sensor<V> {
             return self();
         }
 
-        public abstract Sensor<?> build();
+        public abstract Sensor<?, ?> build();
 
         public abstract T self();
     }
