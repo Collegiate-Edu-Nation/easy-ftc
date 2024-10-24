@@ -69,13 +69,13 @@ Nix is my preferred approach for setting up the development environment. Linux, 
 
 Launch development environment
 
-    nix develop github:camdenboren/easy-ftc
+    nix develop github:collegiate-edu-nation/easy-ftc
 
 The project can also be imported into Android Studio, where Windows is also supported
 
 <b>Must install git and Android Studio before running</b>
 
-    git clone https://github.com/camdenboren/easy-ftc.git
+    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
     Import project in Android Studio
 
 For either approach, gradlew builds are supported
