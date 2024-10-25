@@ -115,16 +115,23 @@ abstract class ServoMechanism extends Mechanism {
     public abstract void move(String direction);
 
     /**
-     * Wrapper around setPosition that enables smooth, synchronized servo control
+     * Wrapper around setPositions that enables smooth, synchronized servo control
      */
-    protected void setPositionByIncrement(double position, double movement) {
+    protected double setPositionsByIncrement(double position, double movement) {
+        position += (movement == position) ? 0 : ((movement > position) ? increment : -increment);
+        position = Math.min(Math.max(position, 0), 1);
+        setPositions(position);
+        wait(incrementDelay);
+        return position;
+    }
+
+    /**
+     * Wrapper around setPositionsByIncrement that enables smooth servo movement until the desired position is reached.
+     * The loop causes thread-blocking, so it's not used for tele() calls
+     */
+    protected void setPositionsByIncrementUntilComplete(double position, double movement) {
         while (opMode.opModeIsActive() && position != movement) {
-            position += (movement - position > 0) ? increment : -increment;
-            position = Math.min(Math.max(position, 0), 1);
-            for (Servo servo : servos) {
-                servo.setPosition(position);
-            }
-            wait(incrementDelay);
+            position = setPositionsByIncrement(position, movement);
         }
     }
 

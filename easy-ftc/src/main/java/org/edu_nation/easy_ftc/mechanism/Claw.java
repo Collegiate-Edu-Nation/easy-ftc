@@ -98,12 +98,11 @@ public class Claw extends ServoMechanism {
      */
     @Override
     public void tele() {
-        double current = servos[0].getPosition();
+        double position = servos[0].getPosition();
         double movement =
-                ServoMechanismUtil.controlToDirection(open, close, current, gamepad.b, gamepad.a);
+                ServoMechanismUtil.controlToDirection(open, close, position, gamepad.b, gamepad.a);
         if (smooth) {
-            double position = current;
-            setPositionByIncrement(position, movement);
+            setPositionsByIncrement(position, movement);
         } else {
             setPositions(movement);
         }
@@ -123,7 +122,7 @@ public class Claw extends ServoMechanism {
                 ServoMechanismUtil.languageToDirection(direction, open, close, mechanismName);
         if (smooth) {
             double position = servos[0].getPosition();
-            setPositionByIncrement(position, servoDirection);
+            setPositionsByIncrementUntilComplete(position, servoDirection);
         } else {
             setPositions(servoDirection);
             wait(delay);
