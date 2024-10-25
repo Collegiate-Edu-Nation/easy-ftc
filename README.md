@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/Android_API-29-blue)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-17.0.10-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
-![Static Badge](https://img.shields.io/badge/Coverage-95%25-green)
+![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and features, including
@@ -19,7 +19,7 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and the builder design-pattern.
 
-<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling multi-servo synchronization (at the expense of thread-blocking). Supported sensors are: AprilTag, color, distance, and touch</i>
+<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization. Supported sensors are: color, distance, and touch</i>
 
 ## Usage
 
@@ -88,21 +88,21 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ## ToDo
 ### Features
-- [ ] Add support for 4wd differential
-- [ ] Add support for trigger (servo), intake (motor)
-- [ ] Add support for OpenCV
-- [ ] Flesh out AprilTag
-- [x] Support RUN_TO_POSITION for encoders
-- [ ] Support moving until sensor says otherwise
-- [ ] Add telemetry for status indicators
-- [x] Add support for Blockly
 - [ ] Specify stop-behavior
+- [ ] Add support for 4wd differential
+- [x] Support RUN_TO_POSITION for encoders
+- [ ] Support RUN_TO_POSITION in teleOp (i.e. only move between two positions, a la servo)
+- [ ] Support moving until sensor says otherwise
+    - [ ] pass sensor.state() as boolean
+    - [ ] pass directions not to move if boolean true (or to move if sensor is reversed)
+- [ ] Add support for trigger (servo), intake (motor)
+- [ ] Add telemetry for status indicators via toString
+- [ ] Add support for OpenCV, AprilTag
+- [ ] Investigate multi-threading for synchronized, multi-system automated movements
 
 ### Chores
-- [ ] Unit Test (Apriltag)
 - [x] Make 'sensor' var generic
 - [ ] Optimize arrays, opt for switch when possible
-- [ ] Investigate multi-threading for smooth control
 - [x] Investigate builder inheritance
 - [ ] Investigate using array for deviceNames, enabling generalization of init, reverse
 - [ ] Use public enums for direction, type, layout
