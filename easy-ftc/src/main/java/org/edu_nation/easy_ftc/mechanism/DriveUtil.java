@@ -19,7 +19,7 @@ class DriveUtil extends MotorMechanismUtil {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */
-    protected static double[] controlToDirection(String type, String layout, double deadzone,
+    protected static double[] controlToDirection(int count, String type, String layout, double deadzone,
             double heading, float leftY, float leftX, float rightY, float rightX) {
         if (type == "differential" || type == "") {
             double left, right;
@@ -34,7 +34,10 @@ class DriveUtil extends MotorMechanismUtil {
                         + ", passed to Differential.tele(). Valid layouts are: tank, arcade");
             }
 
-            double[] movements = {left, right};
+            double[] movements = new double[count];
+            for (int i = 0; i < count; i++) {
+                movements[i] = (i % 2 == 0) ? left : right;
+            }
             return movements;
         } else {
             double frontLeft, frontRight, backLeft, backRight;
@@ -82,30 +85,35 @@ class DriveUtil extends MotorMechanismUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(String type, double power, String direction) {
+    protected static double[] languageToDirection(int count, String type, double power, String direction) {
         if (type == "differential" || type == "") {
-            double[] motorDirections = {0, 0};
+            double[] motorDirections = new double[count];
             switch (direction) {
                 case "forward":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = 1;
+                    for(int i = 0; i < count; i++) {
+                        motorDirections[i] = 1;
+                    }
                     break;
                 case "backward":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = -1;
+                    for(int i = 0; i < count; i++) {
+                        motorDirections[i] = -1;
+                    }
                     break;
                 case "rotateLeft":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = 1;
+                    for(int i = 0; i < count; i++) {
+                        motorDirections[i] = (i % 2 == 0) ? -1 : 1;
+                    }
                     break;
                 case "rotateRight":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = -1;
+                    for(int i = 0; i < count; i++) {
+                        motorDirections[i] = (i % 2 == 0) ? 1 : -1;
+                    }
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected direction: " + direction
                             + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight");
             }
+
             double[] movements = scaleDirections(power, motorDirections);
             return movements;
         } else {
@@ -175,6 +183,7 @@ class DriveUtil extends MotorMechanismUtil {
                     throw new IllegalArgumentException("Unexpected direction: " + direction
                             + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
             }
+            
             double[] movements = scaleDirections(power, motorDirections);
             return movements;
         }

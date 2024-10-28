@@ -208,7 +208,7 @@ public class Drive extends MotorMechanism {
         }
 
         double[] movements =
-                DriveUtil.controlToDirection(type, layout, deadzone, heading, gamepad.left_stick_y,
+                DriveUtil.controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
                         gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
         setPowers(movements);
     }
@@ -224,14 +224,14 @@ public class Drive extends MotorMechanism {
      */
     @Override
     public void move(double power, String direction, double measurement) {
-        double[] movements = DriveUtil.languageToDirection(type, power, direction);
+        double[] movements = DriveUtil.languageToDirection(count, type, power, direction);
 
         if (diameter == 0.0) {
             setPowers(movements);
             wait(measurement);
             setPowers();
         } else {
-            double[] unscaledMovements = DriveUtil.languageToDirection(type, 1, direction);
+            double[] unscaledMovements = DriveUtil.languageToDirection(count, type, 1, direction);
             int[] positions = DriveUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions = getCurrentPositions();

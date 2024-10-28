@@ -89,7 +89,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 ## ToDo
 ### Features
 - [ ] Specify stop-behavior
-- [ ] Add support for 4wd differential
+- [x] Add support for 4wd differential
 - [x] Support RUN_TO_POSITION for encoders
 - [ ] Support RUN_TO_POSITION in teleOp (i.e. only move between two positions, a la servo)
 - [ ] Support moving until sensor says otherwise
