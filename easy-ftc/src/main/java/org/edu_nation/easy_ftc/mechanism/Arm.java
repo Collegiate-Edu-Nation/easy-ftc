@@ -32,18 +32,21 @@ public class Arm extends MotorMechanism {
     private Arm(Builder builder) {
         super(builder);
         this.count = builder.count;
+        this.behavior = builder.behavior;
         this.mechanismName = builder.mechanismName;
         init();
     }
 
     public static class Builder extends MotorMechanism.Builder<Builder>{
         private int count = 1;
+        private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private String mechanismName = "Arm";
 
         /**
          * Arm Builder
          * 
          * @Defaults count = 1
+         *           <li>behavior = BRAKE
          *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -60,6 +63,14 @@ public class Arm extends MotorMechanism {
          */
         public Builder count(int count) {
             this.count = count;
+            return this;
+        }
+
+        /**
+         * Specify the zero-power behavior of the motors (DcMotor.ZeroPowerBehavior.BRAKE or FLOAT)
+         */
+        public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
+            this.behavior = behavior;
             return this;
         }
 
@@ -94,9 +105,6 @@ public class Arm extends MotorMechanism {
 
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
-            // Reverse direction of left motor for convenience (switch if arm is backwards)
-            setDirections(reverse);
-
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -121,12 +129,15 @@ public class Arm extends MotorMechanism {
                 motors[0] = hardwareMap.get(DcMotor.class, "arm");
             }
 
-            // Reverse direction of left motor for convenience (switch if arm is backwards)
-            setDirections(reverse);
-
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
+
+        // specify zeroPowerBehavior of motors
+        setBehaviors(behavior);
+
+        // Reverse direction of left motor for convenience (switch if arm is backwards)
+        setDirections(reverse);
 
         // reverse direction of specified motors
         for (String device : reverseDevices) {

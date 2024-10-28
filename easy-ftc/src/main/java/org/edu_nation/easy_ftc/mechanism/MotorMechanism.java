@@ -17,6 +17,7 @@ abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
     protected boolean encoder;
+    protected DcMotor.ZeroPowerBehavior behavior;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
     protected double diameter;
@@ -37,10 +38,10 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
-        protected boolean encoder = false;
+        private boolean encoder = false;
         private double diameter = 0.0;
         private double length = 0.0;
-        protected double gearing = 0.0;
+        private double gearing = 0.0;
         private double deadzone = 0.0;
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -199,6 +200,21 @@ abstract class MotorMechanism extends Mechanism {
                             (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
+            }
+        }
+    }
+
+    /**
+     * Wrapper around setZeroPowerBehavior for all motors
+     */
+    protected void setBehaviors(DcMotor.ZeroPowerBehavior behavior) {
+        if (encoder) {
+            for (DcMotorEx motorEx : motorsEx) {
+                motorEx.setZeroPowerBehavior(behavior);
+            }
+        } else {
+            for (DcMotor motor : motors) {
+                motor.setZeroPowerBehavior(behavior);
             }
         }
     }

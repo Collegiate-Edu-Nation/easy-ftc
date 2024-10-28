@@ -40,6 +40,7 @@ public class Drive extends MotorMechanism {
     private Drive(Builder builder) {
         super(builder);
         this.count = builder.count;
+        this.behavior = builder.behavior;
         this.type = builder.type;
         this.layout = builder.layout;
         this.mechanismName = builder.mechanismName;
@@ -48,6 +49,7 @@ public class Drive extends MotorMechanism {
 
     public static class Builder extends MotorMechanism.Builder<Builder>{
         private int count = 2;
+        private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private String type = "";
         private String layout = "";
         private String mechanismName = "Drive";
@@ -56,6 +58,7 @@ public class Drive extends MotorMechanism {
          * Drive Builder
          * 
          * @Defaults count = 2
+         *           <li>behavior = FLOAT
          *           <li>encoder = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -63,8 +66,8 @@ public class Drive extends MotorMechanism {
          *           <li>gearing = 0.0
          *           <li>deadzone = 0.0
          *           <li>gamepad = null
-         *           <li>type = ""
-         *           <li>layout = ""
+         *           <li>type = "" (interpreted as "differential")
+         *           <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
@@ -75,6 +78,14 @@ public class Drive extends MotorMechanism {
          */
         public Builder count(int count) {
             this.count = count;
+            return this;
+        }
+
+        /**
+         * Specify the zero-power behavior of the motors (DcMotor.ZeroPowerBehavior.BRAKE or FLOAT)
+         */
+        public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
+            this.behavior = behavior;
             return this;
         }
 
@@ -133,9 +144,6 @@ public class Drive extends MotorMechanism {
 
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
-            // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            setDirections(reverse);
-
             // Reset encoders
             setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -163,9 +171,6 @@ public class Drive extends MotorMechanism {
                 motors[1] = hardwareMap.get(DcMotor.class, "driveRight");
             }
 
-            // Reverse direction of left motors for convenience (switch if robot drives backwards)
-            setDirections(reverse);
-
             // Set motors to run without the encoders (power, not velocity or position)
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
@@ -179,6 +184,12 @@ public class Drive extends MotorMechanism {
             imu.initialize(parameters);
             imu.resetYaw();
         }
+
+        // specify zeroPowerBehavior of motors
+        setBehaviors(behavior);
+        
+        // Reverse direction of left motors for convenience (switch if robot drives backwards)
+        setDirections(reverse);
 
         // reverse direction of specified motors
         for (String device : reverseDevices) {

@@ -42,6 +42,7 @@ public class TestDrive {
         try {
             // differential
             new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).behavior(DcMotor.ZeroPowerBehavior.FLOAT);
             new Drive.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
