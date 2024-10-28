@@ -101,6 +101,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate multi-threading for synchronized, multi-system automated movements
 
 ### Chores
+- [ ] Add tele(double max) to set maximum power of MotorMechanism
 - [x] Make 'sensor' var generic
 - [ ] Optimize arrays, opt for switch when possible
 - [x] Investigate builder inheritance
@@ -109,7 +110,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
-- [x] Update uml, examples
+- [ ] Update uml
 - [ ] Improve code comments
 - [ ] Add hardware naming section
 - [ ] Improve usage instructions
