@@ -7,21 +7,23 @@
 ![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
-Library for easily leveraging in-the-box FTC mechanisms and features, including
-* Arm
-* Claw
-* Drivetrain
-* Lift
-* Sensors
+Library for easily leveraging in-the-box FTC mechanisms and sensors, including
+* Arms
+* Claws
+* Drivetrains
+* Lifts
+* Color Sensors
+* Distance Sensors
+* Touch Sensors
 
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
-<i>Docs cover examples, controls, diagrams, and API reference</i>
+<i>Docs cover Javadoc, examples, controls, and diagrams</i>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), tele(), and state()) due to a reliance on sane defaults and the builder design-pattern.
 
 <i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization. Supported sensors are: color, distance, and touch</i>
 
-## Usage
+## Install
 
 ### Download release archive
 * Each option requires that you download this repo's latest Android archive

@@ -33,6 +33,8 @@
           jdk17
           aapt
           plantuml
+          python312Packages.mkdocs
+          python312Packages.mkdocs-material
         ]);
 
         # override aapt2 binary w/ nixpkgs'

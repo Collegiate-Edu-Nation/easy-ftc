@@ -57,14 +57,23 @@ task uml(type: Exec) {
     ignoreExitValue true
 }
 
-// create task for generating docs
-task docs(type: Exec, dependsOn: uml) {
+// create task for generating javadoc
+task apidoc(type: Exec, dependsOn: uml) {
     group = "build"
-    description = "Generate Javadoc in docs/ for public classes, not including Mechanism or Tests"
+    description = "Generate Javadoc in docs/javadoc for public classes, not including Tests"
 
     workingDir ".."
-    commandLine "javadoc", "-d", "docs", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Vision-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public", "-overview", "docs/overview.html"
+    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public"
     ignoreExitValue true
+}
+
+// create task for generating docs
+task docs(type: Exec, dependsOn: apidoc) {
+    group = "build"
+    description = "Generate Documentation in docs/ using Jekyll, PlantUML, and Javadoc"
+
+    workingDir ".."
+    commandLine "mkdocs", "build"
 }
 
 // create task for compressing myBlocks to a zip archive
@@ -80,7 +89,6 @@ task myBlocks(type: Zip) {
 dependencies {
     compileOnly 'org.firstinspires.ftc:RobotCore:10.1.0'
     compileOnly 'org.firstinspires.ftc:Hardware:10.1.0'
-    compileOnly 'org.firstinspires.ftc:Vision:10.1.0'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
