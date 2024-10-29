@@ -63,7 +63,7 @@ task apidoc(type: Exec, dependsOn: uml) {
     description = "Generate Javadoc in docs/javadoc for public classes, not including Tests"
 
     workingDir ".."
-    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public"
+    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public", "--main-stylesheet", "docs/stylesheet.css"
     ignoreExitValue true
 }
 

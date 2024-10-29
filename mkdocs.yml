@@ -3,18 +3,18 @@ site_name: easy-ftc docs
 theme:
   name: "material"
   palette:
-    # Palette toggle for dark mode
-    - scheme: slate
-      primary: black
-      toggle:
-        icon: material/brightness-4
-        name: Switch to dark mode
-        
     # Palette toggle for light mode
     - scheme: default
       primary: black
       toggle:
         icon: material/brightness-7
+        name: Switch to dark mode
+    
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
         name: Switch to light mode
 
 markdown_extensions:
@@ -22,6 +22,7 @@ markdown_extensions:
 
 nav:
   - Welcome: index.md
+  - Javadoc: javadoc/index.html
   - examples.md
   - controls.md
   - diagrams.md
