@@ -1,0 +1,187 @@
+@startuml
+
+left to right direction
+
+abstract class Mechanism {
+    # opMode: LinearOpMode
+    # hardwareMap: HardwareMap
+    # count: int
+    # reverse: boolean
+    # reverseDevices: String[]
+    # gamepad: Gamepad
+    # timer: ElapsedTime
+    # mechanismName: String
+    {abstract}# init()
+    {abstract}+ tele()
+    {abstract}+ reverse()
+    + wait(double time)
+}
+
+abstract class "Builder" as Mechanism_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): T
+    + reverse(String deviceName): T
+    + gamepad(Gamepad gamepad): T
+    {abstract}+ build(): Mechanism
+    {abstract}+ self(): T
+}
+
+abstract class MotorMechanism {
+    # motors: DcMotor[] 
+    # motorsEx: DcMotorEx[] 
+    # encoder: boolean
+    # behavior: DcMotor.ZeroPowerBehavior
+    # velocityMultiplier: double
+    # distanceMultiplier: double
+    # diameter: double
+    # length: double
+    # gearing: double
+    # deadzone: double
+    {abstract}+ move(double power, String direction, double measurement)
+    # setPositions(int[] positions, int[] currentPositions)
+    # setModesEx(DcMotorEx.RunMode runMode)
+    # setModes(DcMotor.RunMode runMode)
+    # setPowers(double[] movements)
+    # setPowers()
+    # setDirections(boolean reverse)
+    # setBehaviors(DcMotor.ZeroPowerBehavior behavior)
+    # getMotorTypes(): MotorConfigurationType[]
+    # getGearing(): double
+    + setGearing(double gearing)
+    # motorsAreBusy(): boolean
+    # getAchieveableMaxTicksPerSecond(): double
+    # getTicksPerRev(): double
+    # getCurrentPositions(): int[]
+    - min(double[] arr): double
+    - min(double a, double b, double c, double d): double
+}
+
+abstract class ServoMechanism {
+    # servos: Servo[]
+    # smooth: boolean
+    # open: double
+    # close: double
+    # increment: double
+    # incrementDelay: double
+    # delay: double
+    # setPositionsByIncrement(double position, double movement): double
+    # setPositionsByIncrementUntilComplete(double position, double movement)
+    # setPositions(double movement)
+    # setDirections(boolean reverse)
+}
+
+abstract class "Builder" as MotorMechanism_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + encoder(): T
+    + diameter(double diameter): T
+    + length(double length): T
+    + gearing(double gearing): T
+    + deadzone(double deadzone): T
+    {abstract}+ build(): MotorMechanism
+    {abstract}+ self(): T
+}
+
+abstract class "Builder" as ServoMechanism_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + count(int count): T
+    + smooth(): T
+    + open(double open): T
+    + close(double close): T
+    + increment(double increment): T
+    + incrementDelay(double incrementDelay): T
+    + delay(double delay): T
+    + gamepad(Gamepad gamepad): T
+    {abstract}+ build(): ServoMechanism
+    {abstract}+ self(): T
+}
+
+class Arm {
+    # init()
+    + tele(double power)
+    + tele()
+    + move(double power, String direction, double measurement)
+    # reverse(String deviceName)
+}
+
+class Claw {
+    # init()
+    + tele()
+    + move(String direction)
+    # reverse(String deviceName)
+}
+
+class Drive {
+    - imu: IMU
+    - type: String
+    - layout: String
+    # init()
+    + tele()
+    + move(double power, String direction, double measurement)
+    # reverse(String deviceName)
+}
+
+class Lift {
+    # init()
+    + tele()
+    + move(double power, String direction, double measurement)
+    # reverse(String deviceName)
+}
+
+class "Builder" as Arm_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + count(int count): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + build(): Arm
+    + self(): Builder
+}
+
+class "Builder" as Claw_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + build(): Claw
+    + self(): Builder
+}
+
+class "Builder" as Drive_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + count(int count): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + type(String type): Builder
+    + layout(String layout): Builder
+    + build(): Drive
+    + self(): Builder
+}
+
+class "Builder" as Lift_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + count(int count): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + build(): Lift
+    + self(): Builder
+}
+
+Mechanism <|-- MotorMechanism
+Mechanism <|-- ServoMechanism
+
+MotorMechanism <|-- Arm
+ServoMechanism <|-- Claw
+MotorMechanism <|-- Drive
+MotorMechanism <|-- Lift
+
+Mechanism_Builder <|-- MotorMechanism_Builder
+Mechanism_Builder <|-- ServoMechanism_Builder
+
+MotorMechanism_Builder <|-- Arm_Builder
+ServoMechanism_Builder <|-- Claw_Builder
+MotorMechanism_Builder <|-- Drive_Builder
+MotorMechanism_Builder <|-- Lift_Builder
+
+Mechanism +-- Mechanism_Builder
+MotorMechanism +-- MotorMechanism_Builder
+ServoMechanism +-- ServoMechanism_Builder
+
+Arm +-- Arm_Builder
+Claw +-- Claw_Builder
+Drive +-- Drive_Builder
+Lift +-- Lift_Builder
+
+@enduml

@@ -1,0 +1,72 @@
+@startuml
+
+left to right direction
+
+abstract class Sensor<S, V> {
+    # hardwareMap: HardwareMap
+    # sensor: S
+    # reverse: boolean
+    # calibrationValue: double
+    {abstract}# init()
+    {abstract}+ state(): V
+}
+
+abstract class "Builder" as Sensor_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + reverse(): T
+    {abstract}+ build(): Sensor<?, ?>
+    {abstract}+ self(): T
+}
+
+class Color {
+    - rgbOffsets: int[]
+    # init()
+    + state(): String
+}
+
+class Distance {
+    # init()
+    + state(): Boolean
+}
+
+class Touch {
+    # init()
+    + state(): Boolean
+}
+
+class "Builder" as Color_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + calibrationValue(double calibrationValue): Builder
+    + rgbOffsets(int[] rgbOffsets): Builder
+    + build(): Color
+    + self(): Builder
+}
+
+class "Builder" as Distance_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + calibrationValue(double calibrationValue): Builder
+    + build(): Distance
+    + self(): Builder
+}
+
+class "Builder" as Touch_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + build(): Touch
+    + self(): Builder
+}
+
+Sensor <|-- Color
+Sensor <|-- Distance
+Sensor <|-- Touch
+
+Sensor_Builder <|-- Color_Builder
+Sensor_Builder <|-- Distance_Builder
+Sensor_Builder <|-- Touch_Builder
+
+Sensor +-- Sensor_Builder
+
+Color +-- Color_Builder
+Distance +-- Distance_Builder
+Touch +-- Touch_Builder
+
+@enduml
