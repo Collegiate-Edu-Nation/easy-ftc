@@ -138,7 +138,9 @@ public class TestDrive {
                     .gamepad(mockedGamepad).type("mecanum").build();
 
             drive.tele();
+            drive.tele(0.9);
             driveEnc.tele();
+            driveEnc.tele(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -155,7 +157,9 @@ public class TestDrive {
                     .gamepad(mockedGamepad).build();
 
             drive.tele();
+            drive.tele(0.9);
             driveEnc.tele();
+            driveEnc.tele(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }

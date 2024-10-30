@@ -5,7 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
@@ -102,6 +101,8 @@ abstract class MotorMechanism extends Mechanism {
 
         public abstract T self();
     }
+
+    public abstract void tele(double multiplier);
 
     public abstract void move(double power, String direction, double measurement);
 

@@ -150,6 +150,7 @@ public class Arm extends MotorMechanism {
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      */
+    @Override
     public void tele(double power) {
         double[] movements = new double[count];
         double direction =

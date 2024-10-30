@@ -98,7 +98,9 @@ public class TestLift {
                     .gamepad(mockedGamepad).build();
 
             lift.tele();
+            lift.tele(0.9);
             liftEnc.tele();
+            liftEnc.tele(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -115,7 +117,9 @@ public class TestLift {
                     .encoder().gamepad(mockedGamepad).build();
 
             lift.tele();
+            lift.tele(0.9);
             liftEnc.tele();
+            liftEnc.tele(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }

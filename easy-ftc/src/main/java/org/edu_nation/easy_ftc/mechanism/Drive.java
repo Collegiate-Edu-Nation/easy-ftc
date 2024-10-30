@@ -1,5 +1,6 @@
 package org.edu_nation.easy_ftc.mechanism;
 
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -196,9 +197,9 @@ public class Drive extends MotorMechanism {
             reverse(device);
         }
     }
-
+    
     /**
-     * Enables teleoperated mecanum movement with gamepad (inherits layout).
+     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier < 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      * <p>
@@ -208,7 +209,7 @@ public class Drive extends MotorMechanism {
      * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     @Override
-    public void tele() {
+    public void tele(double multiplier) {
         double heading = 0;
         // Press option to reset imu to combat drift, set heading if applicable
         if (layout == "field") {
@@ -221,7 +222,28 @@ public class Drive extends MotorMechanism {
         double[] movements =
                 DriveUtil.controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
                         gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
-        setPowers(movements);
+
+        if (multiplier == 1.0) {
+            setPowers(movements);
+        } else {
+            double[] scaledMovements = MotorMechanismUtil.scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            setPowers(scaledMovements);
+        }
+    }
+
+    /**
+     * Enables teleoperated mecanum movement with gamepad (inherits layout) with multiplier = 1.0
+     * <p>
+     * Calling this directly is one of the primary use-cases of this class.
+     * <p>
+     * Basic mecanum algorithm largely taken from the BasicOmniOpMode block example.
+     * <p>
+     * Field-centric algorithm taken from:
+     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
+     */
+    @Override
+    public void tele() {
+        tele(1.0);
     }
 
     /**

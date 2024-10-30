@@ -103,9 +103,9 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate multi-threading for synchronized, multi-system automated movements
 
 ### Chores
-- [ ] Add tele(double max) to set maximum power of MotorMechanism
+- [x] Add tele(double multiplier) to scale power of Drive, Lift
 - [x] Make 'sensor' var generic
-- [ ] Optimize arrays, opt for switch when possible
+- [ ] Optimize arrays, opt for switch when > 2 args
 - [x] Investigate builder inheritance
 - [ ] Investigate using array for deviceNames, enabling generalization of init, reverse
 - [ ] Use public enums for direction, type, layout

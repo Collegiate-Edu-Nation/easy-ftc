@@ -1,5 +1,6 @@
 package org.edu_nation.easy_ftc.mechanism;
 
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -147,19 +148,35 @@ public class Lift extends MotorMechanism {
     }
 
     /**
-     * Enables teleoperated lift movement with gamepad.
+     * Enables teleoperated lift movement with gamepad, scaling by multiplier < 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele() {
+    public void tele(double multiplier) {
         double[] movements = new double[count];
         double direction =
                 LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
         for (int i = 0; i < movements.length; i++) {
             movements[i] = direction;
         }
-        setPowers(movements);
+
+        if (multiplier == 1.0) {
+            setPowers(movements);
+        } else {
+            double[] scaledMovements = MotorMechanismUtil.scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            setPowers(scaledMovements);
+        }
+    }
+
+    /**
+     * Enables teleoperated lift movement with gamepad with multiplier = 1.0
+     * <p>
+     * Calling this directly is one of the primary use-cases of this class.
+     */
+    @Override
+    public void tele() {
+        tele(1.0);
     }
 
     /**
