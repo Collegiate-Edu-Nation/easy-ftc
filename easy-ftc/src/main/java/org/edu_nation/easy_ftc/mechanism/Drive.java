@@ -48,7 +48,7 @@ public class Drive extends MotorMechanism {
         init();
     }
 
-    public static class Builder extends MotorMechanism.Builder<Builder>{
+    public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 2;
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private String type = "";
@@ -188,7 +188,7 @@ public class Drive extends MotorMechanism {
 
         // specify zeroPowerBehavior of motors
         setBehaviors(behavior);
-        
+
         // Reverse direction of left motors for convenience (switch if robot drives backwards)
         setDirections(reverse);
 
@@ -197,9 +197,10 @@ public class Drive extends MotorMechanism {
             reverse(device);
         }
     }
-    
+
     /**
-     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier < 1
+     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
+     * 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
      * <p>
@@ -219,14 +220,15 @@ public class Drive extends MotorMechanism {
             }
         }
 
-        double[] movements =
-                DriveUtil.controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
-                        gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
+        double[] movements = DriveUtil.controlToDirection(count, type, layout, deadzone, heading,
+                gamepad.left_stick_y, gamepad.left_stick_x, gamepad.right_stick_y,
+                gamepad.right_stick_x);
 
         if (multiplier == 1.0) {
             setPowers(movements);
         } else {
-            double[] scaledMovements = MotorMechanismUtil.scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            double[] scaledMovements = MotorMechanismUtil
+                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
             setPowers(scaledMovements);
         }
     }

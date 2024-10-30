@@ -164,7 +164,8 @@ public class Lift extends MotorMechanism {
         if (multiplier == 1.0) {
             setPowers(movements);
         } else {
-            double[] scaledMovements = MotorMechanismUtil.scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            double[] scaledMovements = MotorMechanismUtil
+                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
             setPowers(scaledMovements);
         }
     }

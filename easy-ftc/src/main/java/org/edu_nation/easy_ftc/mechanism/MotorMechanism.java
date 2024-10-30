@@ -76,9 +76,8 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T gearing(double gearing) {
             if (gearing <= 0) {
-                throw new IllegalArgumentException(
-                        "Unexpected gearing value: " + gearing + ", passed to "
-                                + ".gearing(). Valid values are numbers > 0");
+                throw new IllegalArgumentException("Unexpected gearing value: " + gearing
+                        + ", passed to " + ".gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
             return self();
@@ -89,9 +88,8 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T deadzone(double deadzone) {
             if (deadzone < 0) {
-                throw new IllegalArgumentException(
-                        "Unexpected deadzone value: " + deadzone + ", passed to " 
-                                + ".deadzone(). Valid values are numbers >= 0");
+                throw new IllegalArgumentException("Unexpected deadzone value: " + deadzone
+                        + ", passed to " + ".deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
             return self();

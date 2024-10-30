@@ -25,7 +25,7 @@ abstract class MotorMechanismUtil {
         if (deadzone == 0.0) {
             return controllerValue;
         }
-        
+
         double mappedValue;
         if (Math.abs(controllerValue) < Math.abs(deadzone)) {
             mappedValue = 0;

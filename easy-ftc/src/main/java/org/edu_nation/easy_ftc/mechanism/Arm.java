@@ -37,7 +37,7 @@ public class Arm extends MotorMechanism {
         init();
     }
 
-    public static class Builder extends MotorMechanism.Builder<Builder>{
+    public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private String mechanismName = "Arm";
