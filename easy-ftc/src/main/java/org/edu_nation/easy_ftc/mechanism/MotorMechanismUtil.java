@@ -22,6 +22,10 @@ abstract class MotorMechanismUtil {
      * @Defaults deadzone = 0.0
      */
     protected static double map(double controllerValue, double deadzone) {
+        if (deadzone == 0.0) {
+            return controllerValue;
+        }
+        
         double mappedValue;
         if (Math.abs(controllerValue) < Math.abs(deadzone)) {
             mappedValue = 0;
@@ -38,8 +42,9 @@ abstract class MotorMechanismUtil {
      * Scale directions by a factor of power to derive actual, intended motor movements
      */
     protected static double[] scaleDirections(double power, double[] motorDirections) {
-        double[] movements = new double[motorDirections.length];
-        for (int i = 0; i < motorDirections.length; i++) {
+        int arrLength = motorDirections.length;
+        double[] movements = new double[arrLength];
+        for (int i = 0; i < arrLength; i++) {
             movements[i] = power * motorDirections[i];
         }
         return movements;
@@ -55,8 +60,9 @@ abstract class MotorMechanismUtil {
         double positionRaw = revolutions * distanceMultiplier;
         int position = (int) Math.round(positionRaw);
 
-        int[] positions = new int[movements.length];
-        for (int i = 0; i < movements.length; i++) {
+        int arrLength = movements.length;
+        int[] positions = new int[arrLength];
+        for (int i = 0; i < arrLength; i++) {
             positions[i] = (int) movements[i] * position;
         }
         return positions;

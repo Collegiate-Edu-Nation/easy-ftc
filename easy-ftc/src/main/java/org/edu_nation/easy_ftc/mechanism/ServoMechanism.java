@@ -149,13 +149,13 @@ abstract class ServoMechanism extends Mechanism {
      */
     protected void setDirections(boolean reverse) {
         if (!reverse) {
-            for (int i = 0; i < servos.length; i++) {
+            for (int i = 0; i < count; i++) {
                 Servo.Direction direction =
                         (i % 2 == 0) ? Servo.Direction.FORWARD : Servo.Direction.REVERSE;
                 servos[i].setDirection(direction);
             }
         } else {
-            for (int i = 0; i < servos.length; i++) {
+            for (int i = 0; i < count; i++) {
                 Servo.Direction direction =
                         (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
                 servos[i].setDirection(direction);

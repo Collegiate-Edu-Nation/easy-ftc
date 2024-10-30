@@ -84,7 +84,7 @@ class ColorUtil {
      */
     private static int[] normalize(int[] rgbRaw, int[] rgbOffsets) {
         int[] rgbNormalized = {0, 0, 0};
-        for (int i = 0; i < rgbRaw.length; i++) {
+        for (int i = 0; i < 3; i++) {
             rgbNormalized[i] = rgbRaw[i] + rgbOffsets[i];
         }
         return rgbNormalized;

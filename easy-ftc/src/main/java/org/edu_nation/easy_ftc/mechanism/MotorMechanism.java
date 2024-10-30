@@ -111,7 +111,7 @@ abstract class MotorMechanism extends Mechanism {
      */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
-        for (int i = 0; i < motorsEx.length; i++) {
+        for (int i = 0; i < count; i++) {
             motorsEx[i].setTargetPosition(positions[i] + currentPositions[i]);
         }
 
@@ -143,15 +143,15 @@ abstract class MotorMechanism extends Mechanism {
      */
     protected void setPowers(double[] movements) {
         if (encoder && (diameter != 0.0 || length != 0.0)) {
-            for (int i = 0; i < motorsEx.length; i++) {
+            for (int i = 0; i < count; i++) {
                 motorsEx[i].setPower(movements[i]);
             }
         } else if (encoder) {
-            for (int i = 0; i < motorsEx.length; i++) {
+            for (int i = 0; i < count; i++) {
                 motorsEx[i].setVelocity(movements[i] * velocityMultiplier);
             }
         } else {
-            for (int i = 0; i < motors.length; i++) {
+            for (int i = 0; i < count; i++) {
                 motors[i].setPower(movements[i]);
             }
         }
@@ -161,12 +161,7 @@ abstract class MotorMechanism extends Mechanism {
      * Helper function to set all motor powers to zero (this is the default case).
      */
     protected void setPowers() {
-        double[] zeros;
-        if (encoder) {
-            zeros = new double[motorsEx.length];
-        } else {
-            zeros = new double[motors.length];
-        }
+        double[] zeros = new double[count];
         setPowers(zeros);
     }
 
@@ -176,13 +171,13 @@ abstract class MotorMechanism extends Mechanism {
     protected void setDirections(boolean reverse) {
         if (!reverse) {
             if (encoder) {
-                for (int i = 0; i < motorsEx.length; i++) {
+                for (int i = 0; i < count; i++) {
                     DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE
                             : DcMotorEx.Direction.FORWARD;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
-                for (int i = 0; i < motors.length; i++) {
+                for (int i = 0; i < count; i++) {
                     DcMotor.Direction direction =
                             (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
                     motors[i].setDirection(direction);
@@ -190,13 +185,13 @@ abstract class MotorMechanism extends Mechanism {
             }
         } else {
             if (encoder) {
-                for (int i = 0; i < motorsEx.length; i++) {
+                for (int i = 0; i < count; i++) {
                     DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
                             : DcMotorEx.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
-                for (int i = 0; i < motors.length; i++) {
+                for (int i = 0; i < count; i++) {
                     DcMotor.Direction direction =
                             (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
@@ -224,8 +219,8 @@ abstract class MotorMechanism extends Mechanism {
      * Wrapper around getMotorType for all motors
      */
     protected MotorConfigurationType[] getMotorTypes() {
-        MotorConfigurationType[] motorTypes = new MotorConfigurationType[motorsEx.length];
-        for (int i = 0; i < motorsEx.length; i++) {
+        MotorConfigurationType[] motorTypes = new MotorConfigurationType[count];
+        for (int i = 0; i < count; i++) {
             motorTypes[i] = motorsEx[i].getMotorType();
         }
         return motorTypes;
@@ -235,8 +230,8 @@ abstract class MotorMechanism extends Mechanism {
      * Wrapper around getGearing to get the minimum of all motors
      */
     protected double getGearing(MotorConfigurationType[] motorTypes) {
-        double[] gearings = new double[motorTypes.length];
-        for (int i = 0; i < motorTypes.length; i++) {
+        double[] gearings = new double[count];
+        for (int i = 0; i < count; i++) {
             gearings[i] = motorTypes[i].getGearing();
         }
         double gearing = min(gearings);
@@ -269,8 +264,8 @@ abstract class MotorMechanism extends Mechanism {
      * Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors
      */
     protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
-        double[] achieveableMaxTicksPerSecondArr = new double[motorTypes.length];
-        for (int i = 0; i < motorTypes.length; i++) {
+        double[] achieveableMaxTicksPerSecondArr = new double[count];
+        for (int i = 0; i < count; i++) {
             achieveableMaxTicksPerSecondArr[i] = motorTypes[i].getAchieveableMaxTicksPerSecond();
         }
         double achieveableMaxTicksPerSecond = min(achieveableMaxTicksPerSecondArr);
@@ -281,8 +276,8 @@ abstract class MotorMechanism extends Mechanism {
      * Wrapper around getTicksPerRev to return minimum of all motors
      */
     protected double getTicksPerRev(MotorConfigurationType[] motorTypes) {
-        double[] ticksPerRevArr = new double[motorTypes.length];
-        for (int i = 0; i < motorTypes.length; i++) {
+        double[] ticksPerRevArr = new double[count];
+        for (int i = 0; i < count; i++) {
             ticksPerRevArr[i] = motorTypes[i].getTicksPerRev();
         }
         double ticksPerRev = min(ticksPerRevArr);
@@ -293,8 +288,8 @@ abstract class MotorMechanism extends Mechanism {
      * Wrapper around getCurrentPosition to return it for all motors
      */
     protected int[] getCurrentPositions() {
-        int[] currentPositions = new int[motorsEx.length];
-        for (int i = 0; i < motorsEx.length; i++) {
+        int[] currentPositions = new int[count];
+        for (int i = 0; i < count; i++) {
             currentPositions[i] = motorsEx[i].getCurrentPosition();
         }
         return currentPositions;
@@ -304,13 +299,18 @@ abstract class MotorMechanism extends Mechanism {
      * Helper for calculating minimum value in array
      */
     private double min(double[] arr) {
-        if (arr.length == 1) {
-            return arr[0];
-        } else if (arr.length == 2) {
-            return Math.min(arr[0], arr[1]);
-        } else {
-            return min(arr[0], arr[1], arr[2], arr[3]);
+        double min;
+        switch (arr.length) {
+            case 1:
+                min = arr[0];
+                break;
+            case 2:
+                min = Math.min(arr[0], arr[1]);
+                break;
+            default:
+                min = min(arr[0], arr[1], arr[2], arr[3]);
         }
+        return min;
     }
 
     /**

@@ -157,7 +157,7 @@ public class Lift extends MotorMechanism {
         double[] movements = new double[count];
         double direction =
                 LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
-        for (int i = 0; i < movements.length; i++) {
+        for (int i = 0; i < count; i++) {
             movements[i] = direction;
         }
 
