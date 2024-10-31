@@ -46,22 +46,11 @@ This library greatly simplifies hardware initialization and control by abstracti
 
 ### Android Studio
 * Add the .aar to FtcRobotController/libs/
-* Add libs/ to your root build.gradle like so
-
-        allprojects {
-            repositories {
-                mavenCentral()
-                google()
-                flatDir {
-                    dirs("libs")
-                }
-            }
-        }
 * Add implementation to TeamCode's buid.gradle  like so
 
         dependencies {
             implementation project(':FtcRobotController')
-            implementation(name:'easy-ftc-release', ext:'aar')
+            implementation files('../libs/easy-ftc-release.aar')
         }
 
 ## Dev Setup
