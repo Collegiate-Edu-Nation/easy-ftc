@@ -35,6 +35,7 @@ public class TestLift {
 
                 try {
                         new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+                        new Lift.Builder(mockedOpMode, mockedHardwareMap).names(new String[]{"lift"}).build();
                         new Lift.Builder(mockedOpMode, mockedHardwareMap)
                                         .behavior(DcMotor.ZeroPowerBehavior.FLOAT);
                         new Lift.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();

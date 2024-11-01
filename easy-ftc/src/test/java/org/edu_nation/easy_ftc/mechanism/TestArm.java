@@ -35,6 +35,7 @@ public class TestArm {
 
                 try {
                         new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+                        new Arm.Builder(mockedOpMode, mockedHardwareMap).names(new String[]{"arm"}).build();
                         new Arm.Builder(mockedOpMode, mockedHardwareMap)
                                         .behavior(DcMotor.ZeroPowerBehavior.BRAKE);
                         new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().build();

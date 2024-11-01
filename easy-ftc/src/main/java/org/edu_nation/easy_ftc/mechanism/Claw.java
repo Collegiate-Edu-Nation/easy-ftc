@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer count (1 or 2)
+ * @param String[] names
  * @param Boolean smooth
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -31,17 +32,22 @@ public class Claw extends ServoMechanism {
      */
     private Claw(Builder builder) {
         super(builder);
+        this.count = builder.count;
+        this.names = builder.names;
         this.mechanismName = builder.mechanismName;
         init();
     }
 
     public static class Builder extends ServoMechanism.Builder<Builder> {
+        protected int count = 1;
+        protected String[] names = {"claw"};
         private String mechanismName = "Claw";
 
         /**
          * Claw Builder
          * 
          * @Defaults count = 1
+         *           <li>names = {"claw"}
          *           <li>smooth = false
          *           <li>reverse = false
          *           <li>reverseDevices = {}
@@ -54,6 +60,26 @@ public class Claw extends ServoMechanism {
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
+        }
+
+        /**
+         * Specify the number of servos (1-2)
+         */
+        public Builder count(int count) {
+            this.count = count;
+            if (count == 2) {
+                String[] names = {"clawLeft", "clawRight"};
+                this.names = names;
+            }
+            return this;
+        }
+
+        /**
+         * Change the names of the hardware devices
+         */
+        public Builder names(String[] names) {
+            this.names = names;
+            return this;
         }
 
         /**
@@ -77,12 +103,11 @@ public class Claw extends ServoMechanism {
     protected void init() {
         // Instantiate servos
         servos = new Servo[count];
-        if (count == 2) {
-            servos[0] = hardwareMap.get(Servo.class, "clawLeft");
-            servos[1] = hardwareMap.get(Servo.class, "clawRight");
-        } else {
-            servos[0] = hardwareMap.get(Servo.class, "claw");
+        for (int i = 0; i < count; i++) {
+            servos[i] = hardwareMap.get(Servo.class, names[i]);
         }
+
+        // reverse direction of left claw for convenience
         setDirections(reverse);
 
         // reverse direction of specified motors

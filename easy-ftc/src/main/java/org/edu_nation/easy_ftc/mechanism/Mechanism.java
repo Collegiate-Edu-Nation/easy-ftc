@@ -15,6 +15,7 @@ abstract class Mechanism {
     protected LinearOpMode opMode;
     protected HardwareMap hardwareMap;
     protected int count;
+    protected String[] names;
     protected boolean reverse;
     protected String[] reverseDevices;
     protected Gamepad gamepad;

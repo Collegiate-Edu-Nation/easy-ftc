@@ -21,7 +21,6 @@ abstract class ServoMechanism extends Mechanism {
 
     protected ServoMechanism(Builder<?> builder) {
         super(builder);
-        this.count = builder.count;
         this.smooth = builder.smooth;
         this.open = builder.open;
         this.close = builder.close;
@@ -31,7 +30,6 @@ abstract class ServoMechanism extends Mechanism {
     }
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
-        protected int count = 1;
         protected boolean smooth = false;
         protected double open = 1.0;
         protected double close = 0.0;
@@ -41,14 +39,6 @@ abstract class ServoMechanism extends Mechanism {
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
-        }
-
-        /**
-         * Specify the number of servos (1-2)
-         */
-        public T count(int count) {
-            this.count = count;
-            return self();
         }
 
         /**

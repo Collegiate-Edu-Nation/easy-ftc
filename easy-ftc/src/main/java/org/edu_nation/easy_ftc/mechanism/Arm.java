@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer count (1-2)
+ * @param String[] names
  * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -32,6 +33,7 @@ public class Arm extends MotorMechanism {
     private Arm(Builder builder) {
         super(builder);
         this.count = builder.count;
+        this.names = builder.names;
         this.behavior = builder.behavior;
         this.mechanismName = builder.mechanismName;
         init();
@@ -39,6 +41,7 @@ public class Arm extends MotorMechanism {
 
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
+        private String[] names = {"arm"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private String mechanismName = "Arm";
 
@@ -46,6 +49,7 @@ public class Arm extends MotorMechanism {
          * Arm Builder
          * 
          * @Defaults count = 1
+         *           <li>names = {"arm"}
          *           <li>behavior = BRAKE
          *           <li>encoder = false
          *           <li>reverse = false
@@ -63,6 +67,18 @@ public class Arm extends MotorMechanism {
          */
         public Builder count(int count) {
             this.count = count;
+            if (count == 2) {
+                String[] names = {"armLeft", "armRight"};
+                this.names = names;
+            }
+            return this;
+        }
+
+        /**
+         * Change the names of the hardware devices
+         */
+        public Builder names(String[] names) {
+            this.names = names;
             return this;
         }
 
@@ -96,11 +112,8 @@ public class Arm extends MotorMechanism {
         if (encoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[count];
-            if (count == 2) {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "armLeft");
-                motorsEx[1] = hardwareMap.get(DcMotorEx.class, "armRight");
-            } else {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "arm");
+            for (int i = 0; i < count; i++) {
+                motorsEx[i] = hardwareMap.get(DcMotorEx.class, names[i]);
             }
 
             MotorConfigurationType[] motorTypes = getMotorTypes();
@@ -122,11 +135,8 @@ public class Arm extends MotorMechanism {
         } else {
             // Instantiate motors
             motors = new DcMotor[count];
-            if (count == 2) {
-                motors[0] = hardwareMap.get(DcMotor.class, "armLeft");
-                motors[1] = hardwareMap.get(DcMotor.class, "armRight");
-            } else {
-                motors[0] = hardwareMap.get(DcMotor.class, "arm");
+            for (int i = 0; i < count; i++) {
+                motors[i] = hardwareMap.get(DcMotor.class, names[i]);
             }
 
             // Set motors to run without the encoders (power, not velocity or position)

@@ -17,6 +17,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param LinearOpMode opMode (required)
  * @param HardwareMap hardwareMap (required)
  * @param Integer count (2 or 4)
+ * @param String[] names
  * @param Boolean encoder
  * @param Boolean reverse
  * @param String[] reverseDevices
@@ -41,6 +42,7 @@ public class Drive extends MotorMechanism {
     private Drive(Builder builder) {
         super(builder);
         this.count = builder.count;
+        this.names = builder.names;
         this.behavior = builder.behavior;
         this.type = builder.type;
         this.layout = builder.layout;
@@ -50,6 +52,7 @@ public class Drive extends MotorMechanism {
 
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 2;
+        private String[] names = {"driveLeft", "driveRight"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private String type = "";
         private String layout = "";
@@ -59,6 +62,7 @@ public class Drive extends MotorMechanism {
          * Drive Builder
          * 
          * @Defaults count = 2
+         *           <li>names = {"driveLeft", "driveRight"}
          *           <li>behavior = FLOAT
          *           <li>encoder = false
          *           <li>reverse = false
@@ -79,6 +83,18 @@ public class Drive extends MotorMechanism {
          */
         public Builder count(int count) {
             this.count = count;
+            if (count == 4) {
+                String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
+                this.names = names;
+            }
+            return this;
+        }
+
+        /**
+         * Change the names of the hardware devices
+         */
+        public Builder names(String[] names) {
+            this.names = names;
             return this;
         }
 
@@ -97,6 +113,10 @@ public class Drive extends MotorMechanism {
             this.type = type;
             if (type == "mecanum" && this.count == 2) {
                 this.count = 4;
+                if (this.names.length == 2) {
+                    String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
+                    this.names = names;
+                }
             }
             return this;
         }
@@ -132,15 +152,8 @@ public class Drive extends MotorMechanism {
         if (encoder) {
             // Instantiate motors
             motorsEx = new DcMotorEx[count];
-
-            if (count == 4) {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "frontLeft");
-                motorsEx[1] = hardwareMap.get(DcMotorEx.class, "frontRight");
-                motorsEx[2] = hardwareMap.get(DcMotorEx.class, "backLeft");
-                motorsEx[3] = hardwareMap.get(DcMotorEx.class, "backRight");
-            } else {
-                motorsEx[0] = hardwareMap.get(DcMotorEx.class, "driveLeft");
-                motorsEx[1] = hardwareMap.get(DcMotorEx.class, "driveRight");
+            for (int i = 0; i < count; i++) {
+                motorsEx[i] = hardwareMap.get(DcMotorEx.class, names[i]);
             }
 
             MotorConfigurationType[] motorTypes = getMotorTypes();
@@ -162,14 +175,8 @@ public class Drive extends MotorMechanism {
         } else {
             // Instantiate motors
             motors = new DcMotor[count];
-            if (count == 4) {
-                motors[0] = hardwareMap.get(DcMotor.class, "frontLeft");
-                motors[1] = hardwareMap.get(DcMotor.class, "frontRight");
-                motors[2] = hardwareMap.get(DcMotor.class, "backLeft");
-                motors[3] = hardwareMap.get(DcMotor.class, "backRight");
-            } else {
-                motors[0] = hardwareMap.get(DcMotor.class, "driveLeft");
-                motors[1] = hardwareMap.get(DcMotor.class, "driveRight");
+            for (int i = 0; i < count; i++) {
+                motors[i] = hardwareMap.get(DcMotor.class, names[i]);
             }
 
             // Set motors to run without the encoders (power, not velocity or position)
