@@ -1,6 +1,6 @@
 # easy-ftc
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
-![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.0-blue)
+![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1-blue)
 ![Static Badge](https://img.shields.io/badge/Android_API-29-blue)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-17.0.10-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
