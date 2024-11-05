@@ -101,6 +101,8 @@ abstract class ServoMechanism extends Mechanism {
             return self();
         }
 
+        public abstract T names(String[] names);
+
         public abstract ServoMechanism build();
 
         public abstract T self();

@@ -80,6 +80,8 @@ abstract class Mechanism {
             return self();
         }
 
+        public abstract T names(String[] names);
+
         public abstract Mechanism build();
 
         public abstract T self();

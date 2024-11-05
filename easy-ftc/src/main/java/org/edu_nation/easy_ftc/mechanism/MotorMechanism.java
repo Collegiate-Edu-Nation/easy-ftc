@@ -98,6 +98,8 @@ abstract class MotorMechanism extends Mechanism {
             this.deadzone = deadzone;
             return self();
         }
+        
+        public abstract T names(String[] names);
 
         public abstract MotorMechanism build();
 
