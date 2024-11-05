@@ -8,13 +8,13 @@
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
-* Arms
-* Claws
-* Drivetrains
-* Lifts
-* Color Sensors
-* Distance Sensors
-* Touch Sensors
+* Arm
+* Claw
+* Drivetrain
+* Lift
+* Color Sensor
+* Distance Sensor
+* Touch Sensor
 
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 <i>Docs cover Javadoc, examples, controls, and diagrams</i>

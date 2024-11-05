@@ -3,13 +3,13 @@
 ## Overview
 [easy-ftc](https://github.com/Collegiate-Edu-Nation/easy-ftc) is a library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
-* Arms
-* Claws
-* Drivetrains
-* Lifts
-* Color Sensors
-* Distance Sensors
-* Touch Sensors
+* Arm
+* Claw
+* Drivetrain
+* Lift
+* Color Sensor
+* Distance Sensor
+* Touch Sensor
 
 ## What's here?
 
