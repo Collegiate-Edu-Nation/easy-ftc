@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2024 Collegiate Edu-Nation
+//
+// SPDX-License-Identifier: GPL-3.0-or-later
+
 package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;

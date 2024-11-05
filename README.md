@@ -110,3 +110,6 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Add graphics for blocks and onbot usage, controls
 - [x] Flesh out controls for different drive configurations
 - [ ] Create logo
+
+## License
+[GPLv3](COPYING)

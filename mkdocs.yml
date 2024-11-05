@@ -1,4 +1,13 @@
+# SPDX-FileCopyrightText: 2024 Collegiate Edu-Nation
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 site_name: easy-ftc docs
+
+repo_name: collegiate-edu-nation/easy-ftc
+repo_url: https://github.com/collegiate-edu-nation/easy-ftc
+
+copyright: Copyright 2024 Collegiate Edu-Nation
 
 theme:
   name: "material"
@@ -26,3 +35,4 @@ nav:
   - examples.md
   - controls.md
   - diagrams.md
+  - license.md
