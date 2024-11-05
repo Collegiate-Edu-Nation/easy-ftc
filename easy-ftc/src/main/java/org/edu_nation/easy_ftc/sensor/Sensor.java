@@ -17,6 +17,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 abstract class Sensor<S, V> {
     protected HardwareMap hardwareMap;
     protected S sensor;
+    protected String name;
     protected boolean reverse;
     protected double calibrationValue;
 
@@ -40,6 +41,8 @@ abstract class Sensor<S, V> {
             this.reverse = true;
             return self();
         }
+
+        public abstract T name(String name);
 
         public abstract Sensor<?, ?> build();
 

@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
+ * @param String name
  * @param Boolean reverse
  * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
  * @param Integer[] rgbOffsets (array of three integers, 0-255, shifts raw rgb readings for
@@ -27,24 +28,36 @@ public class Color extends Sensor<ColorSensor, String> {
      */
     private Color(Builder builder) {
         super(builder);
+        this.name = builder.name;
         this.calibrationValue = builder.calibrationValue;
         this.rgbOffsets = builder.rgbOffsets;
         init();
     }
 
     public static class Builder extends Sensor.Builder<Builder> {
+        private String name = "colorSensor";
         private double calibrationValue = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 
         /**
          * Color Builder
          * 
-         * @Defaults reverse = false
+         * @Defaults name = "colorSensor"
+         *           <li>reverse = false
          *           <li>calibrationValue = 85.0
          *           <li>rgbOffsets = {10, -25, 0}
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);
+        }
+
+        /**
+         * Change the name of the hardware device
+         */
+        @Override
+        public Builder name(String name) {
+            this.name = name;
+            return this;
         }
 
         /**
@@ -82,7 +95,7 @@ public class Color extends Sensor<ColorSensor, String> {
      */
     @Override
     protected void init() {
-        sensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+        sensor = hardwareMap.get(ColorSensor.class, name);
     }
 
     /**

@@ -13,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
+ * @param String name
  * @param Boolean reverse
  * @param Double calibrationValue (in CM)
  *        <p>
@@ -25,21 +26,33 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
      */
     private Distance(Builder builder) {
         super(builder);
+        this.name = builder.name;
         this.calibrationValue = builder.calibrationValue;
         init();
     }
 
     public static class Builder extends Sensor.Builder<Builder> {
+        private String name = "distanceSensor";
         private double calibrationValue = 7.0;
 
         /**
          * Distance Builder
          * 
-         * @Defaults reverse = false
+         * @Defaults name = "distanceSensor"
+         *           <li>reverse = false
          *           <li>calibrationValue = 7.0
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);
+        }
+
+        /**
+         * Change the name of the hardware device
+         */
+        @Override
+        public Builder name(String name) {
+            this.name = name;
+            return this;
         }
 
         /**
@@ -69,7 +82,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
      */
     @Override
     protected void init() {
-        sensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
+        sensor = hardwareMap.get(DistanceSensor.class, name);
     }
 
     /**

@@ -26,6 +26,7 @@ public class TestDistance {
 
         try {
             new Distance.Builder(mockedHardwareMap).build();
+            new Distance.Builder(mockedHardwareMap).name("distance").build();
             new Distance.Builder(mockedHardwareMap).calibrationValue(7).build();
             new Distance.Builder(mockedHardwareMap).reverse().build();
             new Distance.Builder(mockedHardwareMap).calibrationValue(7).reverse().build();

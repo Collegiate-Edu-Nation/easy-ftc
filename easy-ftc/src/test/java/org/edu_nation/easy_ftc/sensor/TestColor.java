@@ -30,6 +30,7 @@ public class TestColor {
 
         try {
             new Color.Builder(mockedHardwareMap).build();
+            new Color.Builder(mockedHardwareMap).name("color").build();
             new Color.Builder(mockedHardwareMap).calibrationValue(1).build();
             int[] offsets = {9, -26, -1};
             new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).build();

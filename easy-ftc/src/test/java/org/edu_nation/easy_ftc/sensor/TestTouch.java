@@ -24,6 +24,7 @@ public class TestTouch {
 
         try {
             new Touch.Builder(mockedHardwareMap).build();
+            new Touch.Builder(mockedHardwareMap).name("touch").build();
             new Touch.Builder(mockedHardwareMap).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());

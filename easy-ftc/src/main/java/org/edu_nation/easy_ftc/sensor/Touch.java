@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
  * <p>
  * 
  * @param HardwareMap hardwareMap (required)
+ * @param String name
  * @param Boolean reverse
  *        <p>
  * @Methods {@link #state()}
@@ -23,18 +24,30 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
      */
     private Touch(Builder builder) {
         super(builder);
+        this.name = builder.name;
         init();
     }
 
     public static class Builder extends Sensor.Builder<Builder> {
+        private String name = "touchSensor";
 
         /**
          * Touch Builder
          * 
-         * @Defaults reverse = false
+         * @Defaults name = "touchSensor"
+         *           <li>reverse = false
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);
+        }
+
+        /**
+         * Change the name of the hardware device
+         */
+        @Override
+        public Builder name(String name) {
+            this.name = name;
+            return this;
         }
 
         /**
@@ -56,7 +69,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
      */
     @Override
     protected void init() {
-        sensor = hardwareMap.get(TouchSensor.class, "touchSensor");
+        sensor = hardwareMap.get(TouchSensor.class, name);
     }
 
     /**
