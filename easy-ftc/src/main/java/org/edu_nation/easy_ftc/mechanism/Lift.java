@@ -9,7 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
  * Implements a lift by extending the functionality of {@link MotorMechanism}.
@@ -111,57 +110,6 @@ public class Lift extends MotorMechanism {
     }
 
     /**
-     * Initializes lift motors based on constructor args (e.g. count and using encoders or not)
-     */
-    @Override
-    protected void init() {
-        if (encoder) {
-            // Instantiate motors
-            motorsEx = new DcMotorEx[count];
-            for (int i = 0; i < count; i++) {
-                motorsEx[i] = hardwareMap.get(DcMotorEx.class, names[i]);
-            }
-
-            MotorConfigurationType[] motorTypes = getMotorTypes();
-
-            // Reset encoders
-            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
-            // Set motors to run using the encoder (velocity, not position)
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-            if (diameter == 0.0) {
-                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
-            } else {
-                distanceMultiplier = getTicksPerRev(motorTypes);
-                if (gearing != 0.0) {
-                    setGearing(gearing);
-                }
-            }
-        } else {
-            // Instantiate motors
-            motors = new DcMotor[count];
-            for (int i = 0; i < count; i++) {
-                motors[i] = hardwareMap.get(DcMotor.class, names[i]);
-            }
-
-            // Set motors to run without the encoders (power, not velocity or position)
-            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-
-        // specify zeroPowerBehavior of motors
-        setBehaviors(behavior);
-
-        // Reverse direction of left motor for convenience (switch if lift is backwards)
-        setDirections(reverse);
-
-        // reverse direction of specified motors
-        for (String device : reverseDevices) {
-            reverse(device);
-        }
-    }
-
-    /**
      * Enables teleoperated lift movement with gamepad, scaling by multiplier < 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
@@ -231,47 +179,6 @@ public class Lift extends MotorMechanism {
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    /**
-     * Reverse the direction of the specified motor
-     */
-    @Override
-    protected void reverse(String deviceName) {
-        if (count == 2) {
-            switch (deviceName) {
-                case "liftLeft":
-                    if (encoder) {
-                        motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-                    } else {
-                        motors[0].setDirection(DcMotor.Direction.FORWARD);
-                    }
-                    break;
-                case "liftRight":
-                    if (encoder) {
-                        motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-                    } else {
-                        motors[1].setDirection(DcMotor.Direction.REVERSE);
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Lift.reverse(). Valid names are: liftLeft, liftRight");
-            }
-        } else {
-            switch (deviceName) {
-                case "lift":
-                    if (encoder) {
-                        motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-                    } else {
-                        motors[0].setDirection(DcMotor.Direction.FORWARD);
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Lift.reverse(). Valid names are: lift");
-            }
         }
     }
 }

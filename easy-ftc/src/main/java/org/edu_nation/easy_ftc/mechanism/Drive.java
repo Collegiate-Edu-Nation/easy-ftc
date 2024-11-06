@@ -9,9 +9,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
@@ -36,9 +33,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Drive extends MotorMechanism {
-    private IMU imu;
     private String type;
-    private String layout;
 
     /**
      * Constructor
@@ -149,67 +144,6 @@ public class Drive extends MotorMechanism {
     }
 
     /**
-     * Initializes drive motors based on constructor args (e.g. using encoders or not)
-     */
-    @Override
-    protected void init() {
-        if (encoder) {
-            // Instantiate motors
-            motorsEx = new DcMotorEx[count];
-            for (int i = 0; i < count; i++) {
-                motorsEx[i] = hardwareMap.get(DcMotorEx.class, names[i]);
-            }
-
-            MotorConfigurationType[] motorTypes = getMotorTypes();
-
-            // Reset encoders
-            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-
-            // Set motors to run using the encoder (velocity, not position)
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-
-            if (diameter == 0.0) {
-                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
-            } else {
-                distanceMultiplier = getTicksPerRev(motorTypes);
-                if (gearing != 0.0) {
-                    setGearing(gearing);
-                }
-            }
-        } else {
-            // Instantiate motors
-            motors = new DcMotor[count];
-            for (int i = 0; i < count; i++) {
-                motors[i] = hardwareMap.get(DcMotor.class, names[i]);
-            }
-
-            // Set motors to run without the encoders (power, not velocity or position)
-            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        }
-        // Initializes imu for field-centric layout. Adjust "UP" and "FORWARD" if orientation is
-        // reversed
-        if (layout == "field") {
-            imu = hardwareMap.get(IMU.class, "imu");
-            IMU.Parameters parameters = new IMU.Parameters(
-                    new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-            imu.initialize(parameters);
-            imu.resetYaw();
-        }
-
-        // specify zeroPowerBehavior of motors
-        setBehaviors(behavior);
-
-        // Reverse direction of left motors for convenience (switch if robot drives backwards)
-        setDirections(reverse);
-
-        // reverse direction of specified motors
-        for (String device : reverseDevices) {
-            reverse(device);
-        }
-    }
-
-    /**
      * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
      * 1
      * <p>
@@ -293,68 +227,6 @@ public class Drive extends MotorMechanism {
             // Reset motors to run using velocity (allows for using move() w/ diameter along w/
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
-    }
-
-    /**
-     * Reverse the direction of the specified motor
-     */
-    @Override
-    protected void reverse(String deviceName) {
-        if (count == 4) {
-            switch (deviceName) {
-                case "frontLeft":
-                    if (encoder) {
-                        motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-                    } else {
-                        motors[0].setDirection(DcMotor.Direction.FORWARD);
-                    }
-                    break;
-                case "frontRight":
-                    if (encoder) {
-                        motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-                    } else {
-                        motors[1].setDirection(DcMotor.Direction.REVERSE);
-                    }
-                    break;
-                case "backLeft":
-                    if (encoder) {
-                        motorsEx[2].setDirection(DcMotorEx.Direction.FORWARD);
-                    } else {
-                        motors[2].setDirection(DcMotor.Direction.FORWARD);
-                    }
-                    break;
-                case "backRight":
-                    if (encoder) {
-                        motorsEx[3].setDirection(DcMotorEx.Direction.REVERSE);
-                    } else {
-                        motors[3].setDirection(DcMotor.Direction.REVERSE);
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Lift.reverse(). Valid names are: frontLeft, frontRight, backLeft, backRight");
-            }
-        } else {
-            switch (deviceName) {
-                case "driveLeft":
-                    if (encoder) {
-                        motorsEx[0].setDirection(DcMotorEx.Direction.FORWARD);
-                    } else {
-                        motors[0].setDirection(DcMotor.Direction.FORWARD);
-                    }
-                    break;
-                case "driveRight":
-                    if (encoder) {
-                        motorsEx[1].setDirection(DcMotorEx.Direction.REVERSE);
-                    } else {
-                        motors[1].setDirection(DcMotor.Direction.REVERSE);
-                    }
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Lift.reverse(). Valid names are: driveLeft, driveRight");
-            }
         }
     }
 }

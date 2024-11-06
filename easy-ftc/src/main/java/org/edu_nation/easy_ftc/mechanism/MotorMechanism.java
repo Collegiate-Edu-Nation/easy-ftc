@@ -4,10 +4,12 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
@@ -19,6 +21,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 abstract class MotorMechanism extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
+    protected IMU imu;
     protected boolean encoder;
     protected DcMotor.ZeroPowerBehavior behavior;
     protected double velocityMultiplier;
@@ -27,6 +30,7 @@ abstract class MotorMechanism extends Mechanism {
     protected double length;
     protected double gearing;
     protected double deadzone;
+    protected String layout;
 
     /**
      * Constructor
@@ -98,7 +102,7 @@ abstract class MotorMechanism extends Mechanism {
             this.deadzone = deadzone;
             return self();
         }
-        
+
         public abstract T names(String[] names);
 
         public abstract MotorMechanism build();
@@ -109,6 +113,105 @@ abstract class MotorMechanism extends Mechanism {
     public abstract void tele(double multiplier);
 
     public abstract void move(double power, String direction, double measurement);
+
+    /**
+     * Reverse the direction of the specified motor
+     */
+    @Override
+    protected void reverse(String deviceName) {
+        boolean found = false;
+
+        // reverse the device
+        for (int i = 0; i < count; i++) {
+            if (deviceName == names[i]) {
+                found = true;
+                if (encoder) {
+                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
+                            : DcMotorEx.Direction.REVERSE;
+                    motorsEx[i].setDirection(direction);
+                } else {
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    motors[i].setDirection(direction);
+                }
+            }
+        }
+
+        // throw exception if device not found
+        if (!found) {
+            String validNames = "";
+            for (String name : names) {
+                validNames += name + ", ";
+            }
+            validNames = validNames.substring(0, validNames.length() - 2);
+            throw new IllegalArgumentException(
+                    "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
+                            + ".reverse(). Valid names are: " + validNames);
+        }
+    }
+
+    /**
+     * Initializes motors based on constructor args (e.g. using encoders or not)
+     */
+    @Override
+    protected void init() {
+        if (encoder) {
+            // Instantiate motors
+            motorsEx = new DcMotorEx[count];
+            for (int i = 0; i < count; i++) {
+                motorsEx[i] = hardwareMap.get(DcMotorEx.class, names[i]);
+            }
+
+            MotorConfigurationType[] motorTypes = getMotorTypes();
+
+            // Reset encoders
+            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
+            // Set motors to run using the encoder (velocity, not position)
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+
+            double diameterOrLength = (mechanismName != "arm") ? diameter : length;
+            if (diameterOrLength == 0.0) {
+                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
+            } else {
+                distanceMultiplier = getTicksPerRev(motorTypes);
+                if (gearing != 0.0) {
+                    setGearing(gearing);
+                }
+            }
+        } else {
+            // Instantiate motors
+            motors = new DcMotor[count];
+            for (int i = 0; i < count; i++) {
+                motors[i] = hardwareMap.get(DcMotor.class, names[i]);
+            }
+
+            // Set motors to run without the encoders (power, not velocity or position)
+            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        }
+
+        // Initializes imu for field-centric layout. Adjust "UP" and "FORWARD" if orientation is
+        // reversed
+        if (mechanismName == "Drive" && layout == "field") {
+            imu = hardwareMap.get(IMU.class, "imu");
+            IMU.Parameters parameters = new IMU.Parameters(
+                    new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+            imu.initialize(parameters);
+            imu.resetYaw();
+        }
+
+        // specify zeroPowerBehavior of motors
+        setBehaviors(behavior);
+
+        // Reverse direction of left motors for convenience (switch if robot drives backwards)
+        setDirections(reverse);
+
+        // reverse direction of specified motors
+        for (String device : reverseDevices) {
+            reverse(device);
+        }
+    }
 
     /**
      * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
