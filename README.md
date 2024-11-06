@@ -87,6 +87,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
     - [ ] pass sensor.state() as boolean
     - [ ] pass directions not to move if boolean true (or to move if sensor is reversed)
 - [ ] Add support for trigger (servo), intake (motor)
+- [ ] Flesh out Color
 - [ ] Add telemetry for status indicators via toString
 - [ ] Add support for OpenCV, AprilTag
 - [ ] Investigate multi-threading for synchronized, multi-system automated movements
@@ -96,13 +97,18 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Make 'sensor' var generic
 - [x] Optimize arrays, opt for switch when > 2 args
 - [x] Investigate builder inheritance
-- [ ] Investigate using array for deviceNames, enabling generalization of init, reverse
+- [x] Investigate using array for deviceNames, enabling generalization of init, reverse
+- [ ] Add reverse(String[] names) wrapper
+- [ ] Investigate further consolidation of builders (esp names, count, etc)
+- [ ] make self() protected
+- [ ] Sub tele() for control()
 - [ ] Use public enums for direction, type, layout
+- [ ] Throw exceptions for invalid builder args
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ### Documentation
 - [ ] Update uml
-- [ ] Improve code comments
+- [ ] Improve code comments (esp. move(), Builder)
 - [ ] Add hardware naming section
 - [ ] Improve usage instructions
 - [ ] Add more examples
