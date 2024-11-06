@@ -111,6 +111,56 @@ abstract class ServoMechanism extends Mechanism {
     public abstract void move(String direction);
 
     /**
+     * Reverse the direction of the specified servo
+     */
+    @Override
+    protected void reverse(String deviceName) {
+        boolean found = false;
+
+        // reverse the device
+        for (int i = 0; i < count; i++) {
+            if (deviceName == names[i]) {
+                found = true;
+                Servo.Direction direction =
+                        (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
+                servos[i].setDirection(direction);
+            }
+        }
+
+        // throw exception if device not found
+        if (!found) {
+            String validNames = "";
+            for (String name : names) {
+                validNames += name + ", ";
+            }
+            validNames = validNames.substring(0, validNames.length() - 2);
+            throw new IllegalArgumentException(
+                    "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
+                            + ".reverse(). Valid names are: " + validNames);
+        }
+    }
+
+    /**
+     * Initializes servos
+     */
+    @Override
+    protected void init() {
+        // Instantiate servos
+        servos = new Servo[count];
+        for (int i = 0; i < count; i++) {
+            servos[i] = hardwareMap.get(Servo.class, names[i]);
+        }
+
+        // reverse direction of left servo for convenience
+        setDirections(reverse);
+
+        // reverse direction of specified servos
+        for (String device : reverseDevices) {
+            reverse(device);
+        }
+    }
+
+    /**
      * Wrapper around setPositions that enables smooth, synchronized servo control
      */
     protected double setPositionsByIncrement(double position, double movement) {

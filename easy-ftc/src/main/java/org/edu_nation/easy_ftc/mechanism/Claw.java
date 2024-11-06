@@ -6,7 +6,6 @@ package org.edu_nation.easy_ftc.mechanism;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Implements a claw by extending the functionality of {@link ServoMechanism}.
@@ -101,26 +100,6 @@ public class Claw extends ServoMechanism {
     }
 
     /**
-     * Initializes claw servos
-     */
-    @Override
-    protected void init() {
-        // Instantiate servos
-        servos = new Servo[count];
-        for (int i = 0; i < count; i++) {
-            servos[i] = hardwareMap.get(Servo.class, names[i]);
-        }
-
-        // reverse direction of left claw for convenience
-        setDirections(reverse);
-
-        // reverse direction of specified motors
-        for (String device : reverseDevices) {
-            reverse(device);
-        }
-    }
-
-    /**
      * Enables teleoperated claw movement with gamepad.
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
@@ -155,35 +134,6 @@ public class Claw extends ServoMechanism {
         } else {
             setPositions(servoDirection);
             wait(delay);
-        }
-    }
-
-    /**
-     * Reverse the direction of the specified servo
-     */
-    @Override
-    protected void reverse(String deviceName) {
-        if (count == 2) {
-            switch (deviceName) {
-                case "clawLeft":
-                    servos[0].setDirection(Servo.Direction.REVERSE);
-                    break;
-                case "clawRight":
-                    servos[1].setDirection(Servo.Direction.FORWARD);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Claw.reverse(). Valid names are: clawLeft, clawRight");
-            }
-        } else {
-            switch (deviceName) {
-                case "claw":
-                    servos[0].setDirection(Servo.Direction.REVERSE);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unexpected deviceName: " + deviceName
-                            + ", passed to Claw.reverse(). Valid names are: claw");
-            }
         }
     }
 }
