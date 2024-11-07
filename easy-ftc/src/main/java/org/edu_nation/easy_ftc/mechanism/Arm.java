@@ -29,6 +29,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Arm extends MotorMechanism {
+    private double up;
+    private double down;
 
     /**
      * Constructor
@@ -38,6 +40,8 @@ public class Arm extends MotorMechanism {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
+        this.up = builder.up;
+        this.down = builder.down;
         this.mechanismName = builder.mechanismName;
         init();
     }
@@ -46,6 +50,8 @@ public class Arm extends MotorMechanism {
         private int count = 1;
         private String[] names = {"arm"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
+        private double up = 0.0;
+        private double down = 0.0;
         private String mechanismName = "Arm";
 
         /**
@@ -94,6 +100,22 @@ public class Arm extends MotorMechanism {
         }
 
         /**
+         * Specify the positional limit for the "up" direction
+         */
+        public Builder up(double up) {
+            this.up = up;
+            return this;
+        }
+
+        /**
+         * Specify the positional limit for the "down" direction
+         */
+        public Builder down(double down) {
+            this.down = down;
+            return this;
+        }
+
+        /**
          * Build the arm
          */
         @Override
@@ -120,7 +142,46 @@ public class Arm extends MotorMechanism {
         for (int i = 0; i < count; i++) {
             movements[i] = direction;
         }
-        setPowers(movements);
+
+        // setPowers if up and down limits haven't been specified
+        if (up == down) {
+            setPowers(movements);
+        } else {
+            int[] currentPositions = getCurrentPositions();
+            boolean move = true;
+
+            // determine if positional limits have been reached
+            if (length == 0.0) {
+                if (direction > 0) {
+                    for (int position : currentPositions) {
+                        move = (position < up) ? true : false;
+                    }
+                } else if (direction < 0) {
+                    for (int position : currentPositions) {
+                        move = (position > down) ? true : false;
+                    }
+                }
+            } else {
+                if (direction > 0) {
+                    int[] positions = ArmUtil.calculatePositions(up, 2.0 * length,
+                            distanceMultiplier, movements);
+                    for (int i = 0; i < count; i++) {
+                        move = (currentPositions[i] < positions[i]) ? true : false;
+                    }
+                } else if (direction < 0) {
+                    int[] positions = ArmUtil.calculatePositions(down, 2.0 * length,
+                            distanceMultiplier, movements);
+                    for (int i = 0; i < count; i++) {
+                        move = (currentPositions[i] > positions[i]) ? true : false;
+                    }
+                }
+            }
+
+            // setPowers if not
+            if (move) {
+                setPowers(movements);
+            }
+        }
     }
 
     /**

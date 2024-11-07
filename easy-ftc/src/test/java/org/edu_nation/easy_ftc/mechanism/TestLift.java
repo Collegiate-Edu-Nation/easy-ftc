@@ -39,6 +39,8 @@ public class TestLift {
 
                 try {
                         new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+                        new Lift.Builder(mockedOpMode, mockedHardwareMap).up(1.0).build();
+                        new Lift.Builder(mockedOpMode, mockedHardwareMap).down(-1.0).build();
                         new Lift.Builder(mockedOpMode, mockedHardwareMap).names(new String[]{"lift"}).build();
                         new Lift.Builder(mockedOpMode, mockedHardwareMap)
                                         .behavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -108,11 +110,17 @@ public class TestLift {
                                         .gamepad(mockedGamepad).build();
                         Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder()
                                         .gamepad(mockedGamepad).build();
+                        Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().up(1.0).down(-1.0).gamepad(mockedGamepad).build();
+                        Lift liftDia = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(2).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
                         lift.tele();
                         lift.tele(0.9);
                         liftEnc.tele();
                         liftEnc.tele(0.9);
+                        liftPos.tele();
+                        liftPos.tele(0.9);
+                        liftDia.tele();
+                        liftDia.tele(0.9);
                 } catch (Exception e) {
                         fail(e.getMessage());
                 }

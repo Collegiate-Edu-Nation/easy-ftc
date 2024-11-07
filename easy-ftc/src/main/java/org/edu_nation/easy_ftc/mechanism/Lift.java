@@ -30,6 +30,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Lift extends MotorMechanism {
+    private double up;
+    private double down;
 
     /**
      * Constructor
@@ -39,6 +41,8 @@ public class Lift extends MotorMechanism {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
+        this.up = builder.up;
+        this.down = builder.down;
         this.mechanismName = builder.mechanismName;
         init();
     }
@@ -47,6 +51,8 @@ public class Lift extends MotorMechanism {
         private int count = 1;
         private String[] names = {"lift"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
+        private double up = 0.0;
+        private double down = 0.0;
         private String mechanismName = "Lift";
 
         /**
@@ -96,6 +102,22 @@ public class Lift extends MotorMechanism {
         }
 
         /**
+         * Specify the positional limit for the "up" direction
+         */
+        public Builder up(double up) {
+            this.up = up;
+            return this;
+        }
+
+        /**
+         * Specify the positional limit for the "down" direction
+         */
+        public Builder down(double down) {
+            this.down = down;
+            return this;
+        }
+
+        /**
          * Build the lift
          */
         @Override
@@ -123,12 +145,56 @@ public class Lift extends MotorMechanism {
             movements[i] = direction;
         }
 
-        if (multiplier == 1.0) {
-            setPowers(movements);
+        // set powers if up and down limits haven't been specified
+        if (up == down) {
+            if (multiplier == 1.0) {
+                setPowers(movements);
+            } else {
+                double[] scaledMovements = MotorMechanismUtil
+                        .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+                setPowers(scaledMovements);
+            }
         } else {
-            double[] scaledMovements = MotorMechanismUtil
-                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
-            setPowers(scaledMovements);
+            int[] currentPositions = getCurrentPositions();
+            boolean move = true;
+
+            // determine if positional limits have been reached
+            if (diameter == 0.0) {
+                if (direction > 0) {
+                    for (int position : currentPositions) {
+                        move = (position < up) ? true : false;
+                    }
+                } else if (direction < 0) {
+                    for (int position : currentPositions) {
+                        move = (position > down) ? true : false;
+                    }
+                }
+            } else {
+                if (direction > 0) {
+                    int[] positions = LiftUtil.calculatePositions(up, diameter,
+                            distanceMultiplier, movements);
+                    for (int i = 0; i < count; i++) {
+                        move = (currentPositions[i] < positions[i]) ? true : false;
+                    }
+                } else if (direction < 0) {
+                    int[] positions = LiftUtil.calculatePositions(down, diameter,
+                            distanceMultiplier, movements);
+                    for (int i = 0; i < count; i++) {
+                        move = (currentPositions[i] > positions[i]) ? true : false;
+                    }
+                }
+            }
+
+            // setPowers if not
+            if (move) {
+                if (multiplier == 1.0) {
+                    setPowers(movements);
+                } else {
+                    double[] scaledMovements = MotorMechanismUtil
+                            .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+                    setPowers(scaledMovements);
+                }
+            }
         }
     }
 
