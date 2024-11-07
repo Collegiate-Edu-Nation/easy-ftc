@@ -177,8 +177,8 @@ public class Lift extends MotorMechanism {
                 }
             } else {
                 if (direction > 0) {
-                    int[] positions = LiftUtil.calculatePositions(up, diameter,
-                            distanceMultiplier, movements);
+                    int[] positions = LiftUtil.calculatePositions(up, diameter, distanceMultiplier,
+                            movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] < positions[i]) ? true : false;
                         if (!move) {
