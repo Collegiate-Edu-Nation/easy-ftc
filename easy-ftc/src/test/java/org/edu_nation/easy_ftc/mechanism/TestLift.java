@@ -7,6 +7,7 @@ package org.edu_nation.easy_ftc.mechanism;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -109,6 +110,15 @@ public class TestLift {
             lift.tele(0.9);
             liftEnc.tele();
             liftEnc.tele(0.9);
+
+            FieldUtils.writeField(mockedGamepad, "left_trigger", 1.0f);
+            liftPos.tele();
+            liftPos.tele(0.9);
+            liftDia.tele();
+            liftDia.tele(0.9);
+
+            FieldUtils.writeField(mockedGamepad, "left_trigger", 0.0f);
+            FieldUtils.writeField(mockedGamepad, "right_trigger", 1.0f);
             liftPos.tele();
             liftPos.tele(0.9);
             liftDia.tele();
@@ -127,11 +137,28 @@ public class TestLift {
                     .gamepad(mockedGamepad).build();
             Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .gamepad(mockedGamepad).build();
+            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
+                    .up(1.0).down(-1.0).gamepad(mockedGamepad).build();
+            Lift liftDia = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
+                    .diameter(2).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
             lift.tele();
             lift.tele(0.9);
             liftEnc.tele();
             liftEnc.tele(0.9);
+
+            FieldUtils.writeField(mockedGamepad, "left_trigger", 1.0f);
+            liftPos.tele();
+            liftPos.tele(0.9);
+            liftDia.tele();
+            liftDia.tele(0.9);
+
+            FieldUtils.writeField(mockedGamepad, "left_trigger", 0.0f);
+            FieldUtils.writeField(mockedGamepad, "right_trigger", 1.0f);
+            liftPos.tele();
+            liftPos.tele(0.9);
+            liftDia.tele();
+            liftDia.tele(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }

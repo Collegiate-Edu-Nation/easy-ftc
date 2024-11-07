@@ -7,6 +7,7 @@ package org.edu_nation.easy_ftc.mechanism;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -106,6 +107,15 @@ public class TestArm {
             arm.tele(0.5);
             armEnc.tele();
             armEnc.tele(0.5);
+
+            FieldUtils.writeField(mockedGamepad, "left_bumper", true);
+            armPos.tele();
+            armPos.tele(0.5);
+            armDia.tele();
+            armDia.tele(0.5);
+
+            FieldUtils.writeField(mockedGamepad, "left_bumper", false);
+            FieldUtils.writeField(mockedGamepad, "right_bumper", true);
             armPos.tele();
             armPos.tele(0.5);
             armDia.tele();
@@ -124,11 +134,28 @@ public class TestArm {
                     .gamepad(mockedGamepad).build();
             Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .gamepad(mockedGamepad).build();
+            Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().up(1.0)
+                    .down(-1.0).gamepad(mockedGamepad).build();
+            Arm armDia = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
+                    .length(5).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
             arm.tele();
             arm.tele(5);
             armEnc.tele();
             armEnc.tele(5);
+
+            FieldUtils.writeField(mockedGamepad, "left_bumper", true);
+            armPos.tele();
+            armPos.tele(0.5);
+            armDia.tele();
+            armDia.tele(0.5);
+
+            FieldUtils.writeField(mockedGamepad, "left_bumper", false);
+            FieldUtils.writeField(mockedGamepad, "right_bumper", true);
+            armPos.tele();
+            armPos.tele(0.5);
+            armDia.tele();
+            armDia.tele(0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
