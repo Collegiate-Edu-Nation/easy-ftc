@@ -155,10 +155,16 @@ public class Arm extends MotorMechanism {
                 if (direction > 0) {
                     for (int position : currentPositions) {
                         move = (position < up) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 } else if (direction < 0) {
                     for (int position : currentPositions) {
                         move = (position > down) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 }
             } else {
@@ -167,12 +173,18 @@ public class Arm extends MotorMechanism {
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] < positions[i]) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 } else if (direction < 0) {
                     int[] positions = ArmUtil.calculatePositions(down, 2.0 * length,
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] > positions[i]) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 }
             }
@@ -180,6 +192,8 @@ public class Arm extends MotorMechanism {
             // setPowers if not
             if (move) {
                 setPowers(movements);
+            } else {
+                setPowers();
             }
         }
     }

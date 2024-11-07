@@ -163,10 +163,16 @@ public class Lift extends MotorMechanism {
                 if (direction > 0) {
                     for (int position : currentPositions) {
                         move = (position < up) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 } else if (direction < 0) {
                     for (int position : currentPositions) {
                         move = (position > down) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 }
             } else {
@@ -175,12 +181,18 @@ public class Lift extends MotorMechanism {
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] < positions[i]) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 } else if (direction < 0) {
                     int[] positions = LiftUtil.calculatePositions(down, diameter,
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] > positions[i]) ? true : false;
+                        if (!move) {
+                            break;
+                        }
                     }
                 }
             }
@@ -194,6 +206,8 @@ public class Lift extends MotorMechanism {
                             .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
                     setPowers(scaledMovements);
                 }
+            } else {
+                setPowers();
             }
         }
     }
