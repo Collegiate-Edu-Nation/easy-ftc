@@ -82,7 +82,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Specify stop-behavior
 - [x] Add support for 4wd differential
 - [x] Support RUN_TO_POSITION for encoders
-- [ ] Support RUN_TO_POSITION in teleOp (i.e. only move between two positions, a la servo)
+- [x] Support RUN_TO_POSITION in teleOp (i.e. only move between two positions, a la servo)
 - [ ] Support moving until sensor says otherwise
     - [ ] pass sensor.state() as boolean
     - [ ] pass directions not to move if boolean true (or to move if sensor is reversed)
