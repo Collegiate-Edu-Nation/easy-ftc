@@ -4,7 +4,6 @@
 
 plugins {
     id 'com.android.library'
-    //id "com.hiya.jacoco-android" version "0.2"
 }
 
 android {
@@ -44,18 +43,14 @@ android {
     }
 }
 
-// Configure jacoco
-//jacocoAndroidUnitTestReport {
-//    csv.enabled false
-//    html.enabled true
-//    xml.enabled false
-//}
-
 // create alias for jacoco report
-//task coverage(dependsOn: jacocoTestReport) {
-//    group = "reporting"
-//    description = "Generates Jacoco coverage report as HTML in build/jacoco/jacocoHtml"
-//}
+task coverage(type: Exec) {
+    group = "reporting"
+    description = "Generates Jacoco coverage report as HTML in build/reports/coverage"
+
+    workingDir ".."
+    commandLine "./gradlew", "createReleaseUnitTestCoverageReport"
+}
 
 // create task for generating uml
 task uml(type: Exec) {
@@ -97,8 +92,8 @@ task myBlocks(type: Zip) {
 }
 
 dependencies {
-    compileOnly 'org.firstinspires.ftc:RobotCore:10.1.1'
-    compileOnly 'org.firstinspires.ftc:Hardware:10.1.1'
+    implementation 'org.firstinspires.ftc:RobotCore:10.1.1'
+    implementation 'org.firstinspires.ftc:Hardware:10.1.1'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.13.1'
