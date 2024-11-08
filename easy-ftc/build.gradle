@@ -4,15 +4,17 @@
 
 plugins {
     id 'com.android.library'
-    id "com.hiya.jacoco-android" version "0.2"
+    //id "com.hiya.jacoco-android" version "0.2"
 }
 
 android {
-    compileSdk 29
+    namespace "org.edu_nation.easy_ftc"
+
+    compileSdk 30
 
     defaultConfig {
         minSdk 24
-        targetSdk 29
+        targetSdk 30
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -36,20 +38,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 // Configure jacoco
-jacocoAndroidUnitTestReport {
-    csv.enabled false
-    html.enabled true
-    xml.enabled false
-}
+//jacocoAndroidUnitTestReport {
+//    csv.enabled false
+//    html.enabled true
+//    xml.enabled false
+//}
 
 // create alias for jacoco report
-task coverage(dependsOn: jacocoTestReport) {
-    group = "reporting"
-    description = "Generates Jacoco coverage report as HTML in build/jacoco/jacocoHtml"
-}
+//task coverage(dependsOn: jacocoTestReport) {
+//    group = "reporting"
+//    description = "Generates Jacoco coverage report as HTML in build/jacoco/jacocoHtml"
+//}
 
 // create task for generating uml
 task uml(type: Exec) {
@@ -85,19 +91,19 @@ task myBlocks(type: Zip) {
     group = "build"
     description = "Compress myBlocks to a zip archive for release"
 
-    archiveName = "myBlocks.zip"
-    destinationDir = file('build/outputs/zip')
+    archiveBaseName = "myBlocks"
+    destinationDirectory = file('build/outputs/zip')
     from (files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
 }
 
 dependencies {
-    compileOnly 'org.firstinspires.ftc:RobotCore:10.1.0'
-    compileOnly 'org.firstinspires.ftc:Hardware:10.1.0'
+    compileOnly 'org.firstinspires.ftc:RobotCore:10.1.1'
+    compileOnly 'org.firstinspires.ftc:Hardware:10.1.1'
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.mockito:mockito-core:3.6.28'
     testImplementation 'org.apache.commons:commons-lang3:3.11'
-    testImplementation 'org.firstinspires.ftc:RobotCore:10.1.0'
+    testImplementation 'org.firstinspires.ftc:RobotCore:10.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
 }

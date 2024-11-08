@@ -34,9 +34,9 @@
             pkgs = nixpkgs.legacyPackages.${system};
             android-sdk = android-nixpkgs.sdk.${system} (
               sdkPkgs: with sdkPkgs; [
-                build-tools-30-0-3
+                build-tools-34-0-0
                 cmdline-tools-13-0
-                platforms-android-29
+                platforms-android-30
                 platform-tools
               ]
             );
@@ -54,7 +54,7 @@
               ]
               ++ (with pkgs; [
                 bashInteractive
-                jdk17
+                jdk21
                 aapt
                 plantuml
                 python312Packages.mkdocs
