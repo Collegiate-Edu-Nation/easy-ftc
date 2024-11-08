@@ -63,7 +63,7 @@ task uml(type: Exec) {
     description = "Generate UML in docs/uml from uml.puml"
 
     workingDir ".."
-    commandLine "/nix/store/7yikgfacxcl69wxaq7fxh017gl8p1ma6-plantuml-1.2024.7/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
+    commandLine "/nix/store/spw80606bd9f1617fm07zknsn9ccqsk0-plantuml-1.2024.7/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
     ignoreExitValue true
 }
 
@@ -73,7 +73,7 @@ task apidoc(type: Exec, dependsOn: uml) {
     description = "Generate Javadoc in docs/javadoc for public classes, not including Tests"
 
     workingDir ".."
-    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.0.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.0.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public", "--main-stylesheet", "docs/stylesheet.css"
+    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.1.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.1.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public", "--main-stylesheet", "docs/stylesheet.css"
     ignoreExitValue true
 }
 
