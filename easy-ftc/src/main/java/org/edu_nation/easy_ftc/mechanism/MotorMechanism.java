@@ -76,6 +76,8 @@ abstract class MotorMechanism extends Mechanism {
          */
         public T length(double length) {
             this.length = length;
+            // length is the radius of arm's ROM, so double it for arc length = distance
+            this.diameter = 2.0 * length;
             return self();
         }
 

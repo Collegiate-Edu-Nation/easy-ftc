@@ -151,7 +151,7 @@ public class Arm extends MotorMechanism {
             boolean move = true;
 
             // determine if positional limits have been reached
-            if (length == 0.0) {
+            if (diameter == 0.0) {
                 if (direction > 0) {
                     for (int position : currentPositions) {
                         move = (position < up) ? true : false;
@@ -169,7 +169,7 @@ public class Arm extends MotorMechanism {
                 }
             } else {
                 if (direction > 0) {
-                    int[] positions = ArmUtil.calculatePositions(up, 2.0 * length,
+                    int[] positions = ArmUtil.calculatePositions(up, diameter,
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] < positions[i]) ? true : false;
@@ -178,7 +178,7 @@ public class Arm extends MotorMechanism {
                         }
                     }
                 } else if (direction < 0) {
-                    int[] positions = ArmUtil.calculatePositions(down, 2.0 * length,
+                    int[] positions = ArmUtil.calculatePositions(down, diameter,
                             distanceMultiplier, movements);
                     for (int i = 0; i < count; i++) {
                         move = (currentPositions[i] > positions[i]) ? true : false;
@@ -225,13 +225,12 @@ public class Arm extends MotorMechanism {
         }
         double[] movements = ArmUtil.scaleDirections(power, unscaledMovements);
 
-        if (length == 0.0) {
+        if (diameter == 0.0) {
             setPowers(movements);
             wait(measurement);
             setPowers();
         } else {
-            // length is the radius of arm's ROM, so double it for arc length = distance
-            int[] positions = ArmUtil.calculatePositions(measurement, 2.0 * length,
+            int[] positions = ArmUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
