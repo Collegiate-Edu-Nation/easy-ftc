@@ -103,6 +103,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Investigate further consolidation of builders (esp names, count, etc)
 - [ ] make self() protected
 - [ ] Sub tele() for control()
+- [ ] Move utils to mechanism classes
 - [ ] Use public enums for direction, type, layout
 - [ ] Throw exceptions for invalid builder args
 - [ ] Investigate instrumentation and/or manual hardware tests
