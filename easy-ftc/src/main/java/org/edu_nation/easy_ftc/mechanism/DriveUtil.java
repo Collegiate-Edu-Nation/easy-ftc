@@ -89,7 +89,7 @@ class DriveUtil extends MotorMechanismUtil {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(int count, String type, double power,
+    protected static double[] languageToDirection(int count, String type,
             String direction) {
         if (type == "differential" || type == "") {
             double[] motorDirections = new double[count];
@@ -119,8 +119,7 @@ class DriveUtil extends MotorMechanismUtil {
                             + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight");
             }
 
-            double[] movements = scaleDirections(power, motorDirections);
-            return movements;
+            return motorDirections;
         } else {
             double[] motorDirections = {0, 0, 0, 0};
             switch (direction) {
@@ -189,8 +188,7 @@ class DriveUtil extends MotorMechanismUtil {
                             + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
             }
 
-            double[] movements = scaleDirections(power, motorDirections);
-            return movements;
+            return motorDirections;
         }
     }
 }

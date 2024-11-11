@@ -133,27 +133,27 @@ public class TestDriveUtil {
         final String type = "differential";
 
         // Test "forward"
-        double[] result = DriveUtil.languageToDirection(2, type, 1, "forward");
+        double[] result = DriveUtil.languageToDirection(2, type, "forward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
-        result = DriveUtil.languageToDirection(2, type, 1, "backward");
+        result = DriveUtil.languageToDirection(2, type, "backward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
 
         // Test "rotateLeft"
         double[] expectedRotateLeft = {-1, 1};
-        result = DriveUtil.languageToDirection(2, type, 1, "rotateLeft");
+        result = DriveUtil.languageToDirection(2, type, "rotateLeft");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
         // Test "rotateRight"
         double[] expectedRotateRight = {1, -1};
-        result = DriveUtil.languageToDirection(2, type, 1, "rotateRight");
+        result = DriveUtil.languageToDirection(2, type, "rotateRight");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateRight[i], result[i], 0.01);
         }
@@ -164,69 +164,69 @@ public class TestDriveUtil {
         final String type = "mecanum";
 
         // Test "forward"
-        double[] result = DriveUtil.languageToDirection(4, type, 1, "forward");
+        double[] result = DriveUtil.languageToDirection(4, type, "forward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "backward"
-        result = DriveUtil.languageToDirection(4, type, 1, "backward");
+        result = DriveUtil.languageToDirection(4, type, "backward");
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
 
         // Test "left"
         double[] expectedLeft = {-1, 1, 1, -1};
-        result = DriveUtil.languageToDirection(4, type, 1, "left");
+        result = DriveUtil.languageToDirection(4, type, "left");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedLeft[i], result[i], 0.01);
         }
 
         // Test "right"
         double[] expectedRight = {1, -1, -1, 1};
-        result = DriveUtil.languageToDirection(4, type, 1, "right");
+        result = DriveUtil.languageToDirection(4, type, "right");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRight[i], result[i], 0.01);
         }
 
         // Test "rotateLeft"
         double[] expectedRotateLeft = {-1, 1, -1, 1};
-        result = DriveUtil.languageToDirection(4, type, 1, "rotateLeft");
+        result = DriveUtil.languageToDirection(4, type, "rotateLeft");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
         // Test "rotateRight"
         double[] expectedRotateRight = {1, -1, 1, -1};
-        result = DriveUtil.languageToDirection(4, type, 1, "rotateRight");
+        result = DriveUtil.languageToDirection(4, type, "rotateRight");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateRight[i], result[i], 0.01);
         }
 
         // Test "forwardLeft"
         double[] expectedForwardLeft = {0, 1, 1, 0};
-        result = DriveUtil.languageToDirection(4, type, 1, "forwardLeft");
+        result = DriveUtil.languageToDirection(4, type, "forwardLeft");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardLeft[i], result[i], 0.01);
         }
 
         // Test "forwardRight"
         double[] expectedForwardRight = {1, 0, 0, 1};
-        result = DriveUtil.languageToDirection(4, type, 1, "forwardRight");
+        result = DriveUtil.languageToDirection(4, type, "forwardRight");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardRight[i], result[i], 0.01);
         }
 
         // Test "backwardLeft"
         double[] expectedBackwardLeft = {-1, 0, 0, -1};
-        result = DriveUtil.languageToDirection(4, type, 1, "backwardLeft");
+        result = DriveUtil.languageToDirection(4, type, "backwardLeft");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedBackwardLeft[i], result[i], 0.01);
         }
 
         // Test "backwardRight"
         double[] expectedBackwardRight = {0, -1, -1, 0};
-        result = DriveUtil.languageToDirection(4, type, 1, "backwardRight");
+        result = DriveUtil.languageToDirection(4, type, "backwardRight");
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedBackwardRight[i], result[i], 0.01);
         }
@@ -237,7 +237,7 @@ public class TestDriveUtil {
         final String type = "differential";
 
         // Test "abc"
-        DriveUtil.languageToDirection(2, type, 1, "abc");
+        DriveUtil.languageToDirection(2, type, "abc");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -245,7 +245,7 @@ public class TestDriveUtil {
         final String type = "mecanum";
 
         // Test "abc"
-        DriveUtil.languageToDirection(4, type, 1, "abc");
+        DriveUtil.languageToDirection(4, type, "abc");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -253,7 +253,7 @@ public class TestDriveUtil {
         final String type = "differential";
 
         // Test ""
-        DriveUtil.languageToDirection(2, type, 1, "");
+        DriveUtil.languageToDirection(2, type, "");
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -261,6 +261,6 @@ public class TestDriveUtil {
         final String type = "mecanum";
 
         // Test ""
-        DriveUtil.languageToDirection(4, type, 1, "");
+        DriveUtil.languageToDirection(4, type, "");
     }
 }

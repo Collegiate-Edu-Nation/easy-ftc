@@ -204,14 +204,14 @@ public class Drive extends MotorMechanism {
      */
     @Override
     public void move(double power, String direction, double measurement) {
-        double[] movements = DriveUtil.languageToDirection(count, type, power, direction);
+        double[] unscaledMovements = DriveUtil.languageToDirection(count, type, direction);
+        double[] movements = DriveUtil.scaleDirections(power, unscaledMovements);
 
         if (diameter == 0.0) {
             setPowers(movements);
             wait(measurement);
             setPowers();
         } else {
-            double[] unscaledMovements = DriveUtil.languageToDirection(count, type, 1, direction);
             int[] positions = DriveUtil.calculatePositions(measurement, diameter,
                     distanceMultiplier, unscaledMovements);
             int[] currentPositions = getCurrentPositions();
