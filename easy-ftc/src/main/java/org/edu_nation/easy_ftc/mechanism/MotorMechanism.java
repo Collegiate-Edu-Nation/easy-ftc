@@ -172,8 +172,7 @@ abstract class MotorMechanism extends Mechanism {
             // Set motors to run using the encoder (velocity, not position)
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
 
-            double diameterOrLength = (mechanismName != "arm") ? diameter : length;
-            if (diameterOrLength == 0.0) {
+            if (diameter == 0.0) {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
@@ -216,6 +215,35 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     /**
+     * Moves the mechanism for the given measurement at power
+     */
+    protected void moveForMeasurement(double[] unscaledMovements, double power, double measurement) {
+        double[] movements = MotorMechanismUtil.scaleDirections(power, unscaledMovements);
+
+        if (diameter == 0.0) {
+            setPowers(movements);
+            wait(measurement);
+            setPowers();
+        } else {
+            int[] positions = MotorMechanismUtil.calculatePositions(measurement, diameter,
+                    distanceMultiplier, unscaledMovements);
+            int[] currentPositions = getCurrentPositions();
+
+            // move the motors at power until they've reached the position
+            setPositions(positions, currentPositions);
+            setPowers(movements);
+            while (motorsAreBusy()) {
+                setPowers(movements);
+            }
+            setPowers();
+
+            // Reset motors to run using velocity (allows for using move() w/ length along w/
+            // tele())
+            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+        }
+    }
+
+    /**
      * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
      */
     protected void setPositions(int[] positions, int[] currentPositions) {
@@ -251,7 +279,7 @@ abstract class MotorMechanism extends Mechanism {
      * provided).
      */
     protected void setPowers(double[] movements) {
-        if (encoder && (diameter != 0.0 || length != 0.0)) {
+        if (encoder && (diameter != 0.0)) {
             for (int i = 0; i < count; i++) {
                 motorsEx[i].setPower(movements[i]);
             }

@@ -8,7 +8,6 @@ import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 /**
  * Implements a lift by extending the functionality of {@link MotorMechanism}.
@@ -237,28 +236,6 @@ public class Lift extends MotorMechanism {
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
-        double[] movements = LiftUtil.scaleDirections(power, unscaledMovements);
-
-        if (diameter == 0.0) {
-            setPowers(movements);
-            wait(measurement);
-            setPowers();
-        } else {
-            int[] positions = LiftUtil.calculatePositions(measurement, diameter, distanceMultiplier,
-                    unscaledMovements);
-            int[] currentPositions = getCurrentPositions();
-
-            // move the motors at power until they've reached the position
-            setPositions(positions, currentPositions);
-            setPowers(movements);
-            while (motorsAreBusy()) {
-                setPowers(movements);
-            }
-            setPowers();
-
-            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
-            // tele())
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
+        moveForMeasurement(unscaledMovements, power, measurement);
     }
 }

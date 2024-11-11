@@ -7,7 +7,6 @@ package org.edu_nation.easy_ftc.mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 /**
  * Implements an arm by extending the functionality of {@link MotorMechanism}.
@@ -223,28 +222,6 @@ public class Arm extends MotorMechanism {
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
-        double[] movements = ArmUtil.scaleDirections(power, unscaledMovements);
-
-        if (diameter == 0.0) {
-            setPowers(movements);
-            wait(measurement);
-            setPowers();
-        } else {
-            int[] positions = ArmUtil.calculatePositions(measurement, diameter,
-                    distanceMultiplier, unscaledMovements);
-            int[] currentPositions = getCurrentPositions();
-
-            // move the motors at power until they've reached the position
-            setPositions(positions, currentPositions);
-            setPowers(movements);
-            while (motorsAreBusy()) {
-                setPowers(movements);
-            }
-            setPowers();
-
-            // Reset motors to run using velocity (allows for using move() w/ length along w/
-            // tele())
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
+        moveForMeasurement(unscaledMovements, power, measurement);
     }
 }

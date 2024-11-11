@@ -8,7 +8,6 @@ import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
@@ -205,28 +204,6 @@ public class Drive extends MotorMechanism {
     @Override
     public void move(double power, String direction, double measurement) {
         double[] unscaledMovements = DriveUtil.languageToDirection(count, type, direction);
-        double[] movements = DriveUtil.scaleDirections(power, unscaledMovements);
-
-        if (diameter == 0.0) {
-            setPowers(movements);
-            wait(measurement);
-            setPowers();
-        } else {
-            int[] positions = DriveUtil.calculatePositions(measurement, diameter,
-                    distanceMultiplier, unscaledMovements);
-            int[] currentPositions = getCurrentPositions();
-
-            // move the motors at power until they've reached the position
-            setPositions(positions, currentPositions);
-            setPowers(movements);
-            while (motorsAreBusy()) {
-                setPowers(movements);
-            }
-            setPowers();
-
-            // Reset motors to run using velocity (allows for using move() w/ diameter along w/
-            // tele())
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
-        }
+        moveForMeasurement(unscaledMovements, power, measurement);
     }
 }
