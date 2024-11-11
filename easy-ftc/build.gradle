@@ -62,28 +62,26 @@ task uml(type: Exec) {
     ignoreExitValue true
 }
 
-// create task for generating javadoc
-/*task apidoc(type: Exec, dependsOn: uml) {
-    group = "build"
-    description = "Generate Javadoc in docs/javadoc for public classes, not including Tests"
-
-    workingDir ".."
-    //commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/aarLibraries/org.firstinspires.ftc-RobotCore-10.1.1.jar:easy-ftc/build/aarLibraries/org.firstinspires.ftc-Hardware-10.1.1.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public", "--main-stylesheet", "docs/stylesheet.css"
-    commandLine "javadoc", "-d", "docs/javadoc", "-classpath", "easy-ftc/build/intermediates/compile_library_classes_jar/release/bundleLibCompileToJarRelease/classes.jar", "-sourcepath", "easy-ftc/src/main/java/", "org.edu_nation.easy_ftc.mechanism", "org.edu_nation.easy_ftc.sensor", "-public"
-    ignoreExitValue true
-}*/
-
 // create tasks for docs
 android.libraryVariants.all { variant ->
     if (variant.name == 'release') {
         // generate javadoc
-        task apidoc(type: Javadoc) {
+        task apidoc(type: Javadoc, dependsOn: uml) {
+            group = "build"
+            description = "Generate the Javadoc for the public API's"
+
             source = variant.javaCompiler.source
             classpath = files(((Object) android.bootClasspath.join(File.pathSeparator)))
             classpath += variant.javaCompiler.classpath
             destinationDir = file('../docs/javadoc')
             failOnError false
+
+            options {
+                setMemberLevel JavadocMemberLevel.PUBLIC
+                setStylesheetFile file('../docs/stylesheet.css')
+            }
         }
+
         // generate docs
         task docs(type: Exec, dependsOn: apidoc) {
             group = "build"
