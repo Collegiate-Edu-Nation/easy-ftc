@@ -98,7 +98,8 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Optimize arrays, opt for switch when > 2 args
 - [x] Investigate builder inheritance
 - [x] Investigate using array for deviceNames, enabling generalization of init, reverse
-- [ ] Use unscaled movements in arm, lift positionally-limited tele
+- [ ] Fix arm when using limits
+- [ ] Investigate unscaled movements in arm, lift positionally-limited tele (at least arm)
 - [ ] Add reverse(String[] names) wrapper
 - [ ] Investigate further consolidation of builders (esp names, count, etc)
 - [ ] make self() protected
