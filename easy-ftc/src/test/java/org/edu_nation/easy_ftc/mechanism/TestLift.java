@@ -205,50 +205,46 @@ public class TestLift {
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
-        Lift liftEnc =
-                new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("abc").build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Lift lift =
-                new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
-        Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                .reverse("abc").build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setGearingSolo_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                .gearing(-1).build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).gearing(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setGearingDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
-                .gearing(-1).build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4).gearing(-1)
+                .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setdeadzoneSolo_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                .deadzone(-1).build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).deadzone(-1)
+                .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void setdeadzoneDual_ThrowsException() {
         mockInit();
 
-        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
                 .deadzone(-1).build();
     }
 }

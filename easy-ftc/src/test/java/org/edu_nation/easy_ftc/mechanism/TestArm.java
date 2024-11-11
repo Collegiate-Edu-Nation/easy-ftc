@@ -202,9 +202,9 @@ public class TestArm {
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc")
-                .gamepad(mockedGamepad).build();
-        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").encoder()
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").gamepad(mockedGamepad)
+                .build();
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").encoder()
                 .gamepad(mockedGamepad).build();
     }
 
@@ -212,9 +212,8 @@ public class TestArm {
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
-        Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc")
-                .encoder().build();
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").encoder().build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -231,7 +230,7 @@ public class TestArm {
     public void setGearingDual_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4)
-                .gearing(-1).build();
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4).gearing(-1)
+                .build();
     }
 }

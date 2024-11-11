@@ -31,7 +31,7 @@ public class TestClaw {
 
         try {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).names(new String[]{"claw"}).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"claw"}).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("claw").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("clawLeft")
@@ -120,14 +120,13 @@ public class TestClaw {
     public void reverseDual_ThrowsException() {
         mockInit();
 
-        Claw claw =
-                new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("abc").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void reverseSolo_ThrowsException() {
         mockInit();
 
-        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
     }
 }
