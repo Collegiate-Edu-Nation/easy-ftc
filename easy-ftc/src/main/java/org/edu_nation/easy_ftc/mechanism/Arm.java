@@ -28,9 +28,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Arm extends MotorMechanism {
-    private double up;
-    private double down;
-
     /**
      * Constructor
      */
@@ -146,50 +143,8 @@ public class Arm extends MotorMechanism {
         if (up == down) {
             setPowers(movements);
         } else {
-            int[] currentPositions = getCurrentPositions();
-            boolean move = true;
-
-            // determine if positional limits have been reached
-            if (diameter == 0.0) {
-                if (direction > 0) {
-                    for (int position : currentPositions) {
-                        move = (position < up) ? true : false;
-                        if (!move) {
-                            break;
-                        }
-                    }
-                } else if (direction < 0) {
-                    for (int position : currentPositions) {
-                        move = (position > down) ? true : false;
-                        if (!move) {
-                            break;
-                        }
-                    }
-                }
-            } else {
-                if (direction > 0) {
-                    int[] positions = ArmUtil.calculatePositions(up, diameter,
-                            distanceMultiplier, movements);
-                    for (int i = 0; i < count; i++) {
-                        move = (currentPositions[i] < positions[i]) ? true : false;
-                        if (!move) {
-                            break;
-                        }
-                    }
-                } else if (direction < 0) {
-                    int[] positions = ArmUtil.calculatePositions(down, diameter,
-                            distanceMultiplier, movements);
-                    for (int i = 0; i < count; i++) {
-                        move = (currentPositions[i] > positions[i]) ? true : false;
-                        if (!move) {
-                            break;
-                        }
-                    }
-                }
-            }
-
-            // setPowers if not
-            if (move) {
+            // setPowers if limits have not been reached
+            if (limitsNotReached(direction, movements)) {
                 setPowers(movements);
             } else {
                 setPowers();

@@ -24,6 +24,8 @@ abstract class MotorMechanism extends Mechanism {
     protected IMU imu;
     protected boolean encoder;
     protected DcMotor.ZeroPowerBehavior behavior;
+    protected double up;
+    protected double down;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
     protected double diameter;
@@ -241,6 +243,54 @@ abstract class MotorMechanism extends Mechanism {
             // tele())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    /**
+     * Determines whether positional limits have not yet been reached
+     */
+    protected boolean limitsNotReached(double direction, double[] movements) {
+        int[] currentPositions = getCurrentPositions();
+        boolean move = true;
+
+        if (diameter == 0.0) {
+            if (direction > 0) {
+                for (int position : currentPositions) {
+                    move = (position < up) ? true : false;
+                    if (!move) {
+                        break;
+                    }
+                }
+            } else if (direction < 0) {
+                for (int position : currentPositions) {
+                    move = (position > down) ? true : false;
+                    if (!move) {
+                        break;
+                    }
+                }
+            }
+        } else {
+            if (direction > 0) {
+                int[] positions = MotorMechanismUtil.calculatePositions(up, diameter,
+                        distanceMultiplier, movements);
+                for (int i = 0; i < count; i++) {
+                    move = (currentPositions[i] < positions[i]) ? true : false;
+                    if (!move) {
+                        break;
+                    }
+                }
+            } else if (direction < 0) {
+                int[] positions = MotorMechanismUtil.calculatePositions(down, diameter,
+                        distanceMultiplier, movements);
+                for (int i = 0; i < count; i++) {
+                    move = (currentPositions[i] > positions[i]) ? true : false;
+                    if (!move) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return move;
     }
 
     /**
