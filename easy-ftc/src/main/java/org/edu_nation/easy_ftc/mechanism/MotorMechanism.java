@@ -281,6 +281,12 @@ abstract class MotorMechanism extends Mechanism {
             } else if (direction < 0) {
                 int[] positions = MotorMechanismUtil.calculatePositions(down, diameter,
                         distanceMultiplier, movements);
+                if (down < 0) {
+                    // calculatePositions is absolute, so reverse values if negative value for down is used
+                    for (int i = 0; i < count; i++) {
+                        positions[i] *= -1;
+                    }
+                }
                 for (int i = 0; i < count; i++) {
                     move = (currentPositions[i] > positions[i]) ? true : false;
                     if (!move) {
