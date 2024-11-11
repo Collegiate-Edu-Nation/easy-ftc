@@ -4,7 +4,6 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -168,13 +167,7 @@ public class Drive extends MotorMechanism {
                 gamepad.left_stick_y, gamepad.left_stick_x, gamepad.right_stick_y,
                 gamepad.right_stick_x);
 
-        if (multiplier == 1.0) {
-            setPowers(movements);
-        } else {
-            double[] scaledMovements = MotorMechanismUtil
-                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
-            setPowers(scaledMovements);
-        }
+        setPowers(movements, multiplier);
     }
 
     /**

@@ -353,6 +353,19 @@ abstract class MotorMechanism extends Mechanism {
     }
 
     /**
+     * Scales movements by multiplier if applicable
+     */
+    protected void setPowers(double[] movements, double multiplier) {
+        if (multiplier == 1.0) {
+            setPowers(movements);
+        } else {
+            double[] scaledMovements = MotorMechanismUtil
+                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            setPowers(scaledMovements);
+        }
+    }
+
+    /**
      * Wrapper around setDirection for all motors
      */
     protected void setDirections(boolean reverse) {

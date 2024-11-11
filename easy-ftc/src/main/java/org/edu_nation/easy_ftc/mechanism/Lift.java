@@ -4,7 +4,6 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -143,23 +142,11 @@ public class Lift extends MotorMechanism {
 
         // set powers if up and down limits haven't been specified
         if (up == down) {
-            if (multiplier == 1.0) {
-                setPowers(movements);
-            } else {
-                double[] scaledMovements = MotorMechanismUtil
-                        .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
-                setPowers(scaledMovements);
-            }
+            setPowers(movements, multiplier);
         } else {
             // setPowers if limits have not been reached
             if (limitsNotReached(direction, movements)) {
-                if (multiplier == 1.0) {
-                    setPowers(movements);
-                } else {
-                    double[] scaledMovements = MotorMechanismUtil
-                            .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
-                    setPowers(scaledMovements);
-                }
+                setPowers(movements, multiplier);
             } else {
                 setPowers();
             }
