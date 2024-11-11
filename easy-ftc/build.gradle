@@ -70,9 +70,9 @@ android.libraryVariants.all { variant ->
             group = "build"
             description = "Generate the Javadoc for the public API's"
 
-            source = variant.javaCompiler.source
+            source = variant.javaCompileProvider.get().source
             classpath = files(((Object) android.bootClasspath.join(File.pathSeparator)))
-            classpath += variant.javaCompiler.classpath
+            classpath += variant.javaCompileProvider.get().classpath
             destinationDir = file('../docs/javadoc')
             failOnError false
 
