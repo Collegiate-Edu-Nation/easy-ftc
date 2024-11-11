@@ -10,23 +10,21 @@ import static org.junit.Assert.*;
 public class TestArmUtil {
     @Test
     public void controlToDirection_iscorrect() {
-        double power = 0.5;
-
         // Test no movement (both true)
-        double result = ArmUtil.controlToDirection(power, true, true);
+        double result = ArmUtil.controlToDirection(true, true);
         assertEquals(0, result, 0.01);
 
         // Test no movement (both false)
-        result = ArmUtil.controlToDirection(power, false, false);
+        result = ArmUtil.controlToDirection(false, false);
         assertEquals(0, result, 0.01);
 
         // Test up
-        result = ArmUtil.controlToDirection(power, false, true);
-        assertEquals(0.5, result, 0.01);
+        result = ArmUtil.controlToDirection(false, true);
+        assertEquals(1.0, result, 0.01);
 
         // Test down
-        result = ArmUtil.controlToDirection(power, true, false);
-        assertEquals(-0.5, result, 0.01);
+        result = ArmUtil.controlToDirection(true, false);
+        assertEquals(-1.0, result, 0.01);
     }
 
     @Test

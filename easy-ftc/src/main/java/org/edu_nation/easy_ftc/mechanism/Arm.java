@@ -4,6 +4,7 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import java.util.Arrays;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -132,19 +133,19 @@ public class Arm extends MotorMechanism {
      */
     @Override
     public void tele(double power) {
+        double[] unscaledMovements = new double[count];
         double[] movements = new double[count];
         double direction =
-                ArmUtil.controlToDirection(power, gamepad.left_bumper, gamepad.right_bumper);
-        for (int i = 0; i < count; i++) {
-            movements[i] = direction;
-        }
+                ArmUtil.controlToDirection(gamepad.left_bumper, gamepad.right_bumper);
+        Arrays.fill(unscaledMovements, direction);
+        Arrays.fill(movements, power * direction);
 
         // setPowers if up and down limits haven't been specified
         if (up == down) {
             setPowers(movements);
         } else {
             // setPowers if limits have not been reached
-            if (limitsNotReached(direction, movements)) {
+            if (limitsNotReached(direction, unscaledMovements)) {
                 setPowers(movements);
             } else {
                 setPowers();

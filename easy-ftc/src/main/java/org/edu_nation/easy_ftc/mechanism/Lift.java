@@ -4,6 +4,8 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import java.util.Arrays;
+import java.lang.Math;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -134,18 +136,21 @@ public class Lift extends MotorMechanism {
     @Override
     public void tele(double multiplier) {
         double[] movements = new double[count];
+        double[] unscaledMovements = new double[count];
         double direction =
                 LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
-        for (int i = 0; i < count; i++) {
-            movements[i] = direction;
+        Arrays.fill(movements, direction);
+        if (direction != 0) {
+            direction = (direction > 0) ? 1 : -1;
         }
+        Arrays.fill(unscaledMovements, direction);
 
         // set powers if up and down limits haven't been specified
         if (up == down) {
             setPowers(movements, multiplier);
         } else {
             // setPowers if limits have not been reached
-            if (limitsNotReached(direction, movements)) {
+            if (limitsNotReached(direction, unscaledMovements)) {
                 setPowers(movements, multiplier);
             } else {
                 setPowers();
