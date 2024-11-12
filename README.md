@@ -1,4 +1,6 @@
-# easy-ftc
+<div align="center">
+<img src='docs/images/easy-ftc.png' height=96px>
+
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
 ![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-blue)
 ![Static Badge](https://img.shields.io/badge/Android_API-30-blue)
@@ -6,6 +8,7 @@
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
 ![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
+</div>
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 * Arm
@@ -118,7 +121,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Add 'Common Issues' section
 - [ ] Add graphics for blocks and onbot usage, controls
 - [x] Flesh out controls for different drive configurations
-- [ ] Create logo
+- [x] Create logo
 
 ## License
 [GPLv3](COPYING)
