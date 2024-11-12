@@ -22,7 +22,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 <i>Docs cover Javadoc, examples, controls, and diagrams</i>
 
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (move(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern.
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern.
 
 <i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization. Supported sensors are: color, distance, and touch</i>
 
@@ -41,7 +41,7 @@ This library greatly simplifies hardware initialization and control by abstracti
     * e.g. use a different constructor, call drive.reverse(), etc.</i>
 * Press the gear icon on the bottom right with the title 'Build Everything'
 * A new menu option 'Java Classes' should be visible in the Blockly GUI now
-* Each class listed there will provide several methods from easy-ftc, like control(), move(), and state()
+* Each class listed there will provide several methods from easy-ftc, like control(), command(), and state()
 
 ### OnBot Java
 * Upload the .aar using OnBot Java's GUI
@@ -114,7 +114,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ### Documentation
 - [ ] Update uml
-- [ ] Improve code comments (esp. move(), Builder)
+- [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add hardware naming section
 - [ ] Improve usage instructions
 - [ ] Add more examples

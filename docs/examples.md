@@ -23,7 +23,7 @@
             waitForStart();
             if (opModeIsActive()) {
                 // Move drivetrain forward at half power for 2 seconds
-                drive.move(0.5, "forward", 2);
+                drive.command(0.5, "forward", 2);
             }
         }
     }

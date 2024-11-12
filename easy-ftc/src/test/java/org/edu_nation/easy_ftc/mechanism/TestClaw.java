@@ -94,8 +94,8 @@ public class TestClaw {
         try {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
             Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
-            claw.move("open");
-            clawSmooth.move("open");
+            claw.command("open");
+            clawSmooth.command("open");
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -109,8 +109,8 @@ public class TestClaw {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             Claw clawSmooth =
                     new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
-            claw.move("open");
-            clawSmooth.move("open");
+            claw.command("open");
+            clawSmooth.command("open");
         } catch (Exception e) {
             fail(e.getMessage());
         }

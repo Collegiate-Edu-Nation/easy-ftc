@@ -28,7 +28,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param String layout ("tank" or "arcade")
  *        <p>
  * @Methods {@link #control()}
- *          <li>{@link #move(double power, String direction, double measurement)}
+ *          <li>{@link #command(double power, String direction, double measurement)}
  */
 public class Drive extends MotorMechanism {
     private String type;
@@ -195,7 +195,7 @@ public class Drive extends MotorMechanism {
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
-    public void move(double power, String direction, double measurement) {
+    public void command(double power, String direction, double measurement) {
         double[] unscaledMovements = languageToDirection(count, type, direction);
         moveForMeasurement(unscaledMovements, power, measurement);
     }
@@ -295,7 +295,7 @@ public class Drive extends MotorMechanism {
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected direction: " + direction
-                            + ", passed to Differential.move(). Valid directions are: forward, backward, rotateLeft, rotateRight");
+                            + ", passed to Differential.command(). Valid directions are: forward, backward, rotateLeft, rotateRight");
             }
 
             return motorDirections;
@@ -364,7 +364,7 @@ public class Drive extends MotorMechanism {
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected direction: " + direction
-                            + ", passed to Mecanum.move(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
+                            + ", passed to Mecanum.command(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
             }
 
             return motorDirections;

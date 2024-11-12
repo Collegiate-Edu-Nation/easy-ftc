@@ -108,7 +108,7 @@ abstract class ServoMechanism extends Mechanism {
         protected abstract T self();
     }
 
-    public abstract void move(String direction);
+    public abstract void command(String direction);
 
     /**
      * Reverse the direction of the specified servo
@@ -241,7 +241,7 @@ abstract class ServoMechanism extends Mechanism {
             default:
                 throw new IllegalArgumentException(
                         "Unexpected direction: " + direction + ", passed to " + mechanismName
-                                + ".move(). Valid directions are: open, close");
+                                + ".command(). Valid directions are: open, close");
         }
         return servoDirection;
     }

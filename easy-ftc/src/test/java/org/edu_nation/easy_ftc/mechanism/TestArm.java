@@ -171,9 +171,9 @@ public class TestArm {
             Arm armPos =
                     new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
 
-            arm.move(0.5, "up", 1);
-            armEnc.move(0.5, "up", 1);
-            armPos.move(0.5, "up", 12);
+            arm.command(0.5, "up", 1);
+            armEnc.command(0.5, "up", 1);
+            armPos.command(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -190,9 +190,9 @@ public class TestArm {
             Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .length(4).build();
 
-            arm.move(0.5, "up", 1);
-            armEnc.move(0.5, "up", 1);
-            armPos.move(0.5, "up", 12);
+            arm.command(0.5, "up", 1);
+            armEnc.command(0.5, "up", 1);
+            armPos.command(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }

@@ -174,9 +174,9 @@ public class TestLift {
             Lift liftPos =
                     new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
 
-            lift.move(0.5, "up", 1);
-            liftEnc.move(0.5, "up", 1);
-            liftPos.move(0.5, "up", 12);
+            lift.command(0.5, "up", 1);
+            liftEnc.command(0.5, "up", 1);
+            liftPos.command(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -193,9 +193,9 @@ public class TestLift {
             Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).build();
 
-            lift.move(0.5, "up", 1);
-            liftEnc.move(0.5, "up", 1);
-            liftPos.move(0.5, "up", 12);
+            lift.command(0.5, "up", 1);
+            liftEnc.command(0.5, "up", 1);
+            liftPos.command(0.5, "up", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }

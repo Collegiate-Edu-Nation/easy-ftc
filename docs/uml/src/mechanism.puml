@@ -37,7 +37,7 @@ abstract class MotorMechanism {
     # length: double
     # gearing: double
     # deadzone: double
-    {abstract}+ move(double power, String direction, double measurement)
+    {abstract}+ command(double power, String direction, double measurement)
     # setPositions(int[] positions, int[] currentPositions)
     # setModesEx(DcMotorEx.RunMode runMode)
     # setModes(DcMotor.RunMode runMode)
@@ -99,14 +99,14 @@ class Arm {
     # init()
     + control(double power)
     + control()
-    + move(double power, String direction, double measurement)
+    + command(double power, String direction, double measurement)
     # reverse(String deviceName)
 }
 
 class Claw {
     # init()
     + control()
-    + move(String direction)
+    + command(String direction)
     # reverse(String deviceName)
 }
 
@@ -116,14 +116,14 @@ class Drive {
     - layout: String
     # init()
     + control()
-    + move(double power, String direction, double measurement)
+    + command(double power, String direction, double measurement)
     # reverse(String deviceName)
 }
 
 class Lift {
     # init()
     + control()
-    + move(double power, String direction, double measurement)
+    + command(double power, String direction, double measurement)
     # reverse(String deviceName)
 }
 

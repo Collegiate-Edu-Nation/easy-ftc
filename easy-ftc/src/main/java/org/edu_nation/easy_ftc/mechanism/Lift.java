@@ -26,7 +26,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
  * @Methods {@link #control()}
- *          <li>{@link #move(double power, String direction, double measurement)}
+ *          <li>{@link #command(double power, String direction, double measurement)}
  */
 public class Lift extends MotorMechanism {
     /**
@@ -176,7 +176,7 @@ public class Lift extends MotorMechanism {
      * Valid directions are: up, down
      */
     @Override
-    public void move(double power, String direction, double measurement) {
+    public void command(double power, String direction, double measurement) {
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
@@ -207,7 +207,7 @@ public class Lift extends MotorMechanism {
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to Lift.move(). Valid directions are: up, down");
+                        + ", passed to Lift.command(). Valid directions are: up, down");
         }
         return motorDirection;
     }

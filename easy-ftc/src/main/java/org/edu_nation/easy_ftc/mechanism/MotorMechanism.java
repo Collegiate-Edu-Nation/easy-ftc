@@ -116,7 +116,7 @@ abstract class MotorMechanism extends Mechanism {
 
     public abstract void control(double multiplier);
 
-    public abstract void move(double power, String direction, double measurement);
+    public abstract void command(double power, String direction, double measurement);
 
     /**
      * Reverse the direction of the specified motor
@@ -240,7 +240,7 @@ abstract class MotorMechanism extends Mechanism {
             }
             setPowers();
 
-            // Reset motors to run using velocity (allows for using move() w/ length along w/
+            // Reset motors to run using velocity (allows for using command() w/ length along w/
             // control())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }

@@ -26,7 +26,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  *        <p>
  * @Methods {@link #control(double power)}
  *          <li>{@link #control()} (defaults to 0.5 power if nothing is passed)
- *          <li>{@link #move(double power, String direction, double measurement)}
+ *          <li>{@link #command(double power, String direction, double measurement)}
  */
 public class Arm extends MotorMechanism {
     /**
@@ -171,7 +171,7 @@ public class Arm extends MotorMechanism {
      * Valid directions are: up, down
      */
     @Override
-    public void move(double power, String direction, double measurement) {
+    public void command(double power, String direction, double measurement) {
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
@@ -204,7 +204,7 @@ public class Arm extends MotorMechanism {
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to Arm.move(). Valid directions are: up, down");
+                        + ", passed to Arm.command(). Valid directions are: up, down");
         }
         return motorDirection;
     }

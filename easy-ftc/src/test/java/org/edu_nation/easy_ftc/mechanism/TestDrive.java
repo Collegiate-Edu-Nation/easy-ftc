@@ -178,9 +178,9 @@ public class TestDrive {
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .diameter(4).build();
 
-            drive.move(0.5, "forward", 1);
-            driveEnc.move(0.5, "forward", 1);
-            drivePos.move(0.5, "forward", 12);
+            drive.command(0.5, "forward", 1);
+            driveEnc.command(0.5, "forward", 1);
+            drivePos.command(0.5, "forward", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -198,9 +198,9 @@ public class TestDrive {
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .diameter(4).type("mecanum").build();
 
-            drive.move(0.5, "forward", 1);
-            driveEnc.move(0.5, "forward", 1);
-            drivePos.move(0.5, "forward", 12);
+            drive.command(0.5, "forward", 1);
+            driveEnc.command(0.5, "forward", 1);
+            drivePos.command(0.5, "forward", 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
