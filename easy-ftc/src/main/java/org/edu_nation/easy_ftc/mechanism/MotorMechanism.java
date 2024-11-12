@@ -114,7 +114,7 @@ abstract class MotorMechanism extends Mechanism {
         protected abstract T self();
     }
 
-    public abstract void tele(double multiplier);
+    public abstract void control(double multiplier);
 
     public abstract void move(double power, String direction, double measurement);
 
@@ -241,7 +241,7 @@ abstract class MotorMechanism extends Mechanism {
             setPowers();
 
             // Reset motors to run using velocity (allows for using move() w/ length along w/
-            // tele())
+            // control())
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }

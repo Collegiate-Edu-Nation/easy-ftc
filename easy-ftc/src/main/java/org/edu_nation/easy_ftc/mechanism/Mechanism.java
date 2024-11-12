@@ -89,7 +89,7 @@ abstract class Mechanism {
 
     protected abstract void init();
 
-    public abstract void tele();
+    public abstract void control();
 
     protected abstract void reverse(String deviceName);
 

@@ -140,10 +140,10 @@ public class TestDrive {
             Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .gamepad(mockedGamepad).type("mecanum").build();
 
-            drive.tele();
-            drive.tele(0.9);
-            driveEnc.tele();
-            driveEnc.tele(0.9);
+            drive.control();
+            drive.control(0.9);
+            driveEnc.control();
+            driveEnc.control(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -159,10 +159,10 @@ public class TestDrive {
             Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .gamepad(mockedGamepad).build();
 
-            drive.tele();
-            drive.tele(0.9);
-            driveEnc.tele();
-            driveEnc.tele(0.9);
+            drive.control();
+            drive.control(0.9);
+            driveEnc.control();
+            driveEnc.control(0.9);
         } catch (Exception e) {
             fail(e.getMessage());
         }

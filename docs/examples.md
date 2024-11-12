@@ -47,7 +47,7 @@
             
             waitForStart();
             while (opModeIsActive()) {
-                drive.tele();
+                drive.control();
             }
         }
     }

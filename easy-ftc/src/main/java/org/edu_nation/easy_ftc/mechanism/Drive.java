@@ -27,7 +27,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @param String type ("mecanum" or "differential")
  * @param String layout ("tank" or "arcade")
  *        <p>
- * @Methods {@link #tele()}
+ * @Methods {@link #control()}
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Drive extends MotorMechanism {
@@ -153,7 +153,7 @@ public class Drive extends MotorMechanism {
      * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     @Override
-    public void tele(double multiplier) {
+    public void control(double multiplier) {
         double heading = 0;
         // Press option to reset imu to combat drift, set heading if applicable
         if (layout == "field") {
@@ -181,8 +181,8 @@ public class Drive extends MotorMechanism {
      * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     @Override
-    public void tele() {
-        tele(1.0);
+    public void control() {
+        control(1.0);
     }
 
     /**
@@ -215,7 +215,7 @@ public class Drive extends MotorMechanism {
                 right = map(-leftY, deadzone) - map(rightX, deadzone);
             } else {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Differential.tele(). Valid layouts are: tank, arcade");
+                        + ", passed to Differential.control(). Valid layouts are: tank, arcade");
             }
 
             double[] movements = new double[count];
@@ -258,7 +258,7 @@ public class Drive extends MotorMechanism {
                 backRight = ((axial_relative + lateral_relative - yaw) / max);
             } else {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Mecanum.tele(). Valid layouts are: robot, field");
+                        + ", passed to Mecanum.control(). Valid layouts are: robot, field");
             }
 
             double[] movements = {frontLeft, frontRight, backLeft, backRight};

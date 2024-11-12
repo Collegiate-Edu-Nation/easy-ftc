@@ -173,7 +173,7 @@ abstract class ServoMechanism extends Mechanism {
 
     /**
      * Wrapper around setPositionsByIncrement that enables smooth servo movement until the desired
-     * position is reached. The loop causes thread-blocking, so it's not used for tele() calls
+     * position is reached. The loop causes thread-blocking, so it's not used for control() calls
      */
     protected void setPositionsByIncrementUntilComplete(double position, double movement) {
         while (opMode.opModeIsActive() && position != movement) {

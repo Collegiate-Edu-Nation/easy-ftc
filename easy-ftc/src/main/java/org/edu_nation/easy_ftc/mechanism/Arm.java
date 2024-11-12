@@ -24,8 +24,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @param Double gearing (> 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
- * @Methods {@link #tele(double power)}
- *          <li>{@link #tele()} (defaults to 0.5 power if nothing is passed)
+ * @Methods {@link #control(double power)}
+ *          <li>{@link #control()} (defaults to 0.5 power if nothing is passed)
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Arm extends MotorMechanism {
@@ -132,7 +132,7 @@ public class Arm extends MotorMechanism {
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele(double power) {
+    public void control(double power) {
         double[] unscaledMovements = new double[count];
         double[] movements = new double[count];
         double direction = controlToDirection(gamepad.left_bumper, gamepad.right_bumper);
@@ -158,8 +158,8 @@ public class Arm extends MotorMechanism {
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele() {
-        tele(0.5);
+    public void control() {
+        control(0.5);
     }
 
     /**

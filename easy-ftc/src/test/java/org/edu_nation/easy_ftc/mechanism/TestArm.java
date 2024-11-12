@@ -103,23 +103,23 @@ public class TestArm {
             Arm armDia = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(5)
                     .up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
-            arm.tele();
-            arm.tele(0.5);
-            armEnc.tele();
-            armEnc.tele(0.5);
+            arm.control();
+            arm.control(0.5);
+            armEnc.control();
+            armEnc.control(0.5);
 
             FieldUtils.writeField(mockedGamepad, "left_bumper", true);
-            armPos.tele();
-            armPos.tele(0.5);
-            armDia.tele();
-            armDia.tele(0.5);
+            armPos.control();
+            armPos.control(0.5);
+            armDia.control();
+            armDia.control(0.5);
 
             FieldUtils.writeField(mockedGamepad, "left_bumper", false);
             FieldUtils.writeField(mockedGamepad, "right_bumper", true);
-            armPos.tele();
-            armPos.tele(0.5);
-            armDia.tele();
-            armDia.tele(0.5);
+            armPos.control();
+            armPos.control(0.5);
+            armDia.control();
+            armDia.control(0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -139,23 +139,23 @@ public class TestArm {
             Arm armDia = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .length(5).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
-            arm.tele();
-            arm.tele(5);
-            armEnc.tele();
-            armEnc.tele(5);
+            arm.control();
+            arm.control(5);
+            armEnc.control();
+            armEnc.control(5);
 
             FieldUtils.writeField(mockedGamepad, "left_bumper", true);
-            armPos.tele();
-            armPos.tele(0.5);
-            armDia.tele();
-            armDia.tele(0.5);
+            armPos.control();
+            armPos.control(0.5);
+            armDia.control();
+            armDia.control(0.5);
 
             FieldUtils.writeField(mockedGamepad, "left_bumper", false);
             FieldUtils.writeField(mockedGamepad, "right_bumper", true);
-            armPos.tele();
-            armPos.tele(0.5);
-            armDia.tele();
-            armDia.tele(0.5);
+            armPos.control();
+            armPos.control(0.5);
+            armDia.control();
+            armDia.control(0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }

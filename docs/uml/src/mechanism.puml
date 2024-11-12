@@ -12,7 +12,7 @@ abstract class Mechanism {
     # timer: ElapsedTime
     # mechanismName: String
     {abstract}# init()
-    {abstract}+ tele()
+    {abstract}+ control()
     {abstract}+ reverse()
     + wait(double time)
 }
@@ -97,15 +97,15 @@ abstract class "Builder" as ServoMechanism_Builder {
 
 class Arm {
     # init()
-    + tele(double power)
-    + tele()
+    + control(double power)
+    + control()
     + move(double power, String direction, double measurement)
     # reverse(String deviceName)
 }
 
 class Claw {
     # init()
-    + tele()
+    + control()
     + move(String direction)
     # reverse(String deviceName)
 }
@@ -115,14 +115,14 @@ class Drive {
     - type: String
     - layout: String
     # init()
-    + tele()
+    + control()
     + move(double power, String direction, double measurement)
     # reverse(String deviceName)
 }
 
 class Lift {
     # init()
-    + tele()
+    + control()
     + move(double power, String direction, double measurement)
     # reverse(String deviceName)
 }

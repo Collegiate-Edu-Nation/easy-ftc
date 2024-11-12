@@ -64,8 +64,8 @@ public class TestClaw {
                     .build();
             Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth()
                     .gamepad(mockedGamepad).build();
-            claw.tele();
-            clawSmooth.tele();
+            claw.control();
+            clawSmooth.control();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -80,8 +80,8 @@ public class TestClaw {
                     .gamepad(mockedGamepad).build();
             Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
                     .gamepad(mockedGamepad).build();
-            claw.tele();
-            clawSmooth.tele();
+            claw.control();
+            clawSmooth.control();
         } catch (Exception e) {
             fail(e.getMessage());
         }

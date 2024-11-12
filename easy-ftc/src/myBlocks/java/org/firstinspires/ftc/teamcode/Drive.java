@@ -19,10 +19,10 @@ public class Drive extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(comment = "Enables teleoperated drive movement with gamepad (inherits layout)")
-    public static void tele() {
+    public static void control() {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
                 new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
                         .gamepad(gamepad1).build();
-        drive.tele();
+        drive.control();
     }
 }

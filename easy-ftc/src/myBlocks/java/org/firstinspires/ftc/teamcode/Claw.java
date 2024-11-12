@@ -19,10 +19,10 @@ public class Claw extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(comment = "Enables teleoperated claw movement with gamepad")
-    public static void tele() {
+    public static void control() {
         org.edu_nation.easy_ftc.mechanism.Claw claw =
                 new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
                         .gamepad(gamepad1).build();
-        claw.tele();
+        claw.control();
     }
 }

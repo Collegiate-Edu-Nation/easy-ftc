@@ -19,18 +19,18 @@ public class Arm extends BlocksOpModeCompanion {
 
         @ExportToBlocks(comment = "Enables teleoperated arm movement with gamepad at a specified power (defaults to 0.5)",
                         parameterLabels = {"Power"})
-        public static void tele(double power) {
+        public static void control(double power) {
                 org.edu_nation.easy_ftc.mechanism.Arm arm =
                                 new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode,
                                                 hardwareMap).gamepad(gamepad1).build();
-                arm.tele(power);
+                arm.control(power);
         }
 
         @ExportToBlocks(comment = "Enables teleoperated arm movement with gamepad at a power of 0.5 (this is the default case)")
-        public static void tele() {
+        public static void control() {
                 org.edu_nation.easy_ftc.mechanism.Arm arm =
                                 new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode,
                                                 hardwareMap).gamepad(gamepad1).build();
-                arm.tele();
+                arm.control();
         }
 }

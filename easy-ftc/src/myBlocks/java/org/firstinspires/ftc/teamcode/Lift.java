@@ -19,10 +19,10 @@ public class Lift extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(comment = "Enables teleoperated lift movement with gamepad")
-    public static void tele() {
+    public static void control() {
         org.edu_nation.easy_ftc.mechanism.Lift lift =
                 new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
                         .gamepad(gamepad1).build();
-        lift.tele();
+        lift.control();
     }
 }

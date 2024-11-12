@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @param Double deadzone (>= 0.0)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
- * @Methods {@link #tele()}
+ * @Methods {@link #control()}
  *          <li>{@link #move(double power, String direction, double measurement)}
  */
 public class Lift extends MotorMechanism {
@@ -133,7 +133,7 @@ public class Lift extends MotorMechanism {
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele(double multiplier) {
+    public void control(double multiplier) {
         double[] movements = new double[count];
         double[] unscaledMovements = new double[count];
         double direction =
@@ -163,8 +163,8 @@ public class Lift extends MotorMechanism {
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele() {
-        tele(1.0);
+    public void control() {
+        control(1.0);
     }
 
     /**

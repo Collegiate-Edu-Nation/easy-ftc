@@ -25,7 +25,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * @param Double delay (> 0, in s)
  * @param Gamepad gamepad (gamepad1 or gamepad2)
  *        <p>
- * @Methods {@link #tele()}
+ * @Methods {@link #control()}
  *          <li>{@link #move(String direction)}
  */
 public class Claw extends ServoMechanism {
@@ -105,7 +105,7 @@ public class Claw extends ServoMechanism {
      * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
-    public void tele() {
+    public void control() {
         double position = servos[0].getPosition();
         double movement = controlToDirection(open, close, position, gamepad.b, gamepad.a);
         if (smooth) {
