@@ -14,6 +14,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 ## What's here?
 
 * Javadoc
+* Usage
 * Examples
 * Controls
 * Diagrams
