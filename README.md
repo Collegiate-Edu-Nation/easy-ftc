@@ -1,5 +1,5 @@
 <div align="center">
-<img src='docs/images/easy-ftc.png' height=96px>
+<img src='docs/images/easy-ftc_color.png' height=96px>
 
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
 ![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-blue)
