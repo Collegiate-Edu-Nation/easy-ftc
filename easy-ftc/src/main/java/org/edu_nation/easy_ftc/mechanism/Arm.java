@@ -135,8 +135,7 @@ public class Arm extends MotorMechanism {
     public void tele(double power) {
         double[] unscaledMovements = new double[count];
         double[] movements = new double[count];
-        double direction =
-                ArmUtil.controlToDirection(gamepad.left_bumper, gamepad.right_bumper);
+        double direction = controlToDirection(gamepad.left_bumper, gamepad.right_bumper);
         Arrays.fill(unscaledMovements, direction);
         Arrays.fill(movements, power * direction);
 
@@ -173,11 +172,40 @@ public class Arm extends MotorMechanism {
      */
     @Override
     public void move(double power, String direction, double measurement) {
-        double movement = ArmUtil.languageToDirection(direction);
+        double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
         moveForMeasurement(unscaledMovements, power, measurement);
+    }
+
+    /**
+     * Sets arm motor movements based on bumpers
+     */
+    protected static double controlToDirection(boolean lb, boolean rb) {
+        int down = lb ? 1 : 0;
+        int up = rb ? 1 : 0;
+        double arm = up - down;
+        return arm;
+    }
+
+    /**
+     * Translate natural-language direction to numeric values
+     */
+    protected static double languageToDirection(String direction) {
+        double motorDirection;
+        switch (direction) {
+            case "up":
+                motorDirection = 1;
+                break;
+            case "down":
+                motorDirection = -1;
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected direction: " + direction
+                        + ", passed to Arm.move(). Valid directions are: up, down");
+        }
+        return motorDirection;
     }
 }

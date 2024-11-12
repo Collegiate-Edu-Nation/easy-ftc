@@ -137,7 +137,7 @@ public class Lift extends MotorMechanism {
         double[] movements = new double[count];
         double[] unscaledMovements = new double[count];
         double direction =
-                LiftUtil.controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
+                controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
         Arrays.fill(movements, direction);
         if (direction != 0) {
             direction = (direction > 0) ? 1 : -1;
@@ -177,11 +177,38 @@ public class Lift extends MotorMechanism {
      */
     @Override
     public void move(double power, String direction, double measurement) {
-        double movement = LiftUtil.languageToDirection(direction);
+        double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
         moveForMeasurement(unscaledMovements, power, measurement);
+    }
+
+    /**
+     * Set lift motor movements based on triggers
+     */
+    protected static double controlToDirection(double deadzone, float lt, float rt) {
+        double lift = map(rt, deadzone) - map(lt, deadzone);
+        return lift;
+    }
+
+    /**
+     * Translate natural-language direction to numeric values
+     */
+    protected static double languageToDirection(String direction) {
+        double motorDirection;
+        switch (direction) {
+            case "up":
+                motorDirection = 1;
+                break;
+            case "down":
+                motorDirection = -1;
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected direction: " + direction
+                        + ", passed to Lift.move(). Valid directions are: up, down");
+        }
+        return motorDirection;
     }
 }

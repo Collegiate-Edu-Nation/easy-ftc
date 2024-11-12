@@ -219,16 +219,17 @@ abstract class MotorMechanism extends Mechanism {
     /**
      * Moves the mechanism for the given measurement at power
      */
-    protected void moveForMeasurement(double[] unscaledMovements, double power, double measurement) {
-        double[] movements = MotorMechanismUtil.scaleDirections(power, unscaledMovements);
+    protected void moveForMeasurement(double[] unscaledMovements, double power,
+            double measurement) {
+        double[] movements = scaleDirections(power, unscaledMovements);
 
         if (diameter == 0.0) {
             setPowers(movements);
             wait(measurement);
             setPowers();
         } else {
-            int[] positions = MotorMechanismUtil.calculatePositions(measurement, diameter,
-                    distanceMultiplier, unscaledMovements);
+            int[] positions = calculatePositions(measurement, diameter, distanceMultiplier,
+                    unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position
@@ -270,8 +271,7 @@ abstract class MotorMechanism extends Mechanism {
             }
         } else {
             if (direction > 0) {
-                int[] positions = MotorMechanismUtil.calculatePositions(up, diameter,
-                        distanceMultiplier, movements);
+                int[] positions = calculatePositions(up, diameter, distanceMultiplier, movements);
                 for (int i = 0; i < count; i++) {
                     move = (currentPositions[i] < positions[i]) ? true : false;
                     if (!move) {
@@ -279,10 +279,10 @@ abstract class MotorMechanism extends Mechanism {
                     }
                 }
             } else if (direction < 0) {
-                int[] positions = MotorMechanismUtil.calculatePositions(down, diameter,
-                        distanceMultiplier, movements);
+                int[] positions = calculatePositions(down, diameter, distanceMultiplier, movements);
                 if (down < 0) {
-                    // calculatePositions is absolute, so reverse values if negative value for down is used
+                    // calculatePositions is absolute, so reverse values if negative value for down
+                    // is used
                     for (int i = 0; i < count; i++) {
                         positions[i] *= -1;
                     }
@@ -365,8 +365,8 @@ abstract class MotorMechanism extends Mechanism {
         if (multiplier == 1.0) {
             setPowers(movements);
         } else {
-            double[] scaledMovements = MotorMechanismUtil
-                    .scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+            double[] scaledMovements =
+                    scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
             setPowers(scaledMovements);
         }
     }
@@ -499,6 +499,59 @@ abstract class MotorMechanism extends Mechanism {
             currentPositions[i] = motorsEx[i].getCurrentPosition();
         }
         return currentPositions;
+    }
+
+    /**
+     * Maps controller value from [-1,-deadzone] U [deadzone,1] -> [-1,1], enabling controller
+     * deadzone
+     * 
+     * @Defaults deadzone = 0.0
+     */
+    protected static double map(double controllerValue, double deadzone) {
+        if (deadzone == 0.0) {
+            return controllerValue;
+        }
+
+        double mappedValue;
+        if (Math.abs(controllerValue) < Math.abs(deadzone)) {
+            mappedValue = 0;
+        } else {
+            mappedValue = ((Math.abs(controllerValue) - deadzone) / (1.0 - deadzone));
+            if (controllerValue < 0) {
+                mappedValue *= -1;
+            }
+        }
+        return mappedValue;
+    }
+
+    /**
+     * Scale directions by a factor of power to derive actual, intended motor movements
+     */
+    protected static double[] scaleDirections(double power, double[] motorDirections) {
+        int arrLength = motorDirections.length;
+        double[] movements = new double[arrLength];
+        for (int i = 0; i < arrLength; i++) {
+            movements[i] = power * motorDirections[i];
+        }
+        return movements;
+    }
+
+    /**
+     * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
+     */
+    protected static int[] calculatePositions(double distance, double diameter,
+            double distanceMultiplier, double[] movements) {
+        double circumference = Math.PI * diameter;
+        double revolutions = distance / circumference;
+        double positionRaw = revolutions * distanceMultiplier;
+        int position = (int) Math.round(positionRaw);
+
+        int arrLength = movements.length;
+        int[] positions = new int[arrLength];
+        for (int i = 0; i < arrLength; i++) {
+            positions[i] = (int) movements[i] * position;
+        }
+        return positions;
     }
 
     /**
