@@ -85,4 +85,39 @@ public class TestColor {
         result = mockedColorReverse.state();
         assertEquals("blue", result);
     }
+
+    @Test
+    public void dominantColor_isCorrect() {
+        int[][] rgbRawArrays =
+                {{76, 110, 85}, {75, 111, 85}, {75, 110, 86}, {75, 110, 85}, {76, 111, 86}};
+        int[] rgbOffsets = {10, -25, 0};
+        double calibrationValue = 85.0;
+
+        String[] colorsExpected = {"red", "green", "blue", "", ""};
+        String[] colorsActual = {Color.dominantColor(rgbRawArrays[0], rgbOffsets, calibrationValue),
+                Color.dominantColor(rgbRawArrays[1], rgbOffsets, calibrationValue),
+                Color.dominantColor(rgbRawArrays[2], rgbOffsets, calibrationValue),
+                Color.dominantColor(rgbRawArrays[3], rgbOffsets, calibrationValue),
+                Color.dominantColor(rgbRawArrays[4], rgbOffsets, calibrationValue)};
+
+        for (int i = 0; i < colorsActual.length; i++) {
+            assertEquals(colorsExpected[i], colorsActual[i]);
+        }
+    }
+
+    @Test
+    public void weakColor_isCorrect() {
+        int[][] rgbRawArrays = {{74, 110, 85}, {75, 109, 85}, {75, 110, 84}, {75, 110, 85}};
+        int[] rgbOffsets = {10, -25, 0};
+
+        String[] colorsExpected = {"red", "green", "blue", ""};
+        String[] colorsActual = {Color.weakColor(rgbRawArrays[0], rgbOffsets),
+                Color.weakColor(rgbRawArrays[1], rgbOffsets),
+                Color.weakColor(rgbRawArrays[2], rgbOffsets),
+                Color.weakColor(rgbRawArrays[3], rgbOffsets)};
+
+        for (int i = 0; i < colorsActual.length; i++) {
+            assertEquals(colorsExpected[i], colorsActual[i]);
+        }
+    }
 }
