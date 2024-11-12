@@ -46,7 +46,7 @@ abstract class Sensor<S, V> {
 
         public abstract Sensor<?, ?> build();
 
-        public abstract T self();
+        protected abstract T self();
     }
 
     protected abstract void init();

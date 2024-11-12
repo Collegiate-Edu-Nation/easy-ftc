@@ -84,7 +84,7 @@ abstract class Mechanism {
 
         public abstract Mechanism build();
 
-        public abstract T self();
+        protected abstract T self();
     }
 
     protected abstract void init();

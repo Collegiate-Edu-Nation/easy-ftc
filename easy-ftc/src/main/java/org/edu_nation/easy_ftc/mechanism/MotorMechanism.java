@@ -111,7 +111,7 @@ abstract class MotorMechanism extends Mechanism {
 
         public abstract MotorMechanism build();
 
-        public abstract T self();
+        protected abstract T self();
     }
 
     public abstract void tele(double multiplier);

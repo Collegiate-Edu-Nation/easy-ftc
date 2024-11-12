@@ -59,7 +59,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

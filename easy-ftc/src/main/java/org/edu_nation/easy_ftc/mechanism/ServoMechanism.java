@@ -105,7 +105,7 @@ abstract class ServoMechanism extends Mechanism {
 
         public abstract ServoMechanism build();
 
-        public abstract T self();
+        protected abstract T self();
     }
 
     public abstract void move(String direction);

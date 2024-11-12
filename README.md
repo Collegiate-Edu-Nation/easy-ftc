@@ -105,7 +105,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [x] Investigate unscaled movements in arm, lift positionally-limited tele (at least arm)
 - [ ] Add reverse(String[] names) wrapper
 - [ ] Investigate further consolidation of builders (esp names, count, etc)
-- [ ] make self() protected
+- [x] make self() protected
 - [ ] Sub tele() for control()
 - [x] Move utils to mechanism classes
 - [ ] Use public enums for direction, type, layout

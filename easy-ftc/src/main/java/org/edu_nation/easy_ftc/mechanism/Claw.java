@@ -94,7 +94,7 @@ public class Claw extends ServoMechanism {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

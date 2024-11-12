@@ -85,7 +85,7 @@ public class Color extends Sensor<ColorSensor, String> {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

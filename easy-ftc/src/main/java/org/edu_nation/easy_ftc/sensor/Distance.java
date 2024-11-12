@@ -72,7 +72,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

@@ -121,7 +121,7 @@ public class Arm extends MotorMechanism {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

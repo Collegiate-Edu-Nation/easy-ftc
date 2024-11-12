@@ -136,7 +136,7 @@ public class Drive extends MotorMechanism {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }

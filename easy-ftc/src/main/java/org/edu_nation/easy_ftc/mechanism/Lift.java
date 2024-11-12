@@ -122,7 +122,7 @@ public class Lift extends MotorMechanism {
         }
 
         @Override
-        public Builder self() {
+        protected Builder self() {
             return this;
         }
     }
