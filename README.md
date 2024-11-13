@@ -128,7 +128,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add hardware naming section
-- [ ] Improve usage instructions
+- [x] Improve usage instructions
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
 - [ ] Add graphics for blocks and onbot usage, controls
