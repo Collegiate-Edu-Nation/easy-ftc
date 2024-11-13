@@ -38,6 +38,6 @@ nav:
   - Getting Started: gettingstarted.md
   - examples.md
   - controls.md
-  - Javadoc: javadoc/index.html
   - diagrams.md
+  - Javadoc: javadoc/index.html
   - license.md
