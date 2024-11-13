@@ -168,10 +168,12 @@ This is where state() is used
 * Import Color
 
         import org.edu_nation.easy_ftc.sensor.Color;
+
 * Instantiate the sensor
 
         Color color = new Color.Builder(hardwareMap)
             .build();
+
 * Retrieve the state in the if statement
 
         color.state();
@@ -183,6 +185,7 @@ This will allow your robot to read the color value of an object, but without add
         if (color.state() == "blue") {
 
         }
+        
 * Add an additional command() call inside of the if statement
 
         drive.command(0.5, "forward", 3);
