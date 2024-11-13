@@ -8,7 +8,7 @@
     import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
     import org.edu_nation.easy_ftc.mechanism.Drive;
     
-    @Autonomous(name="Auto", group="Linear OpMode")
+    @Autonomous(name="Auto", group="dev")
     public class Auto extends LinearOpMode {
     
         @Override
@@ -36,7 +36,7 @@
     import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
     import org.edu_nation.easy_ftc.mechanism.Drive;
 
-    @TeleOp(name="Tele", group="Linear OpMode")
+    @TeleOp(name="Tele", group="dev")
     public class Tele extends LinearOpMode {
         @Override
         public void runOpMode() {
