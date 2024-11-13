@@ -54,14 +54,10 @@
               ++ (with pkgs; [
                 bashInteractive
                 jdk21
-                aapt
                 plantuml
                 python312Packages.mkdocs
                 python312Packages.mkdocs-material
               ]);
-
-            # override aapt2 binary w/ nixpkgs'
-            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2";
 
             shellHook = ''
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
