@@ -93,47 +93,37 @@ This project uses the Google Java Style Guide. I use the Red Hat Java Language S
 Note that LightWeight and Standard modes do not give identical output when formatting
 
 ## ToDo
-### Features
-- [x] Specify stop-behavior
-- [x] Add support for 4wd differential
-- [x] Support RUN_TO_POSITION for encoders
-- [x] Support RUN_TO_POSITION in teleOp (i.e. only move between two positions, a la servo)
-- [ ] Support moving until sensor says otherwise
-    - [ ] pass sensor.state() as boolean
-    - [ ] pass directions not to move if boolean true (or to move if sensor is reversed)
+### Release
+#### Features
 - [ ] Add support for trigger (servo), intake (motor)
-- [ ] Flesh out Color
-- [ ] Add telemetry for status indicators via toString
-- [ ] Add support for OpenCV, AprilTag
-- [ ] Investigate multi-threading for synchronized, multi-system automated movements
 
-### Chores
-- [x] Add control(double multiplier) to scale power of Drive, Lift
-- [x] Make 'sensor' var generic
-- [x] Optimize arrays, opt for switch when > 2 args
-- [x] Investigate builder inheritance
-- [x] Investigate using array for deviceNames, enabling generalization of init, reverse
-- [x] Fix negative power when using limits w/ diamter
-- [x] Investigate unscaled movements in arm, lift positionally-limited tele (at least arm)
+#### Chores
 - [ ] Add reverse(String[] names) wrapper
-- [ ] Investigate further consolidation of builders (esp names, count, etc)
-- [x] make self() protected
-- [x] Sub tele() for control()
-- [x] Move utils to mechanism classes
 - [ ] Use public enums for direction, type, layout
 - [ ] Throw exceptions for invalid builder args
-- [ ] Investigate instrumentation and/or manual hardware tests
 
-### Documentation
+#### Documentation
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add hardware naming section
-- [x] Improve usage instructions
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
+
+### Long-Term
+#### Features
+- [ ] Support mechanism + sensor integrations
+- [ ] Investigate sequence abstraction + implementation
+- [ ] Flesh out Color
+- [ ] Add telemetry for status indicators
+- [ ] Add support for OpenCV, AprilTag
+- [ ] Investigate options for synchronized, multi-system sequences
+
+#### Chores
+- [ ] Investigate further consolidation of builders (esp names, count, etc)
+- [ ] Investigate instrumentation and/or manual hardware tests
+
+#### Documentation
 - [ ] Add graphics for blocks and onbot usage, controls
-- [x] Flesh out controls for different drive configurations
-- [x] Create logo
 
 ## License
 [GPLv3](COPYING)
