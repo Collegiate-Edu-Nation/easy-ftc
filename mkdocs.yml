@@ -33,9 +33,9 @@ markdown_extensions:
 
 nav:
   - Welcome: index.md
-  - Javadoc: javadoc/index.html
-  - usage.md
+  - Getting Started: gettingStarted.md
   - examples.md
   - controls.md
+  - Javadoc: javadoc/index.html
   - diagrams.md
   - license.md

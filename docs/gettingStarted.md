@@ -1,4 +1,4 @@
-# Usage
+# Getting Started
 
 ## Introduction
 
@@ -30,11 +30,12 @@ control() is a function/method that enables tele-operated control of each mechan
 ### State() - Sensors
 state() is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor, but is either a boolean (Touch return true if the sensor is pressed, false if not) or String (Color returns one of "blue", "red", or "green"). When combined with conditional statements and command()/control(), this allows teams to differentiate their robots' actions based on the surrounding environment. For example, if the color sensor returns "blue", move forward.
 
-## Getting Started
+## Usage
 Before we can dive into coding, follow the Install section of the README
 
 ### Blockly
 First, create an OpMode in the blocks editor WebUI
+
 * Press 'Create New OpMode'
 * Enter a name, and use the default sample titled 'BasicOpMode'
 * Press ok
@@ -44,12 +45,14 @@ By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only wo
 If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism in the green while loop block. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
 
 Let's see how to make your robot drive
+
 * In the 'Java Classes' dropdown, click Drive
 * Drag the 'control' block to the green while loop
 
 That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
 
 Let's do the same for autonomous
+
 * Create a new OpMode following the instructions above
 * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
 * Delete the green while loop block
@@ -57,6 +60,7 @@ Let's do the same for autonomous
 As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (power, direction, and time)
 
 To make your robot drive forward at half-power for 3 seconds
+
 * In the 'Java Classes' dropdown, click Drive
 * Drag the 'command' block to the blue if statement
 * Click the 'Math' submenu 
@@ -72,10 +76,12 @@ Distance-based movement can be automatically used instead of time by adding .enc
 Now, what if you want your robot to move forward, then decide whether to move again based on the color of an object?
 
 This is where state() is used
+
 * In the 'Java Classes' dropdown, click Color
 * Drag the 'state' block to the blue if statement
 
 This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
+
 * In the 'logic' submenu, drag another if statement underneath the 'command' block
 * In that same submenu, drag an 'equals' block to the first line of the if statement
 * Move 'state' to the left half of the 'equals' block

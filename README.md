@@ -20,7 +20,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 * Touch Sensor
 
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
-<i>Docs cover Javadoc, usage, examples, controls, and diagrams</i>
+<i>Docs cover getting started, examples, controls, Javadoc, and diagrams</i>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern.
 

@@ -12,15 +12,13 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 * Touch Sensor
 
 ## What's here?
-
-* Javadoc
-* Usage
+* Getting Started
 * Examples
 * Controls
+* Javadoc
 * Diagrams
 
 ## What's in the README?
-
-* Installation
+* Install
 * Dev Setup
 * ToDo
