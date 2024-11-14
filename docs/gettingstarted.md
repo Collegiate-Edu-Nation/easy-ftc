@@ -28,7 +28,7 @@ command() is a function/method that tells (commands) a mechanism to move in a sp
 control() is a function/method that enables tele-operated control of each mechanism, which is only allowed in the TeleOp portion of a match. More explicitly, this function reads inputs from the gamepad, processes those inputs, then controls the mechanism based on these processed inputs. easy-ftc decides the control-scheme for you, which obviously takes away some user control, but comes with the benefit of being able to program a competitive robot with a single function.
 
 ### State() - Sensors
-state() is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor, but is either a boolean (Touch return true if the sensor is pressed, false if not) or String (Color returns one of "blue", "red", or "green"). When combined with conditional statements and command()/control(), this allows teams to differentiate their robots' actions based on the surrounding environment. For example, if the color sensor returns "blue", move forward.
+state() is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor, but is either a boolean (Touch return true if the sensor is pressed, false if not) or RGB (Color returns one of RED, GREEN, or BLUE). When combined with conditional statements and command()/control(), this allows teams to differentiate their robots' actions based on the surrounding environment. For example, if the color sensor returns BLUE, move forward.
 
 ## Usage
 Before we can dive into coding, follow the Install section of the README
@@ -165,9 +165,10 @@ Before we can dive into coding, follow the Install section of the README
 
     This is where state() is used
 
-    * Import Color
+    * Import Color and Color.RGB
 
             import org.edu_nation.easy_ftc.sensor.Color;
+            import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
     * Instantiate the sensor
 
@@ -180,9 +181,9 @@ Before we can dive into coding, follow the Install section of the README
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
-    * Add an if statement after the first command() call which checks if state is equal to "blue"
+    * Add an if statement after the first command() call which checks if state is equal to RGB.BLUE
 
-            if (color.state() == "blue") {
+            if (color.state() == RGB.BLUE) {
 
             }
             
