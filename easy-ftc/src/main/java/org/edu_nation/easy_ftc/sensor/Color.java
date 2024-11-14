@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  *        <p>
  * @Methods {@link #state()}
  */
-public class Color extends Sensor<ColorSensor, String> {
+public class Color extends Sensor<ColorSensor, Color.RGB> {
     private int[] rgbOffsets;
 
     /**
@@ -90,6 +90,13 @@ public class Color extends Sensor<ColorSensor, String> {
     }
 
     /**
+     * RGB values that can be returned by state
+     */
+    public enum RGB {
+        RED, GREEN, BLUE
+    }
+
+    /**
      * Initializes color sensor
      */
     @Override
@@ -98,12 +105,13 @@ public class Color extends Sensor<ColorSensor, String> {
     }
 
     /**
-     * Returns color sensor state (color of detection, one of: "red", "green", "blue", or "")
+     * Returns color sensor state (color of detection, one of: Color.RGB.RED, Color.RGB.GREEN,
+     * Color.RGB.BLUE, or null)
      */
     @Override
-    public String state() {
+    public RGB state() {
         int[] rgbRaw = {sensor.red(), sensor.green(), sensor.blue()};
-        String color;
+        RGB color;
         if (reverse) {
             color = weakColor(rgbRaw, rgbOffsets);
         } else {
@@ -120,56 +128,56 @@ public class Color extends Sensor<ColorSensor, String> {
      * @param calibrationValue
      * @return <b>color</b>
      */
-    protected static String dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue) {
+    protected static RGB dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue) {
         int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
         int max = max(rgbNormalized);
 
-        String color;
+        RGB color;
         if (max > calibrationValue) {
             if ((rgbNormalized[0] == rgbNormalized[1] && rgbNormalized[0] == max)
                     || (rgbNormalized[0] == rgbNormalized[2] && rgbNormalized[0] == max)
                     || (rgbNormalized[1] == rgbNormalized[2] && rgbNormalized[1] == max)) {
-                color = "";
+                color = null;
             } else if (max == rgbNormalized[0]) {
-                color = "red";
+                color = RGB.RED;
             } else if (max == rgbNormalized[1]) {
-                color = "green";
+                color = RGB.GREEN;
             } else if (max == rgbNormalized[2]) {
-                color = "blue";
+                color = RGB.BLUE;
             } else {
-                color = "";
+                color = null;
             }
         } else {
-            color = "";
+            color = null;
         }
         return color;
     }
 
     /**
-     * Converts the minimum, normalized rgb value to the corresponding color as a String
+     * Converts the minimum, normalized rgb value to the corresponding RGB color
      * 
      * @param rgbRaw
      * @param rgbOffsets
      * @return <b>color</b>
      */
-    protected static String weakColor(int[] rgbRaw, int[] rgbOffsets) {
+    protected static RGB weakColor(int[] rgbRaw, int[] rgbOffsets) {
         int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
         int min = min(rgbNormalized);
 
-        String color;
+        RGB color;
 
         if ((rgbNormalized[0] == rgbNormalized[1] && rgbNormalized[0] == min)
                 || (rgbNormalized[0] == rgbNormalized[2] && rgbNormalized[0] == min)
                 || (rgbNormalized[1] == rgbNormalized[2] && rgbNormalized[1] == min)) {
-            color = "";
+            color = null;
         } else if (min == rgbNormalized[0]) {
-            color = "red";
+            color = RGB.RED;
         } else if (min == rgbNormalized[1]) {
-            color = "green";
+            color = RGB.GREEN;
         } else if (min == rgbNormalized[2]) {
-            color = "blue";
+            color = RGB.BLUE;
         } else {
-            color = "";
+            color = null;
         }
         return color;
     }

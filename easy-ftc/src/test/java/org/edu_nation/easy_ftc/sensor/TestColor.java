@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
 public class TestColor {
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);
@@ -52,18 +53,18 @@ public class TestColor {
 
         // red is the max after offset
         mockRGB(76, 110, 85);
-        String result = mockedColor.state();
-        assertEquals("red", result);
+        RGB result = mockedColor.state();
+        assertEquals(RGB.RED, result);
 
         // green is the max after offset
         mockRGB(75, 111, 85);
         result = mockedColor.state();
-        assertEquals("green", result);
+        assertEquals(RGB.GREEN, result);
 
         // blue is the max after offset
         mockRGB(75, 110, 86);
         result = mockedColor.state();
-        assertEquals("blue", result);
+        assertEquals(RGB.BLUE, result);
 
         // reversed-state
 
@@ -72,17 +73,17 @@ public class TestColor {
         // red is the max after offset
         mockRGB(74, 110, 85);
         result = mockedColorReverse.state();
-        assertEquals("red", result);
+        assertEquals(RGB.RED, result);
 
         // green is the max after offset
         mockRGB(75, 109, 85);
         result = mockedColorReverse.state();
-        assertEquals("green", result);
+        assertEquals(RGB.GREEN, result);
 
         // blue is the max after offset
         mockRGB(75, 110, 84);
         result = mockedColorReverse.state();
-        assertEquals("blue", result);
+        assertEquals(RGB.BLUE, result);
     }
 
     @Test
@@ -92,8 +93,8 @@ public class TestColor {
         int[] rgbOffsets = {10, -25, 0};
         double calibrationValue = 85.0;
 
-        String[] colorsExpected = {"red", "green", "blue", "", ""};
-        String[] colorsActual = {Color.dominantColor(rgbRawArrays[0], rgbOffsets, calibrationValue),
+        RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null, null};
+        RGB[] colorsActual = {Color.dominantColor(rgbRawArrays[0], rgbOffsets, calibrationValue),
                 Color.dominantColor(rgbRawArrays[1], rgbOffsets, calibrationValue),
                 Color.dominantColor(rgbRawArrays[2], rgbOffsets, calibrationValue),
                 Color.dominantColor(rgbRawArrays[3], rgbOffsets, calibrationValue),
@@ -109,8 +110,8 @@ public class TestColor {
         int[][] rgbRawArrays = {{74, 110, 85}, {75, 109, 85}, {75, 110, 84}, {75, 110, 85}};
         int[] rgbOffsets = {10, -25, 0};
 
-        String[] colorsExpected = {"red", "green", "blue", ""};
-        String[] colorsActual = {Color.weakColor(rgbRawArrays[0], rgbOffsets),
+        RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null};
+        RGB[] colorsActual = {Color.weakColor(rgbRawArrays[0], rgbOffsets),
                 Color.weakColor(rgbRawArrays[1], rgbOffsets),
                 Color.weakColor(rgbRawArrays[2], rgbOffsets),
                 Color.weakColor(rgbRawArrays[3], rgbOffsets)};
