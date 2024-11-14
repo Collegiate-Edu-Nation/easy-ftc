@@ -95,8 +95,8 @@ public class TestClaw {
         try {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
             Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
-            claw.command("open");
-            clawSmooth.command("open");
+            claw.command(Claw.Direction.OPEN);
+            clawSmooth.command(Claw.Direction.OPEN);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -110,8 +110,8 @@ public class TestClaw {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             Claw clawSmooth =
                     new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
-            claw.command("open");
-            clawSmooth.command("open");
+            claw.command(Claw.Direction.OPEN);
+            clawSmooth.command(Claw.Direction.OPEN);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -129,5 +129,41 @@ public class TestClaw {
         mockInit();
 
         new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").build();
+    }
+
+    @Test
+    public void controlToDirection_isCorrect() {
+        // Test open
+        double result = Claw.controlToDirection(1, 0, 0, true, false);
+        assertEquals(1, result, 0.01);
+
+        // Test close
+        result = Claw.controlToDirection(1, 0, 1, false, true);
+        assertEquals(0, result, 0.01);
+
+        // Test doNothing (both false)
+        result = Claw.controlToDirection(1, 0, 1, false, false);
+        assertEquals(1, result, 0.01);
+
+        // Test doNothing (both true)
+        result = Claw.controlToDirection(1, 0, 1, true, true);
+        assertEquals(1, result, 0.01);
+    }
+
+    @Test
+    public void languageToDirection_isCorrect() {
+        // Test "open"
+        double result = Claw.languageToDirection(Claw.Direction.OPEN, 1, 0, "Claw");
+        assertEquals(1, result, 0.01);
+
+        // Test "close"
+        result = Claw.languageToDirection(Claw.Direction.CLOSE, 1, 0, "Claw");
+        assertEquals(0, result, 0.01);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
+        // Test null
+        Claw.languageToDirection(null, 1, 0, "Claw");
     }
 }

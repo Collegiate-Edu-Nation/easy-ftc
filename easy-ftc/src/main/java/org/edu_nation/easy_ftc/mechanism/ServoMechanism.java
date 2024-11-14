@@ -14,10 +14,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-abstract class ServoMechanism extends Mechanism {
+abstract class ServoMechanism<E> extends Mechanism {
     protected Servo[] servos;
     protected boolean smooth;
-    protected double open, close;
     protected double increment;
     protected double incrementDelay;
     protected double delay;
@@ -25,8 +24,6 @@ abstract class ServoMechanism extends Mechanism {
     protected ServoMechanism(Builder<?> builder) {
         super(builder);
         this.smooth = builder.smooth;
-        this.open = builder.open;
-        this.close = builder.close;
         this.increment = builder.increment;
         this.incrementDelay = builder.incrementDelay;
         this.delay = builder.delay;
@@ -34,8 +31,6 @@ abstract class ServoMechanism extends Mechanism {
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected boolean smooth = false;
-        protected double open = 1.0;
-        protected double close = 0.0;
         protected double increment = 0.02;
         protected double incrementDelay = 0.02;
         protected double delay = 2;
@@ -49,22 +44,6 @@ abstract class ServoMechanism extends Mechanism {
          */
         public T smooth() {
             this.smooth = true;
-            return self();
-        }
-
-        /**
-         * Specify the open posiiton of the servo(s) (0-1)
-         */
-        public T open(double open) {
-            this.open = open;
-            return self();
-        }
-
-        /**
-         * Specify the close position of the servo(s) (0-1)
-         */
-        public T close(double close) {
-            this.close = close;
             return self();
         }
 
@@ -102,12 +81,12 @@ abstract class ServoMechanism extends Mechanism {
 
         public abstract T names(String[] names);
 
-        public abstract ServoMechanism build();
+        public abstract ServoMechanism<?> build();
 
         protected abstract T self();
     }
 
-    public abstract void command(String direction);
+    public abstract void command(E direction);
 
     /**
      * Reverse the direction of the specified servo
@@ -206,42 +185,5 @@ abstract class ServoMechanism extends Mechanism {
                 servos[i].setDirection(direction);
             }
         }
-    }
-
-    /**
-     * Set servo movement based on open, close values as well as current position
-     */
-    protected static double controlToDirection(double open, double close, double current,
-            boolean openButton, boolean closeButton) {
-        double movement;
-        if (openButton && !closeButton) {
-            movement = open;
-        } else if (closeButton && !openButton) {
-            movement = close;
-        } else { // do nothing otherwise
-            movement = current;
-        }
-        return movement;
-    }
-
-    /**
-     * Translate natural-language direction to numeric values
-     */
-    protected static double languageToDirection(String direction, double open, double close,
-            String mechanismName) {
-        double servoDirection;
-        switch (direction) {
-            case "open":
-                servoDirection = open;
-                break;
-            case "close":
-                servoDirection = close;
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Unexpected direction: " + direction + ", passed to " + mechanismName
-                                + ".command(). Valid directions are: open, close");
-        }
-        return servoDirection;
     }
 }
