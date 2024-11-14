@@ -157,7 +157,7 @@ Before we can dive into coding, follow the Install section of the README
 
     Adding this to the if statement will make your robot drive forward at half-power for 3 seconds
 
-        drive.command(0.5, "forward", 3);
+        drive.command(0.5, Drive.Direction.FORWARD, 3);
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -188,7 +188,7 @@ Before we can dive into coding, follow the Install section of the README
             
     * Add an additional command() call inside of the if statement
 
-            drive.command(0.5, "forward", 3);
+            drive.command(0.5, Drive.Direction.FORWARD, 3);
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
