@@ -35,6 +35,8 @@ public class TestClaw {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("clawLeft")
                     .reverse("clawRight").build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2)
+                    .reverse(new String[] {"clawLeft", "clawRight"}).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();

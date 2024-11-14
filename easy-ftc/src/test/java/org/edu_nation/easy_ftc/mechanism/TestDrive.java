@@ -58,6 +58,8 @@ public class TestDrive {
                     .reverse("driveRight").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("driveLeft")
                     .reverse("driveRight").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
+                    .reverse(new String[] {"driveLeft", "driveRight"}).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).layout("arcade").build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();

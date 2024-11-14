@@ -48,6 +48,7 @@ public class TestArm {
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("arm").build();
+            new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse(new String[] {"arm"}).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("arm").build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();

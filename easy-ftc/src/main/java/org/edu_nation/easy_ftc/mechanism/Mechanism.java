@@ -72,6 +72,16 @@ abstract class Mechanism {
         }
 
         /**
+         * Reverse the specified devices
+         */
+        public T reverse(String[] deviceNames) {
+            for (String deviceName : deviceNames) {
+                reverse(deviceName);
+            }
+            return self();
+        }
+
+        /**
          * Pass the gamepad instance for teleop control
          */
         public T gamepad(Gamepad gamepad) {

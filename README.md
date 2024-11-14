@@ -98,7 +98,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 - [ ] Add support for trigger (servo), intake (motor)
 
 #### Chores
-- [ ] Add reverse(String[] names) wrapper
+- [x] Add reverse(String[] names) wrapper
 - [ ] Use public enums for direction, type, layout
 - [ ] Throw exceptions for invalid builder args
 
