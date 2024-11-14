@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
  * 
  * @Methods {@link #wait(double time)} (used by subclasses)
  */
-abstract class MotorMechanism extends Mechanism {
+abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
     protected IMU imu;
@@ -108,14 +108,14 @@ abstract class MotorMechanism extends Mechanism {
 
         public abstract T names(String[] names);
 
-        public abstract MotorMechanism build();
+        public abstract MotorMechanism<?> build();
 
         protected abstract T self();
     }
 
     public abstract void control(double multiplier);
 
-    public abstract void command(double power, String direction, double measurement);
+    public abstract void command(double power, E direction, double measurement);
 
     /**
      * Reverse the direction of the specified motor

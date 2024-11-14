@@ -171,9 +171,9 @@ public class TestArm {
             Arm armPos =
                     new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
 
-            arm.command(0.5, "up", 1);
-            armEnc.command(0.5, "up", 1);
-            armPos.command(0.5, "up", 12);
+            arm.command(0.5, Arm.Direction.UP, 1);
+            armEnc.command(0.5, Arm.Direction.UP, 1);
+            armPos.command(0.5, Arm.Direction.UP, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -190,9 +190,9 @@ public class TestArm {
             Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .length(4).build();
 
-            arm.command(0.5, "up", 1);
-            armEnc.command(0.5, "up", 1);
-            armPos.command(0.5, "up", 12);
+            arm.command(0.5, Arm.Direction.UP, 1);
+            armEnc.command(0.5, Arm.Direction.UP, 1);
+            armPos.command(0.5, Arm.Direction.UP, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -255,24 +255,18 @@ public class TestArm {
 
     @Test
     public void languageToDirection_isCorrect() {
-        // Test "up"
-        double result = Arm.languageToDirection("up");
+        // Test Arm.Direction.UP
+        double result = Arm.languageToDirection(Arm.Direction.UP);
         assertEquals(1, result, 0.01);
 
-        // Test "down"
-        result = Arm.languageToDirection("down");
+        // Test Arm.Direction.DOWN
+        result = Arm.languageToDirection(Arm.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void languageToDirection_garbageThrowsException() {
-        // Test "abc"
-        Arm.languageToDirection("abc");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void languageToDirection_emptyThrowsException() {
-        // Test ""
-        Arm.languageToDirection("");
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
+        // Test null
+        Arm.languageToDirection(null);
     }
 }

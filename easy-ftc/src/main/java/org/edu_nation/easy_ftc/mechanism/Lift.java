@@ -27,7 +27,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * @Methods {@link #control()}
  *          <li>{@link #command(double power, String direction, double measurement)}
  */
-public class Lift extends MotorMechanism {
+public class Lift extends MotorMechanism<Lift.Direction> {
     /**
      * Constructor
      */
@@ -127,6 +127,13 @@ public class Lift extends MotorMechanism {
     }
 
     /**
+     * Directions that can be passed to command
+     */
+    public enum Direction {
+        UP, DOWN
+    }
+
+    /**
      * Enables teleoperated lift movement with gamepad, scaling by multiplier < 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
@@ -175,7 +182,7 @@ public class Lift extends MotorMechanism {
      * Valid directions are: up, down
      */
     @Override
-    public void command(double power, String direction, double measurement) {
+    public void command(double power, Direction direction, double measurement) {
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
@@ -195,19 +202,15 @@ public class Lift extends MotorMechanism {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double languageToDirection(String direction) {
-        double motorDirection;
+    protected static double languageToDirection(Direction direction) {
         switch (direction) {
-            case "up":
-                motorDirection = 1;
-                break;
-            case "down":
-                motorDirection = -1;
-                break;
+            case UP:
+                return 1;
+            case DOWN:
+                return -1;
             default:
-                throw new IllegalArgumentException("Unexpected direction: " + direction
-                        + ", passed to Lift.command(). Valid directions are: up, down");
+                throw new NullPointerException(
+                        "Null direction passed to Lift.command(). Valid directions are: Lift.Direction.UP, Lift.Direction.DOWN");
         }
-        return motorDirection;
     }
 }

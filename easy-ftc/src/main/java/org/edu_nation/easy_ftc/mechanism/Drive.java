@@ -29,7 +29,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @Methods {@link #control()}
  *          <li>{@link #command(double power, String direction, double measurement)}
  */
-public class Drive extends MotorMechanism {
+public class Drive extends MotorMechanism<Drive.Direction> {
     private String type;
 
     /**
@@ -141,6 +141,13 @@ public class Drive extends MotorMechanism {
     }
 
     /**
+     * Directions that can be passed to command
+     */
+    public enum Direction {
+        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_LEFT, BACKWARD_RIGHT
+    }
+
+    /**
      * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
      * 1
      * <p>
@@ -194,7 +201,7 @@ public class Drive extends MotorMechanism {
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
-    public void command(double power, String direction, double measurement) {
+    public void command(double power, Direction direction, double measurement) {
         double[] unscaledMovements = languageToDirection(count, type, direction);
         moveForMeasurement(unscaledMovements, power, measurement);
     }
@@ -268,105 +275,61 @@ public class Drive extends MotorMechanism {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(int count, String type, String direction) {
+    protected static double[] languageToDirection(int count, String type, Direction direction) {
         if (type == "differential" || type == "") {
             double[] motorDirections = new double[count];
             switch (direction) {
-                case "forward":
+                case FORWARD:
                     for (int i = 0; i < count; i++) {
                         motorDirections[i] = 1;
                     }
                     break;
-                case "backward":
+                case BACKWARD:
                     for (int i = 0; i < count; i++) {
                         motorDirections[i] = -1;
                     }
                     break;
-                case "rotateLeft":
+                case ROTATE_LEFT:
                     for (int i = 0; i < count; i++) {
                         motorDirections[i] = (i % 2 == 0) ? -1 : 1;
                     }
                     break;
-                case "rotateRight":
+                case ROTATE_RIGHT:
                     for (int i = 0; i < count; i++) {
                         motorDirections[i] = (i % 2 == 0) ? 1 : -1;
                     }
                     break;
                 default:
                     throw new IllegalArgumentException("Unexpected direction: " + direction
-                            + ", passed to Differential.command(). Valid directions are: forward, backward, rotateLeft, rotateRight");
+                            + ", passed to Differential.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT");
             }
-
             return motorDirections;
         } else {
-            double[] motorDirections = {0, 0, 0, 0};
             switch (direction) {
-                case "forward":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = 1;
-                    motorDirections[2] = 1;
-                    motorDirections[3] = 1;
-                    break;
-                case "backward":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = -1;
-                    motorDirections[2] = -1;
-                    motorDirections[3] = -1;
-                    break;
-                case "left":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = 1;
-                    motorDirections[2] = 1;
-                    motorDirections[3] = -1;
-                    break;
-                case "right":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = -1;
-                    motorDirections[2] = -1;
-                    motorDirections[3] = 1;
-                    break;
-                case "rotateLeft":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = 1;
-                    motorDirections[2] = -1;
-                    motorDirections[3] = 1;
-                    break;
-                case "rotateRight":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = -1;
-                    motorDirections[2] = 1;
-                    motorDirections[3] = -1;
-                    break;
-                case "forwardLeft":
-                    motorDirections[0] = 0;
-                    motorDirections[1] = 1;
-                    motorDirections[2] = 1;
-                    motorDirections[3] = 0;
-                    break;
-                case "forwardRight":
-                    motorDirections[0] = 1;
-                    motorDirections[1] = 0;
-                    motorDirections[2] = 0;
-                    motorDirections[3] = 1;
-                    break;
-                case "backwardLeft":
-                    motorDirections[0] = -1;
-                    motorDirections[1] = 0;
-                    motorDirections[2] = 0;
-                    motorDirections[3] = -1;
-                    break;
-                case "backwardRight":
-                    motorDirections[0] = 0;
-                    motorDirections[1] = -1;
-                    motorDirections[2] = -1;
-                    motorDirections[3] = 0;
-                    break;
+                case FORWARD:
+                    return new double[] {1, 1, 1, 1};
+                case BACKWARD:
+                    return new double[] {-1, -1, -1, -1};
+                case LEFT:
+                    return new double[] {-1, 1, 1, -1};
+                case RIGHT:
+                    return new double[] {1, -1, -1, 1};
+                case ROTATE_LEFT:
+                    return new double[] {-1, 1, -1, 1};
+                case ROTATE_RIGHT:
+                    return new double[] {1, -1, 1, -1};
+                case FORWARD_LEFT:
+                    return new double[] {0, 1, 1, 0};
+                case FORWARD_RIGHT:
+                    return new double[] {1, 0, 0, 1};
+                case BACKWARD_LEFT:
+                    return new double[] {-1, 0, 0, -1};
+                case BACKWARD_RIGHT:
+                    return new double[] {0, -1, -1, 0};
                 default:
-                    throw new IllegalArgumentException("Unexpected direction: " + direction
-                            + ", passed to Mecanum.command(). Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft, forwardRight, backwardLeft, backwardRight");
+                    throw new NullPointerException(
+                            "Null direction passed to Mecanum.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.LEFT, Drive.Direction.RIGHT, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT, Drive.Direction.FORWARD_LEFT, Drive.Direction.FORWARD_RIGHT, Drive.Direction.BACKWARD_LEFT, Drive.Direction.BACKWARD_RIGHT");
             }
-
-            return motorDirections;
         }
     }
 }

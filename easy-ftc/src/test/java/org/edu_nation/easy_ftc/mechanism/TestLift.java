@@ -175,9 +175,9 @@ public class TestLift {
             Lift liftPos =
                     new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
 
-            lift.command(0.5, "up", 1);
-            liftEnc.command(0.5, "up", 1);
-            liftPos.command(0.5, "up", 12);
+            lift.command(0.5, Lift.Direction.UP, 1);
+            liftEnc.command(0.5, Lift.Direction.UP, 1);
+            liftPos.command(0.5, Lift.Direction.UP, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -194,9 +194,9 @@ public class TestLift {
             Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).build();
 
-            lift.command(0.5, "up", 1);
-            liftEnc.command(0.5, "up", 1);
-            liftPos.command(0.5, "up", 12);
+            lift.command(0.5, Lift.Direction.UP, 1);
+            liftEnc.command(0.5, Lift.Direction.UP, 1);
+            liftPos.command(0.5, Lift.Direction.UP, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -279,23 +279,17 @@ public class TestLift {
     @Test
     public void languageToDirection_isCorrect() {
         // Test "up"
-        double result = Lift.languageToDirection("up");
+        double result = Lift.languageToDirection(Lift.Direction.UP);
         assertEquals(1, result, 0.01);
 
         // Test "down"
-        result = Lift.languageToDirection("down");
+        result = Lift.languageToDirection(Lift.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void languageToDirection_garbageThrowsException() {
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
         // Test "abc"
-        Lift.languageToDirection("abc");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void languageToDirection_emptyThrowsException() {
-        // Test ""
-        Lift.languageToDirection("");
+        Lift.languageToDirection(null);
     }
 }
