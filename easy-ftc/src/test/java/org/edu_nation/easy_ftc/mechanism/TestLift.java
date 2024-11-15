@@ -286,4 +286,12 @@ public class TestLift {
         result = Lift.languageToDirection(Lift.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.command(1, null, 1);
+    }
 }

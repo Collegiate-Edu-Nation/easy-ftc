@@ -160,4 +160,12 @@ public class TestClaw {
         result = Claw.languageToDirection(Claw.Direction.CLOSE, 1, 0, "Claw");
         assertEquals(0, result, 0.01);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
+        mockInit();
+
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
+        claw.command(null);
+    }
 }

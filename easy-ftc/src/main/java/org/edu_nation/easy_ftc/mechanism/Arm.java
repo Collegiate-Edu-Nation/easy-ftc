@@ -200,6 +200,9 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      * Translate natural-language direction to numeric values
      */
     protected static double languageToDirection(Direction direction) {
+        if (direction == null) {
+            throw new NullPointerException("Null direction passed to Arm.command()");
+        }
         switch (direction) {
             case UP:
                 return 1;

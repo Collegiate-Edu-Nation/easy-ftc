@@ -183,6 +183,9 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      */
     protected static double languageToDirection(Direction direction, double open, double close,
             String mechanismName) {
+        if (direction == null) {
+            throw new NullPointerException("Null direction passed to Claw.command()");
+        }
         switch (direction) {
             case OPEN:
                 return open;

@@ -386,6 +386,23 @@ public class TestDrive {
         Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
     }
 
+    @Test(expected = NullPointerException.class)
+    public void controlToDirection_nullTypeThrowsException() {
+        final Type type = null;
+        final Layout layout = Layout.ARCADE;
+
+        // Test Layout.ARCADE
+        Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void controlToDirection_nullLayoutThrowsException() {
+        final Type type = Type.MECANUM;
+        final Layout layout = null;
+
+        Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
+    }
+
     @Test
     public void languageToDirectionDif_isCorrect() {
         final Type type = Type.DIFFERENTIAL;
@@ -496,5 +513,21 @@ public class TestDrive {
 
         // Test FORWARD_LEFT
         Drive.languageToDirection(2, type, Direction.FORWARD_LEFT);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullDirectionThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.command(1, null, 1);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullTypeThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).type(null).build();
+        drive.command(1, Direction.FORWARD, 1);
     }
 }

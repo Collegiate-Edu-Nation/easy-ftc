@@ -203,6 +203,9 @@ public class Lift extends MotorMechanism<Lift.Direction> {
      * Translate natural-language direction to numeric values
      */
     protected static double languageToDirection(Direction direction) {
+        if (direction == null) {
+            throw new NullPointerException("Null direction passed to Lift.command()");
+        }
         switch (direction) {
             case UP:
                 return 1;

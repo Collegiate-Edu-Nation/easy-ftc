@@ -263,4 +263,12 @@ public class TestArm {
         result = Arm.languageToDirection(Arm.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void languageToDirection_nullThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.command(1, null, 1);
+    }
 }
