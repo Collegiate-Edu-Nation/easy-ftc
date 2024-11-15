@@ -242,8 +242,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 left = map(-leftY, deadzone) + map(rightX, deadzone);
                 right = map(-leftY, deadzone) - map(rightX, deadzone);
             } else {
-                throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Drive.control(). Valid layouts are: Drive.Layout.TANK, Drive.Layout.ARCADE");
+                throw new IllegalArgumentException(
+                        "Unexpected layout passed to Drive.control(). Valid layouts are: Drive.Layout.TANK, Drive.Layout.ARCADE");
             }
 
             double[] movements = new double[count];
@@ -251,7 +251,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 movements[i] = (i % 2 == 0) ? left : right;
             }
             return movements;
-        } else {
+        } else if (type == Type.MECANUM) {
             double frontLeft, frontRight, backLeft, backRight;
             // Axes (used for both robot-centric and field-centric)
             double axial = map(-leftY, deadzone);
@@ -285,12 +285,15 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 backLeft = ((axial_relative - lateral_relative + yaw) / max);
                 backRight = ((axial_relative + lateral_relative - yaw) / max);
             } else {
-                throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Drive.control(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
+                throw new IllegalArgumentException(
+                        "Unexpected layout passed to Drive.control(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
             }
 
             double[] movements = {frontLeft, frontRight, backLeft, backRight};
             return movements;
+        } else {
+            throw new IllegalArgumentException(
+                    "Unexpected type passed to Drive.control(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
         }
     }
 
@@ -322,11 +325,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                     }
                     break;
                 default:
-                    throw new IllegalArgumentException("Unexpected direction: " + direction
-                            + ", passed to Differential.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT");
+                    throw new IllegalArgumentException(
+                            "Unexpected direction passed to Drive.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT");
             }
             return motorDirections;
-        } else {
+        } else if (type == Type.MECANUM) {
             switch (direction) {
                 case FORWARD:
                     return new double[] {1, 1, 1, 1};
@@ -349,9 +352,12 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 case BACKWARD_RIGHT:
                     return new double[] {0, -1, -1, 0};
                 default:
-                    throw new NullPointerException(
-                            "Null direction passed to Mecanum.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.LEFT, Drive.Direction.RIGHT, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT, Drive.Direction.FORWARD_LEFT, Drive.Direction.FORWARD_RIGHT, Drive.Direction.BACKWARD_LEFT, Drive.Direction.BACKWARD_RIGHT");
+                    throw new IllegalArgumentException(
+                            "Unexpected direction passed to Drive.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.LEFT, Drive.Direction.RIGHT, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT, Drive.Direction.FORWARD_LEFT, Drive.Direction.FORWARD_RIGHT, Drive.Direction.BACKWARD_LEFT, Drive.Direction.BACKWARD_RIGHT");
             }
+        } else {
+            throw new IllegalArgumentException(
+                    "Unexpected type passed to Drive.command(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
         }
     }
 }

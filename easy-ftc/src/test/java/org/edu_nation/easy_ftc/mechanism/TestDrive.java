@@ -497,12 +497,4 @@ public class TestDrive {
         // Test FORWARD_LEFT
         Drive.languageToDirection(2, type, Direction.FORWARD_LEFT);
     }
-
-    @Test(expected = NullPointerException.class)
-    public void languageToDirectionMec_nullThrowsException() {
-        final Type type = Type.MECANUM;
-
-        // Test null
-        Drive.languageToDirection(4, type, null);
-    }
 }

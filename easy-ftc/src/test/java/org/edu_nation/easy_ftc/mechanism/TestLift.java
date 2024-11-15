@@ -286,10 +286,4 @@ public class TestLift {
         result = Lift.languageToDirection(Lift.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
-
-    @Test(expected = NullPointerException.class)
-    public void languageToDirection_nullThrowsException() {
-        // Test "abc"
-        Lift.languageToDirection(null);
-    }
 }

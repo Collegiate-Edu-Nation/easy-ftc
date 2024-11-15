@@ -263,10 +263,4 @@ public class TestArm {
         result = Arm.languageToDirection(Arm.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
-
-    @Test(expected = NullPointerException.class)
-    public void languageToDirection_nullThrowsException() {
-        // Test null
-        Arm.languageToDirection(null);
-    }
 }

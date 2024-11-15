@@ -145,7 +145,8 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
             } else if (max == rgbNormalized[2]) {
                 color = RGB.BLUE;
             } else {
-                color = null;
+                throw new IllegalArgumentException(
+                        "Unexpected color passed to Color.dominantColor(). Valid colors are: Color.RGB.RED, Color.RGB.GREEN, Color.RGB.BLUE");
             }
         } else {
             color = null;
@@ -177,7 +178,8 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         } else if (min == rgbNormalized[2]) {
             color = RGB.BLUE;
         } else {
-            color = null;
+            throw new IllegalArgumentException(
+                    "Unexpected color passed to Color.weakColor(). Valid colors are: Color.RGB.RED, Color.RGB.GREEN, Color.RGB.BLUE");
         }
         return color;
     }

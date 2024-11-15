@@ -206,8 +206,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             case DOWN:
                 return -1;
             default:
-                throw new NullPointerException(
-                        "Null diredction passed to Arm.command(). Valid directions are: Arm.Direction.UP, Arm.Direction.DOWN");
+                throw new IllegalArgumentException(
+                        "Unexpected direction passed to Arm.command(). Valid direction are: Arm.Direction.UP, Arm.Direction.DOWN");
         }
     }
 }

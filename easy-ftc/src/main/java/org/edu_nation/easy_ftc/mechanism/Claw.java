@@ -189,8 +189,8 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             case CLOSE:
                 return close;
             default:
-                throw new NullPointerException("Null direction passed to "
-                        + "Claw.command(). Valid directions are: Claw.Direction.OPEN, Claw.Direction.CLOSE");
+                throw new IllegalArgumentException(
+                        "Unexpected direction passed to Claw.command(). Valid directions are: Claw.Direction.OPEN, Claw.Direction.CLOSE");
         }
     }
 }

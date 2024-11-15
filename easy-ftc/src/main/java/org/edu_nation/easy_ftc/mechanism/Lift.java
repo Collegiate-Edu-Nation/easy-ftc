@@ -209,8 +209,8 @@ public class Lift extends MotorMechanism<Lift.Direction> {
             case DOWN:
                 return -1;
             default:
-                throw new NullPointerException(
-                        "Null direction passed to Lift.command(). Valid directions are: Lift.Direction.UP, Lift.Direction.DOWN");
+                throw new IllegalArgumentException(
+                        "Unexpected direction passed to Lift.command(). Valid direction are: Lift.Direction.UP, Lift.Direction.DOWN");
         }
     }
 }
