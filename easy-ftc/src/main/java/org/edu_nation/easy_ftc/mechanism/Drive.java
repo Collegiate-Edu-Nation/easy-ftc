@@ -30,7 +30,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *          <li>{@link #command(double power, String direction, double measurement)}
  */
 public class Drive extends MotorMechanism<Drive.Direction> {
-    private String type;
+    private Type type;
 
     /**
      * Constructor
@@ -50,8 +50,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         private int count = 2;
         private String[] names = {"driveLeft", "driveRight"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
-        private String type = "";
-        private String layout = "";
+        private Type type = Type.DIFFERENTIAL;
+        private Layout layout = Layout.TANK;
         private String mechanismName = "Drive";
 
         /**
@@ -105,23 +105,31 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         /**
          * Specify the drivetrain type: "differential" (default) or "mecanum"
          */
-        public Builder type(String type) {
+        public Builder type(Type type) {
             this.type = type;
-            if (type == "mecanum" && this.count == 2) {
-                this.count = 4;
-                if (this.names.length == 2) {
-                    String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
-                    this.names = names;
+
+            // correct deviceNames, count, Layout if Type is set to MECANUM
+            if (type == Type.MECANUM && this.count == 2) {
+                if (this.count == 2) {
+                    this.count = 4;
+                    if (this.names.length == 2) {
+                        String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
+                        this.names = names;
+                    }
+                }
+                if (this.layout == Layout.TANK) {
+                    this.layout = Layout.ROBOT;
                 }
             }
+
             return this;
         }
 
         /**
-         * Specify the control layout. For Differential, "tank" (default) or "arcade". For Mecanum,
-         * "robot" (default) or "field"
+         * Specify the control layout. For Differential, Drive.Layout.TANK (default) or
+         * Drive.Layout.ARCADE. For Mecanum, Drive.Layout.ROBOT (default) or Drive.Layout.FIELD
          */
-        public Builder layout(String layout) {
+        public Builder layout(Layout layout) {
             this.layout = layout;
             return this;
         }
@@ -148,6 +156,20 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
+     * Drivetrain types that can be passed to .type()
+     */
+    public enum Type {
+        DIFFERENTIAL, MECANUM
+    }
+
+    /**
+     * Drivetrain layouts that can be passed to .layout()
+     */
+    public enum Layout {
+        ARCADE, TANK, FIELD, ROBOT
+    }
+
+    /**
      * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
      * 1
      * <p>
@@ -162,7 +184,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     public void control(double multiplier) {
         double heading = 0;
         // Press option to reset imu to combat drift, set heading if applicable
-        if (layout == "field") {
+        if (layout == Layout.FIELD) {
             heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
             if (gamepad.options) {
                 imu.resetYaw();
@@ -209,19 +231,19 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Set drivetrain motor movements based on layout: robot(default) or field
      */
-    protected static double[] controlToDirection(int count, String type, String layout,
+    protected static double[] controlToDirection(int count, Type type, Layout layout,
             double deadzone, double heading, float leftY, float leftX, float rightY, float rightX) {
-        if (type == "differential" || type == "") {
+        if (type == Type.DIFFERENTIAL) {
             double left, right;
-            if (layout == "tank" || layout == "") {
+            if (layout == Layout.TANK) {
                 left = map(-leftY, deadzone);
                 right = map(-rightY, deadzone);
-            } else if (layout == "arcade") {
+            } else if (layout == Layout.ARCADE) {
                 left = map(-leftY, deadzone) + map(rightX, deadzone);
                 right = map(-leftY, deadzone) - map(rightX, deadzone);
             } else {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Differential.control(). Valid layouts are: tank, arcade");
+                        + ", passed to Drive.control(). Valid layouts are: Drive.Layout.TANK, Drive.Layout.ARCADE");
             }
 
             double[] movements = new double[count];
@@ -239,7 +261,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             // Calculate desired individual motor values (orientation factored in for else-if
             // statement
             // i.e. field-centric driving)
-            if (layout == "robot" || layout == "") {
+            if (layout == Layout.ROBOT) {
                 // Scaled individual motor movements derived from axes (left to right, front to
                 // back)
                 // Scaling is needed to ensure intended ratios of motor powers
@@ -249,7 +271,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 frontRight = ((axial - lateral - yaw) / max);
                 backLeft = ((axial - lateral + yaw) / max);
                 backRight = ((axial + lateral - yaw) / max);
-            } else if (layout == "field") {
+            } else if (layout == Layout.FIELD) {
                 // Scaled individual motor movements derived from axes and orientation (left to
                 // right,
                 // front to back)
@@ -264,7 +286,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 backRight = ((axial_relative + lateral_relative - yaw) / max);
             } else {
                 throw new IllegalArgumentException("Unexpected layout: " + layout
-                        + ", passed to Mecanum.control(). Valid layouts are: robot, field");
+                        + ", passed to Drive.control(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
             }
 
             double[] movements = {frontLeft, frontRight, backLeft, backRight};
@@ -275,8 +297,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(int count, String type, Direction direction) {
-        if (type == "differential" || type == "") {
+    protected static double[] languageToDirection(int count, Type type, Direction direction) {
+        if (type == Type.DIFFERENTIAL) {
             double[] motorDirections = new double[count];
             switch (direction) {
                 case FORWARD:

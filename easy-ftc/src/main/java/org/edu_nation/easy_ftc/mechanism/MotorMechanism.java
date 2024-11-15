@@ -31,7 +31,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected double length;
     protected double gearing;
     protected double deadzone;
-    protected String layout;
+    protected Drive.Layout layout;
 
     /**
      * Constructor
@@ -194,7 +194,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         // Initializes imu for field-centric layout. Adjust "UP" and "FORWARD" if orientation is
         // reversed
-        if (mechanismName == "Drive" && layout == "field") {
+        if (mechanismName == "Drive" && layout == Drive.Layout.FIELD) {
             imu = hardwareMap.get(IMU.class, "imu");
             IMU.Parameters parameters = new IMU.Parameters(
                     new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,

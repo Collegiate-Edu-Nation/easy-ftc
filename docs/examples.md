@@ -16,8 +16,8 @@
             // Hardware init
             Drive drive = new Drive.Builder(this, hardwareMap)
                 .encoder()
-                .type("mecanum")
-                .layout("field")
+                .type(Drive.Type.MECANUM)
+                .layout(Drive.Layout.FIELD)
                 .build();
             
             waitForStart();
@@ -43,6 +43,7 @@
             // Hardware init
             Drive drive = new Drive.Builder(this, hardwareMap)
                 .gamepad(gamepad1)
+                .type(Drive.Type.MECANUM)
                 .build();
             
             waitForStart();

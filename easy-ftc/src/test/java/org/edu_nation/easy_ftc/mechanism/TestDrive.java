@@ -12,6 +12,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import org.edu_nation.easy_ftc.mechanism.Drive.Type;
+import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 
 public class TestDrive {
     LinearOpMode mockedOpMode = mock(LinearOpMode.class);
@@ -61,71 +64,74 @@ public class TestDrive {
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .reverse(new String[] {"driveLeft", "driveRight"}).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().gamepad(mockedGamepad)
                     .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().layout("arcade").build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().layout(Layout.ARCADE)
+                    .build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
-                    .layout("arcade").build();
+                    .layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                    .layout("arcade").build();
+                    .layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
                     .gamepad(mockedGamepad).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().gamepad(mockedGamepad)
-                    .layout("arcade").build();
+                    .layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                    .gamepad(mockedGamepad).layout("arcade").build();
+                    .gamepad(mockedGamepad).layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).gearing(19.2)
-                    .gamepad(mockedGamepad).layout("arcade").build();
+                    .gamepad(mockedGamepad).layout(Layout.ARCADE).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).reverse()
-                    .gamepad(mockedGamepad).layout("arcade").build();
+                    .gamepad(mockedGamepad).layout(Layout.ARCADE).build();
 
             // mecanum
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").deadzone(0.1)
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.MECANUM).deadzone(0.1)
                     .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontLeft").type("mecanum")
-                    .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontRight").type("mecanum")
-                    .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backLeft").type("mecanum")
-                    .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backRight").type("mecanum")
-                    .build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontLeft")
+                    .type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("frontRight")
+                    .type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backLeft")
+                    .type(Type.MECANUM).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backRight")
-                    .reverse("frontLeft").type("mecanum").build();
+                    .type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("backRight")
+                    .reverse("frontLeft").type(Type.MECANUM).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("backRight")
-                    .reverse("frontLeft").reverse("frontRight").reverse("backLeft").type("mecanum")
-                    .build();
+                    .reverse("frontLeft").reverse("frontRight").reverse("backLeft")
+                    .type(Type.MECANUM).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
-                    .type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").layout("robot")
-                    .build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).type("mecanum")
-                    .build();
+                    .type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.MECANUM)
+                    .layout(Layout.ROBOT).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
+                    .type(Type.MECANUM).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().gamepad(mockedGamepad)
-                    .type("mecanum").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().type("mecanum")
-                    .layout("robot").build();
+                    .type(Type.MECANUM).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().type(Type.MECANUM)
+                    .layout(Layout.ROBOT).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
-                    .type("mecanum").layout("robot").build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).type("mecanum")
-                    .layout("robot").build();
+                    .type(Type.MECANUM).layout(Layout.ROBOT).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                    .gamepad(mockedGamepad).type("mecanum").build();
+                    .type(Type.MECANUM).layout(Layout.ROBOT).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
+                    .gamepad(mockedGamepad).type(Type.MECANUM).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().gamepad(mockedGamepad)
-                    .type("mecanum").layout("robot").build();
+                    .type(Type.MECANUM).layout(Layout.ROBOT).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                    .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+                    .gamepad(mockedGamepad).type(Type.MECANUM).layout(Layout.ROBOT).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder().diameter(4)
-                    .gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+                    .gamepad(mockedGamepad).type(Type.MECANUM).layout(Layout.ROBOT).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder().diameter(4)
-                    .gearing(19.2).gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+                    .gearing(19.2).gamepad(mockedGamepad).type(Type.MECANUM).layout(Layout.ROBOT)
+                    .build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).count(4).encoder().diameter(4)
-                    .reverse().gamepad(mockedGamepad).type("mecanum").layout("robot").build();
+                    .reverse().gamepad(mockedGamepad).type(Type.MECANUM).layout(Layout.ROBOT)
+                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -137,9 +143,9 @@ public class TestDrive {
 
         try {
             Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
-                    .type("mecanum").build();
+                    .type(Type.MECANUM).build();
             Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
-                    .gamepad(mockedGamepad).type("mecanum").build();
+                    .gamepad(mockedGamepad).type(Type.MECANUM).build();
 
             drive.control();
             drive.control(0.9);
@@ -179,9 +185,9 @@ public class TestDrive {
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .diameter(4).build();
 
-            drive.command(0.5, Drive.Direction.FORWARD, 1);
-            driveEnc.command(0.5, Drive.Direction.FORWARD, 1);
-            drivePos.command(0.5, Drive.Direction.FORWARD, 12);
+            drive.command(0.5, Direction.FORWARD, 1);
+            driveEnc.command(0.5, Direction.FORWARD, 1);
+            drivePos.command(0.5, Direction.FORWARD, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -193,15 +199,15 @@ public class TestDrive {
 
         try {
             Drive drive =
-                    new Drive.Builder(mockedOpMode, mockedHardwareMap).type("mecanum").build();
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.MECANUM).build();
             Drive driveEnc = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
-                    .type("mecanum").build();
+                    .type(Type.MECANUM).build();
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
-                    .diameter(4).type("mecanum").build();
+                    .diameter(4).type(Type.MECANUM).build();
 
-            drive.command(0.5, Drive.Direction.FORWARD, 1);
-            driveEnc.command(0.5, Drive.Direction.FORWARD, 1);
-            drivePos.command(0.5, Drive.Direction.FORWARD, 12);
+            drive.command(0.5, Direction.FORWARD, 1);
+            driveEnc.command(0.5, Direction.FORWARD, 1);
+            drivePos.command(0.5, Direction.FORWARD, 12);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -219,9 +225,10 @@ public class TestDrive {
     public void reverseMec_ThrowsException() {
         mockInit();
 
-        new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").type("mecanum").build();
-        new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("abc").type("mecanum")
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse("abc").type(Type.MECANUM)
                 .build();
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("abc")
+                .type(Type.MECANUM).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -237,7 +244,7 @@ public class TestDrive {
         mockInit();
 
         new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).gearing(-1)
-                .type("mecanum").build();
+                .type(Type.MECANUM).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -253,29 +260,30 @@ public class TestDrive {
         mockInit();
 
         new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).deadzone(-1)
-                .type("mecanum").build();
+                .type(Type.MECANUM).build();
     }
 
     @Test
     public void whenTank_controlToDirection_isCorrect() {
         double deadzone = 0.1;
         double heading = 0;
-        final String type = "differential";
+        final Type type = Type.DIFFERENTIAL;
+        final Layout layout = Layout.TANK;
 
         // Test "", no movement
-        double[] result = Drive.controlToDirection(2, type, "", deadzone, heading, 0, 0, 0, 0);
+        double[] result = Drive.controlToDirection(2, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test "", forward
-        result = Drive.controlToDirection(2, type, "", deadzone, heading, -1, 0, -1, 0);
+        result = Drive.controlToDirection(2, type, layout, deadzone, heading, -1, 0, -1, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "", backward
-        result = Drive.controlToDirection(2, type, "", deadzone, heading, 1, 0, 1, 0);
+        result = Drive.controlToDirection(2, type, layout, deadzone, heading, 1, 0, 1, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
@@ -283,25 +291,25 @@ public class TestDrive {
 
     @Test
     public void whenArcade_controlToDirection_isCorrect() {
-        final String type = "differential";
+        final Type type = Type.DIFFERENTIAL;
+        final Layout layout = Layout.ARCADE;
         double deadzone = 0.1;
         double heading = 0;
 
         // Test "", no movement
-        double[] result =
-                Drive.controlToDirection(2, type, "arcade", deadzone, heading, 0, 0, 0, 0);
+        double[] result = Drive.controlToDirection(2, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test "", forward
-        result = Drive.controlToDirection(2, type, "arcade", deadzone, heading, -1, 0, 0, 0);
+        result = Drive.controlToDirection(2, type, layout, deadzone, heading, -1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test "", backward
-        result = Drive.controlToDirection(2, type, "arcade", deadzone, heading, 1, 0, 0, 0);
+        result = Drive.controlToDirection(2, type, layout, deadzone, heading, 1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
@@ -311,22 +319,23 @@ public class TestDrive {
     public void whenRobotCentric_controlToDirection_isCorrect() {
         final double deadzone = 0.1;
         final double heading = 0;
-        final String type = "mecanum";
+        final Type type = Type.MECANUM;
+        final Layout layout = Layout.ROBOT;
 
         // Test no movement
-        double[] result = Drive.controlToDirection(4, type, "", deadzone, heading, 0, 0, 0, 0);
+        double[] result = Drive.controlToDirection(4, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
         // Test forward
-        result = Drive.controlToDirection(4, type, "", deadzone, heading, -1, 0, 0, 0);
+        result = Drive.controlToDirection(4, type, layout, deadzone, heading, -1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
         // Test backward
-        result = Drive.controlToDirection(4, type, "", deadzone, heading, 1, 0, 0, 0);
+        result = Drive.controlToDirection(4, type, layout, deadzone, heading, 1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
@@ -337,22 +346,23 @@ public class TestDrive {
         final double deadzone = 0.1;
         final double heading = Math.PI / 2; // equals 90 degrees
         final double[][] expectedValues = {{0, 0, 0, 0}, {1, -1, -1, 1}, {-1, 1, 1, -1}};
-        final String type = "mecanum";
+        final Type type = Type.MECANUM;
+        final Layout layout = Layout.FIELD;
 
         // Test no movement
-        double[] result = Drive.controlToDirection(4, type, "field", deadzone, heading, 0, 0, 0, 0);
+        double[] result = Drive.controlToDirection(4, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[0][i], result[i], 0.01);
         }
 
         // Test forward
-        result = Drive.controlToDirection(4, type, "field", deadzone, heading, -1, 0, 0, 0);
+        result = Drive.controlToDirection(4, type, layout, deadzone, heading, -1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[1][i], result[i], 0.01);
         }
 
         // Test backward
-        result = Drive.controlToDirection(4, type, "field", deadzone, heading, 1, 0, 0, 0);
+        result = Drive.controlToDirection(4, type, layout, deadzone, heading, 1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[2][i], result[i], 0.01);
         }
@@ -360,46 +370,48 @@ public class TestDrive {
 
     @Test(expected = IllegalArgumentException.class)
     public void controlToDirectionDif_garbageThrowsException() {
-        final String type = "differential";
+        final Type type = Type.DIFFERENTIAL;
+        final Layout layout = Layout.ROBOT;
 
-        // Test "abc"
-        Drive.controlToDirection(2, type, "abc", 0.1, 0, 0, 0, 0, 0);
+        // Test Layout.ROBOT
+        Drive.controlToDirection(2, type, layout, 0.1, 0, 0, 0, 0, 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void controlToDirectionMec_garbageThrowsException() {
-        final String type = "mecanum";
+        final Type type = Type.MECANUM;
+        final Layout layout = Layout.ARCADE;
 
-        // Test "abc"
-        Drive.controlToDirection(4, type, "abc", 0.1, 0, 0, 0, 0, 0);
+        // Test Layout.ARCADE
+        Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
     }
 
     @Test
     public void languageToDirectionDif_isCorrect() {
-        final String type = "differential";
+        final Type type = Type.DIFFERENTIAL;
 
-        // Test Drive.Direction.FORWARD
-        double[] result = Drive.languageToDirection(2, type, Drive.Direction.FORWARD);
+        // Test Direction.FORWARD
+        double[] result = Drive.languageToDirection(2, type, Direction.FORWARD);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
-        // Test Drive.Direction.BACKWARD
-        result = Drive.languageToDirection(2, type, Drive.Direction.BACKWARD);
+        // Test Direction.BACKWARD
+        result = Drive.languageToDirection(2, type, Direction.BACKWARD);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
 
         // Test "rotateLeft"
         double[] expectedRotateLeft = {-1, 1};
-        result = Drive.languageToDirection(2, type, Drive.Direction.ROTATE_LEFT);
+        result = Drive.languageToDirection(2, type, Direction.ROTATE_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
         // Test "rotateRight"
         double[] expectedRotateRight = {1, -1};
-        result = Drive.languageToDirection(2, type, Drive.Direction.ROTATE_RIGHT);
+        result = Drive.languageToDirection(2, type, Direction.ROTATE_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateRight[i], result[i], 0.01);
         }
@@ -407,72 +419,72 @@ public class TestDrive {
 
     @Test
     public void languageToDirectionMec_isCorrect() {
-        final String type = "mecanum";
+        final Type type = Type.MECANUM;
 
-        // Test Drive.Direction.FORWARD
-        double[] result = Drive.languageToDirection(4, type, Drive.Direction.FORWARD);
+        // Test Direction.FORWARD
+        double[] result = Drive.languageToDirection(4, type, Direction.FORWARD);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
-        // Test Drive.Direction.BACKWARD
-        result = Drive.languageToDirection(4, type, Drive.Direction.BACKWARD);
+        // Test Direction.BACKWARD
+        result = Drive.languageToDirection(4, type, Direction.BACKWARD);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
         }
 
         // Test "left"
         double[] expectedLeft = {-1, 1, 1, -1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.LEFT);
+        result = Drive.languageToDirection(4, type, Direction.LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedLeft[i], result[i], 0.01);
         }
 
         // Test "right"
         double[] expectedRight = {1, -1, -1, 1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.RIGHT);
+        result = Drive.languageToDirection(4, type, Direction.RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRight[i], result[i], 0.01);
         }
 
         // Test "rotateLeft"
         double[] expectedRotateLeft = {-1, 1, -1, 1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.ROTATE_LEFT);
+        result = Drive.languageToDirection(4, type, Direction.ROTATE_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
         // Test "rotateRight"
         double[] expectedRotateRight = {1, -1, 1, -1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.ROTATE_RIGHT);
+        result = Drive.languageToDirection(4, type, Direction.ROTATE_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateRight[i], result[i], 0.01);
         }
 
         // Test "forwardLeft"
         double[] expectedForwardLeft = {0, 1, 1, 0};
-        result = Drive.languageToDirection(4, type, Drive.Direction.FORWARD_LEFT);
+        result = Drive.languageToDirection(4, type, Direction.FORWARD_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardLeft[i], result[i], 0.01);
         }
 
         // Test "forwardRight"
         double[] expectedForwardRight = {1, 0, 0, 1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.FORWARD_RIGHT);
+        result = Drive.languageToDirection(4, type, Direction.FORWARD_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardRight[i], result[i], 0.01);
         }
 
         // Test "backwardLeft"
         double[] expectedBackwardLeft = {-1, 0, 0, -1};
-        result = Drive.languageToDirection(4, type, Drive.Direction.BACKWARD_LEFT);
+        result = Drive.languageToDirection(4, type, Direction.BACKWARD_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedBackwardLeft[i], result[i], 0.01);
         }
 
         // Test "backwardRight"
         double[] expectedBackwardRight = {0, -1, -1, 0};
-        result = Drive.languageToDirection(4, type, Drive.Direction.BACKWARD_RIGHT);
+        result = Drive.languageToDirection(4, type, Direction.BACKWARD_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedBackwardRight[i], result[i], 0.01);
         }
@@ -480,15 +492,15 @@ public class TestDrive {
 
     @Test(expected = IllegalArgumentException.class)
     public void languageToDirectionDif_garbageThrowsException() {
-        final String type = "differential";
+        final Type type = Type.DIFFERENTIAL;
 
         // Test FORWARD_LEFT
-        Drive.languageToDirection(2, type, Drive.Direction.FORWARD_LEFT);
+        Drive.languageToDirection(2, type, Direction.FORWARD_LEFT);
     }
 
     @Test(expected = NullPointerException.class)
     public void languageToDirectionMec_nullThrowsException() {
-        final String type = "mecanum";
+        final Type type = Type.MECANUM;
 
         // Test null
         Drive.languageToDirection(4, type, null);
