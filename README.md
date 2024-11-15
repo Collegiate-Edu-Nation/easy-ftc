@@ -34,14 +34,13 @@ This library greatly simplifies hardware initialization and control by abstracti
 
 ### Blockly
 * While at the previous link, also click on 'myBlocks.zip'
-* Upload the .aar and all relevant java files from myBlocks using OnBot Java's GUI
-    * <i>Each java file in 'myBlocks' will control a specific mechanism/sensor. <b>Only add the files for which you'd like to control the associated mechanism/sensor in Blockly</b></i>
-* Modify the myBlocks java files to use the correct easy-ftc class or to change behavior
-    * <i>e.g. change Mecanum to Differential in Drive.java
-    * e.g. use a different constructor, call drive.reverse(), etc.</i>
+* Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
+    * <i>Each Java file in 'myBlocks' will control a specific mechanism/sensor</i>
+* Modify the myBlocks Java files to change behavior
+    * <i>e.g. add .type(Drive.Type.MECANUM) to Drive.Builder in Drive.java</i>
 * Press the gear icon on the bottom right with the title 'Build Everything'
 * A new menu option 'Java Classes' should be visible in the Blockly GUI now
-* Each class listed there will provide several methods from easy-ftc, like control(), command(), and state()
+* Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
 
 ### OnBot Java
 * Upload the .aar using OnBot Java's GUI
@@ -58,8 +57,6 @@ This library greatly simplifies hardware initialization and control by abstracti
 
 ## Dev Setup
 The development environment can be setup by either importing this project into Android Studio, or by using Nix with your IDE of choice
-
-For either approach, gradlew builds are supported
 
 ### Nix
 Nix is my preferred approach for setting up the development environment. Linux, MacOS, and WSL are supported
