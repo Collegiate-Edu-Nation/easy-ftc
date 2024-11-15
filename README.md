@@ -94,36 +94,27 @@ Note that LightWeight and Standard modes do not give identical output when forma
 
 ## ToDo
 ### Release
-#### Features
-- [ ] Add support for trigger (servo), intake (motor)
-
-#### Chores
 - [x] Add reverse(String[] names) wrapper
 - [x] Use public enums for direction, type, layout
 - [ ] Throw exceptions for invalid builder args
-
-#### Documentation
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
+- [ ] Add support for trigger (servo), intake (motor)
 - [ ] Add hardware naming section
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
-#### Features
+- [ ] Support CRServo
+- [ ] Flesh out Color
+- [ ] Add graphics for blocks and onbot usage, controls
 - [ ] Support mechanism + sensor integrations
 - [ ] Investigate sequence abstraction + implementation
-- [ ] Flesh out Color
 - [ ] Add telemetry for status indicators
 - [ ] Add support for OpenCV, AprilTag
 - [ ] Investigate options for synchronized, multi-system sequences
-
-#### Chores
 - [ ] Investigate further consolidation of builders (esp names, count, etc)
 - [ ] Investigate instrumentation and/or manual hardware tests
-
-#### Documentation
-- [ ] Add graphics for blocks and onbot usage, controls
 
 ## License
 [GPLv3](COPYING)
