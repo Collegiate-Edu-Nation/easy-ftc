@@ -152,7 +152,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * Directions that can be passed to command
      */
     public enum Direction {
-        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_RIGHT, FORWARD_LEFT, BACKWARD_LEFT, BACKWARD_RIGHT
+        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT
     }
 
     /**
