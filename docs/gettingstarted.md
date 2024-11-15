@@ -63,12 +63,10 @@ Before we can dive into coding, follow the Install section of the README
 
     * In the 'Java Classes' dropdown, click Drive
     * Drag the 'command' block to the blue if statement
+    * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
     * Click the 'Math' submenu 
     * Drag two '0' blocks to the 'command' block
-    * Click the 'Text' submenu
-    * Drag the first block there to the 'command' block
     * Change the first argument to 0.5
-    * Change the second to "forward"
     * Change the third to 3
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
@@ -85,8 +83,7 @@ Before we can dive into coding, follow the Install section of the README
     * In the 'logic' submenu, drag another if statement underneath the 'command' block
     * In that same submenu, drag an 'equals' block to the first line of the if statement
     * Move 'state' to the left half of the 'equals' block
-    * Drag the first block in the 'Text' submenu to the right half of the 'equals' block
-    * Change the empty text to "blue"
+    * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
     * Copy and paste the existing 'command' block to be inside of the if statement
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
