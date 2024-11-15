@@ -5,13 +5,13 @@ package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+import org.edu_nation.easy_ftc.mechanism.Lift.Direction;
 
 public class Lift extends BlocksOpModeCompanion {
     @ExportToBlocks(
             comment = "Intermediate function that assigns individual motor powers based on direction specified in runOpMode() calls",
             parameterLabels = {"Power", "Direction", "Time"})
-    public static void command(double power,
-            org.edu_nation.easy_ftc.mechanism.Lift.Direction direction, double time) {
+    public static void command(double power, Direction direction, double time) {
         org.edu_nation.easy_ftc.mechanism.Lift lift =
                 new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
                         .build();
@@ -24,5 +24,15 @@ public class Lift extends BlocksOpModeCompanion {
                 new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
                         .gamepad(gamepad1).build();
         lift.control();
+    }
+
+    @ExportToBlocks(comment = "Returns the UP Direction")
+    public static Direction UP() {
+        return Direction.UP;
+    }
+
+    @ExportToBlocks(comment = "Returns the DOWN Direction")
+    public static Direction DOWN() {
+        return Direction.DOWN;
     }
 }
