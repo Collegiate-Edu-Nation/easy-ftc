@@ -148,7 +148,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
         if (measurement < 0) {
             throw new IllegalArgumentException("Unexpected measurement value: " + measurement
-                    + ", passed to " + mechanismName + ".command(). Valid values are numbers > 0");
+                    + ", passed to " + mechanismName + ".command(). Valid values are numbers >= 0");
         }
     }
 
