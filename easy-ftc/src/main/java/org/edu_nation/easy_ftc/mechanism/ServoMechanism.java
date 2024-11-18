@@ -51,6 +51,10 @@ abstract class ServoMechanism<E> extends Mechanism {
          * Specify the increment to move by for smooth-servo control (0-1)
          */
         public T increment(double increment) {
+            if (increment <= 0 || increment > 1) {
+                throw new IllegalArgumentException("Unexpected increment value: " + increment
+                        + ", passed to .increment(). Valid values are numbers in the interval (0, 1]");
+            }
             this.increment = increment;
             return self();
         }
@@ -59,6 +63,11 @@ abstract class ServoMechanism<E> extends Mechanism {
          * Specify the time (s) to wait between each increment for smooth-servo control (> 0)
          */
         public T incrementDelay(double incrementDelay) {
+            if (incrementDelay <= 0) {
+                throw new IllegalArgumentException(
+                        "Unexpected incrementDelay value: " + incrementDelay
+                                + ", passed to .incrementDelay(). Valid values are numbers > 0");
+            }
             this.incrementDelay = incrementDelay;
             return self();
         }
@@ -67,6 +76,10 @@ abstract class ServoMechanism<E> extends Mechanism {
          * Specify the time to wait for servo movements to complete (for normal servo control) (> 0)
          */
         public T delay(double delay) {
+            if (delay <= 0) {
+                throw new IllegalArgumentException("Unexpected delay value: " + delay
+                        + ", passed to .delay(). Valid values are numbers > 0");
+            }
             this.delay = delay;
             return self();
         }

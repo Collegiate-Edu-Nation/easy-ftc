@@ -34,6 +34,13 @@ public class TestDistance {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void calibrationValueThrowsException() {
+        mockInit();
+
+        new Distance.Builder(mockedHardwareMap).calibrationValue(-1).build();
+    }
+
     @Test
     public void state_isCorrect() {
         mockInit();

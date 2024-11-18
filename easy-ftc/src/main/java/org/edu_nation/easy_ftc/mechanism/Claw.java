@@ -73,6 +73,10 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * Specify the number of servos (1-2)
          */
         public Builder count(int count) {
+            if (count < 1 || count > 2) {
+                throw new IllegalArgumentException("Unexpected count value: " + count
+                        + ", passed to Claw.Builder.count(). Valid values are integers in the interval [1, 2]");
+            }
             this.count = count;
             if (count == 2) {
                 String[] names = {"clawLeft", "clawRight"};
@@ -93,6 +97,14 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * Specify the open posiiton of the servo(s) (0-1)
          */
         public Builder open(double open) {
+            if (open < 0 || open > 1) {
+                throw new IllegalArgumentException("Unexpected open value: " + open
+                        + ", passed to Claw.Builder.open(). Valid values are numbers in the interval [0, 1]");
+            }
+            if (open < this.close) {
+                throw new IllegalArgumentException("Unexpected open value: " + open
+                        + ", passed to Claw.Builder.open(). Valid values are numbers > Claw.close");
+            }
             this.open = open;
             return this;
         }
@@ -101,6 +113,14 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * Specify the close position of the servo(s) (0-1)
          */
         public Builder close(double close) {
+            if (close < 0 || close > 1) {
+                throw new IllegalArgumentException("Unexpected close value: " + close
+                        + ", passed to Claw.Builder.close(). Valid values are numbers in the interval [0, 1]");
+            }
+            if (close > this.open) {
+                throw new IllegalArgumentException("Unexpected close value: " + close
+                        + ", passed to Claw.Builder.close(). Valid values are numbers < Claw.open");
+            }
             this.close = close;
             return this;
         }

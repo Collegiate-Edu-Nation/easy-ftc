@@ -58,6 +58,11 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
          * Specify the calibration value
          */
         public Builder calibrationValue(double calibrationValue) {
+            if (calibrationValue < 0) {
+                throw new IllegalArgumentException("Unexpected calibrationValue: "
+                        + calibrationValue
+                        + ", passed to Distance.Builder.calibrationValue(). Valid values are >0");
+            }
             this.calibrationValue = calibrationValue;
             return this;
         }

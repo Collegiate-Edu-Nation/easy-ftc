@@ -45,6 +45,20 @@ public class TestColor {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void calibrationValueThrowsException() {
+        mockInit();
+
+        new Color.Builder(mockedHardwareMap).calibrationValue(-1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void rgbOffsetsThrowsException() {
+        mockInit();
+
+        new Color.Builder(mockedHardwareMap).rgbOffsets(new int[] {0, 0, 256}).build();
+    }
+
     @Test
     public void state_isCorrect() {
         mockInit();

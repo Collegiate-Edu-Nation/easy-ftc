@@ -71,6 +71,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Specify the number of motors (1-2)
          */
         public Builder count(int count) {
+            if (count < 1 || count > 2) {
+                throw new IllegalArgumentException("Unexpected count value: " + count
+                        + ", passed to Arm.Builder.count(). Valid values are integers in the interval [1, 2]");
+            }
             this.count = count;
             if (count == 2) {
                 String[] names = {"armLeft", "armRight"};
@@ -99,6 +103,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Specify the positional limit for the "up" direction
          */
         public Builder up(double up) {
+            if (up < this.down) {
+                throw new IllegalArgumentException("Unexpected up value: " + up
+                        + ", passed to Arm.Builder.up(). Valid values are numbers > Arm.down");
+            }
             this.up = up;
             return this;
         }
@@ -107,6 +115,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Specify the positional limit for the "down" direction
          */
         public Builder down(double down) {
+            if (down > this.up) {
+                throw new IllegalArgumentException("Unexpected down value: " + down
+                        + ", passed to Arm.Builder.down(). Valid values are numbers < Arm.up");
+            }
             this.down = down;
             return this;
         }

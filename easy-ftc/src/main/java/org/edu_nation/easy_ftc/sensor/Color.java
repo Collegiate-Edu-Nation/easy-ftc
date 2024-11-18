@@ -60,17 +60,28 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         }
 
         /**
-         * Specify the calibration value
+         * Specify the calibration value (0-255)
          */
         public Builder calibrationValue(double calibrationValue) {
+            if (calibrationValue < 0 || calibrationValue > 255) {
+                throw new IllegalArgumentException("Unexpected calibrationValue: "
+                        + calibrationValue
+                        + ", passed to Color.Builder.calibrationValue(). Valid values are numbers in the interval [0, 255]");
+            }
             this.calibrationValue = calibrationValue;
             return this;
         }
 
         /**
-         * Specify the rgbOffsets (array of 3 integers, 0-255)
+         * Specify the rgbOffsets (array of 3 integers, -255-255)
          */
         public Builder rgbOffsets(int[] rgbOffsets) {
+            for (int rgbOffset : rgbOffsets) {
+                if (rgbOffset < -255 || rgbOffset > 255) {
+                    throw new IllegalArgumentException("Unexpected rgbOffsets value: " + rgbOffset
+                            + ", passed to Color.Builder.rgbOffsets(). Valid values are arrays of integers in the interval [-255, 255]");
+                }
+            }
             this.rgbOffsets = rgbOffsets;
             return this;
         }

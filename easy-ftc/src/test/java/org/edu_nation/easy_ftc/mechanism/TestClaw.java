@@ -56,6 +56,62 @@ public class TestClaw {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void incrementThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).increment(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void incrementDelayThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).incrementDelay(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void delayThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).delay(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void countThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void openThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).open(1.1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenOpenIsValidButLessThanClose_openThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).close(0.6).open(0.5).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void closeThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).close(-1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenCloseIsValidButGreaterThanOpen_openThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).open(0.5).close(0.6).build();
+    }
+
     @Test
     public void teleSolo_isCalled() {
         mockInit();

@@ -93,6 +93,27 @@ public class TestLift {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void countThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void upThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).up(-1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void downThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).down(2).build();
+    }
+
     @Test
     public void teleSolo_isCalled() {
         mockInit();

@@ -68,6 +68,10 @@ abstract class MotorMechanism<E> extends Mechanism {
          * Specify the diameter of the wheels/axel for encoder control (distance-based)
          */
         public T diameter(double diameter) {
+            if (diameter <= 0) {
+                throw new IllegalArgumentException("Unexpected diameter value: " + diameter
+                        + ", passed to .diameter(). Valid values are numbers > 0");
+            }
             this.diameter = diameter;
             return self();
         }
@@ -76,6 +80,10 @@ abstract class MotorMechanism<E> extends Mechanism {
          * Specify the length of the arm for encoder control (distance-based)
          */
         public T length(double length) {
+            if (length <= 0) {
+                throw new IllegalArgumentException("Unexpected length value: " + length
+                        + ", passed to .length(). Valid values are numbers > 0");
+            }
             this.length = length;
             // length is the radius of arm's ROM, so double it for arc length = distance
             this.diameter = 2.0 * length;

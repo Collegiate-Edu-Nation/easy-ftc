@@ -137,6 +137,13 @@ public class TestDrive {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void countThrowsException() {
+        mockInit();
+
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).count(3).build();
+    }
+
     @Test
     public void teleMec_isCalled() {
         mockInit();

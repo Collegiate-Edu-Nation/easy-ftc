@@ -78,6 +78,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * Specify the number of motors (2, 4)
          */
         public Builder count(int count) {
+            if (count != 2 && count != 4) {
+                throw new IllegalArgumentException("Unexpected count value: " + count
+                        + ", passed to Drive.Builder.count(). Valid values are 2 or 4");
+            }
             this.count = count;
             if (count == 4) {
                 String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};

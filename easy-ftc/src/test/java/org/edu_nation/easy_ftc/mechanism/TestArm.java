@@ -89,6 +89,55 @@ public class TestArm {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void diameterThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).diameter(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void lengthThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).length(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void gearingThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).gearing(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void deadzoneThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).deadzone(-1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void countThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void upThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).up(-1).build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void downThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).down(2).build();
+    }
+
     @Test
     public void teleSolo_isCalled() {
         mockInit();
