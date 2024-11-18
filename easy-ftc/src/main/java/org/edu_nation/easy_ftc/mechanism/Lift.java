@@ -36,6 +36,11 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
+        if (builder.up < builder.down) {
+            throw new IllegalArgumentException("Unexpected up and down values: " + builder.up + ", "
+                    + builder.down
+                    + ", passed to Lift.Builder.up() and Lift.Builder.down(). Up must be greater than down");
+        }
         this.up = builder.up;
         this.down = builder.down;
         this.mechanismName = builder.mechanismName;
@@ -104,10 +109,6 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * Specify the positional limit for the "up" direction
          */
         public Builder up(double up) {
-            if (up < this.down) {
-                throw new IllegalArgumentException("Unexpected up value: " + up
-                        + ", passed to Lift.Builder.up(). Valid values are numbers > Arm.down");
-            }
             this.up = up;
             return this;
         }
@@ -116,10 +117,6 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * Specify the positional limit for the "down" direction
          */
         public Builder down(double down) {
-            if (down > this.up) {
-                throw new IllegalArgumentException("Unexpected down value: " + down
-                        + ", passed to Lift.Builder.down(). Valid values are numbers < Arm.up");
-            }
             this.down = down;
             return this;
         }

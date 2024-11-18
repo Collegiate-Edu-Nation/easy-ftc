@@ -37,6 +37,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         super(builder);
         this.count = builder.count;
         this.names = builder.names;
+        if (builder.open < builder.close) {
+            throw new IllegalArgumentException("Unexpected up and down values: " + builder.open
+                    + ", " + builder.close
+                    + ", passed to Claw.Builder.open() and Claw.Builder.close(). Open must be greater than close");
+        }
         this.open = builder.open;
         this.close = builder.close;
         this.mechanismName = builder.mechanismName;
@@ -101,10 +106,6 @@ public class Claw extends ServoMechanism<Claw.Direction> {
                 throw new IllegalArgumentException("Unexpected open value: " + open
                         + ", passed to Claw.Builder.open(). Valid values are numbers in the interval [0, 1]");
             }
-            if (open < this.close) {
-                throw new IllegalArgumentException("Unexpected open value: " + open
-                        + ", passed to Claw.Builder.open(). Valid values are numbers > Claw.close");
-            }
             this.open = open;
             return this;
         }
@@ -116,10 +117,6 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             if (close < 0 || close > 1) {
                 throw new IllegalArgumentException("Unexpected close value: " + close
                         + ", passed to Claw.Builder.close(). Valid values are numbers in the interval [0, 1]");
-            }
-            if (close > this.open) {
-                throw new IllegalArgumentException("Unexpected close value: " + close
-                        + ", passed to Claw.Builder.close(). Valid values are numbers < Claw.open");
             }
             this.close = close;
             return this;
