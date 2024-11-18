@@ -151,6 +151,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      */
     @Override
     public void control(double power) {
+        validate(power);
         double[] unscaledMovements = new double[count];
         double[] movements = new double[count];
         double direction = controlToDirection(gamepad.left_bumper, gamepad.right_bumper);
@@ -190,6 +191,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      */
     @Override
     public void command(double power, Direction direction, double measurement) {
+        validate(power, measurement);
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {

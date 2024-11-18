@@ -186,6 +186,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     @Override
     public void control(double multiplier) {
+        validate(multiplier);
         double heading = 0;
         // Press option to reset imu to combat drift, set heading if applicable
         if (layout == Layout.FIELD) {
@@ -228,6 +229,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     @Override
     public void command(double power, Direction direction, double measurement) {
+        validate(power, measurement);
         double[] unscaledMovements = languageToDirection(count, type, direction);
         moveForMeasurement(unscaledMovements, power, measurement);
     }

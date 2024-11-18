@@ -152,6 +152,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
      */
     @Override
     public void control(double multiplier) {
+        validate(multiplier);
         double[] movements = new double[count];
         double[] unscaledMovements = new double[count];
         double direction =
@@ -195,6 +196,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
      */
     @Override
     public void command(double power, Direction direction, double measurement) {
+        validate(power, measurement);
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {

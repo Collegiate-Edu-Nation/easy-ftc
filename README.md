@@ -6,7 +6,7 @@
 ![Static Badge](https://img.shields.io/badge/Android_API-30-blue)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-blue)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
-![Static Badge](https://img.shields.io/badge/Coverage-96%25-green)
+![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
 </div>
 
@@ -93,7 +93,7 @@ Note that LightWeight and Standard modes do not give identical output when forma
 ### Release
 - [x] Add reverse(String[] names) wrapper
 - [x] Use public enums for direction, type, layout
-- [ ] Throw exceptions for invalid builder args
+- [x] Throw exceptions for invalid builder and method args
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)

@@ -221,6 +221,46 @@ public class TestDrive {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void whenLargeMultiplier_controlThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.control(1.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativeMultiplier_controlThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.control(-0.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenLargePower_commandThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.command(1.1, Drive.Direction.FORWARD, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativePower_commandThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.command(-0.1, Drive.Direction.FORWARD, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenInvalidMeasurment_commandThrowsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.command(0.5, Drive.Direction.FORWARD, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void reverseDif_ThrowsException() {
         mockInit();
 

@@ -224,6 +224,46 @@ public class TestLift {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void whenLargeMultiplier_controlThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.control(1.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativeMultiplier_controlThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.control(-0.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenLargePower_commandThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.command(1.1, Lift.Direction.UP, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativePower_commandThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.command(-0.1, Lift.Direction.UP, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenInvalidMeasurment_commandThrowsException() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+        lift.command(0.5, Lift.Direction.UP, -1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void reverseSolo_ThrowsException() {
         mockInit();
 

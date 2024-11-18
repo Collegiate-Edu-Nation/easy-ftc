@@ -125,6 +125,33 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     public abstract void command(double power, E direction, double measurement);
 
+
+    /**
+     * Ensure multiplier is in (0, 1]
+     */
+    protected void validate(double multiplier) {
+        if (multiplier <= 0 || multiplier > 1) {
+            throw new IllegalArgumentException(
+                    "Unexpected multiplier value: " + multiplier + ", passed to " + mechanismName
+                            + ".control(). Valid values are numbers in the interval (0, 1]");
+        }
+    }
+
+    /**
+     * Ensure power is in (0, 1], measurement is positive
+     */
+    protected void validate(double power, double measurement) {
+        if (power <= 0 || power > 1) {
+            throw new IllegalArgumentException(
+                    "Unexpected power value: " + power + ", passed to " + mechanismName
+                            + ".command(). Valid values are numbers in the interval (0, 1]");
+        }
+        if (measurement < 0) {
+            throw new IllegalArgumentException("Unexpected measurement value: " + measurement
+                    + ", passed to " + mechanismName + ".command(). Valid values are numbers > 0");
+        }
+    }
+
     /**
      * Reverse the direction of the specified motor
      */

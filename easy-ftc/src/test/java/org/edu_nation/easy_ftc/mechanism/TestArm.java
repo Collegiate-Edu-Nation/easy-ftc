@@ -189,9 +189,9 @@ public class TestArm {
                     .length(5).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
 
             arm.control();
-            arm.control(5);
+            arm.control(0.5);
             armEnc.control();
-            armEnc.control(5);
+            armEnc.control(0.5);
 
             FieldUtils.writeField(mockedGamepad, "left_bumper", true);
             armPos.control();
@@ -245,6 +245,46 @@ public class TestArm {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenLargePower_controlThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.control(1.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativePower_controlThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.control(-0.1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenLargePower_commandThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.command(1.1, Arm.Direction.UP, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenNegativePower_commandThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.command(-0.1, Arm.Direction.UP, 1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenInvalidMeasurment_commandThrowsException() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        arm.command(0.5, Arm.Direction.UP, -1);
     }
 
     @Test(expected = IllegalArgumentException.class)
