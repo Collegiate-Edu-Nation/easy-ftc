@@ -56,18 +56,25 @@ public class TestClaw {
         }
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void whenNotSmooth_incrementThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).increment(0.02).build();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void incrementThrowsException() {
         mockInit();
 
-        new Claw.Builder(mockedOpMode, mockedHardwareMap).increment(0).build();
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().increment(0).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void incrementDelayThrowsException() {
         mockInit();
 
-        new Claw.Builder(mockedOpMode, mockedHardwareMap).incrementDelay(0).build();
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().incrementDelay(0).build();
     }
 
     @Test(expected = IllegalArgumentException.class)

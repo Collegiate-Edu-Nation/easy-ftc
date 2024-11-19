@@ -23,6 +23,10 @@ abstract class ServoMechanism<E> extends Mechanism {
     protected ServoMechanism(Builder<?> builder) {
         super(builder);
         this.smooth = builder.smooth;
+        if (!this.smooth && (builder.increment != 0 || builder.incrementDelay != 0)) {
+            throw new IllegalStateException(
+                    "One of: Builder.increment() or Builder.incrementDelay() has been set without enabling Builder.smooth(). Enable Builder.smooth() for intended functionality");
+        }
         this.increment = builder.increment;
         this.incrementDelay = builder.incrementDelay;
         this.delay = builder.delay;
@@ -30,8 +34,8 @@ abstract class ServoMechanism<E> extends Mechanism {
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected boolean smooth = false;
-        protected double increment = 0.02;
-        protected double incrementDelay = 0.02;
+        protected double increment = 0.0;
+        protected double incrementDelay = 0.0;
         protected double delay = 2;
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
@@ -43,6 +47,9 @@ abstract class ServoMechanism<E> extends Mechanism {
          */
         public T smooth() {
             this.smooth = true;
+            this.increment = 0.02;
+            this.incrementDelay = 0.02;
+            this.delay = 0.0;
             return self();
         }
 
