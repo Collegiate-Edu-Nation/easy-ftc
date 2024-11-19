@@ -141,13 +141,13 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             this.type = type;
 
             // correct deviceNames, count, Layout if Type is set to MECANUM
-            if (type == Type.MECANUM && this.count == 2) {
+            if (type == Type.MECANUM) {
                 if (this.count == 2) {
                     this.count = 4;
-                    if (this.names.length == 2) {
-                        String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
-                        this.names = names;
-                    }
+                }
+                if (this.names.length == 2) {
+                    String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
+                    this.names = names;
                 }
                 if (this.layout == Layout.TANK) {
                     this.layout = Layout.ROBOT;
