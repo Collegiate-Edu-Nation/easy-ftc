@@ -95,6 +95,7 @@ To generate documentation, you must also install
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
+- [ ] Support positional limits and FIELD in command()
 - [ ] Support CRServo
 - [ ] Flesh out Color
 - [ ] Add graphics for blocks and onbot usage, controls
