@@ -4,7 +4,6 @@
 package org.edu_nation.easy_ftc.mechanism;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -81,14 +80,6 @@ abstract class ServoMechanism<E> extends Mechanism {
                         + ", passed to .delay(). Valid values are numbers > 0");
             }
             this.delay = delay;
-            return self();
-        }
-
-        /**
-         * Pass the gamepad instance for teleop control
-         */
-        public T gamepad(Gamepad gamepad) {
-            this.gamepad = gamepad;
             return self();
         }
 
