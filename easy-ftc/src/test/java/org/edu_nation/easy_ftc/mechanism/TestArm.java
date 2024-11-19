@@ -124,14 +124,14 @@ public class TestArm {
         new Arm.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void upThrowsException() {
         mockInit();
 
         new Arm.Builder(mockedOpMode, mockedHardwareMap).up(-1).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void downThrowsException() {
         mockInit();
 

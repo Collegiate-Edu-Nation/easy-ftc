@@ -91,7 +91,7 @@ public class TestClaw {
         new Claw.Builder(mockedOpMode, mockedHardwareMap).open(1.1).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void whenOpenIsValidButLessThanClose_openThrowsException() {
         mockInit();
 
@@ -105,7 +105,7 @@ public class TestClaw {
         new Claw.Builder(mockedOpMode, mockedHardwareMap).close(-1).build();
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = IllegalStateException.class)
     public void whenCloseIsValidButGreaterThanOpen_openThrowsException() {
         mockInit();
 

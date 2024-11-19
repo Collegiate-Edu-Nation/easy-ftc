@@ -37,7 +37,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         this.names = builder.names;
         this.behavior = builder.behavior;
         if (builder.up < builder.down) {
-            throw new IllegalArgumentException("Unexpected up and down values: " + builder.up + ", "
+            throw new IllegalStateException("Unexpected up and down values: " + builder.up + ", "
                     + builder.down
                     + ", passed to Arm.Builder.up() and Arm.Builder.down(). Up must be greater than down");
         }

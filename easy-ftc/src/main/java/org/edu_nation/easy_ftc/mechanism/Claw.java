@@ -38,7 +38,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         this.count = builder.count;
         this.names = builder.names;
         if (builder.open < builder.close) {
-            throw new IllegalArgumentException("Unexpected up and down values: " + builder.open
+            throw new IllegalStateException("Unexpected up and down values: " + builder.open
                     + ", " + builder.close
                     + ", passed to Claw.Builder.open() and Claw.Builder.close(). Open must be greater than close");
         }
