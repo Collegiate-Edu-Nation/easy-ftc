@@ -135,7 +135,7 @@ public class TestClaw {
     }
 
     @Test
-    public void teleSolo_isCalled() {
+    public void controlSolo_isCalled() {
         mockInit();
 
         try {
@@ -151,7 +151,7 @@ public class TestClaw {
     }
 
     @Test
-    public void teleDual_isCalled() {
+    public void controlDual_isCalled() {
         mockInit();
 
         try {
@@ -167,7 +167,7 @@ public class TestClaw {
     }
 
     @Test
-    public void moveSolo_isCalled() {
+    public void commandSolo_isCalled() {
         mockInit();
 
         try {
@@ -181,7 +181,7 @@ public class TestClaw {
     }
 
     @Test
-    public void moveDual_isCalled() {
+    public void commandDual_isCalled() {
         mockInit();
 
         try {
@@ -230,11 +230,11 @@ public class TestClaw {
 
     @Test
     public void languageToDirection_isCorrect() {
-        // Test "open"
+        // Test Direction.OPEN
         double result = Claw.languageToDirection(Claw.Direction.OPEN, 1, 0, "Claw");
         assertEquals(1, result, 0.01);
 
-        // Test "close"
+        // Test Direction.CLOSE
         result = Claw.languageToDirection(Claw.Direction.CLOSE, 1, 0, "Claw");
         assertEquals(0, result, 0.01);
     }

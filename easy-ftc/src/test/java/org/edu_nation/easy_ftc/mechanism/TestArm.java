@@ -205,7 +205,7 @@ public class TestArm {
     }
 
     @Test
-    public void teleSolo_isCalled() {
+    public void controlSolo_isCalled() {
         mockInit();
 
         try {
@@ -241,7 +241,7 @@ public class TestArm {
     }
 
     @Test
-    public void teleDual_isCalled() {
+    public void controlDual_isCalled() {
         mockInit();
 
         try {
@@ -277,7 +277,7 @@ public class TestArm {
     }
 
     @Test
-    public void moveSolo_isCalled() {
+    public void commandSolo_isCalled() {
         mockInit();
 
         try {
@@ -295,7 +295,7 @@ public class TestArm {
     }
 
     @Test
-    public void moveDual_isCalled() {
+    public void commandDual_isCalled() {
         mockInit();
 
         try {

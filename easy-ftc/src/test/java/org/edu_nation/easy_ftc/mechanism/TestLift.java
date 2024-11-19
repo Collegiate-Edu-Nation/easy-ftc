@@ -137,7 +137,7 @@ public class TestLift {
     }
 
     @Test
-    public void teleSolo_isCalled() {
+    public void controlSolo_isCalled() {
         mockInit();
 
         try {
@@ -173,7 +173,7 @@ public class TestLift {
     }
 
     @Test
-    public void teleDual_isCalled() {
+    public void controlDual_isCalled() {
         mockInit();
 
         try {
@@ -209,7 +209,7 @@ public class TestLift {
     }
 
     @Test
-    public void moveSolo_isCalled() {
+    public void commandSolo_isCalled() {
         mockInit();
 
         try {
@@ -227,7 +227,7 @@ public class TestLift {
     }
 
     @Test
-    public void moveDual_isCalled() {
+    public void commandDual_isCalled() {
         mockInit();
 
         try {
@@ -361,11 +361,11 @@ public class TestLift {
 
     @Test
     public void languageToDirection_isCorrect() {
-        // Test "up"
+        // Test Direction.UP
         double result = Lift.languageToDirection(Lift.Direction.UP);
         assertEquals(1, result, 0.01);
 
-        // Test "down"
+        // Test Direction.DOWN
         result = Lift.languageToDirection(Lift.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }

@@ -212,7 +212,7 @@ public class TestDrive {
     }
 
     @Test
-    public void teleMec_isCalled() {
+    public void controlMec_isCalled() {
         mockInit();
 
         try {
@@ -231,7 +231,7 @@ public class TestDrive {
     }
 
     @Test
-    public void teleDif_isCalled() {
+    public void controlDif_isCalled() {
         mockInit();
 
         try {
@@ -250,7 +250,7 @@ public class TestDrive {
     }
 
     @Test
-    public void moveDif_isCalled() {
+    public void commandDif_isCalled() {
         mockInit();
 
         try {
@@ -268,7 +268,7 @@ public class TestDrive {
     }
 
     @Test
-    public void moveMec_isCalled() {
+    public void commandMec_isCalled() {
         mockInit();
 
         try {
@@ -384,19 +384,19 @@ public class TestDrive {
         final Type type = Type.DIFFERENTIAL;
         final Layout layout = Layout.TANK;
 
-        // Test "", no movement
+        // Test no movement
         double[] result = Drive.controlToDirection(2, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
-        // Test "", forward
+        // Test forward
         result = Drive.controlToDirection(2, type, layout, deadzone, heading, -1, 0, -1, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
-        // Test "", backward
+        // Test backward
         result = Drive.controlToDirection(2, type, layout, deadzone, heading, 1, 0, 1, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
@@ -410,19 +410,19 @@ public class TestDrive {
         double deadzone = 0.1;
         double heading = 0;
 
-        // Test "", no movement
+        // Test no movement
         double[] result = Drive.controlToDirection(2, type, layout, deadzone, heading, 0, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(0, result[i], 0.01);
         }
 
-        // Test "", forward
+        // Test forward
         result = Drive.controlToDirection(2, type, layout, deadzone, heading, -1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(1, result[i], 0.01);
         }
 
-        // Test "", backward
+        // Test backward
         result = Drive.controlToDirection(2, type, layout, deadzone, heading, 1, 0, 0, 0);
         for (int i = 0; i < result.length; i++) {
             assertEquals(-1, result[i], 0.01);
@@ -516,14 +516,14 @@ public class TestDrive {
             assertEquals(-1, result[i], 0.01);
         }
 
-        // Test "rotateLeft"
+        // Test Direction.ROTATE_LEFT
         double[] expectedRotateLeft = {-1, 1};
         result = Drive.languageToDirection(2, type, Direction.ROTATE_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
-        // Test "rotateRight"
+        // Test Direction.ROTATE_RIGHT
         double[] expectedRotateRight = {1, -1};
         result = Drive.languageToDirection(2, type, Direction.ROTATE_RIGHT);
         for (int i = 0; i < result.length; i++) {
@@ -547,56 +547,56 @@ public class TestDrive {
             assertEquals(-1, result[i], 0.01);
         }
 
-        // Test "left"
+        // Test Direction.LEFT
         double[] expectedLeft = {-1, 1, 1, -1};
         result = Drive.languageToDirection(4, type, Direction.LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedLeft[i], result[i], 0.01);
         }
 
-        // Test "right"
+        // Test Direction.RIGHT
         double[] expectedRight = {1, -1, -1, 1};
         result = Drive.languageToDirection(4, type, Direction.RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRight[i], result[i], 0.01);
         }
 
-        // Test "rotateLeft"
+        // Test Direction.ROTATE_LEFT
         double[] expectedRotateLeft = {-1, 1, -1, 1};
         result = Drive.languageToDirection(4, type, Direction.ROTATE_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateLeft[i], result[i], 0.01);
         }
 
-        // Test "rotateRight"
+        // Test Direction.ROTATE_RIGHT
         double[] expectedRotateRight = {1, -1, 1, -1};
         result = Drive.languageToDirection(4, type, Direction.ROTATE_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedRotateRight[i], result[i], 0.01);
         }
 
-        // Test "forwardLeft"
+        // Test Direction.FORWARD_LEFT
         double[] expectedForwardLeft = {0, 1, 1, 0};
         result = Drive.languageToDirection(4, type, Direction.FORWARD_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardLeft[i], result[i], 0.01);
         }
 
-        // Test "forwardRight"
+        // Test Direction.FORWARD_RIGHT
         double[] expectedForwardRight = {1, 0, 0, 1};
         result = Drive.languageToDirection(4, type, Direction.FORWARD_RIGHT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedForwardRight[i], result[i], 0.01);
         }
 
-        // Test "backwardLeft"
+        // Test Direction.BACKWARD_LEFT
         double[] expectedBackwardLeft = {-1, 0, 0, -1};
         result = Drive.languageToDirection(4, type, Direction.BACKWARD_LEFT);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedBackwardLeft[i], result[i], 0.01);
         }
 
-        // Test "backwardRight"
+        // Test Direction.BACKWARD_RIGHT
         double[] expectedBackwardRight = {0, -1, -1, 0};
         result = Drive.languageToDirection(4, type, Direction.BACKWARD_RIGHT);
         for (int i = 0; i < result.length; i++) {
