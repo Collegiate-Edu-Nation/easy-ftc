@@ -56,10 +56,10 @@ This library greatly simplifies hardware initialization and control by abstracti
         }
 
 ## Dev Setup
-The development environment can be setup by either importing this project into Android Studio, or by using Nix with your IDE of choice
+The development environment can be setup by either using Nix with your IDE of choice, or by importing this project into Android Studio
 
 ### Nix
-Nix is my preferred approach for setting up the development environment. Linux, MacOS, and WSL are supported
+Nix is my preferred approach for setting up the development environment. Linux and MacOS are supported
 
 <b>Must install flake-enabled Nix before running</b>
 
@@ -68,7 +68,7 @@ Launch development environment
     nix develop github:collegiate-edu-nation/easy-ftc
 
 ### Non-Nix
-The project can also be imported into Android Studio, where Windows is also supported
+The project can also be imported into Android Studio, where Windows is supported as well
 
 <b>Must install git before running</b>
 
@@ -81,13 +81,6 @@ To generate documentation, you must also install
 * PlantUML
 * mkdocs
 * mkdocs-material
-
-### Contributing
-This project uses the Google Java Style Guide. I use the Red Hat Java Language Support extension in VSCode, which allows for this to be configured by adding the following to your settings.json
-
-    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml"
-
-Note that LightWeight and Standard modes do not give identical output when formatting
 
 ## ToDo
 ### Release
