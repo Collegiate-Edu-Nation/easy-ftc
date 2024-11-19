@@ -89,6 +89,13 @@ public class TestArm {
         }
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void diameterNoEncoderThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).diameter(1).build();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void diameterThrowsException() {
         mockInit();

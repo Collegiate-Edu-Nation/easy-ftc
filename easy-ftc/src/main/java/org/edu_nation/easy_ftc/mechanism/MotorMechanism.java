@@ -39,6 +39,11 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected MotorMechanism(Builder<?> builder) {
         super(builder);
         this.encoder = builder.encoder;
+        if (!this.encoder
+                && (builder.diameter != 0 || builder.length != 0 || builder.diameter != 0)) {
+            throw new IllegalStateException(
+                    "One of: Builder.diameter(), Builder.length(), or Builder.gearing() has been set without enabling Builder.encoder(). Enable Builder.encoder()");
+        }
         this.diameter = builder.diameter;
         this.length = builder.length;
         this.gearing = builder.gearing;
