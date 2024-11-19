@@ -40,6 +40,21 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
+        if (builder.type == Type.DIFFERENTIAL) {
+            if (builder.layout == Layout.ROBOT || builder.layout == Layout.FIELD) {
+                throw new IllegalStateException(
+                        "Illegal layout passed to Drive.Builder.layout() for the specified type in Drive.Builder.type(). Permitted layouts are: Drive.Layout.ARCADE, Drive.Layout.TANK");
+            }
+        } else if (builder.type == Type.MECANUM) {
+            if (count != 4) {
+                throw new IllegalStateException(
+                        "Illegal count passed to Drive.Builder.count() for the specified type in Drive.Builder.type(). Permitted count value is 4");
+            }
+            if (builder.layout == Layout.ARCADE || builder.layout == Layout.TANK) {
+                throw new IllegalStateException(
+                        "Illegal layout passed to Drive.Builder.layout() for the specified type in Drive.Builder.type(). Permitted layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
+            }
+        }
         this.type = builder.type;
         this.layout = builder.layout;
         this.mechanismName = builder.mechanismName;

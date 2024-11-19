@@ -162,6 +162,33 @@ public class TestDrive {
         new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void mecType_layoutStateThrowsException() {
+        mockInit();
+
+        final Type type = Type.MECANUM;
+        final Layout layout = Layout.ARCADE;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void mecType_countStateThrowsException() {
+        mockInit();
+
+        final Type type = Type.MECANUM;
+        final int count = 2;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).count(count).build();
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void difType_layoutStateThrowsException() {
+        mockInit();
+
+        final Type type = Type.DIFFERENTIAL;
+        final Layout layout = Layout.ROBOT;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
+    }
+
     @Test
     public void teleMec_isCalled() {
         mockInit();
