@@ -30,6 +30,9 @@ abstract class Sensor<S, V> {
         protected boolean reverse = false;
 
         public Builder(HardwareMap hardwareMap) {
+            if (hardwareMap == null) {
+                throw new NullPointerException("Null hardwareMap passed to Builder()");
+            }
             this.hardwareMap = hardwareMap;
         }
 

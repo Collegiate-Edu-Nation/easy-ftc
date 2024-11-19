@@ -89,6 +89,43 @@ public class TestArm {
         }
     }
 
+    @Test(expected = NullPointerException.class)
+    public void opModeThrowsException() {
+        mockInit();
+
+        new Arm.Builder(null, mockedHardwareMap).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void hardwareMapThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void deviceNameThrowsException() {
+        mockInit();
+
+        String nullString = null;
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse(nullString).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void deviceNamesThrowsException() {
+        mockInit();
+
+        String[] nullString = null;
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse(nullString).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void gamepadThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(null).build();
+    }
+
     @Test(expected = IllegalStateException.class)
     public void diameterNoEncoderThrowsException() {
         mockInit();

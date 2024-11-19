@@ -79,6 +79,10 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
          * Specify the rgbOffsets (array of 3 integers, -255-255)
          */
         public Builder rgbOffsets(int[] rgbOffsets) {
+            if (rgbOffsets == null) {
+                throw new NullPointerException(
+                        "Null rgbOffsets passed to Color.Builder.rgbOffsets()");
+            }
             for (int rgbOffset : rgbOffsets) {
                 if (rgbOffset < -255 || rgbOffset > 255) {
                     throw new IllegalArgumentException("Unexpected rgbOffsets value: " + rgbOffset

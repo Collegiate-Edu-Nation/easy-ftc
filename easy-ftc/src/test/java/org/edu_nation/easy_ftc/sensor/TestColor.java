@@ -46,6 +46,20 @@ public class TestColor {
     }
 
     @Test(expected = NullPointerException.class)
+    public void hardwareMapThrowsException() {
+        mockInit();
+
+        new Color.Builder(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void rgbOffsetsNullThrowsException() {
+        mockInit();
+
+        new Color.Builder(mockedHardwareMap).rgbOffsets(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
     public void nameThrowsException() {
         mockInit();
 
