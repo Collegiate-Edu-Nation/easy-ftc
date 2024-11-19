@@ -94,6 +94,9 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * Change the names of the hardware devices
          */
         public Builder names(String[] names) {
+            if (names == null) {
+                throw new NullPointerException("Null names passed to Claw.Builder.names()");
+            }
             this.names = names;
             return this;
         }

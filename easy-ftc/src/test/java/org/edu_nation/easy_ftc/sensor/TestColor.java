@@ -45,6 +45,13 @@ public class TestColor {
         }
     }
 
+    @Test(expected = NullPointerException.class)
+    public void nameThrowsException() {
+        mockInit();
+
+        new Color.Builder(mockedHardwareMap).name(null).build();
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void calibrationValueThrowsException() {
         mockInit();

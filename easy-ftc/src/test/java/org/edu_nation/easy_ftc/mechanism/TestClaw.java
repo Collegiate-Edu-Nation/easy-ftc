@@ -105,6 +105,13 @@ public class TestClaw {
         new Claw.Builder(mockedOpMode, mockedHardwareMap).close(-1).build();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void namesThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).names(null).build();
+    }
+
     @Test(expected = IllegalStateException.class)
     public void whenCloseIsValidButGreaterThanOpen_openThrowsException() {
         mockInit();

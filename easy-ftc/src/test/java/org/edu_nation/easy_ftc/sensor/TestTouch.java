@@ -30,6 +30,13 @@ public class TestTouch {
         }
     }
 
+    @Test(expected = NullPointerException.class)
+    public void nameThrowsException() {
+        mockInit();
+
+        new Touch.Builder(mockedHardwareMap).name(null).build();
+    }
+
     @Test
     public void state_isCorrect() {
         mockInit();

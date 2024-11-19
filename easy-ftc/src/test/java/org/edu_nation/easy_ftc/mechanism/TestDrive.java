@@ -145,6 +145,20 @@ public class TestDrive {
     }
 
     @Test(expected = NullPointerException.class)
+    public void namesThrowsException() {
+        mockInit();
+
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).names(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void behaviorThrowsException() {
+        mockInit();
+
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).behavior(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
     public void type_nullTypeThrowsException() {
         mockInit();
 

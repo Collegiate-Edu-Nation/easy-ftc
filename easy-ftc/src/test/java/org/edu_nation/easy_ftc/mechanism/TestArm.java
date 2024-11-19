@@ -131,6 +131,20 @@ public class TestArm {
         new Arm.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void namesThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).names(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void behaviorThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).behavior(null).build();
+    }
+
     @Test(expected = IllegalStateException.class)
     public void upThrowsException() {
         mockInit();

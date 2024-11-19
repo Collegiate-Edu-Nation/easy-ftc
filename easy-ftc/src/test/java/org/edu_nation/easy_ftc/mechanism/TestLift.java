@@ -100,6 +100,20 @@ public class TestLift {
         new Lift.Builder(mockedOpMode, mockedHardwareMap).count(0).build();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void namesThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).names(null).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void behaviorThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).behavior(null).build();
+    }
+
     @Test(expected = IllegalStateException.class)
     public void upThrowsException() {
         mockInit();

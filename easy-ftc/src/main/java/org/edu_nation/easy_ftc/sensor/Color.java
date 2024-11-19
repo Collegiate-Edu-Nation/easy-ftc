@@ -55,6 +55,9 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
          */
         @Override
         public Builder name(String name) {
+            if (name == null) {
+                throw new NullPointerException("Null name passed to Color.Builder.name()");
+            }
             this.name = name;
             return this;
         }

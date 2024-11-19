@@ -50,6 +50,9 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
          */
         @Override
         public Builder name(String name) {
+            if (name == null) {
+                throw new NullPointerException("Null name passed to Distance.Builder.name()");
+            }
             this.name = name;
             return this;
         }

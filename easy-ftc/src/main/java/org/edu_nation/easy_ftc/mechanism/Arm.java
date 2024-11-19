@@ -92,6 +92,9 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Change the names of the hardware devices
          */
         public Builder names(String[] names) {
+            if (names == null) {
+                throw new NullPointerException("Null names passed to Arm.Builder.names()");
+            }
             this.names = names;
             return this;
         }
@@ -100,6 +103,9 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Specify the zero-power behavior of the motors (DcMotor.ZeroPowerBehavior.BRAKE or FLOAT)
          */
         public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
+            if (behavior == null) {
+                throw new NullPointerException("Null behavior passed to Arm.Builder.behavior()");
+            }
             this.behavior = behavior;
             return this;
         }
