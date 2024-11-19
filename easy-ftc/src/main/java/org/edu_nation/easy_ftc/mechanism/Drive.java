@@ -110,6 +110,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * Specify the drivetrain type: "differential" (default) or "mecanum"
          */
         public Builder type(Type type) {
+            if (type == null) {
+                throw new NullPointerException("Null type passed to Drive.Builder.type()");
+            }
             this.type = type;
 
             // correct deviceNames, count, Layout if Type is set to MECANUM
@@ -134,6 +137,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * Drive.Layout.ARCADE. For Mecanum, Drive.Layout.ROBOT (default) or Drive.Layout.FIELD
          */
         public Builder layout(Layout layout) {
+            if (layout == null) {
+                throw new NullPointerException("Null layout passed to Drive.Builder.layout()");
+            }
             this.layout = layout;
             return this;
         }
@@ -239,12 +245,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     protected static double[] controlToDirection(int count, Type type, Layout layout,
             double deadzone, double heading, float leftY, float leftX, float rightY, float rightX) {
-        if (type == null) {
-            throw new NullPointerException("Null type passed to Drive.Builder.type()");
-        }
-        if (layout == null) {
-            throw new NullPointerException("Null layout passed to Drive.Builder.layout()");
-        }
         if (type == Type.DIFFERENTIAL) {
             double left, right;
             if (layout == Layout.TANK) {
@@ -313,9 +313,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * Translate natural-language direction to numeric values
      */
     protected static double[] languageToDirection(int count, Type type, Direction direction) {
-        if (type == null) {
-            throw new NullPointerException("Null type passed to Drive.Builder.type()");
-        }
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Drive.command()");
         }

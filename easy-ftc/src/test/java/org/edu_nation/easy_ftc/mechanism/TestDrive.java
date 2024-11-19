@@ -144,6 +144,24 @@ public class TestDrive {
         new Drive.Builder(mockedOpMode, mockedHardwareMap).count(3).build();
     }
 
+    @Test(expected = NullPointerException.class)
+    public void type_nullTypeThrowsException() {
+        mockInit();
+
+        final Type type = null;
+        final Layout layout = Layout.ARCADE;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void layout_nullLayoutThrowsException() {
+        mockInit();
+
+        final Type type = Type.MECANUM;
+        final Layout layout = null;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
+    }
+
     @Test
     public void teleMec_isCalled() {
         mockInit();
@@ -430,23 +448,6 @@ public class TestDrive {
         final Layout layout = Layout.ARCADE;
 
         // Test Layout.ARCADE
-        Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void controlToDirection_nullTypeThrowsException() {
-        final Type type = null;
-        final Layout layout = Layout.ARCADE;
-
-        // Test Layout.ARCADE
-        Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
-    }
-
-    @Test(expected = NullPointerException.class)
-    public void controlToDirection_nullLayoutThrowsException() {
-        final Type type = Type.MECANUM;
-        final Layout layout = null;
-
         Drive.controlToDirection(4, type, layout, 0.1, 0, 0, 0, 0, 0);
     }
 
