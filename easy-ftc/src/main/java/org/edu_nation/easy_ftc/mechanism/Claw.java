@@ -38,13 +38,13 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         this.count = builder.count;
         if (builder.count != builder.names.length) {
             throw new IllegalStateException(
-                    "Unexpected array length for array passed to Claw.Builder.names(). The length of this array must be equal to count");
+                    "Unexpected array length for array passed to Claw.Builder().names(). The length of this array must be equal to count");
         }
         this.names = builder.names;
         if (builder.open < builder.close) {
             throw new IllegalStateException("Unexpected up and down values: " + builder.open + ", "
                     + builder.close
-                    + ", passed to Claw.Builder.open() and Claw.Builder.close(). Open must be greater than close");
+                    + ", passed to Claw.Builder().open() and Claw.Builder().close(). Open must be greater than close");
         }
         this.open = builder.open;
         this.close = builder.close;
@@ -84,7 +84,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         public Builder count(int count) {
             if (count < 1 || count > 2) {
                 throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Claw.Builder.count(). Valid values are integers in the interval [1, 2]");
+                        + ", passed to Claw.Builder().count(). Valid values are integers in the interval [1, 2]");
             }
             this.count = count;
             if (count == 2) {
@@ -99,7 +99,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          */
         public Builder names(String[] names) {
             if (names == null) {
-                throw new NullPointerException("Null names passed to Claw.Builder.names()");
+                throw new NullPointerException("Null names passed to Claw.Builder().names()");
             }
             this.names = names;
             return this;
@@ -111,7 +111,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         public Builder open(double open) {
             if (open < 0 || open > 1) {
                 throw new IllegalArgumentException("Unexpected open value: " + open
-                        + ", passed to Claw.Builder.open(). Valid values are numbers in the interval [0, 1]");
+                        + ", passed to Claw.Builder().open(). Valid values are numbers in the interval [0, 1]");
             }
             this.open = open;
             return this;
@@ -123,7 +123,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         public Builder close(double close) {
             if (close < 0 || close > 1) {
                 throw new IllegalArgumentException("Unexpected close value: " + close
-                        + ", passed to Claw.Builder.close(). Valid values are numbers in the interval [0, 1]");
+                        + ", passed to Claw.Builder().close(). Valid values are numbers in the interval [0, 1]");
             }
             this.close = close;
             return this;

@@ -36,14 +36,14 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         this.count = builder.count;
         if (builder.count != builder.names.length) {
             throw new IllegalStateException(
-                    "Unexpected array length for array passed to Arm.Builder.names(). The length of this array must be equal to count");
+                    "Unexpected array length for array passed to Arm.Builder().names(). The length of this array must be equal to count");
         }
         this.names = builder.names;
         this.behavior = builder.behavior;
         if (builder.up < builder.down) {
             throw new IllegalStateException("Unexpected up and down values: " + builder.up + ", "
                     + builder.down
-                    + ", passed to Arm.Builder.up() and Arm.Builder.down(). Up must be greater than down");
+                    + ", passed to Arm.Builder().up() and Arm.Builder().down(). Up must be greater than down");
         }
         this.up = builder.up;
         this.down = builder.down;
@@ -82,7 +82,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         public Builder count(int count) {
             if (count < 1 || count > 2) {
                 throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Arm.Builder.count(). Valid values are integers in the interval [1, 2]");
+                        + ", passed to Arm.Builder().count(). Valid values are integers in the interval [1, 2]");
             }
             this.count = count;
             if (count == 2) {
@@ -97,7 +97,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          */
         public Builder names(String[] names) {
             if (names == null) {
-                throw new NullPointerException("Null names passed to Arm.Builder.names()");
+                throw new NullPointerException("Null names passed to Arm.Builder().names()");
             }
             this.names = names;
             return this;
@@ -108,7 +108,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          */
         public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
             if (behavior == null) {
-                throw new NullPointerException("Null behavior passed to Arm.Builder.behavior()");
+                throw new NullPointerException("Null behavior passed to Arm.Builder().behavior()");
             }
             this.behavior = behavior;
             return this;

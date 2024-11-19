@@ -42,7 +42,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (!this.encoder
                 && (builder.diameter != 0 || builder.length != 0 || builder.diameter != 0)) {
             throw new IllegalStateException(
-                    "One of: Builder.diameter(), Builder.length(), or Builder.gearing() has been set without enabling Builder.encoder(). Enable Builder.encoder()");
+                    "One of: MotorMechanism.Builder().diameter(), MotorMechanism.Builder().length(), or MotorMechanism.Builder().gearing() has been set without enabling MotorMechanism.Builder().encoder(). Enable MotorMechanism.Builder().encoder()");
         }
         this.diameter = builder.diameter;
         this.length = builder.length;
@@ -75,7 +75,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         public T diameter(double diameter) {
             if (diameter <= 0) {
                 throw new IllegalArgumentException("Unexpected diameter value: " + diameter
-                        + ", passed to .diameter(). Valid values are numbers > 0");
+                        + ", passed to MotorMechanism.Builder().diameter(). Valid values are numbers > 0");
             }
             this.diameter = diameter;
             return self();
@@ -87,7 +87,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         public T length(double length) {
             if (length <= 0) {
                 throw new IllegalArgumentException("Unexpected length value: " + length
-                        + ", passed to .length(). Valid values are numbers > 0");
+                        + ", passed to MotorMechanism.Builder().length(). Valid values are numbers > 0");
             }
             this.length = length;
             // length is the radius of arm's ROM, so double it for arc length = distance
@@ -101,7 +101,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         public T gearing(double gearing) {
             if (gearing <= 0) {
                 throw new IllegalArgumentException("Unexpected gearing value: " + gearing
-                        + ", passed to " + ".gearing(). Valid values are numbers > 0");
+                        + ", passed to MotorMechanism.Builder().gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
             return self();
@@ -113,7 +113,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         public T deadzone(double deadzone) {
             if (deadzone < 0) {
                 throw new IllegalArgumentException("Unexpected deadzone value: " + deadzone
-                        + ", passed to " + ".deadzone(). Valid values are numbers >= 0");
+                        + ", passed to MotorMechanism.Builder().deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
             return self();
@@ -189,7 +189,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             validNames = validNames.substring(0, validNames.length() - 2);
             throw new IllegalArgumentException(
                     "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
-                            + ".reverse(). Valid names are: " + validNames);
+                            + ".Builder().reverse(). Valid names are: " + validNames);
         }
     }
 

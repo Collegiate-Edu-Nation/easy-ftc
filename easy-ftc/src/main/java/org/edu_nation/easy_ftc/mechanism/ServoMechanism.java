@@ -25,7 +25,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         this.smooth = builder.smooth;
         if (!this.smooth && (builder.increment != 0 || builder.incrementDelay != 0)) {
             throw new IllegalStateException(
-                    "One of: Builder.increment() or Builder.incrementDelay() has been set without enabling Builder.smooth(). Enable Builder.smooth() for intended functionality");
+                    "One of: ServoMechanism.Builder().increment() or ServoMechanism.Builder().incrementDelay() has been set without enabling ServoMechanism.Builder().smooth(). Enable ServoMechanism.Builder().smooth() for intended functionality");
         }
         this.increment = builder.increment;
         this.incrementDelay = builder.incrementDelay;
@@ -59,7 +59,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         public T increment(double increment) {
             if (increment <= 0 || increment > 1) {
                 throw new IllegalArgumentException("Unexpected increment value: " + increment
-                        + ", passed to .increment(). Valid values are numbers in the interval (0, 1]");
+                        + ", passed to ServoMechanism.Builder().increment(). Valid values are numbers in the interval (0, 1]");
             }
             this.increment = increment;
             return self();
@@ -70,9 +70,9 @@ abstract class ServoMechanism<E> extends Mechanism {
          */
         public T incrementDelay(double incrementDelay) {
             if (incrementDelay <= 0) {
-                throw new IllegalArgumentException(
-                        "Unexpected incrementDelay value: " + incrementDelay
-                                + ", passed to .incrementDelay(). Valid values are numbers > 0");
+                throw new IllegalArgumentException("Unexpected incrementDelay value: "
+                        + incrementDelay
+                        + ", passed to ServoMechanism.Builder().incrementDelay(). Valid values are numbers > 0");
             }
             this.incrementDelay = incrementDelay;
             return self();
@@ -84,7 +84,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         public T delay(double delay) {
             if (delay <= 0) {
                 throw new IllegalArgumentException("Unexpected delay value: " + delay
-                        + ", passed to .delay(). Valid values are numbers > 0");
+                        + ", passed to ServoMechanism.Builder().delay(). Valid values are numbers > 0");
             }
             this.delay = delay;
             return self();
@@ -125,7 +125,7 @@ abstract class ServoMechanism<E> extends Mechanism {
             validNames = validNames.substring(0, validNames.length() - 2);
             throw new IllegalArgumentException(
                     "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
-                            + ".reverse(). Valid names are: " + validNames);
+                            + ".Builder().reverse(). Valid names are: " + validNames);
         }
     }
 

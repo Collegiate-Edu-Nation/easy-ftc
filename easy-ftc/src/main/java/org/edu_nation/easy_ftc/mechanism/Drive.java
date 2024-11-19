@@ -40,23 +40,23 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         this.count = builder.count;
         if (builder.count != builder.names.length) {
             throw new IllegalStateException(
-                    "Unexpected array length for array passed to Drive.Builder.names(). The length of this array must be equal to count");
+                    "Unexpected array length for array passed to Drive.Builder().names(). The length of this array must be equal to count");
         }
         this.names = builder.names;
         this.behavior = builder.behavior;
         if (builder.type == Type.DIFFERENTIAL) {
             if (builder.layout == Layout.ROBOT || builder.layout == Layout.FIELD) {
                 throw new IllegalStateException(
-                        "Illegal layout passed to Drive.Builder.layout() for the specified type in Drive.Builder.type(). Permitted layouts are: Drive.Layout.ARCADE, Drive.Layout.TANK");
+                        "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ARCADE, Drive.Layout.TANK");
             }
         } else if (builder.type == Type.MECANUM) {
             if (count != 4) {
                 throw new IllegalStateException(
-                        "Illegal count passed to Drive.Builder.count() for the specified type in Drive.Builder.type(). Permitted count value is 4");
+                        "Illegal count passed to Drive.Builder().count() for the specified type in Drive.Builder().type(). Permitted count value is 4");
             }
             if (builder.layout == Layout.ARCADE || builder.layout == Layout.TANK) {
                 throw new IllegalStateException(
-                        "Illegal layout passed to Drive.Builder.layout() for the specified type in Drive.Builder.type(). Permitted layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
+                        "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
             }
         }
         this.type = builder.type;
@@ -99,7 +99,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         public Builder count(int count) {
             if (count != 2 && count != 4) {
                 throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Drive.Builder.count(). Valid values are 2 or 4");
+                        + ", passed to Drive.Builder().count(). Valid values are 2 or 4");
             }
             this.count = count;
             if (count == 4) {
@@ -114,7 +114,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          */
         public Builder names(String[] names) {
             if (names == null) {
-                throw new NullPointerException("Null names passed to Drive.Builder.names()");
+                throw new NullPointerException("Null names passed to Drive.Builder().names()");
             }
             this.names = names;
             return this;
@@ -125,7 +125,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          */
         public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
             if (behavior == null) {
-                throw new NullPointerException("Null behavior passed to Drive.Builder.behavior()");
+                throw new NullPointerException(
+                        "Null behavior passed to Drive.Builder().behavior()");
             }
             this.behavior = behavior;
             return this;
@@ -136,7 +137,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          */
         public Builder type(Type type) {
             if (type == null) {
-                throw new NullPointerException("Null type passed to Drive.Builder.type()");
+                throw new NullPointerException("Null type passed to Drive.Builder().type()");
             }
             this.type = type;
 
@@ -163,7 +164,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          */
         public Builder layout(Layout layout) {
             if (layout == null) {
-                throw new NullPointerException("Null layout passed to Drive.Builder.layout()");
+                throw new NullPointerException("Null layout passed to Drive.Builder().layout()");
             }
             this.layout = layout;
             return this;
@@ -280,7 +281,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 right = map(-leftY, deadzone) - map(rightX, deadzone);
             } else {
                 throw new IllegalArgumentException(
-                        "Unexpected layout passed to Drive.control(). Valid layouts are: Drive.Layout.TANK, Drive.Layout.ARCADE");
+                        "Unexpected layout passed to Drive.Builder().layout(). Valid layouts are: Drive.Layout.TANK, Drive.Layout.ARCADE");
             }
 
             double[] movements = new double[count];
@@ -323,14 +324,14 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 backRight = ((axial_relative + lateral_relative - yaw) / max);
             } else {
                 throw new IllegalArgumentException(
-                        "Unexpected layout passed to Drive.control(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
+                        "Unexpected layout passed to Drive.Builder().layout(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
             }
 
             double[] movements = {frontLeft, frontRight, backLeft, backRight};
             return movements;
         } else {
             throw new IllegalArgumentException(
-                    "Unexpected type passed to Drive.control(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
+                    "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
         }
     }
 
@@ -397,7 +398,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             }
         } else {
             throw new IllegalArgumentException(
-                    "Unexpected type passed to Drive.command(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
+                    "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
         }
     }
 }

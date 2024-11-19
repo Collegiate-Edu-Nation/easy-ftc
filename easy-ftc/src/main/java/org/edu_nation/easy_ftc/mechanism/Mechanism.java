@@ -45,10 +45,10 @@ abstract class Mechanism {
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             if (opMode == null) {
-                throw new NullPointerException("Null opMode passed to Builder()");
+                throw new NullPointerException("Null opMode passed to Mechanism.Builder()");
             }
             if (hardwareMap == null) {
-                throw new NullPointerException("Null hardwareMap passed to Builder()");
+                throw new NullPointerException("Null hardwareMap passed to Mechanism.Builder()");
             }
             this.opMode = opMode;
             this.hardwareMap = hardwareMap;
@@ -67,7 +67,8 @@ abstract class Mechanism {
          */
         public T reverse(String deviceName) {
             if (deviceName == null) {
-                throw new NullPointerException("Null deviceName passed to Builder.reverse()");
+                throw new NullPointerException(
+                        "Null deviceName passed to Mechanism.Builder().reverse()");
             }
             int arrLength = reverseDevices.length;
             String[] reverseDevices = new String[arrLength + 1];
@@ -85,7 +86,8 @@ abstract class Mechanism {
          */
         public T reverse(String[] deviceNames) {
             if (deviceNames == null) {
-                throw new NullPointerException("Null deviceNames passed to Builder.reverse()");
+                throw new NullPointerException(
+                        "Null deviceNames passed to Mechanism.Builder().reverse()");
             }
             for (String deviceName : deviceNames) {
                 reverse(deviceName);
@@ -98,7 +100,8 @@ abstract class Mechanism {
          */
         public T gamepad(Gamepad gamepad) {
             if (gamepad == null) {
-                throw new NullPointerException("Null gamepad passed to Builder.gamepad()");
+                throw new NullPointerException(
+                        "Null gamepad passed to Mechanism.Builder().gamepad()");
             }
             this.gamepad = gamepad;
             return self();

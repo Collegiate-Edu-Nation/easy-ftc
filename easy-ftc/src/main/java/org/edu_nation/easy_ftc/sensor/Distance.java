@@ -51,7 +51,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         @Override
         public Builder name(String name) {
             if (name == null) {
-                throw new NullPointerException("Null name passed to Distance.Builder.name()");
+                throw new NullPointerException("Null name passed to Distance.Builder().name()");
             }
             this.name = name;
             return this;
@@ -64,7 +64,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
             if (calibrationValue < 0) {
                 throw new IllegalArgumentException("Unexpected calibrationValue: "
                         + calibrationValue
-                        + ", passed to Distance.Builder.calibrationValue(). Valid values are >0");
+                        + ", passed to Distance.Builder().calibrationValue(). Valid values are >0");
             }
             this.calibrationValue = calibrationValue;
             return this;

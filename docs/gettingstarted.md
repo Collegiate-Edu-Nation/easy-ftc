@@ -69,7 +69,7 @@ Before we can dive into coding, follow the Install section of the README
     * Change the first argument to 0.5
     * Change the third to 3
 
-    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
+    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
     Now, what if you want your robot to move forward, then decide whether to move again based on the color of an object?
 
@@ -156,7 +156,7 @@ Before we can dive into coding, follow the Install section of the README
 
         drive.command(0.5, Drive.Direction.FORWARD, 3);
 
-    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder. .gearing(motorGearing) may also need to be corrected for greater accuracy
+    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder(). .gearing(motorGearing) may also need to be corrected for greater accuracy
 
     Now, what if you want your robot to move forward, then decide whether to move again based on the color of an object?
 

@@ -46,7 +46,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
         @Override
         public Builder name(String name) {
             if (name == null) {
-                throw new NullPointerException("Null name passed to Touch.Builder.name()");
+                throw new NullPointerException("Null name passed to Touch.Builder().name()");
             }
             this.name = name;
             return this;

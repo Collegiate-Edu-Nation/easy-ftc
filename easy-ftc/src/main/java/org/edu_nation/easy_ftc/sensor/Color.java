@@ -56,7 +56,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         @Override
         public Builder name(String name) {
             if (name == null) {
-                throw new NullPointerException("Null name passed to Color.Builder.name()");
+                throw new NullPointerException("Null name passed to Color.Builder().name()");
             }
             this.name = name;
             return this;
@@ -69,7 +69,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
             if (calibrationValue < 0 || calibrationValue > 255) {
                 throw new IllegalArgumentException("Unexpected calibrationValue: "
                         + calibrationValue
-                        + ", passed to Color.Builder.calibrationValue(). Valid values are numbers in the interval [0, 255]");
+                        + ", passed to Color.Builder().calibrationValue(). Valid values are numbers in the interval [0, 255]");
             }
             this.calibrationValue = calibrationValue;
             return this;
@@ -81,12 +81,12 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         public Builder rgbOffsets(int[] rgbOffsets) {
             if (rgbOffsets == null) {
                 throw new NullPointerException(
-                        "Null rgbOffsets passed to Color.Builder.rgbOffsets()");
+                        "Null rgbOffsets passed to Color.Builder().rgbOffsets()");
             }
             for (int rgbOffset : rgbOffsets) {
                 if (rgbOffset < -255 || rgbOffset > 255) {
                     throw new IllegalArgumentException("Unexpected rgbOffsets value: " + rgbOffset
-                            + ", passed to Color.Builder.rgbOffsets(). Valid values are arrays of integers in the interval [-255, 255]");
+                            + ", passed to Color.Builder().rgbOffsets(). Valid values are arrays of integers in the interval [-255, 255]");
                 }
             }
             this.rgbOffsets = rgbOffsets;

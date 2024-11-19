@@ -31,7 +31,7 @@ abstract class Sensor<S, V> {
 
         public Builder(HardwareMap hardwareMap) {
             if (hardwareMap == null) {
-                throw new NullPointerException("Null hardwareMap passed to Builder()");
+                throw new NullPointerException("Null hardwareMap passed to Sensor.Builder()");
             }
             this.hardwareMap = hardwareMap;
         }
