@@ -175,6 +175,14 @@ public class TestArm {
         new Arm.Builder(mockedOpMode, mockedHardwareMap).names(null).build();
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void namesLengthThrowsException() {
+        mockInit();
+
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] {"abc"})
+                .build();
+    }
+
     @Test(expected = NullPointerException.class)
     public void behaviorThrowsException() {
         mockInit();

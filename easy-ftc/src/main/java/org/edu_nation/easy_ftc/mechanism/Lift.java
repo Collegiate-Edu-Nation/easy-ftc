@@ -34,6 +34,10 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     private Lift(Builder builder) {
         super(builder);
         this.count = builder.count;
+        if (builder.count != builder.names.length) {
+            throw new IllegalStateException(
+                    "Unexpected array length for array passed to Lift.Builder.names(). The length of this array must be equal to count");
+        }
         this.names = builder.names;
         this.behavior = builder.behavior;
         if (builder.up < builder.down) {

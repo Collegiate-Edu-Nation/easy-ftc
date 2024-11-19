@@ -34,6 +34,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     private Arm(Builder builder) {
         super(builder);
         this.count = builder.count;
+        if (builder.count != builder.names.length) {
+            throw new IllegalStateException(
+                    "Unexpected array length for array passed to Arm.Builder.names(). The length of this array must be equal to count");
+        }
         this.names = builder.names;
         this.behavior = builder.behavior;
         if (builder.up < builder.down) {

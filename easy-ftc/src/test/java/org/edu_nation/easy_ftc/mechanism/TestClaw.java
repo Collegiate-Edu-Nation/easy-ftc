@@ -120,6 +120,14 @@ public class TestClaw {
     }
 
     @Test(expected = IllegalStateException.class)
+    public void namesLengthThrowsException() {
+        mockInit();
+
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] {"abc"})
+                .build();
+    }
+
+    @Test(expected = IllegalStateException.class)
     public void whenCloseIsValidButGreaterThanOpen_openThrowsException() {
         mockInit();
 
