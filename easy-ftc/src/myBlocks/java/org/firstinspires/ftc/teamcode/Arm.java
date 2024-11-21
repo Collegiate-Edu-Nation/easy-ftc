@@ -10,12 +10,12 @@ import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
 public class Arm extends BlocksOpModeCompanion {
     @ExportToBlocks(
             comment = "Intermediate function that assigns individual motor powers based on direction specified in runOpMode() calls",
-            parameterLabels = {"Power", "Direction", "Time"})
-    public static void command(double power, Direction direction, double time) {
+            parameterLabels = {"Direction", "Time", "Power"})
+    public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Arm arm =
                 new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
                         .build();
-        arm.command(power, direction, time);
+        arm.command(direction, time, power);
     }
 
     @ExportToBlocks(

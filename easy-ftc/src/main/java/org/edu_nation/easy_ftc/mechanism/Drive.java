@@ -260,10 +260,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
-    public void command(double power, Direction direction, double measurement) {
-        validate(power, measurement);
+    public void command(Direction direction, double measurement, double power) {
+        validate(measurement, power);
         double[] unscaledMovements = languageToDirection(count, type, direction);
-        moveForMeasurement(unscaledMovements, power, measurement);
+        moveForMeasurement(unscaledMovements, measurement, power);
     }
 
     /**

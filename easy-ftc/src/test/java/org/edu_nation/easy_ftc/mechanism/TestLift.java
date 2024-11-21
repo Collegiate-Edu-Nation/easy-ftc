@@ -218,9 +218,9 @@ public class TestLift {
             Lift liftPos =
                     new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
 
-            lift.command(0.5, Lift.Direction.UP, 1);
-            liftEnc.command(0.5, Lift.Direction.UP, 1);
-            liftPos.command(0.5, Lift.Direction.UP, 12);
+            lift.command(Lift.Direction.UP, 1, 0.5);
+            liftEnc.command(Lift.Direction.UP, 1, 0.5);
+            liftPos.command(Lift.Direction.UP, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -237,9 +237,9 @@ public class TestLift {
             Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .diameter(4).build();
 
-            lift.command(0.5, Lift.Direction.UP, 1);
-            liftEnc.command(0.5, Lift.Direction.UP, 1);
-            liftPos.command(0.5, Lift.Direction.UP, 12);
+            lift.command(Lift.Direction.UP, 1, 0.5);
+            liftEnc.command(Lift.Direction.UP, 1, 0.5);
+            liftPos.command(Lift.Direction.UP, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -266,7 +266,7 @@ public class TestLift {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-        lift.command(1.1, Lift.Direction.UP, 1);
+        lift.command(Lift.Direction.UP, 1, 1.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -274,7 +274,7 @@ public class TestLift {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-        lift.command(-0.1, Lift.Direction.UP, 1);
+        lift.command(Lift.Direction.UP, 1, -0.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -282,7 +282,7 @@ public class TestLift {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-        lift.command(0.5, Lift.Direction.UP, -1);
+        lift.command(Lift.Direction.UP, -1, 0.5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -375,6 +375,6 @@ public class TestLift {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
-        lift.command(1, null, 1);
+        lift.command(null, 1, 1);
     }
 }

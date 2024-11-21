@@ -259,9 +259,9 @@ public class TestDrive {
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .diameter(4).build();
 
-            drive.command(0.5, Direction.FORWARD, 1);
-            driveEnc.command(0.5, Direction.FORWARD, 1);
-            drivePos.command(0.5, Direction.FORWARD, 12);
+            drive.command(Direction.FORWARD, 1, 0.5);
+            driveEnc.command(Direction.FORWARD, 1, 0.5);
+            drivePos.command(Direction.FORWARD, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -279,9 +279,9 @@ public class TestDrive {
             Drive drivePos = new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder()
                     .diameter(4).type(Type.MECANUM).build();
 
-            drive.command(0.5, Direction.FORWARD, 1);
-            driveEnc.command(0.5, Direction.FORWARD, 1);
-            drivePos.command(0.5, Direction.FORWARD, 12);
+            drive.command(Direction.FORWARD, 1, 0.5);
+            driveEnc.command(Direction.FORWARD, 1, 0.5);
+            drivePos.command(Direction.FORWARD, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -308,7 +308,7 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-        drive.command(1.1, Drive.Direction.FORWARD, 1);
+        drive.command(Drive.Direction.FORWARD, 1, 1.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -316,7 +316,7 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-        drive.command(-0.1, Drive.Direction.FORWARD, 1);
+        drive.command(Drive.Direction.FORWARD, 1, -0.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -324,7 +324,7 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-        drive.command(0.5, Drive.Direction.FORWARD, -1);
+        drive.command(Drive.Direction.FORWARD, -1, 0.5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -617,7 +617,7 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
-        drive.command(1, null, 1);
+        drive.command(null, 1, 1);
     }
 
     @Test(expected = NullPointerException.class)
@@ -625,6 +625,6 @@ public class TestDrive {
         mockInit();
 
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).type(null).build();
-        drive.command(1, Direction.FORWARD, 1);
+        drive.command(Direction.FORWARD, 1, 1);
     }
 }

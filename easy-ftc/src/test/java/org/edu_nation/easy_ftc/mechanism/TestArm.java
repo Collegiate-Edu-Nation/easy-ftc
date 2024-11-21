@@ -286,9 +286,9 @@ public class TestArm {
             Arm armPos =
                     new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
 
-            arm.command(0.5, Arm.Direction.UP, 1);
-            armEnc.command(0.5, Arm.Direction.UP, 1);
-            armPos.command(0.5, Arm.Direction.UP, 12);
+            arm.command(Arm.Direction.UP, 1, 0.5);
+            armEnc.command(Arm.Direction.UP, 1, 0.5);
+            armPos.command(Arm.Direction.UP, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -305,9 +305,9 @@ public class TestArm {
             Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .length(4).build();
 
-            arm.command(0.5, Arm.Direction.UP, 1);
-            armEnc.command(0.5, Arm.Direction.UP, 1);
-            armPos.command(0.5, Arm.Direction.UP, 12);
+            arm.command(Arm.Direction.UP, 1, 0.5);
+            armEnc.command(Arm.Direction.UP, 1, 0.5);
+            armPos.command(Arm.Direction.UP, 12, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -334,7 +334,7 @@ public class TestArm {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-        arm.command(1.1, Arm.Direction.UP, 1);
+        arm.command(Arm.Direction.UP, 1, 1.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -342,7 +342,7 @@ public class TestArm {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-        arm.command(-0.1, Arm.Direction.UP, 1);
+        arm.command(Arm.Direction.UP, 1, -0.1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -350,7 +350,7 @@ public class TestArm {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-        arm.command(0.5, Arm.Direction.UP, -1);
+        arm.command(Arm.Direction.UP, -1, 0.5);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -424,6 +424,6 @@ public class TestArm {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-        arm.command(1, null, 1);
+        arm.command(null, 1, 1);
     }
 }

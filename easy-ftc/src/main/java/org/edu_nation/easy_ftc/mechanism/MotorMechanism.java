@@ -128,7 +128,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     public abstract void control(double multiplier);
 
-    public abstract void command(double power, E direction, double measurement);
+    public abstract void command(E direction, double measurement, double power);
 
 
     /**
@@ -145,15 +145,15 @@ abstract class MotorMechanism<E> extends Mechanism {
     /**
      * Ensure power is in (0, 1], measurement is positive
      */
-    protected void validate(double power, double measurement) {
+    protected void validate(double measurement, double power) {
+        if (measurement < 0) {
+            throw new IllegalArgumentException("Unexpected measurement value: " + measurement
+                    + ", passed to " + mechanismName + ".command(). Valid values are numbers >= 0");
+        }
         if (power <= 0 || power > 1) {
             throw new IllegalArgumentException(
                     "Unexpected power value: " + power + ", passed to " + mechanismName
                             + ".command(). Valid values are numbers in the interval (0, 1]");
-        }
-        if (measurement < 0) {
-            throw new IllegalArgumentException("Unexpected measurement value: " + measurement
-                    + ", passed to " + mechanismName + ".command(). Valid values are numbers >= 0");
         }
     }
 
@@ -258,9 +258,9 @@ abstract class MotorMechanism<E> extends Mechanism {
     /**
      * Moves the mechanism for the given measurement at power
      */
-    protected void moveForMeasurement(double[] unscaledMovements, double power,
-            double measurement) {
-        double[] movements = scaleDirections(power, unscaledMovements);
+    protected void moveForMeasurement(double[] unscaledMovements, double measurement,
+            double power) {
+        double[] movements = scaleDirections(unscaledMovements, power);
 
         if (diameter == 0.0) {
             setPowers(movements);
@@ -405,7 +405,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             setPowers(movements);
         } else {
             double[] scaledMovements =
-                    scaleDirections(Math.min(Math.abs(multiplier), 1), movements);
+                    scaleDirections(movements, Math.min(Math.abs(multiplier), 1));
             setPowers(scaledMovements);
         }
     }
@@ -566,7 +566,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     /**
      * Scale directions by a factor of power to derive actual, intended motor movements
      */
-    protected static double[] scaleDirections(double power, double[] motorDirections) {
+    protected static double[] scaleDirections(double[] motorDirections, double power) {
         int arrLength = motorDirections.length;
         double[] movements = new double[arrLength];
         for (int i = 0; i < arrLength; i++) {

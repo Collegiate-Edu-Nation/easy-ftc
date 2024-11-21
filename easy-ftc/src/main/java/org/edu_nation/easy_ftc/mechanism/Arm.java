@@ -197,14 +197,14 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      * Valid directions are: up, down
      */
     @Override
-    public void command(double power, Direction direction, double measurement) {
-        validate(power, measurement);
+    public void command(Direction direction, double measurement, double power) {
+        validate(measurement, power);
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
-        moveForMeasurement(unscaledMovements, power, measurement);
+        moveForMeasurement(unscaledMovements, measurement, power);
     }
 
     /**

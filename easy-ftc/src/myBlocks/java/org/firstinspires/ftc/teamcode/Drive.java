@@ -10,12 +10,12 @@ import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 public class Drive extends BlocksOpModeCompanion {
     @ExportToBlocks(
             comment = "Intermediate function that assigns individual motor powers based on direction specified in runOpMode() calls",
-            parameterLabels = {"Power", "Direction", "Time"})
-    public static void command(double power, Direction direction, double time) {
+            parameterLabels = {"Direction", "Time", "Power"})
+    public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
                 new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
                         .build();
-        drive.command(power, direction, time);
+        drive.command(direction, time, power);
     }
 
     @ExportToBlocks(comment = "Enables teleoperated drive movement with gamepad (inherits layout)")
