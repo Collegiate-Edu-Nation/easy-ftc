@@ -102,8 +102,13 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                         + ", passed to Drive.Builder().count(). Valid values are 2 or 4");
             }
             this.count = count;
-            if (count == 4) {
+
+            // correct the default names based on count
+            if (count == 4 && names.length == 2) {
                 String[] names = {"frontLeft", "frontRight", "backLeft", "backRight"};
+                this.names = names;
+            } else if (count == 2 && names.length == 4) {
+                String[] names = {"driveLeft", "driveRight"};
                 this.names = names;
             }
             return this;
