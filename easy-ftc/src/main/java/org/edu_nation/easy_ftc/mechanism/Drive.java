@@ -225,6 +225,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     public void control(double multiplier) {
         validate(multiplier);
         double heading = 0;
+
         // Press option to reset imu to combat drift, set heading if applicable
         if (layout == Layout.FIELD) {
             heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
@@ -267,7 +268,14 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     @Override
     public void command(Direction direction, double measurement, double power) {
         validate(measurement, power);
-        double[] unscaledMovements = languageToDirection(count, type, direction);
+        double heading = 0;
+
+        // set heading if applicable
+        if (layout == Layout.FIELD) {
+            heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+        }
+
+        double[] unscaledMovements = languageToDirection(count, type, direction, heading);
         moveForMeasurement(unscaledMovements, measurement, power);
     }
 
@@ -367,7 +375,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(int count, Type type, Direction direction) {
+    protected static double[] languageToDirection(int count, Type type, Direction direction,
+            double heading) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Drive.command()");
         }
@@ -376,7 +385,24 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             case DIFFERENTIAL:
                 return languageToDirectionDifferential(count, direction);
             case MECANUM:
-                return languageToDirectionMecanum(count, direction);
+                double[] dir = languageToDirectionMecanum(count, direction);
+
+                // shift directions for field-centric
+                if (heading != 0) {
+                    double cos = Math.cos(heading);
+                    double sin = Math.sin(heading);
+
+                    // add sine for fL, bR. subtract otw. constrain to [-1, 1]
+                    for (int i = 0; i < count; i++) {
+                        double equation = cos;
+                        equation += (i == 0 || i == 3) ? sin : -sin;
+                        dir[i] *= equation;
+                        dir[i] = (dir[i] > 1) ? 1 : dir[i];
+                        dir[i] = (dir[i] < -1) ? -1 : dir[i];
+                    }
+                }
+
+                return dir;
             default:
                 throw new IllegalArgumentException(
                         "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");

@@ -87,6 +87,7 @@ To generate documentation, you must also install
 - [x] Add reverse(String[] names) wrapper
 - [x] Use public enums for direction, type, layout
 - [x] Throw exceptions for invalid builder and method args
+- [x] Support FIELD in command()
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
@@ -95,7 +96,7 @@ To generate documentation, you must also install
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
-- [ ] Support positional limits and FIELD in command()
+- [ ] Support positional limits in command()
 - [ ] Support CRServo
 - [ ] Flesh out Color
 - [ ] Add graphics for blocks and onbot usage, controls
