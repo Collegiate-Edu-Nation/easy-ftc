@@ -24,17 +24,6 @@
     </issue>
 
     <issue
-        id="GradleDependency"
-        message="A newer version of androidx.test.ext:junit than 1.1.2 is available: 1.2.1"
-        errorLine1="    androidTestImplementation &apos;androidx.test.ext:junit:1.1.2&apos;"
-        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="108"
-            column="31"/>
-    </issue>
-
-    <issue
         id="ExpiredTargetSdkVersion"
         message="Google Play requires that apps target API level 33 or higher."
         errorLine1="        targetSdk 30"
