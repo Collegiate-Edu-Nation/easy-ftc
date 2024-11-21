@@ -22,8 +22,8 @@
             
             waitForStart();
             if (opModeIsActive()) {
-                // Move drivetrain forward at half power for 2 seconds
-                drive.command(0.5, Drive.Direction.FORWARD, 2);
+                // Move drivetrain forward for 2 seconds at half power
+                drive.command(Drive.Direction.FORWARD, 2, 0.5);
             }
         }
     }

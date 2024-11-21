@@ -66,8 +66,8 @@ Before we can dive into coding, follow the Install section of the README
     * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
     * Click the 'Math' submenu 
     * Drag two '0' blocks to the 'command' block
-    * Change the first argument to 0.5
-    * Change the third to 3
+    * Change the second argument to 3
+    * Change the third to 0.5
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -152,9 +152,9 @@ Before we can dive into coding, follow the Install section of the README
 
     As autonomous does not allow gamepad control, we'll need to use the command() method to move a mechanism in this match phase. This method commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (power, direction, and measurement)
 
-    Adding this to the if statement will make your robot drive forward at half-power for 3 seconds
+    Adding this to the if statement will make your robot drive forward for 3 seconds at half-power
 
-        drive.command(0.5, Drive.Direction.FORWARD, 3);
+        drive.command(Drive.Direction.FORWARD, 3, 0.5);
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder(). .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -186,7 +186,7 @@ Before we can dive into coding, follow the Install section of the README
             
     * Add an additional command() call inside of the if statement
 
-            drive.command(0.5, Drive.Direction.FORWARD, 3);
+            drive.command(Drive.Direction.FORWARD, 3, 0.5);
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
