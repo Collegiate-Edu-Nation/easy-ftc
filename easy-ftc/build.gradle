@@ -37,6 +37,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    // ignores deprecation of targetting 1_8
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << '-Xlint:-options'
+    }
+
+    // set lint baseline
     lint {
         baseline = file("lint-baseline.xml")
     }
