@@ -274,7 +274,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             // move the motors at power until they've reached the position
             setPositions(positions, currentPositions);
             setPowers(movements);
-            while (motorsAreBusy()) {
+            while (motorsAreBusy(movements)) {
                 setPowers(movements);
             }
             setPowers();
@@ -493,12 +493,12 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /**
-     * Wrapper around isBusy to see if any motors are busy
+     * Wrapper around isBusy to see if any motors are busy (when they're supposed to be)
      */
-    protected boolean motorsAreBusy() {
+    protected boolean motorsAreBusy(double[] movements) {
         boolean isBusy = false;
-        for (DcMotorEx motorEx : motorsEx) {
-            if (motorEx.isBusy()) {
+        for (int i = 0; i < count; i++) {
+            if (motorsEx[i].isBusy() && movements[i] != 0) {
                 isBusy = true;
             }
         }
