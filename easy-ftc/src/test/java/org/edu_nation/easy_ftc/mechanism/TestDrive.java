@@ -624,6 +624,62 @@ public class TestDrive {
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[1][i], result[i], 0.01);
         }
+
+        // Test Direction.LEFT
+        double[] expectedLeft = {1, 1, 1, 1};
+        result = Drive.languageToDirection(4, type, layout, Direction.LEFT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedLeft[i], result[i], 0.01);
+        }
+
+        // Test Direction.RIGHT
+        double[] expectedRight = {-1, -1, -1, -1};
+        result = Drive.languageToDirection(4, type, layout, Direction.RIGHT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRight[i], result[i], 0.01);
+        }
+
+        // Test Direction.ROTATE_LEFT
+        double[] expectedRotateLeft = {-1, 1, -1, 1};
+        result = Drive.languageToDirection(4, type, layout, Direction.ROTATE_LEFT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateLeft[i], result[i], 0.01);
+        }
+
+        // Test Direction.ROTATE_RIGHT
+        double[] expectedRotateRight = {1, -1, 1, -1};
+        result = Drive.languageToDirection(4, type, layout, Direction.ROTATE_RIGHT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedRotateRight[i], result[i], 0.01);
+        }
+
+        // Test Direction.FORWARD_LEFT
+        double[] expectedForwardLeft = {1, 0, 0, 1};
+        result = Drive.languageToDirection(4, type, layout, Direction.FORWARD_LEFT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedForwardLeft[i], result[i], 0.01);
+        }
+
+        // Test Direction.FORWARD_RIGHT
+        double[] expectedForwardRight = {0, -1, -1, 0};
+        result = Drive.languageToDirection(4, type, layout, Direction.FORWARD_RIGHT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedForwardRight[i], result[i], 0.01);
+        }
+
+        // Test Direction.BACKWARD_LEFT
+        double[] expectedBackwardLeft = {0, 1, 1, 0};
+        result = Drive.languageToDirection(4, type, layout, Direction.BACKWARD_LEFT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedBackwardLeft[i], result[i], 0.01);
+        }
+
+        // Test Direction.BACKWARD_RIGHT
+        double[] expectedBackwardRight = {-1, 0, 0, -1};
+        result = Drive.languageToDirection(4, type, layout, Direction.BACKWARD_RIGHT, heading);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedBackwardRight[i], result[i], 0.01);
+        }
     }
 
     @Test(expected = IllegalArgumentException.class)
