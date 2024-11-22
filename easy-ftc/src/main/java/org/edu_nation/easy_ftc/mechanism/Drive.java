@@ -215,11 +215,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * 1
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
-     * <p>
-     * Basic mecanum algorithm largely taken from the BasicOmniOpMode block example.
-     * <p>
-     * Field-centric algorithm taken from:
-     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     @Override
     public void control(double multiplier) {
@@ -245,11 +240,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * Enables teleoperated mecanum movement with gamepad (inherits layout) with multiplier = 1.0
      * <p>
      * Calling this directly is one of the primary use-cases of this class.
-     * <p>
-     * Basic mecanum algorithm largely taken from the BasicOmniOpMode block example.
-     * <p>
-     * Field-centric algorithm taken from:
-     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     @Override
     public void control() {
@@ -275,7 +265,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         }
 
-        double[] unscaledMovements = languageToDirection(count, type, direction, heading);
+        double[] unscaledMovements = languageToDirection(count, type, layout, direction, heading);
         moveForMeasurement(unscaledMovements, measurement, power);
     }
 
@@ -330,43 +320,44 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     private static double[] controlToDirectionMecanum(int count, Layout layout, double deadzone,
             double heading, double leftY, double leftX, double rightX) {
-        double frontLeft, frontRight, backLeft, backRight;
+        double[] axes = {map(-leftY, deadzone), map(leftX, deadzone), map(rightX, deadzone)};
+        double[] movements = axesToDirection(layout, axes, heading);
+        return movements;
+    }
 
-        // Axes (used for both robot-centric and field-centric)
-        double axial = map(-leftY, deadzone);
-        double lateral = map(leftX, deadzone);
-        double yaw = map(rightX, deadzone);
+    /**
+     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here:
+     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
+     */
+    private static double[] axesToDirection(Layout layout, double[] axes, double heading) {
+        double axial, lateral;
+        double yaw = axes[2];
 
-        // Calculate desired individual motor values (orientation factored in for else-if
-        // statement, i.e. field-centric driving)
+        // Assign axial, lateral based on layout
         switch (layout) {
             case ROBOT:
-                // Scaled individual motor movements derived from axes (left to right, front to
-                // back). Scaling is needed to ensure intended ratios of motor powers
-                // (otherwise, for example, 1.1 would become 1, while 0.9 would be unaffected)
-                double max = Math.max(Math.abs(axial) + Math.abs(lateral) + Math.abs(yaw), 1);
-                frontLeft = ((axial + lateral + yaw) / max);
-                frontRight = ((axial - lateral - yaw) / max);
-                backLeft = ((axial - lateral + yaw) / max);
-                backRight = ((axial + lateral - yaw) / max);
+                axial = axes[0];
+                lateral = axes[1];
                 break;
             case FIELD:
-                // Scaled individual motor movements derived from axes and orientation (left to
-                // right, front to back)
-                // Heading is the current yaw of the robot, which is used to calculate relative axes
-                double axial_relative = lateral * Math.sin(-heading) + axial * Math.cos(-heading);
-                double lateral_relative = lateral * Math.cos(-heading) - axial * Math.sin(-heading);
-                max = Math.max(
-                        Math.abs(axial_relative) + Math.abs(lateral_relative) + Math.abs(yaw), 1);
-                frontLeft = ((axial_relative + lateral_relative + yaw) / max);
-                frontRight = ((axial_relative - lateral_relative - yaw) / max);
-                backLeft = ((axial_relative - lateral_relative + yaw) / max);
-                backRight = ((axial_relative + lateral_relative - yaw) / max);
+                // Heading is the current orientation of the robot, which is used to calculate
+                // relative axes
+                axial = axes[1] * Math.sin(-heading) + axes[0] * Math.cos(-heading);
+                lateral = axes[1] * Math.cos(-heading) - axes[0] * Math.sin(-heading);
                 break;
             default:
                 throw new IllegalArgumentException(
                         "Unexpected layout passed to Drive.Builder().layout(). Valid layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
         }
+
+        // Calculate individual motor values. Scaling is needed to ensure intended ratios of motor
+        // powers (otherwise, for example, 1.1 would become 1, while 0.9 would be unaffected)
+        double max = Math.max(Math.abs(axial) + Math.abs(lateral) + Math.abs(yaw), 1);
+        double frontLeft, frontRight, backLeft, backRight;
+        frontLeft = ((axial + lateral + yaw) / max);
+        frontRight = ((axial - lateral - yaw) / max);
+        backLeft = ((axial - lateral + yaw) / max);
+        backRight = ((axial + lateral - yaw) / max);
 
         double[] movements = {frontLeft, frontRight, backLeft, backRight};
         return movements;
@@ -375,8 +366,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Translate natural-language direction to numeric values
      */
-    protected static double[] languageToDirection(int count, Type type, Direction direction,
-            double heading) {
+    protected static double[] languageToDirection(int count, Type type, Layout layout,
+            Direction direction, double heading) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Drive.command()");
         }
@@ -385,24 +376,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             case DIFFERENTIAL:
                 return languageToDirectionDifferential(count, direction);
             case MECANUM:
-                double[] dir = languageToDirectionMecanum(count, direction);
-
-                // shift directions for field-centric
-                if (heading != 0) {
-                    double cos = Math.cos(heading);
-                    double sin = Math.sin(heading);
-
-                    // add sine for fL, bR. subtract otw. constrain to [-1, 1]
-                    for (int i = 0; i < count; i++) {
-                        double equation = cos;
-                        equation += (i == 0 || i == 3) ? sin : -sin;
-                        dir[i] *= equation;
-                        dir[i] = (dir[i] > 1) ? 1 : dir[i];
-                        dir[i] = (dir[i] < -1) ? -1 : dir[i];
-                    }
-                }
-
-                return dir;
+                return axesToDirection(layout, languageToDirectionMecanum(count, direction),
+                        heading);
             default:
                 throw new IllegalArgumentException(
                         "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
@@ -445,30 +420,30 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Translate natural-language direction for Mecanum to numeric values
+     * Translate natural-language direction for Mecanum to axial, lateral, yaw
      */
     private static double[] languageToDirectionMecanum(int count, Direction direction) {
         switch (direction) {
             case FORWARD:
-                return new double[] {1, 1, 1, 1};
+                return new double[] {1, 0, 0};
             case BACKWARD:
-                return new double[] {-1, -1, -1, -1};
+                return new double[] {-1, 0, 0};
             case LEFT:
-                return new double[] {-1, 1, 1, -1};
+                return new double[] {0, -1, 0};
             case RIGHT:
-                return new double[] {1, -1, -1, 1};
+                return new double[] {0, 1, 0};
             case ROTATE_LEFT:
-                return new double[] {-1, 1, -1, 1};
+                return new double[] {0, 0, -1};
             case ROTATE_RIGHT:
-                return new double[] {1, -1, 1, -1};
+                return new double[] {0, 0, 1};
             case FORWARD_LEFT:
-                return new double[] {0, 1, 1, 0};
+                return new double[] {Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0};
             case FORWARD_RIGHT:
-                return new double[] {1, 0, 0, 1};
+                return new double[] {Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0};
             case BACKWARD_LEFT:
-                return new double[] {-1, 0, 0, -1};
+                return new double[] {-Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0};
             case BACKWARD_RIGHT:
-                return new double[] {0, -1, -1, 0};
+                return new double[] {-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0};
             default:
                 throw new IllegalArgumentException(
                         "Unexpected direction passed to Drive.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.LEFT, Drive.Direction.RIGHT, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT, Drive.Direction.FORWARD_LEFT, Drive.Direction.FORWARD_RIGHT, Drive.Direction.BACKWARD_LEFT, Drive.Direction.BACKWARD_RIGHT");
