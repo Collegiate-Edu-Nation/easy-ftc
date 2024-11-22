@@ -588,7 +588,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         int arrLength = movements.length;
         int[] positions = new int[arrLength];
         for (int i = 0; i < arrLength; i++) {
-            positions[i] = (int) movements[i] * position;
+            positions[i] = (int) (movements[i] * position);
         }
         return positions;
     }
