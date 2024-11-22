@@ -498,7 +498,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected boolean motorsAreBusy(double[] movements) {
         boolean isBusy = false;
         for (int i = 0; i < count; i++) {
-            if (motorsEx[i].isBusy() && movements[i] != 0) {
+            if (motorsEx[i].isBusy() && Math.abs(movements[i]) > 0.01) {
                 isBusy = true;
             }
         }
