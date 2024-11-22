@@ -33,63 +33,6 @@ state() is a function/method that returns the current state/value of each sensor
 ## Usage
 Before we can dive into coding, follow the Install section of the README
 
-=== "Blockly"
-    First, create an OpMode in the blocks editor WebUI
-
-    * Press 'Create New OpMode'
-    * Enter a name, and use the default sample titled 'BasicOpMode'
-    * Press ok
-
-    By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
-
-    If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism in the green while loop block. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
-
-    Let's see how to make your robot drive
-
-    * In the 'Java Classes' dropdown, click Drive
-    * Drag the 'control' block to the green while loop
-
-    That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
-
-    Let's do the same for autonomous
-
-    * Create a new OpMode following the instructions above
-    * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
-    * Delete the green while loop block
-
-    As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (power, direction, and time)
-
-    To make your robot drive forward at half-power for 3 seconds
-
-    * In the 'Java Classes' dropdown, click Drive
-    * Drag the 'command' block to the blue if statement
-    * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
-    * Click the 'Math' submenu 
-    * Drag two '0' blocks to the 'command' block
-    * Change the second argument to 3
-    * Change the third to 0.5
-
-    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
-
-    Now, what if you want your robot to move forward, then decide whether to move again based on the color of an object?
-
-    This is where state() is used
-
-    * In the 'Java Classes' dropdown, click Color
-    * Drag the 'state' block to the blue if statement
-
-    This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
-
-    * In the 'logic' submenu, drag another if statement underneath the 'command' block
-    * In that same submenu, drag an 'equals' block to the first line of the if statement
-    * Move 'state' to the left half of the 'equals' block
-    * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
-    * Copy and paste the existing 'command' block to be inside of the if statement
-
-    Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
-
-    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences, see Examples for how to do this
-
 === "Java"
     First, create a Linear OpMode- note that easy-ftc only works with Linear OpModes
 
@@ -187,6 +130,63 @@ Before we can dive into coding, follow the Install section of the README
     * Add an additional command() call inside of the if statement
 
             drive.command(Drive.Direction.FORWARD, 3, 0.5);
+
+    Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
+
+    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences, see Examples for how to do this
+
+=== "Blockly"
+    First, create an OpMode in the blocks editor WebUI
+
+    * Press 'Create New OpMode'
+    * Enter a name, and use the default sample titled 'BasicOpMode'
+    * Press ok
+
+    By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
+
+    If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism in the green while loop block. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
+
+    Let's see how to make your robot drive
+
+    * In the 'Java Classes' dropdown, click Drive
+    * Drag the 'control' block to the green while loop
+
+    That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
+
+    Let's do the same for autonomous
+
+    * Create a new OpMode following the instructions above
+    * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
+    * Delete the green while loop block
+
+    As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (power, direction, and time)
+
+    To make your robot drive forward at half-power for 3 seconds
+
+    * In the 'Java Classes' dropdown, click Drive
+    * Drag the 'command' block to the blue if statement
+    * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
+    * Click the 'Math' submenu 
+    * Drag two '0' blocks to the 'command' block
+    * Change the second argument to 3
+    * Change the third to 0.5
+
+    Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
+
+    Now, what if you want your robot to move forward, then decide whether to move again based on the color of an object?
+
+    This is where state() is used
+
+    * In the 'Java Classes' dropdown, click Color
+    * Drag the 'state' block to the blue if statement
+
+    This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
+
+    * In the 'logic' submenu, drag another if statement underneath the 'command' block
+    * In that same submenu, drag an 'equals' block to the first line of the if statement
+    * Move 'state' to the left half of the 'equals' block
+    * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
+    * Copy and paste the existing 'command' block to be inside of the if statement
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
