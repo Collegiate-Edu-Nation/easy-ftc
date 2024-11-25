@@ -293,6 +293,8 @@ public class TestArm {
             arm.command(Arm.Direction.UP, 1, 0.5);
             armEnc.command(Arm.Direction.UP, 1, 0.5);
             armPos.command(Arm.Direction.UP, 12, 0.5);
+
+            when(mockedMotorEx.isBusy()).thenReturn(true, false);
             armDia.command(Arm.Direction.UP, 12, 0.5);
             armLim.command(Arm.Direction.UP, 1, 0.5);
         } catch (Exception e) {
