@@ -275,7 +275,6 @@ abstract class MotorMechanism<E> extends Mechanism {
             setPositions(positions, currentPositions);
             setPowers(movements);
             while (motorsAreBusy(movements)) {
-                setPowers(movements);
             }
             setPowers();
 
