@@ -258,23 +258,34 @@ abstract class MotorMechanism<E> extends Mechanism {
     /**
      * Moves the mechanism for the given measurement at power
      */
-    protected void moveForMeasurement(double[] unscaledMovements, double measurement,
-            double power) {
+    protected void moveForMeasurement(double[] unscaledMovements, double measurement, double power,
+            boolean limit) {
         double[] movements = scaleDirections(unscaledMovements, power);
 
         if (diameter == 0.0) {
+            // move the motors at power for the specified time (or until limits are reached)
             setPowers(movements);
-            wait(measurement);
+            if (!limit) {
+                wait(measurement);
+            } else {
+                wait(measurement, limitsNotReached(unscaledMovements[0], unscaledMovements));
+            }
             setPowers();
         } else {
             int[] positions = calculatePositions(measurement, diameter, distanceMultiplier,
                     unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
-            // move the motors at power until they've reached the position
+            // move the motors at power until they've reached the position (or the limit)
             setPositions(positions, currentPositions);
             setPowers(movements);
-            while (motorsAreBusy(movements)) {
+            if (!limit) {
+                while (motorsAreBusy(movements)) {
+                }
+            } else {
+                while (motorsAreBusy(movements)
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements)) {
+                }
             }
             setPowers();
 
