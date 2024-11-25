@@ -204,7 +204,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         for (int i = 0; i < count; i++) {
             unscaledMovements[i] = movement;
         }
-        moveForMeasurement(unscaledMovements, measurement, power);
+        moveForMeasurement(unscaledMovements, measurement, power, up != down);
     }
 
     /**
