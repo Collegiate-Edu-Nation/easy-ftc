@@ -18,6 +18,16 @@ public class Lift extends BlocksOpModeCompanion {
         lift.command(direction, time, power);
     }
 
+    @ExportToBlocks(
+            comment = "Enables teleoperated lift movement with gamepad, scaling by multiplier < 1",
+            parameterLabels = {"Multiplier"})
+    public static void control(double multiplier) {
+        org.edu_nation.easy_ftc.mechanism.Lift lift =
+                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                        .gamepad(gamepad1).build();
+        lift.control(multiplier);
+    }
+
     @ExportToBlocks(comment = "Enables teleoperated lift movement with gamepad")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Lift lift =

@@ -18,6 +18,16 @@ public class Drive extends BlocksOpModeCompanion {
         drive.command(direction, time, power);
     }
 
+    @ExportToBlocks(
+            comment = "Enables teleoperated drive movement with gamepad (inherits layout), scaling by multiplier < 1",
+            parameterLabels = {"Multiplier"})
+    public static void control(double multiplier) {
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .gamepad(gamepad1).build();
+        drive.control(multiplier);
+    }
+
     @ExportToBlocks(comment = "Enables teleoperated drive movement with gamepad (inherits layout)")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
