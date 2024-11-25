@@ -4,6 +4,8 @@
 package org.edu_nation.easy_ftc.mechanism;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -31,6 +33,8 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected double length;
     protected double gearing;
     protected double deadzone;
+    protected LogoFacingDirection logo;
+    protected UsbFacingDirection usb;
     protected Drive.Layout layout;
 
     /**
@@ -48,6 +52,8 @@ abstract class MotorMechanism<E> extends Mechanism {
         this.length = builder.length;
         this.gearing = builder.gearing;
         this.deadzone = builder.deadzone;
+        this.logo = builder.logo;
+        this.usb = builder.usb;
     }
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
@@ -56,6 +62,9 @@ abstract class MotorMechanism<E> extends Mechanism {
         private double length = 0.0;
         private double gearing = 0.0;
         private double deadzone = 0.0;
+        private LogoFacingDirection logo = LogoFacingDirection.UP;
+        private UsbFacingDirection usb = UsbFacingDirection.FORWARD;
+
 
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
@@ -116,6 +125,28 @@ abstract class MotorMechanism<E> extends Mechanism {
                         + ", passed to MotorMechanism.Builder().deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
+            return self();
+        }
+
+        /**
+         * Specify the logo direction of the IMU/gyro
+         */
+        public T logo(LogoFacingDirection logo) {
+            if (logo == null) {
+                throw new NullPointerException("Null IMU logo direction passed to MotorMechanism.Builder.logo()");
+            }
+            this.logo = logo;
+            return self();
+        }
+
+        /**
+         * Specify the logo direction of the IMU/gyro
+         */
+        public T usb(UsbFacingDirection usb) {
+            if (usb == null) {
+                throw new NullPointerException("Null IMU usb direction passed to MotorMechanism.Builder.usb()");
+            }
+            this.usb = usb;
             return self();
         }
 
@@ -235,9 +266,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         // reversed
         if (mechanismName == "Drive" && layout == Drive.Layout.FIELD) {
             imu = hardwareMap.get(IMU.class, "imu");
-            IMU.Parameters parameters = new IMU.Parameters(
-                    new RevHubOrientationOnRobot(RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+            IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(logo, usb));
             imu.initialize(parameters);
             imu.resetYaw();
         }
