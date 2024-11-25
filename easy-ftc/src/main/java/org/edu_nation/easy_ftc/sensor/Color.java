@@ -50,6 +50,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
             super(hardwareMap);
         }
 
+        // methods inherited from Sensor.Builder
+        @Override
+        public Builder reverse() {
+            return super.reverse();
+        }
+
+        // color-specific methods
         /**
          * Change the name of the hardware device
          */

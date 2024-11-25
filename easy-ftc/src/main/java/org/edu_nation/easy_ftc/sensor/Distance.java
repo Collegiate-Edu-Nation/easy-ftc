@@ -45,6 +45,13 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
             super(hardwareMap);
         }
 
+        // methods inherited from Sensor.Builder
+        @Override
+        public Builder reverse() {
+            return super.reverse();
+        }
+
+        // distance-specific methods
         /**
          * Change the name of the hardware device
          */

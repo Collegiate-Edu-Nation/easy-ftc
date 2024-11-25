@@ -6,7 +6,10 @@ package org.edu_nation.easy_ftc.mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 
 /**
  * Implements a drivetrain by extending the functionality of {@link MotorMechanism}.
@@ -93,6 +96,59 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             super(opMode, hardwareMap);
         }
 
+        // methods inherited from Mechanism.Builder
+        @Override
+        public Builder reverse() {
+            return super.reverse();
+        }
+
+        @Override
+        public Builder reverse(String deviceName) {
+            return super.reverse(deviceName);
+        }
+
+        @Override
+        public Builder reverse(String[] deviceNames) {
+            return super.reverse(deviceNames);
+        }
+
+        @Override
+        public Builder gamepad(Gamepad gamepad) {
+            return super.gamepad(gamepad);
+        }
+
+        // methods inherited from MotorMechanism.Builder
+        @Override
+        public Builder encoder() {
+            return super.encoder();
+        }
+
+        @Override
+        public Builder diameter(double diameter) {
+            return super.diameter(diameter);
+        }
+
+        @Override
+        public Builder gearing(double gearing) {
+            return super.gearing(gearing);
+        }
+
+        @Override
+        public Builder deadzone(double deadzone) {
+            return super.deadzone(deadzone);
+        }
+
+        @Override
+        public Builder logo(LogoFacingDirection logo) {
+            return super.logo(logo);
+        }
+
+        @Override
+        public Builder usb(UsbFacingDirection usb) {
+            return super.usb(usb);
+        }
+
+        // drive-specific methods
         /**
          * Specify the number of motors (2, 4)
          */

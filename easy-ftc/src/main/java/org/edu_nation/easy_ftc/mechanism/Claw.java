@@ -4,6 +4,7 @@
 package org.edu_nation.easy_ftc.mechanism;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -78,6 +79,49 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             super(opMode, hardwareMap);
         }
 
+        // methods inherited from Mechanism.Builder
+        @Override
+        public Builder reverse() {
+            return super.reverse();
+        }
+
+        @Override
+        public Builder reverse(String deviceName) {
+            return super.reverse(deviceName);
+        }
+
+        @Override
+        public Builder reverse(String[] deviceNames) {
+            return super.reverse(deviceNames);
+        }
+
+        @Override
+        public Builder gamepad(Gamepad gamepad) {
+            return super.gamepad(gamepad);
+        }
+
+        // methods inherited from ServoMechanism.Builder
+        @Override
+        public Builder smooth() {
+            return super.smooth();
+        }
+
+        @Override
+        public Builder increment(double increment) {
+            return super.increment(increment);
+        }
+
+        @Override
+        public Builder incrementDelay(double incrementDelay) {
+            return super.incrementDelay(incrementDelay);
+        }
+
+        @Override
+        public Builder delay(double delay) {
+            return super.delay(delay);
+        }
+
+        // claw-specific methods
         /**
          * Specify the number of servos (1-2)
          */

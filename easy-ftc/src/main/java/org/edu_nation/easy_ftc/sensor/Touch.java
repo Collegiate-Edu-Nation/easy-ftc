@@ -40,6 +40,13 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
             super(hardwareMap);
         }
 
+        // methods inherited from Sensor.Builder
+        @Override
+        public Builder reverse() {
+            return super.reverse();
+        }
+
+        // touch-specific methods
         /**
          * Change the name of the hardware device
          */
