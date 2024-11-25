@@ -65,7 +65,6 @@ abstract class MotorMechanism<E> extends Mechanism {
         private LogoFacingDirection logo = LogoFacingDirection.UP;
         private UsbFacingDirection usb = UsbFacingDirection.FORWARD;
 
-
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
         }
