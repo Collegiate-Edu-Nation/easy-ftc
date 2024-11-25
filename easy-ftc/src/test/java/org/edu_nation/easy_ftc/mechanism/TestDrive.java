@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 import org.edu_nation.easy_ftc.mechanism.Drive.Type;
 import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
 import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
@@ -51,7 +53,11 @@ public class TestDrive {
             new Drive.Builder(mockedOpMode, mockedHardwareMap)
                     .names(new String[] {"driveLeft", "driveRight"}).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap)
-                    .behavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    .behavior(DcMotor.ZeroPowerBehavior.FLOAT).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap)
+                    .logo(LogoFacingDirection.UP).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap)
+                    .usb(UsbFacingDirection.FORWARD).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
@@ -182,6 +188,22 @@ public class TestDrive {
         final Type type = Type.MECANUM;
         final Layout layout = null;
         new Drive.Builder(mockedOpMode, mockedHardwareMap).type(type).layout(layout).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void logoThrowsException() {
+        mockInit();
+
+        final LogoFacingDirection logo = null;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).logo(logo).build();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void usbThrowsException() {
+        mockInit();
+
+        final UsbFacingDirection usb = null;
+        new Drive.Builder(mockedOpMode, mockedHardwareMap).usb(usb).build();
     }
 
     @Test(expected = IllegalStateException.class)
