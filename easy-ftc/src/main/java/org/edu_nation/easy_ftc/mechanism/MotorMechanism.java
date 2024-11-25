@@ -268,7 +268,10 @@ abstract class MotorMechanism<E> extends Mechanism {
             if (!limit) {
                 wait(measurement);
             } else {
-                wait(measurement, limitsNotReached(unscaledMovements[0], unscaledMovements));
+                this.timer.reset();
+                while (opMode.opModeIsActive() && (this.timer.time() < measurement)
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements)) {
+                }
             }
             setPowers();
         } else {
