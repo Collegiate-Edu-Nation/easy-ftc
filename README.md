@@ -97,6 +97,7 @@ To generate documentation, you must also install
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
+- [ ] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
 - [ ] Flesh out Color
 - [ ] Add graphics for blocks and onbot usage, controls
