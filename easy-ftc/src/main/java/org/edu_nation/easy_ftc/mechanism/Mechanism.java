@@ -124,8 +124,16 @@ abstract class Mechanism {
      * Helper function to wait (but not suspend) for specified time in s.
      */
     protected void wait(double time) {
+        wait(time, true);
+    }
+
+    /**
+     * Helper function to wait (but not suspend) for specified time in s so long as condition is
+     * true
+     */
+    protected void wait(double time, boolean condition) {
         this.timer.reset();
-        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
+        while (opMode.opModeIsActive() && (this.timer.time() < time) && condition) {
         }
     }
 }
