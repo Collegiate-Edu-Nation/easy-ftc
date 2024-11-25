@@ -10,8 +10,8 @@ copyright: Copyright 2024 Collegiate Edu-Nation
 
 theme:
   name: "material"
-  logo: images/easy-ftc.png
-  favicon: images/favicon.png
+  logo: img/logo/easy-ftc.png
+  favicon: img/logo/favicon.png
   palette:
     # Palette toggle for light mode
     - scheme: default
