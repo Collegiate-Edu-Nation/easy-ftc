@@ -91,7 +91,7 @@ To generate documentation, you must also install
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
-- [ ] Add hardware naming section
+- [ ] Add defaults section
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
 
