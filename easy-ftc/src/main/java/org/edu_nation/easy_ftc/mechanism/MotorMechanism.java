@@ -130,7 +130,6 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     public abstract void command(E direction, double measurement, double power);
 
-
     /**
      * Ensure multiplier is in (0, 1]
      */
