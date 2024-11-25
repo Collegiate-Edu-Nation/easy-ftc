@@ -266,7 +266,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
 
         double[] unscaledMovements = languageToDirection(count, type, layout, direction, heading);
-        moveForMeasurement(unscaledMovements, measurement, power);
+        moveForMeasurement(unscaledMovements, measurement, power, false);
     }
 
     /**
