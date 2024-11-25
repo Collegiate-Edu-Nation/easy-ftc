@@ -285,10 +285,16 @@ public class TestArm {
             Arm armEnc = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             Arm armPos =
                     new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
+            Arm armDia = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(5)
+                    .up(1.0).down(-1.0).build();
+            Arm armLim = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().up(1.0)
+                    .down(-1.0).build();
 
             arm.command(Arm.Direction.UP, 1, 0.5);
             armEnc.command(Arm.Direction.UP, 1, 0.5);
             armPos.command(Arm.Direction.UP, 12, 0.5);
+            armDia.command(Arm.Direction.UP, 12, 0.5);
+            armLim.command(Arm.Direction.UP, 1, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -304,10 +310,16 @@ public class TestArm {
                     new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
             Arm armPos = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
                     .length(4).build();
+            Arm armDia = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
+                    .length(5).up(1.0).down(-1.0).build();
+            Arm armLim = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().up(1.0)
+                    .down(-1.0).build();
 
             arm.command(Arm.Direction.UP, 1, 0.5);
             armEnc.command(Arm.Direction.UP, 1, 0.5);
             armPos.command(Arm.Direction.UP, 12, 0.5);
+            armDia.command(Arm.Direction.UP, 12, 0.5);
+            armLim.command(Arm.Direction.UP, 1, 0.5);
         } catch (Exception e) {
             fail(e.getMessage());
         }
