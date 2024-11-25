@@ -300,7 +300,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                         break;
                     }
                 }
-            } else if (direction < 0) {
+            } else {
                 for (int position : currentPositions) {
                     move = (position > down) ? true : false;
                     if (!move) {
@@ -317,7 +317,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                         break;
                     }
                 }
-            } else if (direction < 0) {
+            } else {
                 int[] positions = calculatePositions(down, diameter, distanceMultiplier, movements);
                 if (down < 0) {
                     // calculatePositions is absolute, so reverse values if negative value for down
