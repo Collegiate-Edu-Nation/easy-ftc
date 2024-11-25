@@ -201,9 +201,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         validate(measurement, power);
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
-        for (int i = 0; i < count; i++) {
-            unscaledMovements[i] = movement;
-        }
+        Arrays.fill(unscaledMovements, movement);
         moveForMeasurement(unscaledMovements, measurement, power, up != down);
     }
 
