@@ -196,8 +196,6 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
     /**
      * Enables teleoperated claw movement with gamepad.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control() {
@@ -213,8 +211,6 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     /**
      * Intermediate function that assigns individual servo positions based on direction specified in
      * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      * <p>
      * Valid directions are: open, close
      */

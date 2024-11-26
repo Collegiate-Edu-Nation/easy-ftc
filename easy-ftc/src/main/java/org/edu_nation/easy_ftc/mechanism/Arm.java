@@ -197,8 +197,6 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
     /**
      * Enables teleoperated arm movement with gamepad at a specified power (defaults to 0.5).
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control(double power) {
@@ -224,8 +222,6 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
     /**
      * Enables teleoperated arm movement with gamepad at a power of 0.5 (this is the default case).
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control() {
@@ -235,8 +231,6 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     /**
      * Intermediate function that assigns individual motor powers based on direction specified in
      * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      * <p>
      * Valid directions are: up, down
      */

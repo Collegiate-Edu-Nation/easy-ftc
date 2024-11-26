@@ -198,8 +198,6 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
     /**
      * Enables teleoperated lift movement with gamepad, scaling by multiplier < 1
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control(double multiplier) {
@@ -229,8 +227,6 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
     /**
      * Enables teleoperated lift movement with gamepad with multiplier = 1.0
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control() {
@@ -240,8 +236,6 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     /**
      * Intermediate function that assigns individual motor powers based on direction specified in
      * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      * <p>
      * Valid directions are: up, down
      */

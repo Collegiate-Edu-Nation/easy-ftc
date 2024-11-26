@@ -269,8 +269,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
      * 1
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control(double multiplier) {
@@ -294,8 +292,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /**
      * Enables teleoperated mecanum movement with gamepad (inherits layout) with multiplier = 1.0
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      */
     @Override
     public void control() {
@@ -305,8 +301,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Intermediate function that assigns individual motor powers based on direction specified in
      * runOpMode() calls.
-     * <p>
-     * Calling this directly is one of the primary use-cases of this class.
      * <p>
      * Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft,
      * forwardRight, backwardLeft, backwardRight
