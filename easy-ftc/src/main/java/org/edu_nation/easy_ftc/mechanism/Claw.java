@@ -37,6 +37,24 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         init();
     }
 
+    /**
+     * Claw Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>count = 1
+     * <li>names = {"claw"}
+     * <li>smooth = false
+     * <li>reverse = false
+     * <li>reverseDevices = {}
+     * <li>open = 1.0
+     * <li>close = 0.0
+     * <li>increment = 0.02
+     * <li>incrementDelay = 0.02
+     * <li>delay = 2
+     * <li>gamepad = null
+     * </ul>
+     */
     public static class Builder extends ServoMechanism.Builder<Builder> {
         protected int count = 1;
         protected String[] names = {"claw"};
@@ -45,21 +63,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         private String mechanismName = "Claw";
 
         /**
-         * Claw Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>count = 1
-         * <li>names = {"claw"}
-         * <li>smooth = false
-         * <li>reverse = false
-         * <li>reverseDevices = {}
-         * <li>open = 1.0
-         * <li>close = 0.0
-         * <li>increment = 0.02
-         * <li>incrementDelay = 0.02
-         * <li>delay = 2
-         * <li>gamepad = null
-         * </ul>
+         * @param opMode instance of the calling opMode
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if opMode or hardwareMap are null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);

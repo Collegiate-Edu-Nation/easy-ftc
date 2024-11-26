@@ -55,6 +55,25 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         init();
     }
 
+    /**
+     * Drive Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>count = 2
+     * <li>names = {"driveLeft", "driveRight"}
+     * <li>behavior = FLOAT
+     * <li>encoder = false
+     * <li>reverse = false
+     * <li>reverseDevices = {}
+     * <li>diameter = 0.0
+     * <li>gearing = 0.0
+     * <li>deadzone = 0.0
+     * <li>gamepad = null
+     * <li>type = "" (interpreted as "differential")
+     * <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
+     * </ul>
+     */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 2;
         private String[] names = {"driveLeft", "driveRight"};
@@ -64,22 +83,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         private String mechanismName = "Drive";
 
         /**
-         * Drive Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>count = 2
-         * <li>names = {"driveLeft", "driveRight"}
-         * <li>behavior = FLOAT
-         * <li>encoder = false
-         * <li>reverse = false
-         * <li>reverseDevices = {}
-         * <li>diameter = 0.0
-         * <li>gearing = 0.0
-         * <li>deadzone = 0.0
-         * <li>gamepad = null
-         * <li>type = "" (interpreted as "differential")
-         * <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
-         * </ul>
+         * @param opMode instance of the calling opMode
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if opMode or hardwareMap are null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);

@@ -23,18 +23,25 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         init();
     }
 
+    /**
+     * Distance Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>name = "distanceSensor"
+     * <li>reverse = false
+     * <li>calibrationValue = 7.0
+     * </ul>
+     */
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "distanceSensor";
         private double calibrationValue = 7.0;
 
         /**
-         * Distance Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>name = "distanceSensor"
-         * <li>reverse = false
-         * <li>calibrationValue = 7.0
-         * </ul>
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if hardwareMap is null
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);

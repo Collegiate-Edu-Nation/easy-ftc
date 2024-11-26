@@ -25,20 +25,27 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         init();
     }
 
+    /**
+     * Color Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>name = "colorSensor"
+     * <li>reverse = false
+     * <li>calibrationValue = 85.0
+     * <li>rgbOffsets = {10, -25, 0}
+     * </ul>
+     */
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "colorSensor";
         private double calibrationValue = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 
         /**
-         * Color Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>name = "colorSensor"
-         * <li>reverse = false
-         * <li>calibrationValue = 85.0
-         * <li>rgbOffsets = {10, -25, 0}
-         * </ul>
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if hardwareMap is null
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);

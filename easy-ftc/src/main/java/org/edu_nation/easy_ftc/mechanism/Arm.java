@@ -39,6 +39,22 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         init();
     }
 
+    /**
+     * Arm Builder
+     * <p>
+     * <b>Defaults</b>:
+     * <ul>
+     * <li>count = 1
+     * <li>names = {"arm"}
+     * <li>behavior = BRAKE
+     * <li>encoder = false
+     * <li>reverse = false
+     * <li>reverseDevices = {}
+     * <li>length = 0.0
+     * <li>gearing = 0.0
+     * <li>gamepad = null
+     * </ul>
+     */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"arm"};
@@ -48,19 +64,11 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         private String mechanismName = "Arm";
 
         /**
-         * Arm Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>count = 1
-         * <li>names = {"arm"}
-         * <li>behavior = BRAKE
-         * <li>encoder = false
-         * <li>reverse = false
-         * <li>reverseDevices = {}
-         * <li>length = 0.0
-         * <li>gearing = 0.0
-         * <li>gamepad = null
-         * </ul>
+         * @param opMode instance of the calling opMode
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if opMode or hardwareMap are null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);

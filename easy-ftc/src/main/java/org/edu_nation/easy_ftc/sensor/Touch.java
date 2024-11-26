@@ -21,16 +21,23 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
         init();
     }
 
+    /**
+     * Touch Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>name = "touchSensor"
+     * <li>reverse = false
+     * </ul>
+     */
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "touchSensor";
 
         /**
-         * Touch Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>name = "touchSensor"
-         * <li>reverse = false
-         * </ul>
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if hardwareMap is null
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);

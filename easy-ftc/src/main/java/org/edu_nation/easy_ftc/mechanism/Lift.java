@@ -39,6 +39,23 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         init();
     }
 
+    /**
+     * Lift Builder
+     * <p>
+     * <b>Defaults:</b>
+     * <ul>
+     * <li>count = 1
+     * <li>names = {"lift"}
+     * <li>behavior = FLOAT
+     * <li>encoder = false
+     * <li>reverse = false
+     * <li>reverseDevices = {}
+     * <li>diameter = 0.0
+     * <li>gearing = 0.0
+     * <li>deadzone = 0.0
+     * <li>gamepad = null
+     * </ul>
+     */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"lift"};
@@ -48,20 +65,11 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         private String mechanismName = "Lift";
 
         /**
-         * Lift Builder
+         * Builder constructor
          * 
-         * <ul>
-         * <li>count = 1
-         * <li>names = {"lift"}
-         * <li>behavior = FLOAT
-         * <li>encoder = false
-         * <li>reverse = false
-         * <li>reverseDevices = {}
-         * <li>diameter = 0.0
-         * <li>gearing = 0.0
-         * <li>deadzone = 0.0
-         * <li>gamepad = null
-         * </ul>
+         * @param opMode instance of the calling opMode
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if opMode or hardwareMap are null
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
