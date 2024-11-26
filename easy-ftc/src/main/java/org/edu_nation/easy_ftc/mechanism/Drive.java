@@ -68,18 +68,20 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         /**
          * Drive Builder
          * 
-         * @Defaults count = 2
-         *           <li>names = {"driveLeft", "driveRight"}
-         *           <li>behavior = FLOAT
-         *           <li>encoder = false
-         *           <li>reverse = false
-         *           <li>reverseDevices = {}
-         *           <li>diameter = 0.0
-         *           <li>gearing = 0.0
-         *           <li>deadzone = 0.0
-         *           <li>gamepad = null
-         *           <li>type = "" (interpreted as "differential")
-         *           <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
+         * <ul>
+         * <li>count = 2
+         * <li>names = {"driveLeft", "driveRight"}
+         * <li>behavior = FLOAT
+         * <li>encoder = false
+         * <li>reverse = false
+         * <li>reverseDevices = {}
+         * <li>diameter = 0.0
+         * <li>gearing = 0.0
+         * <li>deadzone = 0.0
+         * <li>gamepad = null
+         * <li>type = "" (interpreted as "differential")
+         * <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
+         * </ul>
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
@@ -256,8 +258,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier <
-     * 1
+     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier
+     * &lt; 1
      */
     @Override
     public void control(double multiplier) {

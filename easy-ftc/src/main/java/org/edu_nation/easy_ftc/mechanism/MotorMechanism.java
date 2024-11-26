@@ -80,7 +80,7 @@ abstract class MotorMechanism<E> extends Mechanism {
          * 
          * @param diameter measurement of the wheel or axel attached to the motor
          * @return builder instance
-         * @throws IllegalArgumentException if diameter <= 0
+         * @throws IllegalArgumentException if diameter &lt;= 0
          */
         public T diameter(double diameter) {
             if (diameter <= 0) {
@@ -96,7 +96,7 @@ abstract class MotorMechanism<E> extends Mechanism {
          * 
          * @param length measurement of the length of the arm attached to the motor
          * @return builder instance
-         * @throws IllegalArgumentException if length <= 0
+         * @throws IllegalArgumentException if length &lt;= 0
          */
         public T length(double length) {
             if (length <= 0) {
@@ -114,7 +114,7 @@ abstract class MotorMechanism<E> extends Mechanism {
          * 
          * @param gearing gearing of the motors in the mechanism
          * @return builder instance
-         * @throws IllegalArgumentException if gearing <= 0
+         * @throws IllegalArgumentException if gearing &lt;= 0
          */
         public T gearing(double gearing) {
             if (gearing <= 0) {
@@ -130,7 +130,7 @@ abstract class MotorMechanism<E> extends Mechanism {
          * 
          * @param deadzone minimum joystick/trigger value registered as input
          * @return builder instance
-         * @throws IllegalArgumentException if deadzone < 0
+         * @throws IllegalArgumentException if deadzone &lt; 0
          */
         public T deadzone(double deadzone) {
             if (deadzone < 0) {

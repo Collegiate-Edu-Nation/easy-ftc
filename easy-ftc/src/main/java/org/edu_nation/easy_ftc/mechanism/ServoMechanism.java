@@ -75,7 +75,7 @@ abstract class ServoMechanism<E> extends Mechanism {
          * 
          * @param incrementDelay the time (in s) to wait between each increment
          * @return builder instance
-         * @throws IllegalArgumentException if incrementDelay <= 0
+         * @throws IllegalArgumentException if incrementDelay &lt;= 0
          */
         public T incrementDelay(double incrementDelay) {
             if (incrementDelay <= 0) {
@@ -92,7 +92,7 @@ abstract class ServoMechanism<E> extends Mechanism {
          * 
          * @param delay the time to wait (in s) for servo movements to complete
          * @return builder instance
-         * @throws IllegalArgumentException if delay <= 0
+         * @throws IllegalArgumentException if delay &lt;= 0
          */
         public T delay(double delay) {
             if (delay <= 0) {

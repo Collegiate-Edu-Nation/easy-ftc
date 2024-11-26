@@ -49,17 +49,19 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         /**
          * Claw Builder
          * 
-         * @Defaults count = 1
-         *           <li>names = {"claw"}
-         *           <li>smooth = false
-         *           <li>reverse = false
-         *           <li>reverseDevices = {}
-         *           <li>open = 1.0
-         *           <li>close = 0.0
-         *           <li>increment = 0.02
-         *           <li>incrementDelay = 0.02
-         *           <li>delay = 2
-         *           <li>gamepad = null
+         * <ul>
+         * <li>count = 1
+         * <li>names = {"claw"}
+         * <li>smooth = false
+         * <li>reverse = false
+         * <li>reverseDevices = {}
+         * <li>open = 1.0
+         * <li>close = 0.0
+         * <li>increment = 0.02
+         * <li>incrementDelay = 0.02
+         * <li>delay = 2
+         * <li>gamepad = null
+         * </ul>
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);

@@ -52,15 +52,17 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         /**
          * Arm Builder
          * 
-         * @Defaults count = 1
-         *           <li>names = {"arm"}
-         *           <li>behavior = BRAKE
-         *           <li>encoder = false
-         *           <li>reverse = false
-         *           <li>reverseDevices = {}
-         *           <li>length = 0.0
-         *           <li>gearing = 0.0
-         *           <li>gamepad = null
+         * <ul>
+         * <li>count = 1
+         * <li>names = {"arm"}
+         * <li>behavior = BRAKE
+         * <li>encoder = false
+         * <li>reverse = false
+         * <li>reverseDevices = {}
+         * <li>length = 0.0
+         * <li>gearing = 0.0
+         * <li>gamepad = null
+         * </ul>
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);

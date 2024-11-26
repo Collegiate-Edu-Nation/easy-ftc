@@ -32,9 +32,11 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         /**
          * Distance Builder
          * 
-         * @Defaults name = "distanceSensor"
-         *           <li>reverse = false
-         *           <li>calibrationValue = 7.0
+         * <ul>
+         * <li>name = "distanceSensor"
+         * <li>reverse = false
+         * <li>calibrationValue = 7.0
+         * </ul>
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);

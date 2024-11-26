@@ -29,8 +29,10 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
         /**
          * Touch Builder
          * 
-         * @Defaults name = "touchSensor"
-         *           <li>reverse = false
+         * <ul>
+         * <li>name = "touchSensor"
+         * <li>reverse = false
+         * </ul>
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);

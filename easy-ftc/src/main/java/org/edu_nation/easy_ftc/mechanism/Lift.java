@@ -52,16 +52,18 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         /**
          * Lift Builder
          * 
-         * @Defaults count = 1
-         *           <li>names = {"lift"}
-         *           <li>behavior = FLOAT
-         *           <li>encoder = false
-         *           <li>reverse = false
-         *           <li>reverseDevices = {}
-         *           <li>diameter = 0.0
-         *           <li>gearing = 0.0
-         *           <li>deadzone = 0.0
-         *           <li>gamepad = null
+         * <ul>
+         * <li>count = 1
+         * <li>names = {"lift"}
+         * <li>behavior = FLOAT
+         * <li>encoder = false
+         * <li>reverse = false
+         * <li>reverseDevices = {}
+         * <li>diameter = 0.0
+         * <li>gearing = 0.0
+         * <li>deadzone = 0.0
+         * <li>gamepad = null
+         * </ul>
          */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
@@ -186,7 +188,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     }
 
     /**
-     * Enables teleoperated lift movement with gamepad, scaling by multiplier < 1
+     * Enables teleoperated lift movement with gamepad, scaling by multiplier &lt; 1
      */
     @Override
     public void control(double multiplier) {

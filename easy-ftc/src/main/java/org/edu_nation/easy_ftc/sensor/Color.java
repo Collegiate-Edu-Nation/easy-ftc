@@ -35,10 +35,12 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         /**
          * Color Builder
          * 
-         * @Defaults name = "colorSensor"
-         *           <li>reverse = false
-         *           <li>calibrationValue = 85.0
-         *           <li>rgbOffsets = {10, -25, 0}
+         * <ul>
+         * <li>name = "colorSensor"
+         * <li>reverse = false
+         * <li>calibrationValue = 85.0
+         * <li>rgbOffsets = {10, -25, 0}
+         * </ul>
          */
         public Builder(HardwareMap hardwareMap) {
             super(hardwareMap);
