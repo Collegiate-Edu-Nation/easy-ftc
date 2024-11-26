@@ -54,10 +54,9 @@ public class TestDrive {
                     .names(new String[] {"driveLeft", "driveRight"}).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap)
                     .behavior(DcMotor.ZeroPowerBehavior.FLOAT).build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap)
-                    .logo(LogoFacingDirection.UP).build();
-            new Drive.Builder(mockedOpMode, mockedHardwareMap)
-                    .usb(UsbFacingDirection.FORWARD).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).logo(LogoFacingDirection.UP).build();
+            new Drive.Builder(mockedOpMode, mockedHardwareMap).usb(UsbFacingDirection.FORWARD)
+                    .build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Drive.Builder(mockedOpMode, mockedHardwareMap).reverse().build();

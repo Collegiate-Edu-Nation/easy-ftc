@@ -6,10 +6,8 @@ package org.edu_nation.easy_ftc.sensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
- * Blueprints an abstract sensor, providing basic functionalities, options, and
- * objects common to
- * all sensors. Cannot be instantiated, only extended by actual sensor classes
- * (see {@link Touch} ,
+ * Blueprints an abstract sensor, providing basic functionalities, options, and objects common to
+ * all sensors. Cannot be instantiated, only extended by actual sensor classes (see {@link Touch} ,
  * {@link Distance}, {@link Color}).
  */
 abstract class Sensor<S, V> {

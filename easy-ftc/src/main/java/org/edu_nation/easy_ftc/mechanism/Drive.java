@@ -12,16 +12,13 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 
 /**
- * Implements a drivetrain by extending the functionality of
- * {@link MotorMechanism}.
+ * Implements a drivetrain by extending the functionality of {@link MotorMechanism}.
  * <ul>
  * <li>See {@link Builder} for Builder methods and defaults.
  * <li>See {@link Direction} for directions that can be passed to
  * {@link #command(direction, measurement, power)}.
- * <li>See {@link Type} for Types that can be passed to
- * {@link Drive.Builder#type(type)}.
- * <li>See {@link Layout} for Layouts that can be passed to
- * {@link Drive.Builder#layout(layout)}.
+ * <li>See {@link Type} for Types that can be passed to {@link Drive.Builder#type(type)}.
+ * <li>See {@link Layout} for Layouts that can be passed to {@link Drive.Builder#layout(layout)}.
  * </ul>
  */
 public class Drive extends MotorMechanism<Drive.Direction> {
@@ -79,7 +76,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 2;
-        private String[] names = { "driveLeft", "driveRight" };
+        private String[] names = {"driveLeft", "driveRight"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private Type type = Type.DIFFERENTIAL;
         private Layout layout = Layout.TANK;
@@ -88,7 +85,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         /**
          * Builder constructor
          * 
-         * @param opMode      instance of the calling opMode
+         * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -165,10 +162,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
             // correct the default names based on count
             if (count == 4 && names.length == 2) {
-                String[] newNames = { "frontLeft", "frontRight", "backLeft", "backRight" };
+                String[] newNames = {"frontLeft", "frontRight", "backLeft", "backRight"};
                 this.names = newNames;
             } else if (count == 2 && names.length == 4) {
-                String[] newNames = { "driveLeft", "driveRight" };
+                String[] newNames = {"driveLeft", "driveRight"};
                 this.names = newNames;
             }
             return this;
@@ -192,8 +189,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         /**
          * Specify the zero-power behavior of the motors
          * 
-         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or
-         *                 FLOAT
+         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
          */
@@ -225,7 +221,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                     this.count = 4;
                 }
                 if (this.names.length == 2) {
-                    String[] newNames = { "frontLeft", "frontRight", "backLeft", "backRight" };
+                    String[] newNames = {"frontLeft", "frontRight", "backLeft", "backRight"};
                     this.names = newNames;
                 }
                 if (this.layout == Layout.TANK) {
@@ -240,10 +236,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * Specify the drivetrain layout
          * 
          * @param layout drivetrain layout
-         *               <ul>
-         *               <li>For DIFFERENTIAL, one of Layout.TANK or ARCADE
-         *               <li>For MECANUM, one of Layout.ROBOT or FIELD
-         *               </ul>
+         *        <ul>
+         *        <li>For DIFFERENTIAL, one of Layout.TANK or ARCADE
+         *        <li>For MECANUM, one of Layout.ROBOT or FIELD
+         *        </ul>
          * @return builder instance
          * @throws NullPointerException if layout is null
          */
@@ -278,8 +274,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /** Directions that can be passed to command */
     public enum Direction {
-        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT,
-        BACKWARD_RIGHT
+        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT
     }
 
     /** Drivetrain types that can be passed to .type() */
@@ -292,10 +287,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         ARCADE, TANK, FIELD, ROBOT
     }
 
-    /**
-     * Enables teleoperated mecanum movement with gamepad, scaling by multiplier
-     * &lt; 1
-     */
+    /** Enables teleoperated mecanum movement with gamepad, scaling by multiplier &lt; 1 */
     @Override
     public void control(double multiplier) {
         validate(multiplier);
@@ -309,8 +301,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             }
         }
 
-        double[] movements = controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
-                gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
+        double[] movements =
+                controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
+                        gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
 
         setPowers(movements, multiplier);
     }
@@ -322,12 +315,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual motor powers based on direction
-     * specified in
+     * Intermediate function that assigns individual motor powers based on direction specified in
      * runOpMode() calls.
      * <p>
-     * Valid directions are: forward, backward, left, right, rotateLeft,
-     * rotateRight, forwaredLeft,
+     * Valid directions are: forward, backward, left, right, rotateLeft, rotateRight, forwaredLeft,
      * forwardRight, backwardLeft, backwardRight
      */
     @Override
@@ -352,8 +343,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 return controlToDirectionDifferential(count, layout, deadzone, leftY, rightY,
                         rightX);
             case MECANUM:
-                return controlToDirectionMecanum(layout, deadzone, heading, leftY, leftX,
-                        rightX);
+                return controlToDirectionMecanum(layout, deadzone, heading, leftY, leftX, rightX);
             default:
                 throw new IllegalArgumentException(
                         "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
@@ -390,13 +380,12 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /** Set mecanum drivetrain motor movements based on layout: ROBOT or FIELD */
     private static double[] controlToDirectionMecanum(Layout layout, double deadzone,
             double heading, double leftY, double leftX, double rightX) {
-        double[] axes = { map(-leftY, deadzone), map(leftX, deadzone), map(rightX, deadzone) };
+        double[] axes = {map(-leftY, deadzone), map(leftX, deadzone), map(rightX, deadzone)};
         return axesToDirection(layout, axes, heading);
     }
 
     /**
-     * Converts axial, lateral, yaw, and heading to motor directions using the
-     * formulas here:
+     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here:
      * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     private static double[] axesToDirection(Layout layout, double[] axes, double heading) {
@@ -431,7 +420,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         double backLeft = ((axial - lateral + yaw) / max);
         double backRight = ((axial + lateral - yaw) / max);
 
-        return new double[] { frontLeft, frontRight, backLeft, backRight };
+        return new double[] {frontLeft, frontRight, backLeft, backRight};
     }
 
     /** Translate natural-language direction to numeric values */
@@ -489,25 +478,25 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     private static double[] languageToDirectionMecanum(Direction direction) {
         switch (direction) {
             case FORWARD:
-                return new double[] { 1, 0, 0 };
+                return new double[] {1, 0, 0};
             case BACKWARD:
-                return new double[] { -1, 0, 0 };
+                return new double[] {-1, 0, 0};
             case LEFT:
-                return new double[] { 0, -1, 0 };
+                return new double[] {0, -1, 0};
             case RIGHT:
-                return new double[] { 0, 1, 0 };
+                return new double[] {0, 1, 0};
             case ROTATE_LEFT:
-                return new double[] { 0, 0, -1 };
+                return new double[] {0, 0, -1};
             case ROTATE_RIGHT:
-                return new double[] { 0, 0, 1 };
+                return new double[] {0, 0, 1};
             case FORWARD_LEFT:
-                return new double[] { Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0 };
+                return new double[] {Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0};
             case FORWARD_RIGHT:
-                return new double[] { Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0 };
+                return new double[] {Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0};
             case BACKWARD_LEFT:
-                return new double[] { -Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0 };
+                return new double[] {-Math.sqrt(2) / 2, -Math.sqrt(2) / 2, 0};
             case BACKWARD_RIGHT:
-                return new double[] { -Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0 };
+                return new double[] {-Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0};
             default:
                 throw new IllegalArgumentException(
                         "Unexpected direction passed to Drive.command(). Valid directions are: Drive.Direction.FORWARD, Drive.Direction.BACKWARD, Drive.Direction.LEFT, Drive.Direction.RIGHT, Drive.Direction.ROTATE_LEFT, Drive.Direction.ROTATE_RIGHT, Drive.Direction.FORWARD_LEFT, Drive.Direction.FORWARD_RIGHT, Drive.Direction.BACKWARD_LEFT, Drive.Direction.BACKWARD_RIGHT");

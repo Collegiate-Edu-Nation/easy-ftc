@@ -14,10 +14,8 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
- * Blueprints an abstract Motor Mechanism, providing basic functionalities,
- * options, and objects
- * common to all Motor Mechanisms. Cannot be instantiated, only extended by
- * other classes.
+ * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
+ * common to all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
  */
 abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;
@@ -113,8 +111,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the gearing of the motors (increases accuracy of distance-based
-         * movement)
+         * Specify the gearing of the motors (increases accuracy of distance-based movement)
          * 
          * @param gearing gearing of the motors in the mechanism
          * @return builder instance
@@ -224,7 +221,8 @@ abstract class MotorMechanism<E> extends Mechanism {
                             : DcMotorEx.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 } else {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
@@ -238,9 +236,8 @@ abstract class MotorMechanism<E> extends Mechanism {
             }
             String validNames = bld.toString();
             validNames = validNames.substring(0, validNames.length() - 2);
-            throw new IllegalArgumentException(
-                    "Unexpected deviceName: " + deviceName + connect + mechanismName
-                            + ".Builder().reverse(). Valid names are: " + validNames);
+            throw new IllegalArgumentException("Unexpected deviceName: " + deviceName + connect
+                    + mechanismName + ".Builder().reverse(). Valid names are: " + validNames);
         }
     }
 
@@ -314,8 +311,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             } else {
                 this.timer.reset();
                 while (opMode.opModeIsActive() && (this.timer.time() < measurement)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
-                    ;
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements));
             }
             setPowers();
         } else {
@@ -327,12 +323,10 @@ abstract class MotorMechanism<E> extends Mechanism {
             setPositions(positions, currentPositions);
             setPowers(movements);
             if (!limit) {
-                while (motorsAreBusy(movements))
-                    ;
+                while (motorsAreBusy(movements));
             } else {
                 while (motorsAreBusy(movements)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
-                    ;
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements));
             }
             setPowers();
 
@@ -393,10 +387,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return move;
     }
 
-    /**
-     * Sets the target position for each motor before setting the mode to
-     * RUN_TO_POSITION
-     */
+    /** Sets the target position for each motor before setting the mode to RUN_TO_POSITION */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
         for (int i = 0; i < count; i++) {
@@ -449,7 +440,8 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (multiplier == 1.0) {
             setPowers(movements);
         } else {
-            double[] scaledMovements = scaleDirections(movements, Math.min(Math.abs(multiplier), 1));
+            double[] scaledMovements =
+                    scaleDirections(movements, Math.min(Math.abs(multiplier), 1));
             setPowers(scaledMovements);
         }
     }
@@ -465,7 +457,8 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
                     motors[i].setDirection(direction);
                 }
             }
@@ -478,7 +471,8 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotor.Direction direction =
+                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
@@ -516,20 +510,14 @@ abstract class MotorMechanism<E> extends Mechanism {
         return min(gearings);
     }
 
-    /**
-     * Correct the gear-ratio of all motors using encoders. Updates
-     * distanceMultiplier
-     */
+    /** Correct the gear-ratio of all motors using encoders. Updates distanceMultiplier */
     protected void setGearing(double gearing) {
         MotorConfigurationType[] motorTypes = getMotorTypes();
         double currentGearing = getGearing(motorTypes);
         distanceMultiplier *= gearing / currentGearing;
     }
 
-    /**
-     * Wrapper around isBusy to see if any motors are busy (when they're supposed to
-     * be)
-     */
+    /** Wrapper around isBusy to see if any motors are busy (when they're supposed to be) */
     protected boolean motorsAreBusy(double[] movements) {
         boolean isBusy = false;
         for (int i = 0; i < count; i++) {
@@ -540,10 +528,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return isBusy;
     }
 
-    /**
-     * Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all
-     * motors
-     */
+    /** Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors */
     protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
         double[] achieveableMaxTicksPerSecondArr = new double[count];
         for (int i = 0; i < count; i++) {
@@ -588,10 +573,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return mappedValue;
     }
 
-    /**
-     * Scale directions by a factor of power to derive actual, intended motor
-     * movements
-     */
+    /** Scale directions by a factor of power to derive actual, intended motor movements */
     protected static double[] scaleDirections(double[] motorDirections, double power) {
         int arrLength = motorDirections.length;
         double[] movements = new double[arrLength];
@@ -601,10 +583,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return movements;
     }
 
-    /**
-     * Calculate posiitons based on distance, diameter, distanceMultiplier,
-     * movements
-     */
+    /** Calculate posiitons based on distance, diameter, distanceMultiplier, movements */
     protected static int[] calculatePositions(double distance, double diameter,
             double distanceMultiplier, double[] movements) {
         double circumference = Math.PI * diameter;

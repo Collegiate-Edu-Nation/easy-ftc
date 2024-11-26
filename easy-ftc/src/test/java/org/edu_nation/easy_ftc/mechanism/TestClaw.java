@@ -30,13 +30,13 @@ public class TestClaw {
 
         try {
             new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Claw.Builder(mockedOpMode, mockedHardwareMap).names(new String[] { "claw" }).build();
+            new Claw.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"claw"}).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).reverse("claw").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("clawLeft")
                     .reverse("clawRight").build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2)
-                    .reverse(new String[] { "clawLeft", "clawRight" }).build();
+                    .reverse(new String[] {"clawLeft", "clawRight"}).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
@@ -123,7 +123,7 @@ public class TestClaw {
     public void namesLengthThrowsException() {
         mockInit();
 
-        new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] { "abc" })
+        new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] {"abc"})
                 .build();
     }
 
@@ -186,7 +186,8 @@ public class TestClaw {
 
         try {
             Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            Claw clawSmooth = new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
+            Claw clawSmooth =
+                    new Claw.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
             claw.command(Claw.Direction.OPEN);
             clawSmooth.command(Claw.Direction.OPEN);
         } catch (Exception e) {

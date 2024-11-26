@@ -10,8 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Blueprints an abstract Mechanism, providing basic functionalities, options,
- * and objects common to
+ * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
  * all claws. Cannot be instantiated, only extended by other abstract classes.
  */
 abstract class Mechanism {
@@ -44,7 +43,7 @@ abstract class Mechanism {
         /**
          * Builder constructor
          * 
-         * @param opMode      instance of the calling opMode
+         * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -135,12 +134,9 @@ abstract class Mechanism {
 
     protected abstract void reverse(String deviceName);
 
-    /**
-     * Helper function to wait (but not suspend) for specified time in s.
-     */
+    /** Helper function to wait (but not suspend) for specified time in s. */
     protected void wait(double time) {
         this.timer.reset();
-        while (opMode.opModeIsActive() && (this.timer.time() < time))
-            ;
+        while (opMode.opModeIsActive() && (this.timer.time() < time));
     }
 }

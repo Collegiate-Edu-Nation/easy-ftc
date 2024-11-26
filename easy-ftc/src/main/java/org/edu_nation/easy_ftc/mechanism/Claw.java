@@ -11,8 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * Implements a claw by extending the functionality of {@link ServoMechanism}.
  * <ul>
  * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to
- * {@link #command(direction)}.
+ * <li>See {@link Direction} for directions that can be passed to {@link #command(direction)}.
  * </ul>
  */
 public class Claw extends ServoMechanism<Claw.Direction> {
@@ -59,7 +58,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      */
     public static class Builder extends ServoMechanism.Builder<Builder> {
         protected int count = 1;
-        protected String[] names = { "claw" };
+        protected String[] names = {"claw"};
         protected double open = 1.0;
         protected double close = 0.0;
         private String mechanismName = "Claw";
@@ -67,7 +66,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         /**
          * Builder constructor
          * 
-         * @param opMode      instance of the calling opMode
+         * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -132,7 +131,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] newNames = { "clawLeft", "clawRight" };
+                String[] newNames = {"clawLeft", "clawRight"};
                 this.names = newNames;
             }
             return this;
@@ -224,8 +223,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual servo positions based on
-     * direction specified in
+     * Intermediate function that assigns individual servo positions based on direction specified in
      * runOpMode() calls.
      * <p>
      * Valid directions are: open, close

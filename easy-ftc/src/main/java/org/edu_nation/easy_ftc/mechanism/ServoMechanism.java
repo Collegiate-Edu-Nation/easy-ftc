@@ -8,10 +8,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Blueprints an abstract Servo Mechanism, providing basic functionalities,
- * options, and objects
- * common to all Servo Mechanisms. Cannot be instantiated, only extended by
- * other classes.
+ * Blueprints an abstract Servo Mechanism, providing basic functionalities, options, and objects
+ * common to all Servo Mechanisms. Cannot be instantiated, only extended by other classes.
  */
 abstract class ServoMechanism<E> extends Mechanism {
     protected Servo[] servos;
@@ -123,7 +121,8 @@ abstract class ServoMechanism<E> extends Mechanism {
         for (int i = 0; i < count; i++) {
             if (deviceName == names[i]) {
                 found = true;
-                Servo.Direction direction = (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
+                Servo.Direction direction =
+                        (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
                 servos[i].setDirection(direction);
             }
         }
@@ -171,10 +170,8 @@ abstract class ServoMechanism<E> extends Mechanism {
     }
 
     /**
-     * Wrapper around setPositionsByIncrement that enables smooth servo movement
-     * until the desired
-     * position is reached. The loop causes thread-blocking, so it's not used for
-     * control() calls
+     * Wrapper around setPositionsByIncrement that enables smooth servo movement until the desired
+     * position is reached. The loop causes thread-blocking, so it's not used for control() calls
      */
     protected void setPositionsByIncrementUntilComplete(double position, double movement) {
         while (opMode.opModeIsActive() && position != movement) {
@@ -193,12 +190,14 @@ abstract class ServoMechanism<E> extends Mechanism {
     protected void setDirections(boolean reverse) {
         if (!reverse) {
             for (int i = 0; i < count; i++) {
-                Servo.Direction direction = (i % 2 == 0) ? Servo.Direction.FORWARD : Servo.Direction.REVERSE;
+                Servo.Direction direction =
+                        (i % 2 == 0) ? Servo.Direction.FORWARD : Servo.Direction.REVERSE;
                 servos[i].setDirection(direction);
             }
         } else {
             for (int i = 0; i < count; i++) {
-                Servo.Direction direction = (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
+                Servo.Direction direction =
+                        (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
                 servos[i].setDirection(direction);
             }
         }

@@ -58,7 +58,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
-        private String[] names = { "lift" };
+        private String[] names = {"lift"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private double up = 0.0;
         private double down = 0.0;
@@ -67,7 +67,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         /**
          * Builder constructor
          * 
-         * @param opMode      instance of the calling opMode
+         * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -132,7 +132,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] newNames = { "liftLeft", "liftRight" };
+                String[] newNames = {"liftLeft", "liftRight"};
                 this.names = newNames;
             }
             return this;
@@ -156,8 +156,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         /**
          * Specify the zero-power behavior of the motors
          * 
-         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or
-         *                 FLOAT
+         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
          */
@@ -217,15 +216,14 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         UP, DOWN
     }
 
-    /**
-     * Enables teleoperated lift movement with gamepad, scaling by multiplier &lt; 1
-     */
+    /** Enables teleoperated lift movement with gamepad, scaling by multiplier &lt; 1 */
     @Override
     public void control(double multiplier) {
         validate(multiplier);
         double[] movements = new double[count];
         double[] unscaledMovements = new double[count];
-        double direction = controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
+        double direction =
+                controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
         Arrays.fill(movements, direction);
         if (direction != 0) {
             direction = (direction > 0) ? 1 : -1;
@@ -252,8 +250,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual motor powers based on direction
-     * specified in
+     * Intermediate function that assigns individual motor powers based on direction specified in
      * runOpMode() calls.
      * <p>
      * Valid directions are: up, down
