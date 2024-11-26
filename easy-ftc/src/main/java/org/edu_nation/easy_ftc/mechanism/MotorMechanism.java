@@ -35,9 +35,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected UsbFacingDirection usb;
     protected Drive.Layout layout;
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     protected MotorMechanism(Builder<?> builder) {
         super(builder);
         this.encoder = builder.encoder;
@@ -69,6 +67,8 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Whether to enable encoders (time-based)
+         * 
+         * @return builder instance
          */
         public T encoder() {
             this.encoder = true;
@@ -76,7 +76,11 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the diameter of the wheels/axel for encoder control (distance-based)
+         * Specify the diameter for encoder control (distance-based)
+         * 
+         * @param diameter measurement of the wheel or axel attached to the motor
+         * @return builder instance
+         * @throws IllegalArgumentException if diameter <= 0
          */
         public T diameter(double diameter) {
             if (diameter <= 0) {
@@ -88,7 +92,11 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the length of the arm for encoder control (distance-based)
+         * Specify the length for encoder control (distance-based)
+         * 
+         * @param length measurement of the length of the arm attached to the motor
+         * @return builder instance
+         * @throws IllegalArgumentException if length <= 0
          */
         public T length(double length) {
             if (length <= 0) {
@@ -103,6 +111,10 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the gearing of the motors (increases accuracy of distance-based movement)
+         * 
+         * @param gearing gearing of the motors in the mechanism
+         * @return builder instance
+         * @throws IllegalArgumentException if gearing <= 0
          */
         public T gearing(double gearing) {
             if (gearing <= 0) {
@@ -114,7 +126,11 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the joystick deadzone (minimum value registered as input)
+         * Specify the joystick deadzone
+         * 
+         * @param deadzone minimum joystick/trigger value registered as input
+         * @return builder instance
+         * @throws IllegalArgumentException if deadzone < 0
          */
         public T deadzone(double deadzone) {
             if (deadzone < 0) {
@@ -127,10 +143,15 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the logo direction of the IMU/gyro
+         * 
+         * @param logo direction of the Hub's logo
+         * @return builder instance
+         * @throws NullPointerException if logo is null
          */
         public T logo(LogoFacingDirection logo) {
             if (logo == null) {
-                throw new NullPointerException("Null IMU logo direction passed to MotorMechanism.Builder.logo()");
+                throw new NullPointerException(
+                        "Null IMU logo direction passed to MotorMechanism.Builder.logo()");
             }
             this.logo = logo;
             return self();
@@ -138,10 +159,15 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the logo direction of the IMU/gyro
+         * 
+         * @param usb direction of the Hub's usb ports
+         * @return builder instance
+         * @throws NullPointerException if usb is null
          */
         public T usb(UsbFacingDirection usb) {
             if (usb == null) {
-                throw new NullPointerException("Null IMU usb direction passed to MotorMechanism.Builder.usb()");
+                throw new NullPointerException(
+                        "Null IMU usb direction passed to MotorMechanism.Builder.usb()");
             }
             this.usb = usb;
             return self();
@@ -158,9 +184,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     public abstract void command(E direction, double measurement, double power);
 
-    /**
-     * Ensure multiplier is in (0, 1]
-     */
+    /** Ensure multiplier is in (0, 1] */
     protected void validate(double multiplier) {
         if (multiplier <= 0 || multiplier > 1) {
             throw new IllegalArgumentException(
@@ -169,9 +193,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Ensure power is in (0, 1], measurement is positive
-     */
+    /** Ensure power is in (0, 1], measurement is positive */
     protected void validate(double measurement, double power) {
         if (measurement < 0) {
             throw new IllegalArgumentException("Unexpected measurement value: " + measurement
@@ -184,9 +206,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Reverse the direction of the specified motor
-     */
+    /** Reverse the direction of the specified motor */
     @Override
     protected void reverse(String deviceName) {
         boolean found = false;
@@ -220,9 +240,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Initializes motors based on constructor args (e.g. using encoders or not)
-     */
+    /** Initializes motors based on constructor args (e.g. using encoders or not) */
     @Override
     protected void init() {
         if (encoder) {
@@ -259,8 +277,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
 
-        // Initializes imu for field-centric layout. Adjust "UP" and "FORWARD" if orientation is
-        // reversed
+        // Initializes imu for field-centric layout
         if (mechanismName == "Drive" && layout == Drive.Layout.FIELD) {
             imu = hardwareMap.get(IMU.class, "imu");
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(logo, usb));
@@ -271,7 +288,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         // specify zeroPowerBehavior of motors
         setBehaviors(behavior);
 
-        // Reverse direction of left motors for convenience (switch if robot drives backwards)
+        // Reverse direction of left motors for convenience
         setDirections(reverse);
 
         // reverse direction of specified motors
@@ -280,9 +297,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Moves the mechanism for the given measurement at power
-     */
+    /** Moves the mechanism for the given measurement at power */
     protected void moveForMeasurement(double[] unscaledMovements, double measurement, double power,
             boolean limit) {
         double[] movements = scaleDirections(unscaledMovements, power);
@@ -317,15 +332,13 @@ abstract class MotorMechanism<E> extends Mechanism {
             }
             setPowers();
 
-            // Reset motors to run using velocity (allows for using command() w/ length along w/
-            // control())
+            // Reset motors to run using velocity
+            // Allows for using command() w/ length along w/ control()
             setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
         }
     }
 
-    /**
-     * Determines whether positional limits have not yet been reached
-     */
+    /** Determines whether positional limits have not yet been reached */
     protected boolean limitsNotReached(double direction, double[] movements) {
         int[] currentPositions = getCurrentPositions();
         boolean move = true;
@@ -376,9 +389,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return move;
     }
 
-    /**
-     * Sets the target position for each motor before setting the mode to RUN_TO_POSITION
-     */
+    /** Sets the target position for each motor before setting the mode to RUN_TO_POSITION */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
         for (int i = 0; i < count; i++) {
@@ -389,28 +400,21 @@ abstract class MotorMechanism<E> extends Mechanism {
         setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
     }
 
-    /**
-     * Sets all extended motors to the specified mode
-     */
+    /** Sets all extended motors to the specified mode */
     protected void setModesEx(DcMotorEx.RunMode runMode) {
         for (DcMotorEx motorEx : motorsEx) {
             motorEx.setMode(runMode);
         }
     }
 
-    /**
-     * Sets all basic motors to the specified mode
-     */
+    /** Sets all basic motors to the specified mode */
     protected void setModes(DcMotor.RunMode runMode) {
         for (DcMotor motor : motors) {
             motor.setMode(runMode);
         }
     }
 
-    /**
-     * Helper function to set all motor powers to received values (defaults to 0 if no args
-     * provided).
-     */
+    /** Helper function to set all motor powers to received values */
     protected void setPowers(double[] movements) {
         if (encoder && (diameter != 0.0)) {
             for (int i = 0; i < count; i++) {
@@ -427,17 +431,13 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Helper function to set all motor powers to zero (this is the default case).
-     */
+    /** Helper function to set all motor powers to zero */
     protected void setPowers() {
         double[] zeros = new double[count];
         setPowers(zeros);
     }
 
-    /**
-     * Scales movements by multiplier if applicable
-     */
+    /** Scales movements by multiplier if applicable */
     protected void setPowers(double[] movements, double multiplier) {
         if (multiplier == 1.0) {
             setPowers(movements);
@@ -448,9 +448,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Wrapper around setDirection for all motors
-     */
+    /** Wrapper around setDirection for all motors */
     protected void setDirections(boolean reverse) {
         if (!reverse) {
             if (encoder) {
@@ -483,9 +481,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Wrapper around setZeroPowerBehavior for all motors
-     */
+    /** Wrapper around setZeroPowerBehavior for all motors */
     protected void setBehaviors(DcMotor.ZeroPowerBehavior behavior) {
         if (encoder) {
             for (DcMotorEx motorEx : motorsEx) {
@@ -498,9 +494,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Wrapper around getMotorType for all motors
-     */
+    /** Wrapper around getMotorType for all motors */
     protected MotorConfigurationType[] getMotorTypes() {
         MotorConfigurationType[] motorTypes = new MotorConfigurationType[count];
         for (int i = 0; i < count; i++) {
@@ -509,9 +503,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return motorTypes;
     }
 
-    /**
-     * Wrapper around getGearing to get the minimum of all motors
-     */
+    /** Wrapper around getGearing to get the minimum of all motors */
     protected double getGearing(MotorConfigurationType[] motorTypes) {
         double[] gearings = new double[count];
         for (int i = 0; i < count; i++) {
@@ -521,18 +513,14 @@ abstract class MotorMechanism<E> extends Mechanism {
         return gearing;
     }
 
-    /**
-     * Correct the gear-ratio of all motors using encoders. Automatically updates distanceMultiplier
-     */
+    /** Correct the gear-ratio of all motors using encoders. Updates distanceMultiplier */
     protected void setGearing(double gearing) {
         MotorConfigurationType[] motorTypes = getMotorTypes();
         double currentGearing = getGearing(motorTypes);
         distanceMultiplier *= gearing / currentGearing;
     }
 
-    /**
-     * Wrapper around isBusy to see if any motors are busy (when they're supposed to be)
-     */
+    /** Wrapper around isBusy to see if any motors are busy (when they're supposed to be) */
     protected boolean motorsAreBusy(double[] movements) {
         boolean isBusy = false;
         for (int i = 0; i < count; i++) {
@@ -543,9 +531,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return isBusy;
     }
 
-    /**
-     * Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors
-     */
+    /** Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors */
     protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
         double[] achieveableMaxTicksPerSecondArr = new double[count];
         for (int i = 0; i < count; i++) {
@@ -555,9 +541,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return achieveableMaxTicksPerSecond;
     }
 
-    /**
-     * Wrapper around getTicksPerRev to return minimum of all motors
-     */
+    /** Wrapper around getTicksPerRev to return minimum of all motors */
     protected double getTicksPerRev(MotorConfigurationType[] motorTypes) {
         double[] ticksPerRevArr = new double[count];
         for (int i = 0; i < count; i++) {
@@ -567,9 +551,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return ticksPerRev;
     }
 
-    /**
-     * Wrapper around getCurrentPosition to return it for all motors
-     */
+    /** Wrapper around getCurrentPosition to return it for all motors */
     protected int[] getCurrentPositions() {
         int[] currentPositions = new int[count];
         for (int i = 0; i < count; i++) {
@@ -578,12 +560,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return currentPositions;
     }
 
-    /**
-     * Maps controller value from [-1,-deadzone] U [deadzone,1] -> [-1,1], enabling controller
-     * deadzone
-     * 
-     * @Defaults deadzone = 0.0
-     */
+    /** Maps controller value from [-1,-deadzone] U [deadzone,1] -> [-1,1] */
     protected static double map(double controllerValue, double deadzone) {
         if (deadzone == 0.0) {
             return controllerValue;
@@ -601,9 +578,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return mappedValue;
     }
 
-    /**
-     * Scale directions by a factor of power to derive actual, intended motor movements
-     */
+    /** Scale directions by a factor of power to derive actual, intended motor movements */
     protected static double[] scaleDirections(double[] motorDirections, double power) {
         int arrLength = motorDirections.length;
         double[] movements = new double[arrLength];
@@ -613,9 +588,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return movements;
     }
 
-    /**
-     * Calculate posiitons based on distance, diameter, distanceMultiplier, movements
-     */
+    /** Calculate posiitons based on distance, diameter, distanceMultiplier, movements */
     protected static int[] calculatePositions(double distance, double diameter,
             double distanceMultiplier, double[] movements) {
         double circumference = Math.PI * diameter;
@@ -631,9 +604,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return positions;
     }
 
-    /**
-     * Helper for calculating minimum value in array
-     */
+    /** Helper for calculating minimum value in array */
     private double min(double[] arr) {
         double min;
         switch (arr.length) {
@@ -649,9 +620,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return min;
     }
 
-    /**
-     * Helper for calculating minimum of 4 values
-     */
+    /** Helper for calculating minimum of 4 values */
     private double min(double a, double b, double c, double d) {
         return Math.min(Math.min(a, b), Math.min(c, d));
     }

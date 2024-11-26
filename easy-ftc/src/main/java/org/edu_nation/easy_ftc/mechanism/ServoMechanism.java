@@ -18,6 +18,7 @@ abstract class ServoMechanism<E> extends Mechanism {
     protected double incrementDelay;
     protected double delay;
 
+    /** Constructor */
     protected ServoMechanism(Builder<?> builder) {
         super(builder);
         this.smooth = builder.smooth;
@@ -42,6 +43,8 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         /**
          * Whether to enable smooth-servo control
+         * 
+         * @return builder instance
          */
         public T smooth() {
             this.smooth = true;
@@ -52,7 +55,11 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the increment to move by for smooth-servo control (0-1)
+         * Specify the increment to move by for smooth-servo control
+         * 
+         * @param increment portion of total range-of-motion moved in each iteration
+         * @return builder instance
+         * @throws IllegalArgumentException if increment is not in the interval (0, 1]
          */
         public T increment(double increment) {
             if (increment <= 0 || increment > 1) {
@@ -64,7 +71,11 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the time (s) to wait between each increment for smooth-servo control (> 0)
+         * Specify the increment delay for smooth-servo control
+         * 
+         * @param incrementDelay the time (in s) to wait between each increment
+         * @return builder instance
+         * @throws IllegalArgumentException if incrementDelay <= 0
          */
         public T incrementDelay(double incrementDelay) {
             if (incrementDelay <= 0) {
@@ -77,7 +88,11 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the time to wait for servo movements to complete (for normal servo control) (> 0)
+         * Specify the delay for normal servo control
+         * 
+         * @param delay the time to wait (in s) for servo movements to complete
+         * @return builder instance
+         * @throws IllegalArgumentException if delay <= 0
          */
         public T delay(double delay) {
             if (delay <= 0) {
@@ -97,9 +112,7 @@ abstract class ServoMechanism<E> extends Mechanism {
 
     public abstract void command(E direction);
 
-    /**
-     * Reverse the direction of the specified servo
-     */
+    /** Reverse the direction of the specified servo */
     @Override
     protected void reverse(String deviceName) {
         boolean found = false;
@@ -127,9 +140,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Initializes servos
-     */
+    /** Initializes servos */
     @Override
     protected void init() {
         // Instantiate servos
@@ -147,9 +158,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Wrapper around setPositions that enables smooth, synchronized servo control
-     */
+    /** Wrapper around setPositions that enables smooth, synchronized servo control */
     protected double setPositionsByIncrement(double position, double movement) {
         position += (movement == position) ? 0 : ((movement > position) ? increment : -increment);
         position = Math.min(Math.max(position, 0), 1);
@@ -168,18 +177,14 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
     }
 
-    /**
-     * Wrapper around setPosition for all servos
-     */
+    /** Wrapper around setPosition for all servos */
     protected void setPositions(double movement) {
         for (Servo servo : servos) {
             servo.setPosition(movement);
         }
     }
 
-    /**
-     * Wrapper around setDirection for all servos
-     */
+    /** Wrapper around setDirection for all servos */
     protected void setDirections(boolean reverse) {
         if (!reverse) {
             for (int i = 0; i < count; i++) {

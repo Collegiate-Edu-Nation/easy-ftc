@@ -23,9 +23,7 @@ abstract class Mechanism {
     protected ElapsedTime timer = new ElapsedTime();
     protected String mechanismName;
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     protected Mechanism(Builder<?> builder) {
         this.opMode = builder.opMode;
         this.hardwareMap = builder.hardwareMap;
@@ -41,6 +39,13 @@ abstract class Mechanism {
         protected String[] reverseDevices = {};
         protected Gamepad gamepad = null;
 
+        /**
+         * Builder constructor
+         * 
+         * @param opMode instance of the calling opMode
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if opMode or hardwareMap are null
+         */
         public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             if (opMode == null) {
                 throw new NullPointerException("Null opMode passed to Mechanism.Builder()");
@@ -54,6 +59,8 @@ abstract class Mechanism {
 
         /**
          * Whether to reverse devices
+         * 
+         * @return builder instance
          */
         public T reverse() {
             this.reverse = true;
@@ -62,6 +69,10 @@ abstract class Mechanism {
 
         /**
          * Reverse the specified device
+         * 
+         * @param deviceName name of the device to be reversed
+         * @return builder instance
+         * @throws NullPointerException if deviceName is null
          */
         public T reverse(String deviceName) {
             if (deviceName == null) {
@@ -81,6 +92,10 @@ abstract class Mechanism {
 
         /**
          * Reverse the specified devices
+         * 
+         * @param deviceNames an array of the names of devices to be reversed
+         * @return builder instance
+         * @throws NullPointerException if deviceNames is null
          */
         public T reverse(String[] deviceNames) {
             if (deviceNames == null) {
@@ -94,7 +109,11 @@ abstract class Mechanism {
         }
 
         /**
-         * Pass the gamepad instance for teleop control
+         * Pass gamepad for teleop control
+         * 
+         * @param gamepad instance of the gamepad
+         * @return builder instance
+         * @throws NullPointerException if gamepad is null
          */
         public T gamepad(Gamepad gamepad) {
             if (gamepad == null) {

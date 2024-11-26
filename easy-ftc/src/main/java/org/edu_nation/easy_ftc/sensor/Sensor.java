@@ -17,6 +17,7 @@ abstract class Sensor<S, V> {
     protected boolean reverse;
     protected double calibrationValue;
 
+    /** Constructor */
     protected Sensor(Builder<?> builder) {
         this.hardwareMap = builder.hardwareMap;
         this.reverse = builder.reverse;
@@ -26,6 +27,12 @@ abstract class Sensor<S, V> {
         protected HardwareMap hardwareMap;
         protected boolean reverse = false;
 
+        /**
+         * Builder constructor
+         * 
+         * @param hardwareMap instance of the calling opMode's hardwareMap
+         * @throws NullPointerException if hardwareMap is null
+         */
         public Builder(HardwareMap hardwareMap) {
             if (hardwareMap == null) {
                 throw new NullPointerException("Null hardwareMap passed to Sensor.Builder()");
@@ -35,6 +42,8 @@ abstract class Sensor<S, V> {
 
         /**
          * Reverse the sensor's state
+         * 
+         * @return builder instance
          */
         public T reverse() {
             this.reverse = true;
