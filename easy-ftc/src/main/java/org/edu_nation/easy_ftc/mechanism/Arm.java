@@ -18,9 +18,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  * </ul>
  */
 public class Arm extends MotorMechanism<Arm.Direction> {
-    /**
-     * Constructor
-     */
+    /** Constructor */
     private Arm(Builder builder) {
         super(builder);
         this.count = builder.count;
@@ -112,7 +110,11 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
         // arm-specific methods
         /**
-         * Specify the number of motors (1-2)
+         * Specify the number of motors
+         * 
+         * @param count the number of motors in the arm mechanism
+         * @return builder instance
+         * @throws IllegalArgumentException if count isn't 1 or 2
          */
         public Builder count(int count) {
             if (count < 1 || count > 2) {
@@ -129,6 +131,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
         /**
          * Change the names of the hardware devices
+         * 
+         * @param names an array of the names for the hardware devices
+         * @return builder instance
+         * @throws NullPointerException if names is null
          */
         public Builder names(String[] names) {
             if (names == null) {
@@ -139,7 +145,11 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
 
         /**
-         * Specify the zero-power behavior of the motors (DcMotor.ZeroPowerBehavior.BRAKE or FLOAT)
+         * Specify the zero-power behavior of the motors
+         * 
+         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
+         * @return builder instance
+         * @throws NullPointerException if behavior is null
          */
         public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
             if (behavior == null) {
@@ -150,7 +160,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
 
         /**
-         * Specify the positional limit for the "up" direction
+         * Specify the positional limit for the UP direction
+         * 
+         * @param up positional limit for UP
+         * @return builder instance
          */
         public Builder up(double up) {
             this.up = up;
@@ -158,7 +171,10 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
 
         /**
-         * Specify the positional limit for the "down" direction
+         * Specify the positional limit for the DOWN direction
+         * 
+         * @param down positional limit for DOWN
+         * @return builder instance
          */
         public Builder down(double down) {
             this.down = down;
@@ -167,28 +183,31 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
         /**
          * Build the arm
+         * 
+         * @return arm instance
          */
         @Override
         public Arm build() {
             return new Arm(this);
         }
 
+        /**
+         * Return builder instance
+         * 
+         * @return builder instance
+         */
         @Override
         protected Builder self() {
             return this;
         }
     }
 
-    /**
-     * Directions that can be passed to command
-     */
+    /** Directions that can be passed to command. */
     public enum Direction {
         UP, DOWN
     }
 
-    /**
-     * Enables teleoperated arm movement with gamepad at a specified power (defaults to 0.5).
-     */
+    /** Enables teleoperated arm movement with gamepad at the specified power. */
     @Override
     public void control(double power) {
         validate(power);
@@ -211,9 +230,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
     }
 
-    /**
-     * Enables teleoperated arm movement with gamepad at a power of 0.5 (this is the default case).
-     */
+    /** Enables teleoperated arm movement with gamepad at a power of 0.5. */
     @Override
     public void control() {
         control(0.5);
@@ -234,9 +251,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, up != down);
     }
 
-    /**
-     * Sets arm motor movements based on bumpers
-     */
+    /** Sets arm motor movements based on bumpers */
     protected static double controlToDirection(boolean lb, boolean rb) {
         int down = lb ? 1 : 0;
         int up = rb ? 1 : 0;
@@ -244,9 +259,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         return arm;
     }
 
-    /**
-     * Translate natural-language direction to numeric values
-     */
+    /** Translate natural-language direction to numeric values */
     protected static double languageToDirection(Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Arm.command()");

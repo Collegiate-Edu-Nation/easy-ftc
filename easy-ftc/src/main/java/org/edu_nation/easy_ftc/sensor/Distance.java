@@ -15,9 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  */
 public class Distance extends Sensor<DistanceSensor, Boolean> {
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     private Distance(Builder builder) {
         super(builder);
         this.name = builder.name;
@@ -51,6 +49,10 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         // distance-specific methods
         /**
          * Change the name of the hardware device
+         * 
+         * @param name name of the hardware devices
+         * @return builder instance
+         * @throws NullPointerException if name is null
          */
         @Override
         public Builder name(String name) {
@@ -63,6 +65,10 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
 
         /**
          * Specify the calibration value
+         * 
+         * @param calibrationValue cutoff threshold for whether an object is detected
+         * @return builder instance
+         * @throws IllegalArgumentException if calibrationValue &lt; 0
          */
         public Builder calibrationValue(double calibrationValue) {
             if (calibrationValue < 0) {
@@ -76,28 +82,35 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
 
         /**
          * Build the sensor
+         * 
+         * @return distance instance
          */
         @Override
         public Distance build() {
             return new Distance(this);
         }
 
+        /**
+         * Return builder instance
+         * 
+         * @return builder instance
+         */
         @Override
         protected Builder self() {
             return this;
         }
     }
 
-    /**
-     * Initializes distance sensor
-     */
+    /** Initialize distance sensor */
     @Override
     protected void init() {
         sensor = hardwareMap.get(DistanceSensor.class, name);
     }
 
     /**
-     * Returns distance sensor state (whether an object is within the distance cutoff)
+     * Return distance sensor state
+     * 
+     * @return whether an object is within the distance cutoff
      */
     @Override
     public Boolean state() {

@@ -16,9 +16,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 public class Color extends Sensor<ColorSensor, Color.RGB> {
     private int[] rgbOffsets;
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     private Color(Builder builder) {
         super(builder);
         this.name = builder.name;
@@ -55,6 +53,10 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         // color-specific methods
         /**
          * Change the name of the hardware device
+         * 
+         * @param name name of the hardware devices
+         * @return builder instance
+         * @throws NullPointerException if name is null
          */
         @Override
         public Builder name(String name) {
@@ -66,7 +68,11 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         }
 
         /**
-         * Specify the calibration value (0-255)
+         * Specify the calibration value
+         * 
+         * @param calibrationValue cutoff threshold for what's considered a meaningful reading
+         * @return builder instance
+         * @throws IllegalArgumentException if calibration value not in the interval [0, 255]
          */
         public Builder calibrationValue(double calibrationValue) {
             if (calibrationValue < 0 || calibrationValue > 255) {
@@ -80,6 +86,11 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Specify the rgbOffsets (array of 3 integers, -255-255)
+         * 
+         * @param rgbOffsets array of 3 integer offsets that are added to the RGB values
+         * @return builder instance
+         * @throws NullPointerException if rgbOffsets is null
+         * @throws IllegalArgumentException if any integers are not in the interval [-255, 255]
          */
         public Builder rgbOffsets(int[] rgbOffsets) {
             if (rgbOffsets == null) {
@@ -98,36 +109,40 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Build the sensor
+         * 
+         * @return color instance
          */
         @Override
         public Color build() {
             return new Color(this);
         }
 
+        /**
+         * Return builder instance
+         * 
+         * @return builder instance
+         */
         @Override
         protected Builder self() {
             return this;
         }
     }
 
-    /**
-     * RGB values that can be returned by state
-     */
+    /** RGB values that can be returned by state */
     public enum RGB {
         RED, GREEN, BLUE
     }
 
-    /**
-     * Initializes color sensor
-     */
+    /** Initialize color sensor */
     @Override
     protected void init() {
         sensor = hardwareMap.get(ColorSensor.class, name);
     }
 
     /**
-     * Returns color sensor state (color of detection, one of: Color.RGB.RED, Color.RGB.GREEN,
-     * Color.RGB.BLUE, or null)
+     * Return color sensor state
+     * 
+     * @return color of detection, one of RGB.RED, GREEN, BLUE, or null
      */
     @Override
     public RGB state() {
@@ -141,14 +156,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return color;
     }
 
-    /**
-     * Converts the maximum, normalized rgb value to the corresponding color as a String
-     * 
-     * @param rgbRaw
-     * @param rgbOffsets
-     * @param calibrationValue
-     * @return <b>color</b>
-     */
+    /** Convert the maximum, normalized rgb value to the corresponding color as a String */
     protected static RGB dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue) {
         int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
         int max = max(rgbNormalized);
@@ -175,13 +183,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return color;
     }
 
-    /**
-     * Converts the minimum, normalized rgb value to the corresponding RGB color
-     * 
-     * @param rgbRaw
-     * @param rgbOffsets
-     * @return <b>color</b>
-     */
+    /** Convert the minimum, normalized rgb value to the corresponding RGB color */
     protected static RGB weakColor(int[] rgbRaw, int[] rgbOffsets) {
         int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
         int min = min(rgbNormalized);
@@ -205,13 +207,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return color;
     }
 
-    /**
-     * Normalize color readings by applying offsets
-     * 
-     * @param rgbRaw
-     * @param rgbOffsets
-     * @return <b>rgbNormalized</b>
-     */
+    /** Normalize color readings by applying offsets */
     private static int[] normalize(int[] rgbRaw, int[] rgbOffsets) {
         int[] rgbNormalized = {0, 0, 0};
         for (int i = 0; i < 3; i++) {
@@ -220,24 +216,14 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return rgbNormalized;
     }
 
-    /**
-     * Return maximum of normalized rgb values
-     * 
-     * @param rgbNormalized
-     * @return <b>max</b>
-     */
+    /** Return maximum of normalized rgb values */
     private static int max(int[] rgbNormalized) {
         int max = Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
         return max;
     }
 
-    /**
-     * Return minimum of normalized rgb values
-     * 
-     * @param rgbNormalized
-     * @return <b>min</b>
-     */
+    /** Return minimum of normalized rgb values */
     private static int min(int[] rgbNormalized) {
         int min = Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
                 Math.min(rgbNormalized[1], rgbNormalized[2]));

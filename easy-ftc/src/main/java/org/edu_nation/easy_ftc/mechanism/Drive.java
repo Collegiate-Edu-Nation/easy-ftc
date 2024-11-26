@@ -24,9 +24,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 public class Drive extends MotorMechanism<Drive.Direction> {
     private Type type;
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     private Drive(Builder builder) {
         super(builder);
         this.count = builder.count;
@@ -141,7 +139,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         // drive-specific methods
         /**
-         * Specify the number of motors (2, 4)
+         * Specify the number of motors
+         * 
+         * @param count the number of motors in the drive mechanism
+         * @return builder instance
+         * @throws IllegalArgumentException if count isn't 2 or 4
          */
         public Builder count(int count) {
             if (count != 2 && count != 4) {
@@ -163,6 +165,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Change the names of the hardware devices
+         * 
+         * @param names an array of the names for the hardware devices
+         * @return builder instance
+         * @throws NullPointerException if names is null
          */
         public Builder names(String[] names) {
             if (names == null) {
@@ -173,7 +179,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
 
         /**
-         * Specify the zero-power behavior of the motors (DcMotor.ZeroPowerBehavior.BRAKE or FLOAT)
+         * Specify the zero-power behavior of the motors
+         * 
+         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
+         * @return builder instance
+         * @throws NullPointerException if behavior is null
          */
         public Builder behavior(DcMotor.ZeroPowerBehavior behavior) {
             if (behavior == null) {
@@ -185,7 +195,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
 
         /**
-         * Specify the drivetrain type: "differential" (default) or "mecanum"
+         * Specify the drivetrain type
+         * 
+         * @param type drivetrain type, one of Type.DIFFERENTIAL or MECANUM
+         * @return builder instance
+         * @throws NullPointerException if type is null
          */
         public Builder type(Type type) {
             if (type == null) {
@@ -211,8 +225,15 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
 
         /**
-         * Specify the control layout. For Differential, Drive.Layout.TANK (default) or
-         * Drive.Layout.ARCADE. For Mecanum, Drive.Layout.ROBOT (default) or Drive.Layout.FIELD
+         * Specify the drivetrain layout
+         * 
+         * @param layout drivetrain layout
+         *        <ul>
+         *        <li>For DIFFERENTIAL, one of Layout.TANK or ARCADE
+         *        <li>For MECANUM, one of Layout.ROBOT or FIELD
+         *        </ul>
+         * @return builder instance
+         * @throws NullPointerException if layout is null
          */
         public Builder layout(Layout layout) {
             if (layout == null) {
@@ -223,44 +244,42 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
 
         /**
-         * Build the arm
+         * Build the drivetrain
+         * 
+         * @return drive instance
          */
         @Override
         public Drive build() {
             return new Drive(this);
         }
 
+        /**
+         * Return builder instance
+         * 
+         * @return builder instance
+         */
         @Override
         protected Builder self() {
             return this;
         }
     }
 
-    /**
-     * Directions that can be passed to command
-     */
+    /** Directions that can be passed to command */
     public enum Direction {
         FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT
     }
 
-    /**
-     * Drivetrain types that can be passed to .type()
-     */
+    /** Drivetrain types that can be passed to .type() */
     public enum Type {
         DIFFERENTIAL, MECANUM
     }
 
-    /**
-     * Drivetrain layouts that can be passed to .layout()
-     */
+    /** Drivetrain layouts that can be passed to .layout() */
     public enum Layout {
         ARCADE, TANK, FIELD, ROBOT
     }
 
-    /**
-     * Enables teleoperated mecanum movement with gamepad (inherits layout), scaling by multiplier
-     * &lt; 1
-     */
+    /** Enables teleoperated mecanum movement with gamepad, scaling by multiplier &lt; 1 */
     @Override
     public void control(double multiplier) {
         validate(multiplier);
@@ -281,9 +300,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         setPowers(movements, multiplier);
     }
 
-    /**
-     * Enables teleoperated mecanum movement with gamepad (inherits layout) with multiplier = 1.0
-     */
+    /** Enables teleoperated mecanum movement with gamepad with multiplier = 1.0 */
     @Override
     public void control() {
         control(1.0);
@@ -310,9 +327,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, false);
     }
 
-    /**
-     * Set drivetrain motor movements based on type: DIFFERENTIAL (default) or MECANUM
-     */
+    /** Set drivetrain motor movements based on type: DIFFERENTIAL (default) or MECANUM */
     protected static double[] controlToDirection(int count, Type type, Layout layout,
             double deadzone, double heading, float leftY, float leftX, float rightY, float rightX) {
         switch (type) {
@@ -328,9 +343,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
     }
 
-    /**
-     * Set differential drivetrain movements based on layout: TANK (default) or ARCADE
-     */
+    /** Set differential drivetrain movements based on layout: TANK (default) or ARCADE */
     private static double[] controlToDirectionDifferential(int count, Layout layout,
             double deadzone, double leftY, double rightY, double rightX) {
         double left, right;
@@ -356,9 +369,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         return movements;
     }
 
-    /**
-     * Set mecanum drivetrain motor movements based on layout: ROBOT (default) or FIELD
-     */
+    /** Set mecanum drivetrain motor movements based on layout: ROBOT (default) or FIELD */
     private static double[] controlToDirectionMecanum(int count, Layout layout, double deadzone,
             double heading, double leftY, double leftX, double rightX) {
         double[] axes = {map(-leftY, deadzone), map(leftX, deadzone), map(rightX, deadzone)};
@@ -404,9 +415,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         return movements;
     }
 
-    /**
-     * Translate natural-language direction to numeric values
-     */
+    /** Translate natural-language direction to numeric values */
     protected static double[] languageToDirection(int count, Type type, Layout layout,
             Direction direction, double heading) {
         if (direction == null) {
@@ -425,9 +434,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
     }
 
-    /**
-     * Translate natural-language direction for Differential to numeric values
-     */
+    /** Translate natural-language direction for Differential to numeric values */
     private static double[] languageToDirectionDifferential(int count, Direction direction) {
         double[] motorDirections = new double[count];
 
@@ -460,9 +467,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         return motorDirections;
     }
 
-    /**
-     * Translate natural-language direction for Mecanum to axial, lateral, yaw
-     */
+    /** Translate natural-language direction for Mecanum to axial, lateral, yaw */
     private static double[] languageToDirectionMecanum(int count, Direction direction) {
         switch (direction) {
             case FORWARD:

@@ -17,9 +17,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class Claw extends ServoMechanism<Claw.Direction> {
     private double open, close;
 
-    /**
-     * Constructor
-     */
+    /** Constructor */
     private Claw(Builder builder) {
         super(builder);
         this.count = builder.count;
@@ -111,7 +109,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         // claw-specific methods
         /**
-         * Specify the number of servos (1-2)
+         * Specify the number of servos
+         * 
+         * @param count the number of servos in the claw mechanism
+         * @return builder instance
+         * @throws IllegalArgumentException if count isn't 1 or 2
          */
         public Builder count(int count) {
             if (count < 1 || count > 2) {
@@ -128,6 +130,10 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Change the names of the hardware devices
+         * 
+         * @param names an array of the names for the hardware devices
+         * @return builder instance
+         * @throws NullPointerException if names is null
          */
         public Builder names(String[] names) {
             if (names == null) {
@@ -138,7 +144,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the open posiiton of the servo(s) (0-1)
+         * Specify the open posiiton
+         * 
+         * @param open open position of the servo(s)
+         * @return builder instance
+         * @throws IllegalArgumentException if open not in the interval [0, 1]
          */
         public Builder open(double open) {
             if (open < 0 || open > 1) {
@@ -150,7 +160,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the close position of the servo(s) (0-1)
+         * Specify the close position
+         * 
+         * @param close close position of the servo(s)
+         * @return builder instance
+         * @throws IllegalArgumentException if close not in the interval [0, 1]
          */
         public Builder close(double close) {
             if (close < 0 || close > 1) {
@@ -163,28 +177,31 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Build the claw
+         * 
+         * @return claw instance
          */
         @Override
         public Claw build() {
             return new Claw(this);
         }
 
+        /**
+         * Return builder instance
+         * 
+         * @return builder instance
+         */
         @Override
         protected Builder self() {
             return this;
         }
     }
 
-    /**
-     * Directions that can be passed to command
-     */
+    /** Directions that can be passed to command. */
     public enum Direction {
         OPEN, CLOSE
     }
 
-    /**
-     * Enables teleoperated claw movement with gamepad.
-     */
+    /** Enables teleoperated claw movement with gamepad. */
     @Override
     public void control() {
         double position = servos[0].getPosition();
@@ -214,9 +231,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
     }
 
-    /**
-     * Set servo movement based on open, close values as well as current position
-     */
+    /** Set servo movement based on open, close values as well as current position */
     protected static double controlToDirection(double open, double close, double current,
             boolean openButton, boolean closeButton) {
         double movement;
@@ -230,9 +245,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         return movement;
     }
 
-    /**
-     * Translate natural-language direction to numeric values
-     */
+    /** Translate natural-language direction to numeric values */
     protected static double languageToDirection(Direction direction, double open, double close,
             String mechanismName) {
         if (direction == null) {
