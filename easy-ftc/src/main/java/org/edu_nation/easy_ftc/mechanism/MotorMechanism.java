@@ -10,8 +10,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import java.util.Objects;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
@@ -214,15 +216,17 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         // reverse the device
         for (int i = 0; i < count; i++) {
-            if (deviceName == names[i]) {
+            if (Objects.equals(deviceName, names[i])) {
                 found = true;
                 if (encoder) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
-                            : DcMotorEx.Direction.REVERSE;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                                    : DcMotorSimple.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 } else {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                                    : DcMotorSimple.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
@@ -254,10 +258,10 @@ abstract class MotorMechanism<E> extends Mechanism {
             MotorConfigurationType[] motorTypes = getMotorTypes();
 
             // Reset encoders
-            setModesEx(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+            setModesEx(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
             // Set motors to run using the encoder (velocity, not position)
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotor.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
                 velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
@@ -279,7 +283,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         // Initializes imu for field-centric layout
-        if (mechanismName == "Drive" && layout == Drive.Layout.FIELD) {
+        if ("Drive".equals(mechanismName) && layout == Drive.Layout.FIELD) {
             imu = hardwareMap.get(IMU.class, "imu");
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(logo, usb));
             imu.initialize(parameters);
@@ -332,7 +336,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
             // Reset motors to run using velocity
             // Allows for using command() w/ length along w/ control()
-            setModesEx(DcMotorEx.RunMode.RUN_USING_ENCODER);
+            setModesEx(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
@@ -395,11 +399,11 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         // Set motors to run using the encoder (position, not velocity)
-        setModesEx(DcMotorEx.RunMode.RUN_TO_POSITION);
+        setModesEx(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /** Sets all extended motors to the specified mode */
-    protected void setModesEx(DcMotorEx.RunMode runMode) {
+    protected void setModesEx(DcMotor.RunMode runMode) {
         for (DcMotorEx motorEx : motorsEx) {
             motorEx.setMode(runMode);
         }
@@ -451,28 +455,32 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (!reverse) {
             if (encoder) {
                 for (int i = 0; i < count; i++) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.REVERSE
-                            : DcMotorEx.Direction.FORWARD;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
+                                    : DcMotorSimple.Direction.FORWARD;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
+                                    : DcMotorSimple.Direction.FORWARD;
                     motors[i].setDirection(direction);
                 }
             }
         } else {
             if (encoder) {
                 for (int i = 0; i < count; i++) {
-                    DcMotorEx.Direction direction = (i % 2 == 0) ? DcMotorEx.Direction.FORWARD
-                            : DcMotorEx.Direction.REVERSE;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                                    : DcMotorSimple.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotorSimple.Direction direction =
+                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                                    : DcMotorSimple.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }

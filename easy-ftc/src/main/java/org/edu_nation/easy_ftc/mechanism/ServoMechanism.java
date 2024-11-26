@@ -6,6 +6,7 @@ package org.edu_nation.easy_ftc.mechanism;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import java.util.Objects;
 
 /**
  * Blueprints an abstract Servo Mechanism, providing basic functionalities, options, and objects
@@ -119,7 +120,7 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         // reverse the device
         for (int i = 0; i < count; i++) {
-            if (deviceName == names[i]) {
+            if (Objects.equals(deviceName, names[i])) {
                 found = true;
                 Servo.Direction direction =
                         (i % 2 == 0) ? Servo.Direction.REVERSE : Servo.Direction.FORWARD;
