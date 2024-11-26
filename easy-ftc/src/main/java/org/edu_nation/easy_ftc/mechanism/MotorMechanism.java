@@ -342,48 +342,63 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     /** Determines whether positional limits have not yet been reached */
     protected boolean limitsNotReached(double direction, double[] movements) {
+        if (diameter == 0.0) {
+            return limitsNotReachedTimeBased(direction);
+        } else {
+            return limitsNotReachedDistanceBased(direction, movements);
+        }
+    }
+
+    /** Helper function to determine positional limits with time-based movement */
+    private boolean limitsNotReachedTimeBased(double direction) {
         int[] currentPositions = getCurrentPositions();
         boolean move = true;
 
-        if (diameter == 0.0) {
-            if (direction > 0) {
-                for (int position : currentPositions) {
-                    move = (position < up);
-                    if (!move) {
-                        break;
-                    }
-                }
-            } else {
-                for (int position : currentPositions) {
-                    move = (position > down);
-                    if (!move) {
-                        break;
-                    }
+        if (direction > 0) {
+            for (int position : currentPositions) {
+                move = (position < up);
+                if (!move) {
+                    break;
                 }
             }
         } else {
-            if (direction > 0) {
-                int[] positions = calculatePositions(up, diameter, distanceMultiplier, movements);
-                for (int i = 0; i < count; i++) {
-                    move = (currentPositions[i] < positions[i]);
-                    if (!move) {
-                        break;
-                    }
+            for (int position : currentPositions) {
+                move = (position > down);
+                if (!move) {
+                    break;
                 }
-            } else {
-                int[] positions = calculatePositions(down, diameter, distanceMultiplier, movements);
-                if (down < 0) {
-                    // calculatePositions is absolute, so reverse values if negative value for down
-                    // is used
-                    for (int i = 0; i < count; i++) {
-                        positions[i] *= -1;
-                    }
+            }
+        }
+
+        return move;
+    }
+
+    /** Helper function to determine positional limits with distance-based movement */
+    private boolean limitsNotReachedDistanceBased(double direction, double[] movements) {
+        int[] currentPositions = getCurrentPositions();
+        boolean move = true;
+
+        if (direction > 0) {
+            int[] positions = calculatePositions(up, diameter, distanceMultiplier, movements);
+            for (int i = 0; i < count; i++) {
+                move = (currentPositions[i] < positions[i]);
+                if (!move) {
+                    break;
                 }
+            }
+        } else {
+            int[] positions = calculatePositions(down, diameter, distanceMultiplier, movements);
+            if (down < 0) {
+                // calculatePositions is absolute, so reverse values if negative value for down
+                // is used
                 for (int i = 0; i < count; i++) {
-                    move = (currentPositions[i] > positions[i]);
-                    if (!move) {
-                        break;
-                    }
+                    positions[i] *= -1;
+                }
+            }
+            for (int i = 0; i < count; i++) {
+                move = (currentPositions[i] > positions[i]);
+                if (!move) {
+                    break;
                 }
             }
         }
@@ -453,36 +468,42 @@ abstract class MotorMechanism<E> extends Mechanism {
     /** Wrapper around setDirection for all motors */
     protected void setDirections(boolean reverse) {
         if (!reverse) {
-            if (encoder) {
-                for (int i = 0; i < count; i++) {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
-                                    : DcMotorSimple.Direction.FORWARD;
-                    motorsEx[i].setDirection(direction);
-                }
-            } else {
-                for (int i = 0; i < count; i++) {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
-                                    : DcMotorSimple.Direction.FORWARD;
-                    motors[i].setDirection(direction);
-                }
+            setDirectionsDefault();
+        } else {
+            setDirectionsReversed();
+        }
+    }
+
+    /** Helper function to set directions normally */
+    private void setDirectionsDefault() {
+        if (encoder) {
+            for (int i = 0; i < count; i++) {
+                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
+                        : DcMotorSimple.Direction.FORWARD;
+                motorsEx[i].setDirection(direction);
             }
         } else {
-            if (encoder) {
-                for (int i = 0; i < count; i++) {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
-                                    : DcMotorSimple.Direction.REVERSE;
-                    motorsEx[i].setDirection(direction);
-                }
-            } else {
-                for (int i = 0; i < count; i++) {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
-                                    : DcMotorSimple.Direction.REVERSE;
-                    motors[i].setDirection(direction);
-                }
+            for (int i = 0; i < count; i++) {
+                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
+                        : DcMotorSimple.Direction.FORWARD;
+                motors[i].setDirection(direction);
+            }
+        }
+    }
+
+    /** Helper function to reverse directions */
+    private void setDirectionsReversed() {
+        if (encoder) {
+            for (int i = 0; i < count; i++) {
+                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                        : DcMotorSimple.Direction.REVERSE;
+                motorsEx[i].setDirection(direction);
+            }
+        } else {
+            for (int i = 0; i < count; i++) {
+                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                        : DcMotorSimple.Direction.REVERSE;
+                motors[i].setDirection(direction);
             }
         }
     }
