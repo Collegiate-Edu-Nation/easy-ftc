@@ -11,11 +11,13 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * Implements a claw by extending the functionality of {@link ServoMechanism}.
  * <ul>
  * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to {@link #command(direction)}.
+ * <li>See {@link Direction} for directions that can be passed to
+ * {@link #command(direction)}.
  * </ul>
  */
 public class Claw extends ServoMechanism<Claw.Direction> {
-    private double open, close;
+    private double open;
+    private double close;
 
     /** Constructor */
     private Claw(Builder builder) {
@@ -57,7 +59,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      */
     public static class Builder extends ServoMechanism.Builder<Builder> {
         protected int count = 1;
-        protected String[] names = {"claw"};
+        protected String[] names = { "claw" };
         protected double open = 1.0;
         protected double close = 0.0;
         private String mechanismName = "Claw";
@@ -65,7 +67,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         /**
          * Builder constructor
          * 
-         * @param opMode instance of the calling opMode
+         * @param opMode      instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -130,8 +132,8 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] names = {"clawLeft", "clawRight"};
-                this.names = names;
+                String[] newNames = { "clawLeft", "clawRight" };
+                this.names = newNames;
             }
             return this;
         }
@@ -222,14 +224,15 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual servo positions based on direction specified in
+     * Intermediate function that assigns individual servo positions based on
+     * direction specified in
      * runOpMode() calls.
      * <p>
      * Valid directions are: open, close
      */
     @Override
     public void command(Direction direction) {
-        double servoDirection = languageToDirection(direction, open, close, mechanismName);
+        double servoDirection = languageToDirection(direction, open, close);
         if (smooth) {
             double position = servos[0].getPosition();
             setPositionsByIncrementUntilComplete(position, servoDirection);
@@ -239,7 +242,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
     }
 
-    /** Set servo movement based on open, close values as well as current position */
+    /** Set servo movement based on open, close values and current position */
     protected static double controlToDirection(double open, double close, double current,
             boolean openButton, boolean closeButton) {
         double movement;
@@ -254,8 +257,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /** Translate natural-language direction to numeric values */
-    protected static double languageToDirection(Direction direction, double open, double close,
-            String mechanismName) {
+    protected static double languageToDirection(Direction direction, double open, double close) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Claw.command()");
         }

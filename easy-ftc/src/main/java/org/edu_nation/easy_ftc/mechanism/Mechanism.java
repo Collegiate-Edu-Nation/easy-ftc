@@ -3,13 +3,15 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import java.util.Arrays;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
+ * Blueprints an abstract Mechanism, providing basic functionalities, options,
+ * and objects common to
  * all claws. Cannot be instantiated, only extended by other abstract classes.
  */
 abstract class Mechanism {
@@ -42,11 +44,11 @@ abstract class Mechanism {
         /**
          * Builder constructor
          * 
-         * @param opMode instance of the calling opMode
+         * @param opMode      instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
-        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+        protected Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             if (opMode == null) {
                 throw new NullPointerException("Null opMode passed to Mechanism.Builder()");
             }
@@ -80,13 +82,9 @@ abstract class Mechanism {
                         "Null deviceName passed to Mechanism.Builder().reverse()");
             }
             int arrLength = reverseDevices.length;
-            String[] reverseDevices = new String[arrLength + 1];
-            for (int i = 0; i < arrLength; i++) {
-                reverseDevices[i] = this.reverseDevices[i];
-            }
+            reverseDevices = Arrays.copyOf(this.reverseDevices, arrLength + 1);
             reverseDevices[arrLength] = deviceName;
 
-            this.reverseDevices = reverseDevices;
             return self();
         }
 
@@ -142,7 +140,7 @@ abstract class Mechanism {
      */
     protected void wait(double time) {
         this.timer.reset();
-        while (opMode.opModeIsActive() && (this.timer.time() < time)) {
-        }
+        while (opMode.opModeIsActive() && (this.timer.time() < time))
+            ;
     }
 }

@@ -6,8 +6,10 @@ package org.edu_nation.easy_ftc.sensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
- * Blueprints an abstract sensor, providing basic functionalities, options, and objects common to
- * all sensors. Cannot be instantiated, only extended by actual sensor classes (see {@link Touch} ,
+ * Blueprints an abstract sensor, providing basic functionalities, options, and
+ * objects common to
+ * all sensors. Cannot be instantiated, only extended by actual sensor classes
+ * (see {@link Touch} ,
  * {@link Distance}, {@link Color}).
  */
 abstract class Sensor<S, V> {
@@ -33,7 +35,7 @@ abstract class Sensor<S, V> {
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if hardwareMap is null
          */
-        public Builder(HardwareMap hardwareMap) {
+        protected Builder(HardwareMap hardwareMap) {
             if (hardwareMap == null) {
                 throw new NullPointerException("Null hardwareMap passed to Sensor.Builder()");
             }

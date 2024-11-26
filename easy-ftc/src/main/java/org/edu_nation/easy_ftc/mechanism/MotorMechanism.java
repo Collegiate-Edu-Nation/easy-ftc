@@ -14,8 +14,10 @@ import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 /**
- * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
- * common to all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
+ * Blueprints an abstract Motor Mechanism, providing basic functionalities,
+ * options, and objects
+ * common to all Motor Mechanisms. Cannot be instantiated, only extended by
+ * other classes.
  */
 abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;
@@ -34,13 +36,14 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected LogoFacingDirection logo;
     protected UsbFacingDirection usb;
     protected Drive.Layout layout;
+    private String connect = ", passed to ";
 
     /** Constructor */
     protected MotorMechanism(Builder<?> builder) {
         super(builder);
         this.encoder = builder.encoder;
         if (!this.encoder
-                && (builder.diameter != 0 || builder.length != 0 || builder.diameter != 0)) {
+                && (builder.diameter != 0 || builder.length != 0 || builder.gearing != 0)) {
             throw new IllegalStateException(
                     "One of: MotorMechanism.Builder().diameter(), MotorMechanism.Builder().length(), or MotorMechanism.Builder().gearing() has been set without enabling MotorMechanism.Builder().encoder(). Enable MotorMechanism.Builder().encoder()");
         }
@@ -61,7 +64,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         private LogoFacingDirection logo = LogoFacingDirection.UP;
         private UsbFacingDirection usb = UsbFacingDirection.FORWARD;
 
-        public Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
+        protected Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
         }
 
@@ -110,7 +113,8 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the gearing of the motors (increases accuracy of distance-based movement)
+         * Specify the gearing of the motors (increases accuracy of distance-based
+         * movement)
          * 
          * @param gearing gearing of the motors in the mechanism
          * @return builder instance
@@ -188,7 +192,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected void validate(double multiplier) {
         if (multiplier <= 0 || multiplier > 1) {
             throw new IllegalArgumentException(
-                    "Unexpected multiplier value: " + multiplier + ", passed to " + mechanismName
+                    "Unexpected multiplier value: " + multiplier + connect + mechanismName
                             + ".control(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -197,11 +201,11 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected void validate(double measurement, double power) {
         if (measurement < 0) {
             throw new IllegalArgumentException("Unexpected measurement value: " + measurement
-                    + ", passed to " + mechanismName + ".command(). Valid values are numbers >= 0");
+                    + connect + mechanismName + ".command(). Valid values are numbers >= 0");
         }
         if (power <= 0 || power > 1) {
             throw new IllegalArgumentException(
-                    "Unexpected power value: " + power + ", passed to " + mechanismName
+                    "Unexpected power value: " + power + connect + mechanismName
                             + ".command(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -220,8 +224,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                             : DcMotorEx.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 } else {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
@@ -229,13 +232,14 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         // throw exception if device not found
         if (!found) {
-            String validNames = "";
+            StringBuilder bld = new StringBuilder();
             for (String name : names) {
-                validNames += name + ", ";
+                bld.append(name + ", ");
             }
+            String validNames = bld.toString();
             validNames = validNames.substring(0, validNames.length() - 2);
             throw new IllegalArgumentException(
-                    "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
+                    "Unexpected deviceName: " + deviceName + connect + mechanismName
                             + ".Builder().reverse(). Valid names are: " + validNames);
         }
     }
@@ -310,8 +314,8 @@ abstract class MotorMechanism<E> extends Mechanism {
             } else {
                 this.timer.reset();
                 while (opMode.opModeIsActive() && (this.timer.time() < measurement)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements)) {
-                }
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                    ;
             }
             setPowers();
         } else {
@@ -323,12 +327,12 @@ abstract class MotorMechanism<E> extends Mechanism {
             setPositions(positions, currentPositions);
             setPowers(movements);
             if (!limit) {
-                while (motorsAreBusy(movements)) {
-                }
+                while (motorsAreBusy(movements))
+                    ;
             } else {
                 while (motorsAreBusy(movements)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements)) {
-                }
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                    ;
             }
             setPowers();
 
@@ -346,14 +350,14 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (diameter == 0.0) {
             if (direction > 0) {
                 for (int position : currentPositions) {
-                    move = (position < up) ? true : false;
+                    move = (position < up);
                     if (!move) {
                         break;
                     }
                 }
             } else {
                 for (int position : currentPositions) {
-                    move = (position > down) ? true : false;
+                    move = (position > down);
                     if (!move) {
                         break;
                     }
@@ -363,7 +367,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             if (direction > 0) {
                 int[] positions = calculatePositions(up, diameter, distanceMultiplier, movements);
                 for (int i = 0; i < count; i++) {
-                    move = (currentPositions[i] < positions[i]) ? true : false;
+                    move = (currentPositions[i] < positions[i]);
                     if (!move) {
                         break;
                     }
@@ -378,7 +382,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                     }
                 }
                 for (int i = 0; i < count; i++) {
-                    move = (currentPositions[i] > positions[i]) ? true : false;
+                    move = (currentPositions[i] > positions[i]);
                     if (!move) {
                         break;
                     }
@@ -389,7 +393,10 @@ abstract class MotorMechanism<E> extends Mechanism {
         return move;
     }
 
-    /** Sets the target position for each motor before setting the mode to RUN_TO_POSITION */
+    /**
+     * Sets the target position for each motor before setting the mode to
+     * RUN_TO_POSITION
+     */
     protected void setPositions(int[] positions, int[] currentPositions) {
         // set target-position (relative + current = desired)
         for (int i = 0; i < count; i++) {
@@ -442,8 +449,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (multiplier == 1.0) {
             setPowers(movements);
         } else {
-            double[] scaledMovements =
-                    scaleDirections(movements, Math.min(Math.abs(multiplier), 1));
+            double[] scaledMovements = scaleDirections(movements, Math.min(Math.abs(multiplier), 1));
             setPowers(scaledMovements);
         }
     }
@@ -459,8 +465,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.REVERSE : DcMotor.Direction.FORWARD;
                     motors[i].setDirection(direction);
                 }
             }
@@ -473,8 +478,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             } else {
                 for (int i = 0; i < count; i++) {
-                    DcMotor.Direction direction =
-                            (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
+                    DcMotor.Direction direction = (i % 2 == 0) ? DcMotor.Direction.FORWARD : DcMotor.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
@@ -509,18 +513,23 @@ abstract class MotorMechanism<E> extends Mechanism {
         for (int i = 0; i < count; i++) {
             gearings[i] = motorTypes[i].getGearing();
         }
-        double gearing = min(gearings);
-        return gearing;
+        return min(gearings);
     }
 
-    /** Correct the gear-ratio of all motors using encoders. Updates distanceMultiplier */
+    /**
+     * Correct the gear-ratio of all motors using encoders. Updates
+     * distanceMultiplier
+     */
     protected void setGearing(double gearing) {
         MotorConfigurationType[] motorTypes = getMotorTypes();
         double currentGearing = getGearing(motorTypes);
         distanceMultiplier *= gearing / currentGearing;
     }
 
-    /** Wrapper around isBusy to see if any motors are busy (when they're supposed to be) */
+    /**
+     * Wrapper around isBusy to see if any motors are busy (when they're supposed to
+     * be)
+     */
     protected boolean motorsAreBusy(double[] movements) {
         boolean isBusy = false;
         for (int i = 0; i < count; i++) {
@@ -531,14 +540,16 @@ abstract class MotorMechanism<E> extends Mechanism {
         return isBusy;
     }
 
-    /** Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors */
+    /**
+     * Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all
+     * motors
+     */
     protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
         double[] achieveableMaxTicksPerSecondArr = new double[count];
         for (int i = 0; i < count; i++) {
             achieveableMaxTicksPerSecondArr[i] = motorTypes[i].getAchieveableMaxTicksPerSecond();
         }
-        double achieveableMaxTicksPerSecond = min(achieveableMaxTicksPerSecondArr);
-        return achieveableMaxTicksPerSecond;
+        return min(achieveableMaxTicksPerSecondArr);
     }
 
     /** Wrapper around getTicksPerRev to return minimum of all motors */
@@ -547,8 +558,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         for (int i = 0; i < count; i++) {
             ticksPerRevArr[i] = motorTypes[i].getTicksPerRev();
         }
-        double ticksPerRev = min(ticksPerRevArr);
-        return ticksPerRev;
+        return min(ticksPerRevArr);
     }
 
     /** Wrapper around getCurrentPosition to return it for all motors */
@@ -578,7 +588,10 @@ abstract class MotorMechanism<E> extends Mechanism {
         return mappedValue;
     }
 
-    /** Scale directions by a factor of power to derive actual, intended motor movements */
+    /**
+     * Scale directions by a factor of power to derive actual, intended motor
+     * movements
+     */
     protected static double[] scaleDirections(double[] motorDirections, double power) {
         int arrLength = motorDirections.length;
         double[] movements = new double[arrLength];
@@ -588,7 +601,10 @@ abstract class MotorMechanism<E> extends Mechanism {
         return movements;
     }
 
-    /** Calculate posiitons based on distance, diameter, distanceMultiplier, movements */
+    /**
+     * Calculate posiitons based on distance, diameter, distanceMultiplier,
+     * movements
+     */
     protected static int[] calculatePositions(double distance, double diameter,
             double distanceMultiplier, double[] movements) {
         double circumference = Math.PI * diameter;

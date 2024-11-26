@@ -57,7 +57,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
-        private String[] names = {"arm"};
+        private String[] names = { "arm" };
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private double up = 0.0;
         private double down = 0.0;
@@ -66,7 +66,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         /**
          * Builder constructor
          * 
-         * @param opMode instance of the calling opMode
+         * @param opMode      instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
          */
@@ -131,8 +131,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] names = {"armLeft", "armRight"};
-                this.names = names;
+                String[] newNames = { "armLeft", "armRight" };
+                this.names = newNames;
             }
             return this;
         }
@@ -155,7 +155,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         /**
          * Specify the zero-power behavior of the motors
          * 
-         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
+         * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or
+         *                 FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
          */
@@ -245,7 +246,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual motor powers based on direction specified in
+     * Intermediate function that assigns individual motor powers based on direction
+     * specified in
      * runOpMode() calls.
      * <p>
      * Valid directions are: up, down
@@ -261,10 +263,9 @@ public class Arm extends MotorMechanism<Arm.Direction> {
 
     /** Sets arm motor movements based on bumpers */
     protected static double controlToDirection(boolean lb, boolean rb) {
-        int down = lb ? 1 : 0;
-        int up = rb ? 1 : 0;
-        double arm = up - down;
-        return arm;
+        double down = lb ? 1 : 0;
+        double up = rb ? 1 : 0;
+        return up - down;
     }
 
     /** Translate natural-language direction to numeric values */
