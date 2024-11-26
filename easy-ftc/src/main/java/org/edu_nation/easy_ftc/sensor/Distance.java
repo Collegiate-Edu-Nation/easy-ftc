@@ -122,7 +122,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
     @Override
     public Boolean state() {
         if (reverse) {
-            return !(sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+            return (sensor.getDistance(DistanceUnit.CM) >= calibrationValue);
         } else {
             return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
         }

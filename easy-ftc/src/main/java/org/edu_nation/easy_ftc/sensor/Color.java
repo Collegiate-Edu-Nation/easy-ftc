@@ -225,15 +225,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
     /** Return maximum of normalized rgb values */
     private static int max(int[] rgbNormalized) {
-        int max = Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
+        return Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
-        return max;
     }
 
     /** Return minimum of normalized rgb values */
     private static int min(int[] rgbNormalized) {
-        int min = Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
+        return Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
                 Math.min(rgbNormalized[1], rgbNormalized[2]));
-        return min;
     }
 }
