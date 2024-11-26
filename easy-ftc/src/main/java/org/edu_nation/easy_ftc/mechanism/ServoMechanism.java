@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Blueprints an abstract Servo Mechanism, providing basic functionalities, options, and objects
  * common to all Servo Mechanisms. Cannot be instantiated, only extended by other classes.
- * 
- * @Methods {@link #wait(double time)} (used by subclasses)
  */
 abstract class ServoMechanism<E> extends Mechanism {
     protected Servo[] servos;

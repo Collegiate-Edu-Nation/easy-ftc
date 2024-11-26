@@ -11,22 +11,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Implements an arm by extending the functionality of {@link MotorMechanism}.
- * <p>
- * 
- * @param LinearOpMode opMode (required)
- * @param HardwareMap hardwareMap (required)
- * @param Integer count (1-2)
- * @param String[] names
- * @param Boolean encoder
- * @param Boolean reverse
- * @param String[] reverseDevices
- * @param Double length (> 0.0)
- * @param Double gearing (> 0.0)
- * @param Gamepad gamepad (gamepad1 or gamepad2)
- *        <p>
- * @Methods {@link #control(double power)}
- *          <li>{@link #control()} (defaults to 0.5 power if nothing is passed)
- *          <li>{@link #command(double power, String direction, double measurement)}
+ * <ul>
+ * <li>See {@link Builder} for Builder methods and defaults.
+ * <li>See {@link Direction} for directions that can be passed to
+ * {@link #command(direction, measurement, power)}.
+ * </ul>
  */
 public class Arm extends MotorMechanism<Arm.Direction> {
     /**

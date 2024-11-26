@@ -16,8 +16,6 @@ import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigu
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
  * common to all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
- * 
- * @Methods {@link #wait(double time)} (used by subclasses)
  */
 abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;

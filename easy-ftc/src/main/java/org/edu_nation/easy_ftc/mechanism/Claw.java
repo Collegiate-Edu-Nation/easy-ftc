@@ -9,24 +9,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Implements a claw by extending the functionality of {@link ServoMechanism}.
- * <p>
- * 
- * @param LinearOpMode opMode (required)
- * @param HardwareMap hardwareMap (required)
- * @param Integer count (1 or 2)
- * @param String[] names
- * @param Boolean smooth
- * @param Boolean reverse
- * @param String[] reverseDevices
- * @param Double open (0-1)
- * @param Double close (0-1)
- * @param Double increment (0-1)
- * @param Double incrementDelay (> 0, in s)
- * @param Double delay (> 0, in s)
- * @param Gamepad gamepad (gamepad1 or gamepad2)
- *        <p>
- * @Methods {@link #control()}
- *          <li>{@link #command(String direction)}
+ * <ul>
+ * <li>See {@link Builder} for Builder methods and defaults.
+ * <li>See {@link Direction} for directions that can be passed to {@link #command(direction)}.
+ * </ul>
  */
 public class Claw extends ServoMechanism<Claw.Direction> {
     private double open, close;

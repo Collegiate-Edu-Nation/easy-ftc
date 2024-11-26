@@ -8,13 +8,9 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Implements a touch sensor by extending the functionality of {@link Sensor}.
- * <p>
- * 
- * @param HardwareMap hardwareMap (required)
- * @param String name
- * @param Boolean reverse
- *        <p>
- * @Methods {@link #state()}
+ * <ul>
+ * <li>See {@link Builder} for Builder methods and defaults.
+ * </ul>
  */
 public class Touch extends Sensor<TouchSensor, Boolean> {
 

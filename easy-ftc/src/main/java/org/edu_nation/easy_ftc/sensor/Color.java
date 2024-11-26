@@ -8,16 +8,10 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Implements a color sensor by extending the functionality of {@link Sensor}.
- * <p>
- * 
- * @param HardwareMap hardwareMap (required)
- * @param String name
- * @param Boolean reverse
- * @param Double calibrationValue (0-255, cutoff for what constitutes a significant color reading)
- * @param Integer[] rgbOffsets (array of three integers, 0-255, shifts raw rgb readings for
- *        determining dominant color)
- *        <p>
- * @Methods {@link #state()}
+ * <ul>
+ * <li>See {@link Builder} for Builder methods and defaults.
+ * <li>See {@link RGB} for RGB values that can be returned by {@link #state()}
+ * </ul>
  */
 public class Color extends Sensor<ColorSensor, Color.RGB> {
     private int[] rgbOffsets;
