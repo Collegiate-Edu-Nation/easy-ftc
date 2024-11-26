@@ -84,6 +84,7 @@ android.libraryVariants.all { variant ->
             options {
                 setMemberLevel JavadocMemberLevel.PUBLIC
                 setStylesheetFile file('../docs/stylesheet.css')
+                addBooleanOption("Xdoclint:none", true)
             }
         }
 
