@@ -8,10 +8,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
  * Implements a color sensor by extending the functionality of {@link Sensor}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link RGB} for RGB values that can be returned by {@link #state()}
- * </ul>
+ * 
+ * @see Builder
+ * @see RGB
  */
 public class Color extends Sensor<ColorSensor, Color.RGB> {
     private int[] rgbOffsets;
@@ -135,7 +134,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         }
     }
 
-    /** RGB values that can be returned by state */
+    /** RGB values that can be returned by {@link Color#state()} */
     public enum RGB {
         RED, GREEN, BLUE
     }

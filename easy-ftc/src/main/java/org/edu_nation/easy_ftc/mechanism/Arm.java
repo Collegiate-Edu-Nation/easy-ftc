@@ -11,11 +11,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Implements an arm by extending the functionality of {@link MotorMechanism}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to
- * {@link #command(direction, measurement, power)}.
- * </ul>
+ * 
+ * @see Builder
+ * @see Direction
  */
 public class Arm extends MotorMechanism<Arm.Direction> {
     /** Constructor */
@@ -218,7 +216,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
     }
 
-    /** Directions that can be passed to command. */
+    /** Directions that can be passed to {@link Arm#command(direction, measurement, power)} */
     public enum Direction {
         UP, DOWN
     }

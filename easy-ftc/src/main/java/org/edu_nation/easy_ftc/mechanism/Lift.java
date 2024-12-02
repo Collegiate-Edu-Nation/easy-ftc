@@ -11,11 +11,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Implements a lift by extending the functionality of {@link MotorMechanism}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to
- * {@link #command(direction, measurement, power)}.
- * </ul>
+ * 
+ * @see Builder
+ * @see Direction
  */
 public class Lift extends MotorMechanism<Lift.Direction> {
     /** Constructor */
@@ -219,7 +217,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         }
     }
 
-    /** Directions that can be passed to command */
+    /** Directions that can be passed to {@link Lift#command(direction, measurement, power)} */
     public enum Direction {
         UP, DOWN
     }

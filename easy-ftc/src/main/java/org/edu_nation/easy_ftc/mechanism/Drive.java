@@ -13,13 +13,11 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 
 /**
  * Implements a drivetrain by extending the functionality of {@link MotorMechanism}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to
- * {@link #command(direction, measurement, power)}.
- * <li>See {@link Type} for Types that can be passed to {@link Drive.Builder#type(type)}.
- * <li>See {@link Layout} for Layouts that can be passed to {@link Drive.Builder#layout(layout)}.
- * </ul>
+ * 
+ * @see Builder
+ * @see Direction
+ * @see Type
+ * @see Layout
  */
 public class Drive extends MotorMechanism<Drive.Direction> {
     private Type type;
@@ -282,17 +280,17 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
     }
 
-    /** Directions that can be passed to command */
+    /** Directions that can be passed to {@link Drive#command(direction, measurement, power)} */
     public enum Direction {
         FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT
     }
 
-    /** Drivetrain types that can be passed to .type() */
+    /** Drivetrain types that can be passed to {@link Builder#type(type)} */
     public enum Type {
         DIFFERENTIAL, MECANUM
     }
 
-    /** Drivetrain layouts that can be passed to .layout() */
+    /** Drivetrain layouts that can be passed to {@link Builder#layout(layout)} */
     public enum Layout {
         ARCADE, TANK, FIELD, ROBOT
     }

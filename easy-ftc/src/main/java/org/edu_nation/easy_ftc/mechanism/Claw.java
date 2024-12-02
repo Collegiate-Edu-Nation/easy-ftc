@@ -9,10 +9,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Implements a claw by extending the functionality of {@link ServoMechanism}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * <li>See {@link Direction} for directions that can be passed to {@link #command(direction)}.
- * </ul>
+ * 
+ * @see Builder
+ * @see Direction
  */
 public class Claw extends ServoMechanism<Claw.Direction> {
     private double open;
@@ -213,7 +212,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
     }
 
-    /** Directions that can be passed to command. */
+    /** Directions that can be passed to {@link Claw#command(direction)} */
     public enum Direction {
         OPEN, CLOSE
     }

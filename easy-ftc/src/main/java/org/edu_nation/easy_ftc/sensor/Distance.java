@@ -9,9 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
  * Implements a distance sensor by extending the functionality of {@link Sensor}.
- * <ul>
- * <li>See {@link Builder} for Builder methods and defaults.
- * </ul>
+ * 
+ * @see Builder
  */
 public class Distance extends Sensor<DistanceSensor, Boolean> {
 
