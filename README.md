@@ -92,7 +92,7 @@ To generate documentation, you must also install
 - [ ] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
-- [ ] Add defaults section
+- [ ] Add naming section
 - [ ] Add more examples
 - [ ] Add 'Common Issues' section
 
@@ -101,6 +101,7 @@ To generate documentation, you must also install
 - [ ] Support CRServo
 - [ ] Flesh out Color
 - [ ] Add graphics for blocks and onbot usage, controls
+- [ ] Look into RACE layout for differential (triggers instead of joystick for axial)
 - [ ] Support mechanism + sensor integrations
 - [ ] Investigate sequence abstraction + implementation
 - [ ] Add telemetry for status indicators
