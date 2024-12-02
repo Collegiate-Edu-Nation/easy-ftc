@@ -185,6 +185,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * 
          * @return arm instance
          * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing has been set
          * @throws IllegalStateException if up &lt; down
          */
         @Override
@@ -192,6 +193,11 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             if (this.count != this.names.length) {
                 throw new IllegalStateException(
                         "Unexpected array length for array passed to Arm.Builder().names(). The length of this array must be equal to count");
+            }
+            if (!this.encoder
+                    && (this.diameter != 0 || this.length != 0 || this.gearing != 0)) {
+                throw new IllegalStateException(
+                        "One of: Arm.Builder().diameter(), Arm.Builder().length(), or Arm.Builder().gearing() has been set without enabling Arm.Builder().encoder(). Enable Arm.Builder().encoder()");
             }
             if (this.up < this.down) {
                 throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "

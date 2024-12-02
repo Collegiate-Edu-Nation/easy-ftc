@@ -186,6 +186,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * 
          * @return lift instance
          * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing has been set
          * @throws IllegalStateException if up &lt; down
          */
         @Override
@@ -193,6 +194,11 @@ public class Lift extends MotorMechanism<Lift.Direction> {
             if (this.count != this.names.length) {
                 throw new IllegalStateException(
                         "Unexpected array length for array passed to Lift.Builder().names(). The length of this array must be equal to count");
+            }
+            if (!this.encoder
+                    && (this.diameter != 0 || this.length != 0 || this.gearing != 0)) {
+                throw new IllegalStateException(
+                        "One of: Lift.Builder().diameter(), Lift.Builder().length(), or Lift.Builder().gearing() has been set without enabling Lift.Builder().encoder(). Enable Lift.Builder().encoder()");
             }
             if (this.up < this.down) {
                 throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "

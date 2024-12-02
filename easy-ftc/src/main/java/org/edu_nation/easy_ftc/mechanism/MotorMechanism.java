@@ -42,11 +42,6 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected MotorMechanism(Builder<?> builder) {
         super(builder);
         this.encoder = builder.encoder;
-        if (!this.encoder
-                && (builder.diameter != 0 || builder.length != 0 || builder.gearing != 0)) {
-            throw new IllegalStateException(
-                    "One of: MotorMechanism.Builder().diameter(), MotorMechanism.Builder().length(), or MotorMechanism.Builder().gearing() has been set without enabling MotorMechanism.Builder().encoder(). Enable MotorMechanism.Builder().encoder()");
-        }
         this.diameter = builder.diameter;
         this.length = builder.length;
         this.gearing = builder.gearing;
@@ -56,10 +51,10 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
-        private boolean encoder = false;
-        private double diameter = 0.0;
-        private double length = 0.0;
-        private double gearing = 0.0;
+        protected boolean encoder = false;
+        protected double diameter = 0.0;
+        protected double length = 0.0;
+        protected double gearing = 0.0;
         private double deadzone = 0.0;
         private LogoFacingDirection logo = LogoFacingDirection.UP;
         private UsbFacingDirection usb = UsbFacingDirection.FORWARD;
