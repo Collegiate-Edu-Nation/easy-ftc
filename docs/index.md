@@ -3,6 +3,7 @@
 * Getting Started
 * Examples
 * Controls
+* Naming
 * Diagrams
 * Javadoc
 
