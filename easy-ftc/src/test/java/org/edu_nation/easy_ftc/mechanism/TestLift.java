@@ -115,6 +115,13 @@ public class TestLift {
                 .build();
     }
 
+    @Test(expected = IllegalStateException.class)
+    public void diameterNoEncoderThrowsException() {
+        mockInit();
+
+        new Lift.Builder(mockedOpMode, mockedHardwareMap).diameter(1).build();
+    }
+
     @Test(expected = NullPointerException.class)
     public void behaviorThrowsException() {
         mockInit();
