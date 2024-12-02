@@ -24,8 +24,8 @@ abstract class Sensor<S, V> {
     }
 
     public abstract static class Builder<T extends Builder<T>> {
-        protected HardwareMap hardwareMap;
-        protected boolean reverse = false;
+        private HardwareMap hardwareMap;
+        private boolean reverse = false;
 
         /**
          * Builder constructor

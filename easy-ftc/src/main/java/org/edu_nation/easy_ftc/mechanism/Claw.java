@@ -48,10 +48,10 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      * </ul>
      */
     public static class Builder extends ServoMechanism.Builder<Builder> {
-        protected int count = 1;
-        protected String[] names = {"claw"};
-        protected double open = 1.0;
-        protected double close = 0.0;
+        private int count = 1;
+        private String[] names = {"claw"};
+        private double open = 1.0;
+        private double close = 0.0;
         private String mechanismName = "Claw";
 
         /**

@@ -34,11 +34,11 @@ abstract class Mechanism {
     }
 
     public abstract static class Builder<T extends Builder<T>> {
-        protected LinearOpMode opMode;
-        protected HardwareMap hardwareMap;
-        protected boolean reverse = false;
-        protected String[] reverseDevices = {};
-        protected Gamepad gamepad = null;
+        private LinearOpMode opMode;
+        private HardwareMap hardwareMap;
+        private boolean reverse = false;
+        private String[] reverseDevices = {};
+        private Gamepad gamepad = null;
 
         /**
          * Builder constructor

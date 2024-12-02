@@ -32,7 +32,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         protected boolean smooth = false;
         protected double increment = 0.0;
         protected double incrementDelay = 0.0;
-        protected double delay = 2;
+        private double delay = 2;
 
         protected Builder(LinearOpMode opMode, HardwareMap hardwareMap) {
             super(opMode, hardwareMap);
