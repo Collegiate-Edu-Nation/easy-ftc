@@ -237,7 +237,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * 
          * @return drive instance
          * @throws IllegalStateException if count != names.length
-         * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing has been set
+         * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
+         *         has been set
          * @throws IllegalStateException if type = DIFFERENTIAL and layout is one of: ROBOT, FIELD
          * @throws IllegalStateException if type = MECANUM and count != 4
          * @throws IllegalStateException if type = MECANUM and layout is one of: ARCADE, TANK
@@ -248,8 +249,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                 throw new IllegalStateException(
                         "Unexpected array length for array passed to Drive.Builder().names(). The length of this array must be equal to count");
             }
-            if (!this.encoder
-                    && (this.diameter != 0 || this.length != 0 || this.gearing != 0)) {
+            if (!this.encoder && (this.diameter != 0 || this.length != 0 || this.gearing != 0)) {
                 throw new IllegalStateException(
                         "One of: Drive.Builder().diameter(), Drive.Builder().length(), or Drive.Builder().gearing() has been set without enabling Drive.Builder().encoder(). Enable Drive.Builder().encoder()");
             }
