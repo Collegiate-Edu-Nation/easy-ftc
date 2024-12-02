@@ -22,16 +22,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     private Claw(Builder builder) {
         super(builder);
         this.count = builder.count;
-        if (builder.count != builder.names.length) {
-            throw new IllegalStateException(
-                    "Unexpected array length for array passed to Claw.Builder().names(). The length of this array must be equal to count");
-        }
         this.names = builder.names;
-        if (builder.open < builder.close) {
-            throw new IllegalStateException("Unexpected up and down values: " + builder.open + ", "
-                    + builder.close
-                    + ", passed to Claw.Builder().open() and Claw.Builder().close(). Open must be greater than close");
-        }
         this.open = builder.open;
         this.close = builder.close;
         this.mechanismName = builder.mechanismName;
@@ -188,9 +179,20 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * Build the claw
          * 
          * @return claw instance
+         * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if open &lt; close
          */
         @Override
         public Claw build() {
+            if (this.count != this.names.length) {
+                throw new IllegalStateException(
+                        "Unexpected array length for array passed to Claw.Builder().names(). The length of this array must be equal to count");
+            }
+            if (this.open < this.close) {
+                throw new IllegalStateException("Unexpected open and close values: " + this.open
+                        + ", " + this.close
+                        + ", passed to Claw.Builder().open() and Claw.Builder().close(). Open must be greater than close");
+            }
             return new Claw(this);
         }
 

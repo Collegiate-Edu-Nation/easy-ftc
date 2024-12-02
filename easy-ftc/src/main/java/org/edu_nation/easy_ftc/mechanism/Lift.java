@@ -22,17 +22,8 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     private Lift(Builder builder) {
         super(builder);
         this.count = builder.count;
-        if (builder.count != builder.names.length) {
-            throw new IllegalStateException(
-                    "Unexpected array length for array passed to Lift.Builder().names(). The length of this array must be equal to count");
-        }
         this.names = builder.names;
         this.behavior = builder.behavior;
-        if (builder.up < builder.down) {
-            throw new IllegalStateException("Unexpected up and down values: " + builder.up + ", "
-                    + builder.down
-                    + ", passed to Lift.Builder().up() and Lift.Builder().down(). Up must be greater than down");
-        }
         this.up = builder.up;
         this.down = builder.down;
         this.mechanismName = builder.mechanismName;
@@ -194,9 +185,20 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * Build the lift
          * 
          * @return lift instance
+         * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if up &lt; down
          */
         @Override
         public Lift build() {
+            if (this.count != this.names.length) {
+                throw new IllegalStateException(
+                        "Unexpected array length for array passed to Lift.Builder().names(). The length of this array must be equal to count");
+            }
+            if (this.up < this.down) {
+                throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "
+                        + this.down
+                        + ", passed to Lift.Builder().up() and Lift.Builder().down(). Up must be greater than down");
+            }
             return new Lift(this);
         }
 

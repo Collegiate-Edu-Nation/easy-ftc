@@ -28,27 +28,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     private Drive(Builder builder) {
         super(builder);
         this.count = builder.count;
-        if (builder.count != builder.names.length) {
-            throw new IllegalStateException(
-                    "Unexpected array length for array passed to Drive.Builder().names(). The length of this array must be equal to count");
-        }
         this.names = builder.names;
         this.behavior = builder.behavior;
-        if (builder.type == Type.DIFFERENTIAL) {
-            if (builder.layout == Layout.ROBOT || builder.layout == Layout.FIELD) {
-                throw new IllegalStateException(
-                        "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ARCADE, Drive.Layout.TANK");
-            }
-        } else if (builder.type == Type.MECANUM) {
-            if (count != 4) {
-                throw new IllegalStateException(
-                        "Illegal count passed to Drive.Builder().count() for the specified type in Drive.Builder().type(). Permitted count value is 4");
-            }
-            if (builder.layout == Layout.ARCADE || builder.layout == Layout.TANK) {
-                throw new IllegalStateException(
-                        "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
-            }
-        }
         this.type = builder.type;
         this.layout = builder.layout;
         this.mechanismName = builder.mechanismName;
@@ -255,9 +236,32 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * Build the drivetrain
          * 
          * @return drive instance
+         * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if type = DIFFERENTIAL and layout is one of: ROBOT, FIELD
+         * @throws IllegalStateException if type = MECANUM and count != 4
+         * @throws IllegalStateException if type = MECANUM and layout is one of: ARCADE, TANK
          */
         @Override
         public Drive build() {
+            if (this.count != this.names.length) {
+                throw new IllegalStateException(
+                        "Unexpected array length for array passed to Drive.Builder().names(). The length of this array must be equal to count");
+            }
+            if (this.type == Type.DIFFERENTIAL) {
+                if (this.layout == Layout.ROBOT || this.layout == Layout.FIELD) {
+                    throw new IllegalStateException(
+                            "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ARCADE, Drive.Layout.TANK");
+                }
+            } else if (this.type == Type.MECANUM) {
+                if (this.count != 4) {
+                    throw new IllegalStateException(
+                            "Illegal count passed to Drive.Builder().count() for the specified type in Drive.Builder().type(). Permitted count value is 4");
+                }
+                if (this.layout == Layout.ARCADE || this.layout == Layout.TANK) {
+                    throw new IllegalStateException(
+                            "Illegal layout passed to Drive.Builder().layout() for the specified type in Drive.Builder().type(). Permitted layouts are: Drive.Layout.ROBOT, Drive.Layout.FIELD");
+                }
+            }
             return new Drive(this);
         }
 

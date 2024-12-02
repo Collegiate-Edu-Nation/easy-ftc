@@ -22,17 +22,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     private Arm(Builder builder) {
         super(builder);
         this.count = builder.count;
-        if (builder.count != builder.names.length) {
-            throw new IllegalStateException(
-                    "Unexpected array length for array passed to Arm.Builder().names(). The length of this array must be equal to count");
-        }
         this.names = builder.names;
         this.behavior = builder.behavior;
-        if (builder.up < builder.down) {
-            throw new IllegalStateException("Unexpected up and down values: " + builder.up + ", "
-                    + builder.down
-                    + ", passed to Arm.Builder().up() and Arm.Builder().down(). Up must be greater than down");
-        }
         this.up = builder.up;
         this.down = builder.down;
         this.mechanismName = builder.mechanismName;
@@ -193,9 +184,20 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * Build the arm
          * 
          * @return arm instance
+         * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if up &lt; down
          */
         @Override
         public Arm build() {
+            if (this.count != this.names.length) {
+                throw new IllegalStateException(
+                        "Unexpected array length for array passed to Arm.Builder().names(). The length of this array must be equal to count");
+            }
+            if (this.up < this.down) {
+                throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "
+                        + this.down
+                        + ", passed to Arm.Builder().up() and Arm.Builder().down(). Up must be greater than down");
+            }
             return new Arm(this);
         }
 
