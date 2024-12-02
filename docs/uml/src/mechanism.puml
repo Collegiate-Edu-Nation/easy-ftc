@@ -6,6 +6,7 @@ abstract class Mechanism {
     # opMode: LinearOpMode
     # hardwareMap: HardwareMap
     # count: int
+    # names: String[]
     # reverse: boolean
     # reverseDevices: String[]
     # gamepad: Gamepad
@@ -13,48 +14,68 @@ abstract class Mechanism {
     # mechanismName: String
     {abstract}# init()
     {abstract}+ control()
-    {abstract}+ reverse()
-    + wait(double time)
+    {abstract}# reverse()
+    # wait(double time)
 }
 
 abstract class "Builder" as Mechanism_Builder {
-    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): T
     + reverse(String deviceName): T
+    + reverse(String[] deviceNames): T
     + gamepad(Gamepad gamepad): T
+    {abstract}+ names(String[] names): T
     {abstract}+ build(): Mechanism
-    {abstract}+ self(): T
+    {abstract}# self(): T
 }
 
-abstract class MotorMechanism {
+abstract class MotorMechanism<E> {
     # motors: DcMotor[] 
     # motorsEx: DcMotorEx[] 
+    # imu: IMU
     # encoder: boolean
     # behavior: DcMotor.ZeroPowerBehavior
+    # up: double
+    # down: double
     # velocityMultiplier: double
     # distanceMultiplier: double
     # diameter: double
     # length: double
     # gearing: double
     # deadzone: double
-    {abstract}+ command(double power, String direction, double measurement)
+    # logo: LogoFacingDirection
+    # usb: UsbFacingDirection
+    # layout: Drive.Layout
+    - connect: String
+    {abstract}+ control(double multiplier)
+    {abstract}+ command(E direction, double measurement, double power)
+    # validate(double multiplier)
+    # validate(double measurement, double power)
+    # reverse(String deviceName)
+    # init()
+    # moveForMeasurement(double[] unscaledMovements, double measurement, double power, boolean limit)
+    # limitsNotReached(double direction, double[] movements): boolean
+    - limitsNotReachedTimeBased(double direction): boolean
+    - limitsNotReachedDistanceBased(double direction, double[] movements): boolean
     # setPositions(int[] positions, int[] currentPositions)
     # setModesEx(DcMotorEx.RunMode runMode)
     # setModes(DcMotor.RunMode runMode)
     # setPowers(double[] movements)
     # setPowers()
     # setDirections(boolean reverse)
+    - setDirectionsDefault()
+    - setDirectionsReversed()
     # setBehaviors(DcMotor.ZeroPowerBehavior behavior)
     # getMotorTypes(): MotorConfigurationType[]
-    # getGearing(): double
-    + setGearing(double gearing)
-    # motorsAreBusy(): boolean
-    # getAchieveableMaxTicksPerSecond(): double
-    # getTicksPerRev(): double
+    # getGearing(MotorConfigurationType[] motorTypes): double
+    + setGearing()
+    # motorsAreBusy(double[] movements): boolean
+    # getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes): double
+    # getTicksPerRev(MotorConfigurationType[] motorTypes): double
     # getCurrentPositions(): int[]
-    # map(double controllerValue, double deadzone): double
-    # scaleDirections(double power, double[] motorDirections): double[]
-    # calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements): int[]
+    # map(double controllerValue): double
+    # scaleDirections(double[] motorDirections, double power): double[]
+    # calculatePositions(double distance, double[] movements): int[]
     - min(double[] arr): double
     - min(double a, double b, double c, double d): double
 }
@@ -62,112 +83,157 @@ abstract class MotorMechanism {
 abstract class ServoMechanism {
     # servos: Servo[]
     # smooth: boolean
-    # open: double
-    # close: double
     # increment: double
     # incrementDelay: double
     # delay: double
+    {abstract}+ command(E direction)
+    # reverse(String deviceName)
+    # init()
     # setPositionsByIncrement(double position, double movement): double
     # setPositionsByIncrementUntilComplete(double position, double movement)
     # setPositions(double movement)
     # setDirections(boolean reverse)
-    # controlToDirection(double open, double close, double current, boolean openButton, boolean closeButton): double
-    # languageToDirection(String direction, double open, double close, String mechanismName): double
 }
 
 abstract class "Builder" as MotorMechanism_Builder {
-    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + encoder(): T
     + diameter(double diameter): T
     + length(double length): T
     + gearing(double gearing): T
     + deadzone(double deadzone): T
-    {abstract}+ build(): MotorMechanism
+    + logo(LogoFacingDirection logo): T
+    + usb(UsbFacingDirection usb): T
+    {abstract}+ names(String[] names): T
+    {abstract}+ build(): MotorMechanism<?>
     {abstract}+ self(): T
 }
 
 abstract class "Builder" as ServoMechanism_Builder {
-    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
-    + count(int count): T
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + smooth(): T
-    + open(double open): T
-    + close(double close): T
     + increment(double increment): T
     + incrementDelay(double incrementDelay): T
     + delay(double delay): T
-    + gamepad(Gamepad gamepad): T
-    {abstract}+ build(): ServoMechanism
-    {abstract}+ self(): T
+    {abstract}+ names(String[] names): T
+    {abstract}+ build(): ServoMechanism<?>
+    {abstract}# self(): T
 }
 
 class Arm {
-    # init()
     + control(double power)
     + control()
-    + command(double power, String direction, double measurement)
-    # reverse(String deviceName)
-    # controlToDirection(double power, boolean lb, boolean rb): double
-    # languageToDirection(String direction): double
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(boolean lb, boolean rb): double
+    # languageToDirection(Direction direction): double
 }
 
 class Claw {
-    # init()
+    - open: double
+    - close: double
     + control()
-    + command(String direction)
-    # reverse(String deviceName)
+    + command(Direction direction)
+    # controlToDirection(double current, boolean openButton, boolean closeButton): double
+    # languageToDirection(Direction direction): double
 }
 
 class Drive {
-    - imu: IMU
-    - type: String
-    - layout: String
-    # init()
+    - type: Type
+    + control(double multiplier)
     + control()
-    + command(double power, String direction, double measurement)
-    # reverse(String deviceName)
-    # controlToDirection(int count, String type, String layout, double deadzone, double heading, float leftY, float leftX, float rightY, float rightX): double[]
-    # languageToDirection(int count, String type, double power, String direction): double[]
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(double heading, float leftY, float leftX, float rightY, float rightX): double[]
+    - controlToDirectionDifferential(double leftY, double rightY, double rightX): double[]
+    - controlToDirectionMecanum(double heading, double leftY, double leftX, double rightX): double[]
+    - axesToDirection(double[] axes, double heading): double[]
+    # languageToDirection(Direction direction, double heading): double[]
+    - languageToDirectionDifferential(Direction direction): double[]
+    - languageToDirectionMecanum(Direction direction): double[]
 }
 
 class Lift {
-    # init()
+    + control(double multiplier)
     + control()
-    + command(double power, String direction, double measurement)
-    # reverse(String deviceName)
-    # controlToDirection(double deadzone, float lt, float rt): double
-    # languageToDirection(String direction): double
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(float lt, float rt): double
+    # languageToDirection(Direction direction): double
 }
 
 class "Builder" as Arm_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + length(double length): Builder
+    + gearing(double gearing): Builder
     + count(int count): Builder
-    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + names(String[] names): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): 
+    + up(double up): Builder
+    + down(double down): Builder
     + build(): Arm
-    + self(): Builder
+    # self(): Builder
 }
 
 class "Builder" as Claw_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + smooth(): Builder
+    + increment(double increment): Builder
+    + incrementDelay(double incrementDelay): Builder
+    + delay(double delay): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + open(double open): Builder
+    + close(double close): Builder
     + build(): Claw
-    + self(): Builder
+    # self(): Builder
 }
 
 class "Builder" as Drive_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + gearing(double gearing): Builder
+    + deadzone(double deadzone): Builder
+    + logo(LogoFacingDirection logo): Builder
+    + usb(UsbFacingDirection usb): Builder
     + count(int count): Builder
+    + names(String[] names): Builder
     + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
-    + type(String type): Builder
-    + layout(String layout): Builder
+    + type(Type type): Builder
+    + layout(Layout layout): Builder
     + build(): Drive
-    + self(): Builder
+    # self(): Builder
 }
 
 class "Builder" as Lift_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + gearing(double gearing): Builder
+    + deadzone(double deadzone): Builder
     + count(int count): Builder
+    + names(String[] names): Builder
     + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + up(double up): Builder
+    + down(double down): Builder
     + build(): Lift
-    + self(): Builder
+    # self(): Builder
 }
 
 Mechanism <|-- MotorMechanism

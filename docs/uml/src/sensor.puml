@@ -5,6 +5,7 @@ left to right direction
 abstract class Sensor<S, V> {
     # hardwareMap: HardwareMap
     # sensor: S
+    # name: String
     # reverse: boolean
     # calibrationValue: double
     {abstract}# init()
@@ -12,8 +13,9 @@ abstract class Sensor<S, V> {
 }
 
 abstract class "Builder" as Sensor_Builder {
-    + Builder(HardwareMap hardwareMap)
+    # Builder(HardwareMap hardwareMap)
     + reverse(): T
+    {abstract}+ name(String name): T
     {abstract}+ build(): Sensor<?, ?>
     {abstract}+ self(): T
 }
@@ -21,10 +23,10 @@ abstract class "Builder" as Sensor_Builder {
 class Color {
     - rgbOffsets: int[]
     # init()
-    + state(): String
-    # dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue): String
-    # weakColor(int[] rgbRaw, int[] rgbOffsets): String
-    - normalize(int[] rgbRaw, int[] rgbOffsets): int[]
+    + state(): RGB
+    # dominantColor(int[] rgbRaw): RGB
+    # weakColor(int[] rgbRaw): RGB
+    - normalize(int[] rgbRaw): int[]
     - max(int[] rgbNormalized): int
     - min(int[] rgbNormalized): int
 }
@@ -41,23 +43,29 @@ class Touch {
 
 class "Builder" as Color_Builder {
     + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
     + calibrationValue(double calibrationValue): Builder
     + rgbOffsets(int[] rgbOffsets): Builder
     + build(): Color
-    + self(): Builder
+    # self(): Builder
 }
 
 class "Builder" as Distance_Builder {
     + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
     + calibrationValue(double calibrationValue): Builder
     + build(): Distance
-    + self(): Builder
+    # self(): Builder
 }
 
 class "Builder" as Touch_Builder {
     + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
     + build(): Touch
-    + self(): Builder
+    # self(): Builder
 }
 
 Sensor <|-- Color
