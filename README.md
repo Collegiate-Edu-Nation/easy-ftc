@@ -89,7 +89,7 @@ To generate documentation, you must also install
 - [x] Throw exceptions for invalid builder and method args
 - [x] Support FIELD in command()
 - [x] Support positional limits in command()
-- [ ] Update uml
+- [x] Update uml
 - [ ] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
