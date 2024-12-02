@@ -394,10 +394,7 @@ public class TestArm {
     public void setGearingSolo_ThrowsException() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).gearing(-1)
-                .build();
-
-        arm.setGearing(0);
+        new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).gearing(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -410,31 +407,39 @@ public class TestArm {
 
     @Test
     public void controlToDirection_iscorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+
         // Test no movement (both true)
-        double result = Arm.controlToDirection(true, true);
+        double result = arm.controlToDirection(true, true);
         assertEquals(0, result, 0.01);
 
         // Test no movement (both false)
-        result = Arm.controlToDirection(false, false);
+        result = arm.controlToDirection(false, false);
         assertEquals(0, result, 0.01);
 
         // Test up
-        result = Arm.controlToDirection(false, true);
+        result = arm.controlToDirection(false, true);
         assertEquals(1.0, result, 0.01);
 
         // Test down
-        result = Arm.controlToDirection(true, false);
+        result = arm.controlToDirection(true, false);
         assertEquals(-1.0, result, 0.01);
     }
 
     @Test
     public void languageToDirection_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+
         // Test Arm.Direction.UP
-        double result = Arm.languageToDirection(Arm.Direction.UP);
+        double result = arm.languageToDirection(Arm.Direction.UP);
         assertEquals(1, result, 0.01);
 
         // Test Arm.Direction.DOWN
-        result = Arm.languageToDirection(Arm.Direction.DOWN);
+        result = arm.languageToDirection(Arm.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
 
@@ -445,4 +450,173 @@ public class TestArm {
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
         arm.command(null, 1, 1);
     }
+
+    @Test
+    public void map_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
+        final double[] controllerValues = {0.1, 0.5, 1, -0.1, -0.5, -1};
+        final double[] expectedValues = {0, 0.45, 1, 0, -0.45, -1};
+
+        // Test positive controllerValues
+        for (int i = 0; i < controllerValues.length / 2; i++) {
+            assertEquals(expectedValues[i], arm.map(controllerValues[i]), 0.01);
+        }
+
+        // Test negative controllerValues
+        for (int i = 3; i < controllerValues.length; i++) {
+            assertEquals(expectedValues[i], arm.map(controllerValues[i]), 0.01);
+        }
+    }
+
+    @Test
+    public void whenOneMotor_scaleDirections_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
+        final double[] powers = {0, 0.5, 1};
+        final double[][] motorDirections = {{0}, {1}, {-1}};
+        final double[][][] expectedValues =
+                {{{0}, {0}, {0}}, {{0}, {0.5}, {-0.5}}, {{0}, {1}, {-1}}};
+
+        // Test power zero
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[0]);
+            for (int j = 0; j < 1; j++) {
+                assertEquals(expectedValues[0][i][j], movements[j], 0.01);
+            }
+        }
+
+        // Test power half
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[1]);
+            for (int j = 0; j < 1; j++) {
+                assertEquals(expectedValues[1][i][j], movements[j], 0.01);
+            }
+        }
+
+        // Test power full
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[2]);
+            for (int j = 0; j < 1; j++) {
+                assertEquals(expectedValues[2][i][j], movements[j], 0.01);
+            }
+        }
+    }
+
+    @Test
+    public void whenTwoMotor_scaleDirections_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
+        final double[] powers = {0, 0.5, 1};
+        final double[][] motorDirections = {{0, 0}, {1, 1}, {-1, -1}};
+        final double[][][] expectedValues = {{{0, 0}, {0, 0}, {0, 0}},
+                {{0, 0}, {0.5, 0.5}, {-0.5, -0.5}}, {{0, 0}, {1, 1}, {-1, -1}}};
+
+        // Test power zero
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[0]);
+            for (int j = 0; j < 2; j++) {
+                assertEquals(expectedValues[0][i][j], movements[j], 0.01);
+            }
+        }
+
+        // Test power half
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[1]);
+            for (int j = 0; j < 2; j++) {
+                assertEquals(expectedValues[1][i][j], movements[j], 0.01);
+            }
+        }
+
+        // Test power full
+        for (int i = 0; i < 3; i++) {
+            double[] movements = arm.scaleDirections(motorDirections[i], powers[2]);
+            for (int j = 0; j < 2; j++) {
+                assertEquals(expectedValues[2][i][j], movements[j], 0.01);
+            }
+        }
+    }
+
+    /*@Test
+    public void whenOneMotor_calculatePositions_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).diameter(4).build();
+        final double[] movements = {1};
+        final double[] movementsBack = {-1};
+        final int[][] expectedValues = {{400}, {0}, {382}, {414}, {-400}};
+
+        // Test distance = circumference
+        int[] result = arm.calculatePositions(Math.PI * 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[0][i], result[i], 0.01);
+        }
+
+        // Test distance = 0
+        result = MotorMechanism.calculatePositions(0, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[1][i], result[i], 0.01);
+        }
+
+        // Test distance < circumference
+        result = MotorMechanism.calculatePositions(12, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[2][i], result[i], 0.01);
+        }
+
+        // Test distance > circumference
+        result = MotorMechanism.calculatePositions(13, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[3][i], result[i], 0.01);
+        }
+
+        // Test distance = circumference, back
+        result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movementsBack);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[4][i], result[i], 0.01);
+        }
+    }
+
+    @Test
+    public void whenTwoMotor_calculatePositions_isCorrect() {
+        mockInit();
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).diameter(4).build();
+        final double[] movements = {1, 1};
+        final double[] movementsRotate = {1, -1};
+        final int[][] expectedValues = {{400, 400}, {0, 0}, {382, 382}, {414, 414}, {400, -400}};
+
+        // Test distance = circumference
+        int[] result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[0][i], result[i], 0.01);
+        }
+
+        // Test distance = 0
+        result = MotorMechanism.calculatePositions(0, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[1][i], result[i], 0.01);
+        }
+
+        // Test distance < circumference
+        result = MotorMechanism.calculatePositions(12, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[2][i], result[i], 0.01);
+        }
+
+        // Test distance > circumference
+        result = MotorMechanism.calculatePositions(13, 400, movements);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[3][i], result[i], 0.01);
+        }
+
+        // Test distance = circumference, rotate
+        result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movementsRotate);
+        for (int i = 0; i < result.length; i++) {
+            assertEquals(expectedValues[4][i], result[i], 0.01);
+        }
+    }*/
 }

@@ -211,31 +211,39 @@ public class TestClaw {
 
     @Test
     public void controlToDirection_isCorrect() {
+        mockInit();
+
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
+
         // Test open
-        double result = Claw.controlToDirection(1, 0, 0, true, false);
+        double result = claw.controlToDirection(0, true, false);
         assertEquals(1, result, 0.01);
 
         // Test close
-        result = Claw.controlToDirection(1, 0, 1, false, true);
+        result = claw.controlToDirection(1, false, true);
         assertEquals(0, result, 0.01);
 
         // Test doNothing (both false)
-        result = Claw.controlToDirection(1, 0, 1, false, false);
+        result = claw.controlToDirection(1, false, false);
         assertEquals(1, result, 0.01);
 
         // Test doNothing (both true)
-        result = Claw.controlToDirection(1, 0, 1, true, true);
+        result = claw.controlToDirection(1, true, true);
         assertEquals(1, result, 0.01);
     }
 
     @Test
     public void languageToDirection_isCorrect() {
+        mockInit();
+
+        Claw claw = new Claw.Builder(mockedOpMode, mockedHardwareMap).build();
+
         // Test Direction.OPEN
-        double result = Claw.languageToDirection(Claw.Direction.OPEN, 1, 0);
+        double result = claw.languageToDirection(Claw.Direction.OPEN);
         assertEquals(1, result, 0.01);
 
         // Test Direction.CLOSE
-        result = Claw.languageToDirection(Claw.Direction.CLOSE, 1, 0);
+        result = claw.languageToDirection(Claw.Direction.CLOSE);
         assertEquals(0, result, 0.01);
     }
 

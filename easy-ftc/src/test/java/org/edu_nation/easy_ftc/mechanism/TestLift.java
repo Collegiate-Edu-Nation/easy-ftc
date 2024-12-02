@@ -341,39 +341,45 @@ public class TestLift {
 
     @Test
     public void controlToDirection_iscorrect() {
-        final double deadzone = 0.1;
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
         final float[] controllerValues = {0.1f, 0.5f, 1};
         final double[] expectedValues = {0, 0.45, 1};
 
         // Test no movement (both 1)
-        double result = Lift.controlToDirection(deadzone, 1, 1);
+        double result = lift.controlToDirection(1, 1);
         assertEquals(0, result, 0.01);
 
         // Test no movement (both 0)
-        result = Lift.controlToDirection(deadzone, 0, 0);
+        result = lift.controlToDirection(0, 0);
         assertEquals(0, result, 0.01);
 
         // Test up
         for (int i = 0; i < controllerValues.length; i++) {
-            result = Lift.controlToDirection(deadzone, 0, controllerValues[i]);
+            result = lift.controlToDirection(0, controllerValues[i]);
             assertEquals(expectedValues[i], result, 0.01);
         }
 
         // Test down
         for (int i = 0; i < controllerValues.length; i++) {
-            result = Lift.controlToDirection(deadzone, controllerValues[i], 0);
+            result = lift.controlToDirection(controllerValues[i], 0);
             assertEquals(-expectedValues[i], result, 0.01);
         }
     }
 
     @Test
     public void languageToDirection_isCorrect() {
+        mockInit();
+
+        Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
+
         // Test Direction.UP
-        double result = Lift.languageToDirection(Lift.Direction.UP);
+        double result = lift.languageToDirection(Lift.Direction.UP);
         assertEquals(1, result, 0.01);
 
         // Test Direction.DOWN
-        result = Lift.languageToDirection(Lift.Direction.DOWN);
+        result = lift.languageToDirection(Lift.Direction.DOWN);
         assertEquals(-1, result, 0.01);
     }
 

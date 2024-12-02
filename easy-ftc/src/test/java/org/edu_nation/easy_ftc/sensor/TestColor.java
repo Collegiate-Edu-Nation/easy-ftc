@@ -123,17 +123,17 @@ public class TestColor {
 
     @Test
     public void dominantColor_isCorrect() {
+        mockInit();
+
+        Color color = new Color.Builder(mockedHardwareMap).rgbOffsets(new int[] {10, -25, 0})
+                .calibrationValue(85.0).build();
         int[][] rgbRawArrays =
                 {{76, 110, 85}, {75, 111, 85}, {75, 110, 86}, {75, 110, 85}, {76, 111, 86}};
-        int[] rgbOffsets = {10, -25, 0};
-        double calibrationValue = 85.0;
 
         RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null, null};
-        RGB[] colorsActual = {Color.dominantColor(rgbRawArrays[0], rgbOffsets, calibrationValue),
-                Color.dominantColor(rgbRawArrays[1], rgbOffsets, calibrationValue),
-                Color.dominantColor(rgbRawArrays[2], rgbOffsets, calibrationValue),
-                Color.dominantColor(rgbRawArrays[3], rgbOffsets, calibrationValue),
-                Color.dominantColor(rgbRawArrays[4], rgbOffsets, calibrationValue)};
+        RGB[] colorsActual = {color.dominantColor(rgbRawArrays[0]),
+                color.dominantColor(rgbRawArrays[1]), color.dominantColor(rgbRawArrays[2]),
+                color.dominantColor(rgbRawArrays[3]), color.dominantColor(rgbRawArrays[4])};
 
         for (int i = 0; i < colorsActual.length; i++) {
             assertEquals(colorsExpected[i], colorsActual[i]);
@@ -142,14 +142,15 @@ public class TestColor {
 
     @Test
     public void weakColor_isCorrect() {
+        mockInit();
+
+        Color color =
+                new Color.Builder(mockedHardwareMap).rgbOffsets(new int[] {10, -25, 0}).build();
         int[][] rgbRawArrays = {{74, 110, 85}, {75, 109, 85}, {75, 110, 84}, {75, 110, 85}};
-        int[] rgbOffsets = {10, -25, 0};
 
         RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null};
-        RGB[] colorsActual = {Color.weakColor(rgbRawArrays[0], rgbOffsets),
-                Color.weakColor(rgbRawArrays[1], rgbOffsets),
-                Color.weakColor(rgbRawArrays[2], rgbOffsets),
-                Color.weakColor(rgbRawArrays[3], rgbOffsets)};
+        RGB[] colorsActual = {color.weakColor(rgbRawArrays[0]), color.weakColor(rgbRawArrays[1]),
+                color.weakColor(rgbRawArrays[2]), color.weakColor(rgbRawArrays[3])};
 
         for (int i = 0; i < colorsActual.length; i++) {
             assertEquals(colorsExpected[i], colorsActual[i]);
