@@ -68,6 +68,12 @@ class "Builder<Builder>" as Touch_Builder {
     # self(): Builder
 }
 
+enum RGB {
+    RED
+    GREEN
+    BLUE
+}
+
 Sensor <|-- Color
 Sensor <|-- Distance
 Sensor <|-- Touch
@@ -81,5 +87,7 @@ Sensor +-- Sensor_Builder
 Color +-- Color_Builder
 Distance +-- Distance_Builder
 Touch +-- Touch_Builder
+
+Color +-- RGB
 
 @enduml
