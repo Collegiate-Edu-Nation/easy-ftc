@@ -23,10 +23,6 @@ abstract class ServoMechanism<E> extends Mechanism {
     protected ServoMechanism(Builder<?> builder) {
         super(builder);
         this.smooth = builder.smooth;
-        if (!this.smooth && (builder.increment != 0 || builder.incrementDelay != 0)) {
-            throw new IllegalStateException(
-                    "One of: ServoMechanism.Builder().increment() or ServoMechanism.Builder().incrementDelay() has been set without enabling ServoMechanism.Builder().smooth(). Enable ServoMechanism.Builder().smooth() for intended functionality");
-        }
         this.increment = builder.increment;
         this.incrementDelay = builder.incrementDelay;
         this.delay = builder.delay;

@@ -180,6 +180,8 @@ public class Claw extends ServoMechanism<Claw.Direction> {
          * 
          * @return claw instance
          * @throws IllegalStateException if count != names.length
+         * @throws IllegalStateException if smooth = false and one of: increment, incrementDelay has
+         *         been set
          * @throws IllegalStateException if open &lt; close
          */
         @Override
@@ -187,6 +189,10 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             if (this.count != this.names.length) {
                 throw new IllegalStateException(
                         "Unexpected array length for array passed to Claw.Builder().names(). The length of this array must be equal to count");
+            }
+            if (!this.smooth && (this.increment != 0 || this.incrementDelay != 0)) {
+                throw new IllegalStateException(
+                        "One of: Claw.Builder().increment() or Claw.Builder().incrementDelay() has been set without enabling Claw.Builder().smooth(). Enable Claw.Builder().smooth() for intended functionality");
             }
             if (this.open < this.close) {
                 throw new IllegalStateException("Unexpected open and close values: " + this.open
