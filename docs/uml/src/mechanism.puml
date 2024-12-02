@@ -52,6 +52,9 @@ abstract class MotorMechanism {
     # getAchieveableMaxTicksPerSecond(): double
     # getTicksPerRev(): double
     # getCurrentPositions(): int[]
+    # map(double controllerValue, double deadzone): double
+    # scaleDirections(double power, double[] motorDirections): double[]
+    # calculatePositions(double distance, double diameter, double distanceMultiplier, double[] movements): int[]
     - min(double[] arr): double
     - min(double a, double b, double c, double d): double
 }
@@ -68,6 +71,8 @@ abstract class ServoMechanism {
     # setPositionsByIncrementUntilComplete(double position, double movement)
     # setPositions(double movement)
     # setDirections(boolean reverse)
+    # controlToDirection(double open, double close, double current, boolean openButton, boolean closeButton): double
+    # languageToDirection(String direction, double open, double close, String mechanismName): double
 }
 
 abstract class "Builder" as MotorMechanism_Builder {
@@ -101,6 +106,8 @@ class Arm {
     + control()
     + command(double power, String direction, double measurement)
     # reverse(String deviceName)
+    # controlToDirection(double power, boolean lb, boolean rb): double
+    # languageToDirection(String direction): double
 }
 
 class Claw {
@@ -118,6 +125,8 @@ class Drive {
     + control()
     + command(double power, String direction, double measurement)
     # reverse(String deviceName)
+    # controlToDirection(int count, String type, String layout, double deadzone, double heading, float leftY, float leftX, float rightY, float rightX): double[]
+    # languageToDirection(int count, String type, double power, String direction): double[]
 }
 
 class Lift {
@@ -125,6 +134,8 @@ class Lift {
     + control()
     + command(double power, String direction, double measurement)
     # reverse(String deviceName)
+    # controlToDirection(double deadzone, float lt, float rt): double
+    # languageToDirection(String direction): double
 }
 
 class "Builder" as Arm_Builder {

@@ -22,6 +22,11 @@ class Color {
     - rgbOffsets: int[]
     # init()
     + state(): String
+    # dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue): String
+    # weakColor(int[] rgbRaw, int[] rgbOffsets): String
+    - normalize(int[] rgbRaw, int[] rgbOffsets): int[]
+    - max(int[] rgbNormalized): int
+    - min(int[] rgbNormalized): int
 }
 
 class Distance {
