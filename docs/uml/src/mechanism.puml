@@ -18,7 +18,7 @@ abstract class Mechanism {
     # wait(double time)
 }
 
-abstract class "Builder" as Mechanism_Builder {
+abstract class "Builder<T extends Builder<T>>" as Mechanism_Builder {
     # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): T
     + reverse(String deviceName): T
@@ -80,7 +80,7 @@ abstract class MotorMechanism<E> {
     - min(double a, double b, double c, double d): double
 }
 
-abstract class ServoMechanism {
+abstract class ServoMechanism<E> {
     # servos: Servo[]
     # smooth: boolean
     # increment: double
@@ -95,7 +95,7 @@ abstract class ServoMechanism {
     # setDirections(boolean reverse)
 }
 
-abstract class "Builder" as MotorMechanism_Builder {
+abstract class "Builder<T extends Builder<T>> extends Mechanism.Builder<T>" as MotorMechanism_Builder {
     # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + encoder(): T
     + diameter(double diameter): T
@@ -109,7 +109,7 @@ abstract class "Builder" as MotorMechanism_Builder {
     {abstract}+ self(): T
 }
 
-abstract class "Builder" as ServoMechanism_Builder {
+abstract class "Builder<T extends Builder<T>> extends Mechanism.Builder<T>" as ServoMechanism_Builder {
     # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + smooth(): T
     + increment(double increment): T
@@ -120,7 +120,7 @@ abstract class "Builder" as ServoMechanism_Builder {
     {abstract}# self(): T
 }
 
-class Arm {
+class Arm<Arm.Direction> {
     + control(double power)
     + control()
     + command(Direction direction, double measurement, double power)
@@ -128,7 +128,7 @@ class Arm {
     # languageToDirection(Direction direction): double
 }
 
-class Claw {
+class Claw<Claw.Direction> {
     - open: double
     - close: double
     + control()
@@ -137,7 +137,7 @@ class Claw {
     # languageToDirection(Direction direction): double
 }
 
-class Drive {
+class Drive<Drive.Direction> {
     - type: Type
     + control(double multiplier)
     + control()
@@ -151,7 +151,7 @@ class Drive {
     - languageToDirectionMecanum(Direction direction): double[]
 }
 
-class Lift {
+class Lift<Lift.Direction> {
     + control(double multiplier)
     + control()
     + command(Direction direction, double measurement, double power)
@@ -159,7 +159,7 @@ class Lift {
     # languageToDirection(Direction direction): double
 }
 
-class "Builder" as Arm_Builder {
+class "Builder<Builder>" as Arm_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): Builder
     + reverse(String deviceName): Builder
@@ -178,7 +178,7 @@ class "Builder" as Arm_Builder {
     # self(): Builder
 }
 
-class "Builder" as Claw_Builder {
+class "Builder<Builder>" as Claw_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): Builder
     + reverse(String deviceName): Builder
@@ -196,7 +196,7 @@ class "Builder" as Claw_Builder {
     # self(): Builder
 }
 
-class "Builder" as Drive_Builder {
+class "Builder<Builder>" as Drive_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): Builder
     + reverse(String deviceName): Builder
@@ -217,7 +217,7 @@ class "Builder" as Drive_Builder {
     # self(): Builder
 }
 
-class "Builder" as Lift_Builder {
+class "Builder<Builder>" as Lift_Builder {
     + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + reverse(): Builder
     + reverse(String deviceName): Builder

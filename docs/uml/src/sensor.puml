@@ -12,7 +12,7 @@ abstract class Sensor<S, V> {
     {abstract}+ state(): V
 }
 
-abstract class "Builder" as Sensor_Builder {
+abstract class "Builder<T extends Builder<T>>" as Sensor_Builder {
     # Builder(HardwareMap hardwareMap)
     + reverse(): T
     {abstract}+ name(String name): T
@@ -20,7 +20,7 @@ abstract class "Builder" as Sensor_Builder {
     {abstract}+ self(): T
 }
 
-class Color {
+class Color<ColorSensor, Color.RGB> {
     - rgbOffsets: int[]
     # init()
     + state(): RGB
@@ -31,17 +31,17 @@ class Color {
     - min(int[] rgbNormalized): int
 }
 
-class Distance {
+class Distance<DistanceSensor, Boolean> {
     # init()
     + state(): Boolean
 }
 
-class Touch {
+class Touch<TouchSensor, Boolean> {
     # init()
     + state(): Boolean
 }
 
-class "Builder" as Color_Builder {
+class "Builder<Builder>" as Color_Builder {
     + Builder(HardwareMap hardwareMap)
     + reverse(): Builder
     + name(String name): Builder
@@ -51,7 +51,7 @@ class "Builder" as Color_Builder {
     # self(): Builder
 }
 
-class "Builder" as Distance_Builder {
+class "Builder<Builder>" as Distance_Builder {
     + Builder(HardwareMap hardwareMap)
     + reverse(): Builder
     + name(String name): Builder
@@ -60,7 +60,7 @@ class "Builder" as Distance_Builder {
     # self(): Builder
 }
 
-class "Builder" as Touch_Builder {
+class "Builder<Builder>" as Touch_Builder {
     + Builder(HardwareMap hardwareMap)
     + reverse(): Builder
     + name(String name): Builder
