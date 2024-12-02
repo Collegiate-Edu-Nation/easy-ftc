@@ -540,41 +540,45 @@ public class TestArm {
         }
     }
 
-    /*@Test
+    @Test
     public void whenOneMotor_calculatePositions_isCorrect() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).diameter(4).build();
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
         final double[] movements = {1};
         final double[] movementsBack = {-1};
         final int[][] expectedValues = {{400}, {0}, {382}, {414}, {-400}};
+        try {
+            FieldUtils.writeField(arm, "distanceMultiplier", 400.0, true);
+        } catch (Exception e) {
+        }
 
         // Test distance = circumference
-        int[] result = arm.calculatePositions(Math.PI * 4, 400, movements);
+        int[] result = arm.calculatePositions(Math.PI * 4, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[0][i], result[i], 0.01);
         }
 
         // Test distance = 0
-        result = MotorMechanism.calculatePositions(0, 400, movements);
+        result = arm.calculatePositions(0, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[1][i], result[i], 0.01);
         }
 
         // Test distance < circumference
-        result = MotorMechanism.calculatePositions(12, 400, movements);
+        result = arm.calculatePositions(12, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[2][i], result[i], 0.01);
         }
 
         // Test distance > circumference
-        result = MotorMechanism.calculatePositions(13, 400, movements);
+        result = arm.calculatePositions(13, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[3][i], result[i], 0.01);
         }
 
         // Test distance = circumference, back
-        result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movementsBack);
+        result = arm.calculatePositions(Math.PI * 4, movementsBack);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[4][i], result[i], 0.01);
         }
@@ -584,39 +588,44 @@ public class TestArm {
     public void whenTwoMotor_calculatePositions_isCorrect() {
         mockInit();
 
-        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).diameter(4).build();
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
+                .build();
         final double[] movements = {1, 1};
         final double[] movementsRotate = {1, -1};
         final int[][] expectedValues = {{400, 400}, {0, 0}, {382, 382}, {414, 414}, {400, -400}};
+        try {
+            FieldUtils.writeField(arm, "distanceMultiplier", 400.0, true);
+        } catch (Exception e) {
+        }
 
         // Test distance = circumference
-        int[] result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movements);
+        int[] result = arm.calculatePositions(Math.PI * 4, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[0][i], result[i], 0.01);
         }
 
         // Test distance = 0
-        result = MotorMechanism.calculatePositions(0, 400, movements);
+        result = arm.calculatePositions(0, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[1][i], result[i], 0.01);
         }
 
         // Test distance < circumference
-        result = MotorMechanism.calculatePositions(12, 400, movements);
+        result = arm.calculatePositions(12, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[2][i], result[i], 0.01);
         }
 
         // Test distance > circumference
-        result = MotorMechanism.calculatePositions(13, 400, movements);
+        result = arm.calculatePositions(13, movements);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[3][i], result[i], 0.01);
         }
 
         // Test distance = circumference, rotate
-        result = MotorMechanism.calculatePositions(Math.PI * 4, 400, movementsRotate);
+        result = arm.calculatePositions(Math.PI * 4, movementsRotate);
         for (int i = 0; i < result.length; i++) {
             assertEquals(expectedValues[4][i], result[i], 0.01);
         }
-    }*/
+    }
 }
