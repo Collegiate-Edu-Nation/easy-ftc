@@ -156,16 +156,16 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         int[] rgbRaw = {sensor.red(), sensor.green(), sensor.blue()};
         RGB color;
         if (reverse) {
-            color = weakColor(rgbRaw, rgbOffsets);
+            color = weakColor(rgbRaw);
         } else {
-            color = dominantColor(rgbRaw, rgbOffsets, calibrationValue);
+            color = dominantColor(rgbRaw);
         }
         return color;
     }
 
     /** Convert the maximum, normalized rgb value to the corresponding color as a String */
-    protected static RGB dominantColor(int[] rgbRaw, int[] rgbOffsets, double calibrationValue) {
-        int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
+    protected RGB dominantColor(int[] rgbRaw) {
+        int[] rgbNormalized = normalize(rgbRaw);
         int max = max(rgbNormalized);
 
         RGB color;
@@ -191,8 +191,8 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     }
 
     /** Convert the minimum, normalized rgb value to the corresponding RGB color */
-    protected static RGB weakColor(int[] rgbRaw, int[] rgbOffsets) {
-        int[] rgbNormalized = normalize(rgbRaw, rgbOffsets);
+    protected RGB weakColor(int[] rgbRaw) {
+        int[] rgbNormalized = normalize(rgbRaw);
         int min = min(rgbNormalized);
 
         RGB color;
@@ -215,7 +215,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     }
 
     /** Normalize color readings by applying offsets */
-    private static int[] normalize(int[] rgbRaw, int[] rgbOffsets) {
+    private int[] normalize(int[] rgbRaw) {
         int[] rgbNormalized = {0, 0, 0};
         for (int i = 0; i < 3; i++) {
             rgbNormalized[i] = rgbRaw[i] + rgbOffsets[i];
@@ -224,13 +224,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     }
 
     /** Return maximum of normalized rgb values */
-    private static int max(int[] rgbNormalized) {
+    private int max(int[] rgbNormalized) {
         return Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
     }
 
     /** Return minimum of normalized rgb values */
-    private static int min(int[] rgbNormalized) {
+    private int min(int[] rgbNormalized) {
         return Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
                 Math.min(rgbNormalized[1], rgbNormalized[2]));
     }

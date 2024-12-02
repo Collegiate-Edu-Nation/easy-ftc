@@ -230,8 +230,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         validate(multiplier);
         double[] movements = new double[count];
         double[] unscaledMovements = new double[count];
-        double direction =
-                controlToDirection(deadzone, gamepad.left_trigger, gamepad.right_trigger);
+        double direction = controlToDirection(gamepad.left_trigger, gamepad.right_trigger);
         Arrays.fill(movements, direction);
         if (direction != 0) {
             direction = (direction > 0) ? 1 : -1;
@@ -273,12 +272,12 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     }
 
     /** Set lift motor movements based on triggers */
-    protected static double controlToDirection(double deadzone, float lt, float rt) {
-        return map(rt, deadzone) - map(lt, deadzone);
+    protected double controlToDirection(float lt, float rt) {
+        return map(rt) - map(lt);
     }
 
     /** Translate natural-language direction to numeric values */
-    protected static double languageToDirection(Direction direction) {
+    protected double languageToDirection(Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Lift.command()");
         }

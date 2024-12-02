@@ -263,7 +263,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
                 if (gearing != 0.0) {
-                    setGearing(gearing);
+                    setGearing();
                 }
             }
         } else {
@@ -314,8 +314,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             }
             setPowers();
         } else {
-            int[] positions = calculatePositions(measurement, diameter, distanceMultiplier,
-                    unscaledMovements);
+            int[] positions = calculatePositions(measurement, unscaledMovements);
             int[] currentPositions = getCurrentPositions();
 
             // move the motors at power until they've reached the position (or the limit)
@@ -374,7 +373,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         boolean move = true;
 
         if (direction > 0) {
-            int[] positions = calculatePositions(up, diameter, distanceMultiplier, movements);
+            int[] positions = calculatePositions(up, movements);
             for (int i = 0; i < count; i++) {
                 move = (currentPositions[i] < positions[i]);
                 if (!move) {
@@ -382,7 +381,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             }
         } else {
-            int[] positions = calculatePositions(down, diameter, distanceMultiplier, movements);
+            int[] positions = calculatePositions(down, movements);
             if (down < 0) {
                 // calculatePositions is absolute, so reverse values if negative value for down
                 // is used
@@ -535,7 +534,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Correct the gear-ratio of all motors using encoders. Updates distanceMultiplier */
-    protected void setGearing(double gearing) {
+    protected void setGearing() {
         MotorConfigurationType[] motorTypes = getMotorTypes();
         double currentGearing = getGearing(motorTypes);
         distanceMultiplier *= gearing / currentGearing;
@@ -580,7 +579,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Maps controller value from [-1,-deadzone] U [deadzone,1] -> [-1,1] */
-    protected static double map(double controllerValue, double deadzone) {
+    protected double map(double controllerValue) {
         if (deadzone == 0.0) {
             return controllerValue;
         }
@@ -598,26 +597,23 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Scale directions by a factor of power to derive actual, intended motor movements */
-    protected static double[] scaleDirections(double[] motorDirections, double power) {
-        int arrLength = motorDirections.length;
-        double[] movements = new double[arrLength];
-        for (int i = 0; i < arrLength; i++) {
+    protected double[] scaleDirections(double[] motorDirections, double power) {
+        double[] movements = new double[count];
+        for (int i = 0; i < count; i++) {
             movements[i] = power * motorDirections[i];
         }
         return movements;
     }
 
     /** Calculate posiitons based on distance, diameter, distanceMultiplier, movements */
-    protected static int[] calculatePositions(double distance, double diameter,
-            double distanceMultiplier, double[] movements) {
+    protected int[] calculatePositions(double distance, double[] movements) {
         double circumference = Math.PI * diameter;
         double revolutions = distance / circumference;
         double positionRaw = revolutions * distanceMultiplier;
         int position = (int) Math.round(positionRaw);
 
-        int arrLength = movements.length;
-        int[] positions = new int[arrLength];
-        for (int i = 0; i < arrLength; i++) {
+        int[] positions = new int[count];
+        for (int i = 0; i < count; i++) {
             positions[i] = (int) (movements[i] * position);
         }
         return positions;

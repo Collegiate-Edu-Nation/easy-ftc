@@ -268,14 +268,14 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     }
 
     /** Sets arm motor movements based on bumpers */
-    protected static double controlToDirection(boolean lb, boolean rb) {
+    protected double controlToDirection(boolean lb, boolean rb) {
         double down = lb ? 1 : 0;
         double up = rb ? 1 : 0;
         return up - down;
     }
 
     /** Translate natural-language direction to numeric values */
-    protected static double languageToDirection(Direction direction) {
+    protected double languageToDirection(Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Arm.command()");
         }

@@ -311,9 +311,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             }
         }
 
-        double[] movements =
-                controlToDirection(count, type, layout, deadzone, heading, gamepad.left_stick_y,
-                        gamepad.left_stick_x, gamepad.right_stick_y, gamepad.right_stick_x);
+        double[] movements = controlToDirection(heading, gamepad.left_stick_y, gamepad.left_stick_x,
+                gamepad.right_stick_y, gamepad.right_stick_x);
 
         setPowers(movements, multiplier);
     }
@@ -341,19 +340,18 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
         }
 
-        double[] unscaledMovements = languageToDirection(count, type, layout, direction, heading);
+        double[] unscaledMovements = languageToDirection(direction, heading);
         moveForMeasurement(unscaledMovements, measurement, power, false);
     }
 
     /** Set drivetrain motor movements based on type: DIFFERENTIAL or MECANUM */
-    protected static double[] controlToDirection(int count, Type type, Layout layout,
-            double deadzone, double heading, float leftY, float leftX, float rightY, float rightX) {
+    protected double[] controlToDirection(double heading, float leftY, float leftX, float rightY,
+            float rightX) {
         switch (type) {
             case DIFFERENTIAL:
-                return controlToDirectionDifferential(count, layout, deadzone, leftY, rightY,
-                        rightX);
+                return controlToDirectionDifferential(leftY, rightY, rightX);
             case MECANUM:
-                return controlToDirectionMecanum(layout, deadzone, heading, leftY, leftX, rightX);
+                return controlToDirectionMecanum(heading, leftY, leftX, rightX);
             default:
                 throw new IllegalArgumentException(
                         "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
@@ -361,19 +359,18 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Set differential drivetrain movements based on layout: TANK or ARCADE */
-    private static double[] controlToDirectionDifferential(int count, Layout layout,
-            double deadzone, double leftY, double rightY, double rightX) {
+    private double[] controlToDirectionDifferential(double leftY, double rightY, double rightX) {
         double left;
         double right;
 
         switch (layout) {
             case TANK:
-                left = map(-leftY, deadzone);
-                right = map(-rightY, deadzone);
+                left = map(-leftY);
+                right = map(-rightY);
                 break;
             case ARCADE:
-                left = map(-leftY, deadzone) + map(rightX, deadzone);
-                right = map(-leftY, deadzone) - map(rightX, deadzone);
+                left = map(-leftY) + map(rightX);
+                right = map(-leftY) - map(rightX);
                 break;
             default:
                 throw new IllegalArgumentException(
@@ -388,17 +385,17 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Set mecanum drivetrain motor movements based on layout: ROBOT or FIELD */
-    private static double[] controlToDirectionMecanum(Layout layout, double deadzone,
-            double heading, double leftY, double leftX, double rightX) {
-        double[] axes = {map(-leftY, deadzone), map(leftX, deadzone), map(rightX, deadzone)};
-        return axesToDirection(layout, axes, heading);
+    private double[] controlToDirectionMecanum(double heading, double leftY, double leftX,
+            double rightX) {
+        double[] axes = {map(-leftY), map(leftX), map(rightX)};
+        return axesToDirection(axes, heading);
     }
 
     /**
      * Converts axial, lateral, yaw, and heading to motor directions using the formulas here:
      * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
-    private static double[] axesToDirection(Layout layout, double[] axes, double heading) {
+    private double[] axesToDirection(double[] axes, double heading) {
         double axial;
         double lateral;
         double yaw = axes[2];
@@ -434,17 +431,16 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Translate natural-language direction to numeric values */
-    protected static double[] languageToDirection(int count, Type type, Layout layout,
-            Direction direction, double heading) {
+    protected double[] languageToDirection(Direction direction, double heading) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Drive.command()");
         }
 
         switch (type) {
             case DIFFERENTIAL:
-                return languageToDirectionDifferential(count, direction);
+                return languageToDirectionDifferential(direction);
             case MECANUM:
-                return axesToDirection(layout, languageToDirectionMecanum(direction), heading);
+                return axesToDirection(languageToDirectionMecanum(direction), heading);
             default:
                 throw new IllegalArgumentException(
                         "Unexpected type passed to Drive.Builder().type(). Valid types are: Drive.Type.DIFFERENTIAL, Drive.Type.MECANUM");
@@ -452,7 +448,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Translate natural-language direction for Differential to numeric values */
-    private static double[] languageToDirectionDifferential(int count, Direction direction) {
+    private double[] languageToDirectionDifferential(Direction direction) {
         double[] motorDirections = new double[count];
 
         switch (direction) {
@@ -485,7 +481,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Translate natural-language direction for Mecanum to axial, lateral, yaw */
-    private static double[] languageToDirectionMecanum(Direction direction) {
+    private double[] languageToDirectionMecanum(Direction direction) {
         switch (direction) {
             case FORWARD:
                 return new double[] {1, 0, 0};

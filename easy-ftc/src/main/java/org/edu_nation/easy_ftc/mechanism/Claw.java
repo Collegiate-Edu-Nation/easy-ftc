@@ -222,7 +222,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     @Override
     public void control() {
         double position = servos[0].getPosition();
-        double movement = controlToDirection(open, close, position, gamepad.b, gamepad.a);
+        double movement = controlToDirection(position, gamepad.b, gamepad.a);
         if (smooth) {
             setPositionsByIncrement(position, movement);
         } else {
@@ -238,7 +238,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      */
     @Override
     public void command(Direction direction) {
-        double servoDirection = languageToDirection(direction, open, close);
+        double servoDirection = languageToDirection(direction);
         if (smooth) {
             double position = servos[0].getPosition();
             setPositionsByIncrementUntilComplete(position, servoDirection);
@@ -249,8 +249,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /** Set servo movement based on open, close values and current position */
-    protected static double controlToDirection(double open, double close, double current,
-            boolean openButton, boolean closeButton) {
+    protected double controlToDirection(double current, boolean openButton, boolean closeButton) {
         double movement;
         if (openButton && !closeButton) {
             movement = open;
@@ -263,7 +262,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /** Translate natural-language direction to numeric values */
-    protected static double languageToDirection(Direction direction, double open, double close) {
+    protected double languageToDirection(Direction direction) {
         if (direction == null) {
             throw new NullPointerException("Null direction passed to Claw.command()");
         }
