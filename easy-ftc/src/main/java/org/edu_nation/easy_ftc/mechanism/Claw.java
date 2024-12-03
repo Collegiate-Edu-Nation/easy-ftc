@@ -151,9 +151,9 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the open posiiton
+         * Specify the posiiton for {@link Direction OPEN}
          * 
-         * @param open open position of the servo(s)
+         * @param open position for {@link Direction OPEN}
          * @return builder instance
          * @throws IllegalArgumentException if open not in the interval [0, 1]
          */
@@ -167,9 +167,9 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the close position
+         * Specify the posiiton for {@link Direction CLOSE}
          * 
-         * @param close close position of the servo(s)
+         * @param close position for {@link Direction CLOSE}
          * @return builder instance
          * @throws IllegalArgumentException if close not in the interval [0, 1]
          */

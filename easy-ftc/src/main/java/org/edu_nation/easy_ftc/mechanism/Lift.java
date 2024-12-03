@@ -168,9 +168,9 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         }
 
         /**
-         * Specify the positional limit for the UP direction
+         * Specify the positional limit for {@link Direction UP}
          * 
-         * @param up positional limit for UP
+         * @param up positional limit for {@link Direction UP}
          * @return builder instance
          */
         public Builder up(double up) {
@@ -179,9 +179,9 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         }
 
         /**
-         * Specify the positional limit for the DOWN direction
+         * Specify the positional limit for {@link Direction DOWN}
          * 
-         * @param down positional limit for DOWN
+         * @param down positional limit for {@link Direction DOWN}
          * @return builder instance
          */
         public Builder down(double down) {

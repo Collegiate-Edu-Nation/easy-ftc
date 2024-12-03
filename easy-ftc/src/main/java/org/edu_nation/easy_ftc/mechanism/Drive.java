@@ -194,9 +194,10 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         /**
          * Specify the drivetrain type
          * 
-         * @param type drivetrain type, one of Type.DIFFERENTIAL or MECANUM
+         * @param type drivetrain type, one of {@link Type DIFFERENTIAL} or {@link Type MECANUM}
          * @return builder instance
          * @throws NullPointerException if type is null
+         * @see Type
          */
         public Builder type(Type type) {
             if (type == null) {
@@ -226,11 +227,13 @@ public class Drive extends MotorMechanism<Drive.Direction> {
          * 
          * @param layout drivetrain layout
          *        <ul>
-         *        <li>For DIFFERENTIAL, one of Layout.TANK or ARCADE
-         *        <li>For MECANUM, one of Layout.ROBOT or FIELD
+         *        <li>For {@link Type DIFFERENTIAL}, one of {@link Layout ARCADE} or {@link Layout
+         *        TANK}
+         *        <li>For {@link Type MECANUM}, one of {@link Layout FIELD} or {@link Layout ROBOT}
          *        </ul>
          * @return builder instance
          * @throws NullPointerException if layout is null
+         * @see Layout
          */
         public Builder layout(Layout layout) {
             if (layout == null) {
