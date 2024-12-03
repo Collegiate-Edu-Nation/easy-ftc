@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Naming
 <i>These are the default hardware names. They can be modified via Builder.names(), if desired</i>
 

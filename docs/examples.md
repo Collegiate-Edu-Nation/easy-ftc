@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Examples
 Examples are provided in the form of code (either Java or Blockly) that must be added to an OpMode. Click an example's dropdown to see its contents.
 
