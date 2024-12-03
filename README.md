@@ -19,12 +19,17 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 * Distance Sensor
 * Touch Sensor
 
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern 
+
+Additionally, several useful quality-of-life features are included
+* Encoders can be used with minimal setup for either time or distance based command of motor-powered mechanisms
+* Arm and Lift optionally feature encoder limits on Range-of-Motion (useful for preventing motors from burning out)
+* Both robot and field-centric driving are supported for Mecanum, while tank and arcade schemes are supported for Differential
+* Servo-powered mechanisms can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization
+* Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
+
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 <i>Docs cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc</i>
-
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations, which implies it is highly opinionated. A consequence of this is that most users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern.
-
-<i>Encoders can be enabled for all motor-powered features. Both robot-centric and field-centric driving is supported for Mecanum, while tank and arcade are supported for Differential. Servo-powered features can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization. Supported sensors are: color, distance, and touch</i>
 
 ## Install
 
