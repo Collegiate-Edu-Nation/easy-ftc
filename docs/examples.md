@@ -7,7 +7,7 @@ hide:
 Examples are provided in the form of code (either Java or Blockly) that must be added to an OpMode. Click an example's dropdown to see its contents.
 
 ## OpModes
-Each example will use one of the following OpModes. For the sake of brevity, these are not repeated for each example.
+Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but command() can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter.
 
 <i>Note the locations of Imports, Additional, Construction, and Methods.</i>
 
@@ -36,6 +36,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
                 }
             }
         }
+
     </details>
 
 
@@ -62,6 +63,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
                 }
             }
         }
+
     </details>
 
 
@@ -79,7 +81,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
 
     <details>
-    <summary>TeleOp Control of Mecanum drivetrain using gamepad1</summary>
+    <summary>Control of Motor Mechanism</summary>
     
     ### Imports
 
@@ -89,12 +91,90 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
         Drive drive = new Drive.Builder(this, hardwareMap)
             .gamepad(gamepad1)
-            .type(Drive.Type.MECANUM)
             .build();
     
     ### Methods
 
         drive.control();
+
+    </details>
+
+
+    <details>
+    <summary>Command of Motor Mechanism</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Arm;
+        
+    ### Construction
+
+        Arm arm = new Arm.Builder(this, hardwareMap)
+            .build();
+    
+    ### Methods
+
+        arm.command(Arm.Direction.UP, 2, 0.5);
+
+    </details>
+
+
+    <details>
+    <summary>Control of Servo Mechanism</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Claw;
+        
+    ### Construction
+
+        Claw claw = new Claw.Builder(this, hardwareMap)
+            .gamepad(gamepad1)
+            .build();
+    
+    ### Methods
+
+        claw.control();
+
+    </details>
+
+
+    <details>
+    <summary>Command of Servo Mechanism</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Claw;
+        
+    ### Construction
+
+        Claw claw = new Claw.Builder(this, hardwareMap)
+            .build();
+    
+    ### Methods
+
+        claw.command(Claw.Direction.CLOSE);
+
+    </details>
+
+
+    <details>
+    <summary>Read and Display Sensor State</summary>
+
+    ### Imports
+
+        import org.edu_nation.easy_ftc.sensor.Touch;
+
+    ### Construction
+
+        Touch touch = new Touch.Builder(hardwareMap)
+            .build();
+
+    ### Methods
+
+        telemetry.addData("Touch: ", touch.state());
+        telemetry.update();
+
     </details>
 
 
@@ -102,7 +182,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
 
     <details>
-    <summary>Autonomous Command of Mecanum drivetrain with encoders and field-centric layout enabled</summary>
+    <summary>Encoder: Velocity-Based Control</summary>
     
     ### Imports
 
@@ -112,13 +192,93 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
         Drive drive = new Drive.Builder(this, hardwareMap)
             .encoder()
-            .type(Drive.Type.MECANUM)
-            .layout(Drive.Layout.FIELD)
             .build();
-                    
+
     ### Methods
 
+        drive.control();
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Time-Based Command</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Drive;
+        
+    ### Construction
+
+        Drive drive = new Drive.Builder(this, hardwareMap)
+            .encoder()
+            .build();
+
+    ### Methods
+
+        // moves forward for 2 seconds at half power
         drive.command(Drive.Direction.FORWARD, 2, 0.5);
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Distance-Based Command</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Drive;
+        
+    ### Construction
+
+        Drive drive = new Drive.Builder(this, hardwareMap)
+            .encoder().diameter(4).gearing(19.2)
+            .build();
+
+    ### Methods
+
+        // moves forward for 12 inches at half power
+        drive.command(Drive.Direction.FORWARD, 12, 0.5);
+
+    ### Notes
+    * The distance unit used in command() will be the same as what's used in .diameter()
+    * .gearing() is optional here, but correcting it can improve accuracy
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Limits Using Ticks</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Lift;
+        
+    ### Construction
+
+        Lift lift = new Lift.Builder(this, hardwareMap)
+            .encoder().up(300).down(-300)
+            .build();
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Limits Using Distance</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Lift;
+        
+    ### Construction
+
+        Lift lift = new Lift.Builder(this, hardwareMap)
+            .encoder().diameter(2).gearing(60).up(3).down(-3)
+            .build();
+
+    ### Notes
+    * .gearing() is optional here, but correcting it can improve accuracy
+
     </details>
 
 
@@ -126,7 +286,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
 
     <details>
-    <summary>TeleOp Control of Mecanum drivetrain with Command Sequence</summary>
+    <summary>Control with Command Sequence</summary>
 
     ### Imports
 
@@ -142,7 +302,6 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
         Drive drive = new Drive.Builder(this, hardwareMap)
             .gamepad(gamepad1)
-            .type(Drive.Type.MECANUM)
             .build();
         
         // define starting state
@@ -178,6 +337,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
     ### Notes 
     * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
     * Holding down dpad_left works best since the loop used by command() is thread-blocking, meaning its value is only read between sequence states
+
     </details>
 
 
@@ -206,16 +366,64 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
     ## Examples
 
-    ### Basic Use
+    ### Basic Use    
 
 
     <details>
-    <summary>TeleOp Control of Mecanum drivetrain using gamepad1</summary>
+    <summary>Control of Motor Mechanism</summary>
     
     ### Imports
         
     ### Construction
     
+    ### Methods
+    
+    </details>
+
+
+    <details>
+    <summary>Command of Motor Mechanism</summary>
+    
+    ### Imports
+        
+    ### Construction
+    
+    ### Methods
+    
+    </details>
+
+
+    <details>
+    <summary>Control of Servo Mechanism</summary>
+    
+    ### Imports
+        
+    ### Construction
+    
+    ### Methods
+    
+    </details>
+
+
+    <details>
+    <summary>Command of Servo Mechanism</summary>
+    
+    ### Imports
+        
+    ### Construction
+    
+    ### Methods
+    
+    </details>
+
+
+    <details>
+    <summary>Read and Display Sensor State</summary>
+
+    ### Imports
+
+    ### Construction
+
     ### Methods
 
     </details>
@@ -225,13 +433,64 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
 
     <details>
-    <summary>Autonomous Command of Mecanum drivetrain with encoders and field-centric layout enabled</summary>
+    <summary>Encoder: Velocity-Based Control</summary>
     
     ### Imports
         
     ### Construction
-                    
+
     ### Methods
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Time-Based Command</summary>
+    
+    ### Imports
+        
+    ### Construction
+
+    ### Methods
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Distance-Based Command</summary>
+    
+    ### Imports
+        
+    ### Construction
+
+    ### Methods
+
+    ### Notes
+    * The distance unit used in command() will be the same as what's used in .diameter()
+    * .gearing() is optional here, but correcting it can improve accuracy
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Limits Using Ticks</summary>
+    
+    ### Imports
+        
+    ### Construction
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Limits Using Distance</summary>
+    
+    ### Imports
+        
+    ### Construction
+
+    ### Notes
+    * .gearing() is optional here, but correcting it can improve accuracy
 
     </details>
 
@@ -240,7 +499,7 @@ Each example will use one of the following OpModes. For the sake of brevity, the
 
 
     <details>
-    <summary>TeleOp Control of Mecanum drivetrain with Command Sequence</summary>
+    <summary>Control with Command Sequence</summary>
 
     ### Imports
 
