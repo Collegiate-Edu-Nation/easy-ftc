@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Implements an arm by extending the functionality of {@link MotorMechanism}.
+ * Implements an arm by extending the functionality of {@link MotorMechanism}
  * 
  * @see Builder
  * @see Direction
@@ -233,7 +233,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     }
 
     /**
-     * Enable teleoperated arm movement with gamepad (lb, rb) at the specified power.
+     * Enable teleoperated arm movement with gamepad (lb, rb) at the specified power
      *
      * @param power fraction of total power/velocity to use for mechanism control
      * @throws IllegalArgumentException if power is not in the interval (0, 1]
@@ -260,7 +260,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
     }
 
-    /** Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5. */
+    /** Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5 */
     @Override
     public void control() {
         control(0.5);

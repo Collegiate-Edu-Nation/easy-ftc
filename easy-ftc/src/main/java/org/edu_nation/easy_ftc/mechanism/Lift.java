@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
- * Implements a lift by extending the functionality of {@link MotorMechanism}.
+ * Implements a lift by extending the functionality of {@link MotorMechanism}
  * 
  * @see Builder
  * @see Direction

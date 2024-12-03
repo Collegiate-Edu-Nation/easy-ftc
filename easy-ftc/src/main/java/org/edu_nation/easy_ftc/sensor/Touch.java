@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
- * Implements a touch sensor by extending the functionality of {@link Sensor}.
+ * Implements a touch sensor by extending the functionality of {@link Sensor}
  * 
  * @see Builder
  */

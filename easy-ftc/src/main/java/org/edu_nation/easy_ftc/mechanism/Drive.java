@@ -12,7 +12,7 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 
 /**
- * Implements a drivetrain by extending the functionality of {@link MotorMechanism}.
+ * Implements a drivetrain by extending the functionality of {@link MotorMechanism}
  * 
  * @see Builder
  * @see Direction

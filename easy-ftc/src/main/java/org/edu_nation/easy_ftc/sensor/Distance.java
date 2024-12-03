@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /**
- * Implements a distance sensor by extending the functionality of {@link Sensor}.
+ * Implements a distance sensor by extending the functionality of {@link Sensor}
  * 
  * @see Builder
  */

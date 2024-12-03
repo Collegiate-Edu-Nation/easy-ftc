@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
- * Implements a claw by extending the functionality of {@link ServoMechanism}.
+ * Implements a claw by extending the functionality of {@link ServoMechanism}
  * 
  * @see Builder
  * @see Direction
@@ -225,7 +225,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         OPEN, CLOSE
     }
 
-    /** Enable teleoperated claw movement with gamepad (b, a). */
+    /** Enable teleoperated claw movement with gamepad (b, a) */
     @Override
     public void control() {
         double position = servos[0].getPosition();

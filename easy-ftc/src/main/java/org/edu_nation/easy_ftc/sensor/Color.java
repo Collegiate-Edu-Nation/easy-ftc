@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 
 /**
- * Implements a color sensor by extending the functionality of {@link Sensor}.
+ * Implements a color sensor by extending the functionality of {@link Sensor}
  * 
  * @see Builder
  * @see RGB
