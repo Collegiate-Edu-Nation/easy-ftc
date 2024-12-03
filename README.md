@@ -99,13 +99,15 @@ To generate documentation, you must also install
 - [ ] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
 - [ ] Add more examples
+- [ ] Add graphics for blocks examples, gettingstarted
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
 - [ ] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
 - [ ] Flesh out Color
-- [ ] Add graphics for blocks and onbot usage, controls
+- [ ] Add graphics for blocks and onbot usage
+- [ ] Add graphic for controls
 - [ ] Look into RACE layout for differential (triggers instead of joystick for axial)
 - [ ] Support mechanism + sensor integrations
 - [ ] Investigate sequence abstraction + implementation
