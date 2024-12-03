@@ -15,7 +15,7 @@ public class TestDistance {
     DistanceSensor mockedDistanceSensor = mock(DistanceSensor.class);
 
     private void mockInit() {
-        when(mockedHardwareMap.get(DistanceSensor.class, "distanceSensor"))
+        when(mockedHardwareMap.get(DistanceSensor.class, "distance"))
                 .thenReturn(mockedDistanceSensor);
     }
 

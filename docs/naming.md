@@ -68,8 +68,8 @@
 
 ## Sensors
 
-| Sensor   | Name           |
-| -------- | -------------- |
-| Color    | colorSensor    |
-| Distance | distanceSensor |
-| Touch    | touchSensor    |
+| Sensor   | Name     |
+| -------- | -------- |
+| Color    | color    |
+| Distance | distance |
+| Touch    | touch    |

@@ -34,11 +34,11 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
      * <b>Defaults:</b>
      * <ul>
      * <li>reverse = false
-     * <li>name = "touchSensor"
+     * <li>name = "touch"
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
-        private String name = "touchSensor";
+        private String name = "touch";
 
         /**
          * Builder constructor

@@ -36,12 +36,12 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
      * <b>Defaults:</b>
      * <ul>
      * <li>reverse = false
-     * <li>name = "distanceSensor"
+     * <li>name = "distance"
      * <li>calibrationValue = 7.0
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
-        private String name = "distanceSensor";
+        private String name = "distance";
         private double calibrationValue = 7.0;
 
         /**

@@ -38,13 +38,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
      * <b>Defaults:</b>
      * <ul>
      * <li>reverse = false
-     * <li>name = "colorSensor"
+     * <li>name = "color"
      * <li>calibrationValue = 85.0
      * <li>rgbOffsets = {10, -25, 0}
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
-        private String name = "colorSensor";
+        private String name = "color";
         private double calibrationValue = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 

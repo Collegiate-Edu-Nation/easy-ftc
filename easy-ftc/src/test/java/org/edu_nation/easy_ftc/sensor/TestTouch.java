@@ -14,7 +14,7 @@ public class TestTouch {
     TouchSensor mockedTouchSensor = mock(TouchSensor.class);
 
     private void mockInit() {
-        when(mockedHardwareMap.get(TouchSensor.class, "touchSensor")).thenReturn(mockedTouchSensor);
+        when(mockedHardwareMap.get(TouchSensor.class, "touch")).thenReturn(mockedTouchSensor);
     }
 
     @Test

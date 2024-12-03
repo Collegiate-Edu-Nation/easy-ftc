@@ -10,8 +10,8 @@ public class Distance extends BlocksOpModeCompanion {
     @ExportToBlocks(
             comment = "Returns distance sensor state (whether an object is within the distance cutoff)")
     public static boolean state() {
-        org.edu_nation.easy_ftc.sensor.Distance distanceSensor =
+        org.edu_nation.easy_ftc.sensor.Distance distance =
                 new org.edu_nation.easy_ftc.sensor.Distance.Builder(hardwareMap).build();
-        return distanceSensor.state();
+        return distance.state();
     }
 }

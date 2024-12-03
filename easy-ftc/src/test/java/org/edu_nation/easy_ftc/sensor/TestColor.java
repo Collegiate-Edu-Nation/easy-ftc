@@ -15,7 +15,7 @@ public class TestColor {
     ColorSensor mockedColorSensor = mock(ColorSensor.class);
 
     private void mockInit() {
-        when(mockedHardwareMap.get(ColorSensor.class, "colorSensor")).thenReturn(mockedColorSensor);
+        when(mockedHardwareMap.get(ColorSensor.class, "color")).thenReturn(mockedColorSensor);
     }
 
     private void mockRGB(int red, int green, int blue) {

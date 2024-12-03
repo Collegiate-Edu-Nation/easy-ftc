@@ -11,9 +11,9 @@ public class Color extends BlocksOpModeCompanion {
     @ExportToBlocks(
             comment = "Returns color sensor state (color of detection, one of: RED, GREEN, BLUE)")
     public static RGB state() {
-        org.edu_nation.easy_ftc.sensor.Color colorSensor =
+        org.edu_nation.easy_ftc.sensor.Color color =
                 new org.edu_nation.easy_ftc.sensor.Color.Builder(hardwareMap).build();
-        return colorSensor.state();
+        return color.state();
     }
 
     @ExportToBlocks(comment = "Returns the RED RGB Color")
