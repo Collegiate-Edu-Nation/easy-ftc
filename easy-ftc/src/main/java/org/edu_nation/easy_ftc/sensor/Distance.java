@@ -23,12 +23,20 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
     }
 
     /**
-     * Distance Builder
+     * Construct a Distance sensor object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Distance distance = new Distance.Builder(hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>name = "distanceSensor"
      * <li>reverse = false
+     * <li>name = "distanceSensor"
      * <li>calibrationValue = 7.0
      * </ul>
      */

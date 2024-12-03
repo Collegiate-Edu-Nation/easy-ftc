@@ -95,7 +95,7 @@ To generate documentation, you must also install
 - [x] Support FIELD in command()
 - [x] Support positional limits in command()
 - [x] Update uml
-- [ ] Improve code comments (esp. command(), Builder)
+- [x] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
 - [ ] Add more examples

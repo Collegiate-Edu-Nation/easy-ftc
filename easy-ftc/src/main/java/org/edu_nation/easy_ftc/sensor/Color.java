@@ -25,12 +25,20 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     }
 
     /**
-     * Color Builder
+     * Construct a Color sensor object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Color color = new Color.Builder(hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>name = "colorSensor"
      * <li>reverse = false
+     * <li>name = "colorSensor"
      * <li>calibrationValue = 85.0
      * <li>rgbOffsets = {10, -25, 0}
      * </ul>

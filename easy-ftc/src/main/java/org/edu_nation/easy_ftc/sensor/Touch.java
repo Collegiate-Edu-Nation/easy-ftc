@@ -21,12 +21,20 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
     }
 
     /**
-     * Touch Builder
+     * Construct a Touch sensor object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Touch touch = new Touch.Builder(hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>name = "touchSensor"
      * <li>reverse = false
+     * <li>name = "touchSensor"
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {

@@ -35,22 +35,32 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Drive Builder
+     * Construct a Drive object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Drive drive = new Drive.Builder(this, hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>count = 2
-     * <li>names = {"driveLeft", "driveRight"}
-     * <li>behavior = FLOAT
-     * <li>encoder = false
      * <li>reverse = false
      * <li>reverseDevices = {}
+     * <li>gamepad = null
+     * <li>encoder = false
      * <li>diameter = 0.0
      * <li>gearing = 0.0
      * <li>deadzone = 0.0
-     * <li>gamepad = null
-     * <li>type = "" (interpreted as "differential")
-     * <li>layout = "" (interpreted as "tank" for differential, "robot" for mecanum)
+     * <li>logo = UP
+     * <li>usb = FORWARD
+     * <li>count = 2
+     * <li>names = {"driveLeft", "driveRight"}
+     * <li>behavior = FLOAT
+     * <li>type = DIFFERENTIAL
+     * <li>layout = TANK
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {

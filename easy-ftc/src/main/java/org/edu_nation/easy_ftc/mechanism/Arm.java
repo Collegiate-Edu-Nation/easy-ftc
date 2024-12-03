@@ -29,19 +29,30 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     }
 
     /**
-     * Arm Builder
+     * Construct an Arm object using the Builder design-pattern
      * <p>
-     * <b>Defaults</b>:
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Arm arm = new Arm.Builder(this, hardwareMap).build();
+     * }
+     * </pre>
+     * 
+     * <b>Defaults:</b>
      * <ul>
+     * <li>reverse = false
+     * <li>reverseDevices = {}
+     * <li>gamepad = null
+     * <li>encoder = false
+     * <li>diameter = 0.0
+     * <li>length = 0.0
+     * <li>gearing = 0.0
      * <li>count = 1
      * <li>names = {"arm"}
      * <li>behavior = BRAKE
-     * <li>encoder = false
-     * <li>reverse = false
-     * <li>reverseDevices = {}
-     * <li>length = 0.0
-     * <li>gearing = 0.0
-     * <li>gamepad = null
+     * <li>up = 0.0
+     * <li>down = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {

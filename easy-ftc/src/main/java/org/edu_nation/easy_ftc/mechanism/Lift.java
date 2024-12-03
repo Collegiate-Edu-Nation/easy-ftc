@@ -29,20 +29,30 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     }
 
     /**
-     * Lift Builder
+     * Construct a Lift object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Lift lift = new Lift.Builder(this, hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>count = 1
-     * <li>names = {"lift"}
-     * <li>behavior = FLOAT
-     * <li>encoder = false
      * <li>reverse = false
      * <li>reverseDevices = {}
+     * <li>gamepad = null
+     * <li>encoder = false
      * <li>diameter = 0.0
      * <li>gearing = 0.0
      * <li>deadzone = 0.0
-     * <li>gamepad = null
+     * <li>count = 1
+     * <li>names = {"lift"}
+     * <li>behavior = FLOAT
+     * <li>up = 0.0
+     * <li>down = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {

@@ -29,21 +29,29 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /**
-     * Claw Builder
+     * Construct a Claw object using the Builder design-pattern
      * <p>
+     * <b>Basic Usage:</b>
+     * 
+     * <pre>
+     * {@code
+     * Claw claw = new Claw.Builder(this, hardwareMap).build();
+     * }
+     * </pre>
+     * 
      * <b>Defaults:</b>
      * <ul>
-     * <li>count = 1
-     * <li>names = {"claw"}
-     * <li>smooth = false
      * <li>reverse = false
      * <li>reverseDevices = {}
-     * <li>open = 1.0
-     * <li>close = 0.0
+     * <li>gamepad = null
+     * <li>smooth = false
      * <li>increment = 0.02
      * <li>incrementDelay = 0.02
      * <li>delay = 2
-     * <li>gamepad = null
+     * <li>count = 1
+     * <li>names = {"claw"}
+     * <li>open = 1.0
+     * <li>close = 0.0
      * </ul>
      */
     public static class Builder extends ServoMechanism.Builder<Builder> {
