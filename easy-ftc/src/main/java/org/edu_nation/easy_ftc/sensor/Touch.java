@@ -93,7 +93,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
     }
 
     /**
-     * Returns touch sensor state
+     * Return touch sensor state
      * 
      * @return whether the sensor has been pressed or not
      */

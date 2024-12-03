@@ -148,7 +148,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     /**
      * Return color sensor state
      * 
-     * @return color of detection, one of RGB.RED, GREEN, BLUE, or null
+     * @return color of detection, one of {@link RGB} or null
      */
     @Override
     public RGB state() {

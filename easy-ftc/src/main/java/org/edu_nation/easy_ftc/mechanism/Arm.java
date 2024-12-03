@@ -221,7 +221,12 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         UP, DOWN
     }
 
-    /** Enables teleoperated arm movement with gamepad at the specified power. */
+    /**
+     * Enable teleoperated arm movement with gamepad (lb, rb) at the specified power.
+     *
+     * @param power fraction of total power/velocity to use for mechanism control
+     * @throws IllegalArgumentException if power is not in the interval (0, 1]
+     */
     @Override
     public void control(double power) {
         validate(power);
@@ -244,17 +249,22 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         }
     }
 
-    /** Enables teleoperated arm movement with gamepad at a power of 0.5. */
+    /** Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5. */
     @Override
     public void control() {
         control(0.5);
     }
 
     /**
-     * Intermediate function that assigns individual motor powers based on direction specified in
-     * runOpMode() calls.
-     * <p>
-     * Valid directions are: up, down
+     * Initiate an automated arm movement
+     * 
+     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @param measurement time(s) or distance to move the mechanism
+     * @param power fraction of total power/velocity to use for mechanism command
+     * @throws NullPointerException if direction is null
+     * @throws IllegalArgumentException if direction is an unexpected value
+     * @throws IllegalArgumentException if measurement &lt; 0
+     * @throws IllegalArgumentException if power is not in the interval (0, 1]
      */
     @Override
     public void command(Direction direction, double measurement, double power) {

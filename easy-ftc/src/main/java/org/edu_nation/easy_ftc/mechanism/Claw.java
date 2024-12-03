@@ -217,7 +217,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         OPEN, CLOSE
     }
 
-    /** Enables teleoperated claw movement with gamepad. */
+    /** Enable teleoperated claw movement with gamepad (b, a). */
     @Override
     public void control() {
         double position = servos[0].getPosition();
@@ -230,10 +230,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /**
-     * Intermediate function that assigns individual servo positions based on direction specified in
-     * runOpMode() calls.
-     * <p>
-     * Valid directions are: open, close
+     * Initiate an automated claw movement
+     * 
+     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @throws NullPointerException if direction is null
+     * @throws IllegalArgumentException if direction is an unexpected value
      */
     @Override
     public void command(Direction direction) {
