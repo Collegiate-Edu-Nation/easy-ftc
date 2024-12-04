@@ -31,14 +31,14 @@ public class TestColor {
         try {
             new Color.Builder(mockedHardwareMap).build();
             new Color.Builder(mockedHardwareMap).name("color").build();
-            new Color.Builder(mockedHardwareMap).calibrationValue(1).build();
+            new Color.Builder(mockedHardwareMap).threshold(1).build();
             int[] offsets = {9, -26, -1};
             new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).build();
             new Color.Builder(mockedHardwareMap).reverse().build();
-            new Color.Builder(mockedHardwareMap).calibrationValue(1).rgbOffsets(offsets).build();
-            new Color.Builder(mockedHardwareMap).calibrationValue(1).reverse().build();
+            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).build();
+            new Color.Builder(mockedHardwareMap).threshold(1).reverse().build();
             new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).reverse().build();
-            new Color.Builder(mockedHardwareMap).calibrationValue(1).rgbOffsets(offsets).reverse()
+            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).reverse()
                     .build();
         } catch (Exception e) {
             fail(e.getMessage());
@@ -67,10 +67,10 @@ public class TestColor {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void calibrationValueThrowsException() {
+    public void thresholdThrowsException() {
         mockInit();
 
-        new Color.Builder(mockedHardwareMap).calibrationValue(-1).build();
+        new Color.Builder(mockedHardwareMap).threshold(-1).build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -126,7 +126,7 @@ public class TestColor {
         mockInit();
 
         Color color = new Color.Builder(mockedHardwareMap).rgbOffsets(new int[] {10, -25, 0})
-                .calibrationValue(85.0).build();
+                .threshold(85.0).build();
         int[][] rgbRawArrays =
                 {{76, 110, 85}, {75, 111, 85}, {75, 110, 86}, {75, 110, 85}, {76, 111, 86}};
 

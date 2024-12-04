@@ -26,9 +26,9 @@ public class TestDistance {
         try {
             new Distance.Builder(mockedHardwareMap).build();
             new Distance.Builder(mockedHardwareMap).name("distance").build();
-            new Distance.Builder(mockedHardwareMap).calibrationValue(7).build();
+            new Distance.Builder(mockedHardwareMap).threshold(7).build();
             new Distance.Builder(mockedHardwareMap).reverse().build();
-            new Distance.Builder(mockedHardwareMap).calibrationValue(7).reverse().build();
+            new Distance.Builder(mockedHardwareMap).threshold(7).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -42,10 +42,10 @@ public class TestDistance {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void calibrationValueThrowsException() {
+    public void thresholdThrowsException() {
         mockInit();
 
-        new Distance.Builder(mockedHardwareMap).calibrationValue(-1).build();
+        new Distance.Builder(mockedHardwareMap).threshold(-1).build();
     }
 
     @Test
@@ -54,12 +54,12 @@ public class TestDistance {
 
         Distance mockedDistance = new Distance.Builder(mockedHardwareMap).build();
 
-        // getDistance() >= calibrationValue
+        // getDistance() >= threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
         boolean result = mockedDistance.state();
         assertEquals(false, result);
 
-        // getDistance() < calibrationValue
+        // getDistance() < threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
         result = mockedDistance.state();
         assertEquals(true, result);
@@ -67,12 +67,12 @@ public class TestDistance {
         // reversed-state
         Distance mockedDistanceReverse = new Distance.Builder(mockedHardwareMap).reverse().build();
 
-        // getDistance() >= calibrationValue
+        // getDistance() >= threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
         result = mockedDistanceReverse.state();
         assertEquals(true, result);
 
-        // getDistance() < calibrationValue
+        // getDistance() < threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
         result = mockedDistanceReverse.state();
         assertEquals(false, result);

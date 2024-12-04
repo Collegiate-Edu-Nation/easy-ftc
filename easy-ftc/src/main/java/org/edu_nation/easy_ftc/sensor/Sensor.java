@@ -14,7 +14,7 @@ abstract class Sensor<S, V> {
     protected S sensor;
     protected String name;
     protected boolean reverse;
-    protected double calibrationValue;
+    protected double threshold;
 
     /** Constructor */
     protected Sensor(Builder<?> builder) {

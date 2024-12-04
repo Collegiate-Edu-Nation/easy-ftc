@@ -18,7 +18,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
     private Distance(Builder builder) {
         super(builder);
         this.name = builder.name;
-        this.calibrationValue = builder.calibrationValue;
+        this.threshold = builder.threshold;
         init();
     }
 
@@ -37,12 +37,12 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
      * <ul>
      * <li>reverse = false
      * <li>name = "distance"
-     * <li>calibrationValue = 7.0
+     * <li>threshold = 7.0
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "distance";
-        private double calibrationValue = 7.0;
+        private double threshold = 7.0;
 
         /**
          * Builder constructor
@@ -80,17 +80,17 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
         /**
          * Specify the calibration value
          * 
-         * @param calibrationValue cutoff threshold for whether an object is detected
+         * @param threshold cutoff threshold for whether an object is detected
          * @return builder instance
-         * @throws IllegalArgumentException if calibrationValue &lt; 0
+         * @throws IllegalArgumentException if threshold &lt; 0
          */
-        public Builder calibrationValue(double calibrationValue) {
-            if (calibrationValue < 0) {
-                throw new IllegalArgumentException("Unexpected calibrationValue: "
-                        + calibrationValue
-                        + ", passed to Distance.Builder().calibrationValue(). Valid values are >0");
+        public Builder threshold(double threshold) {
+            if (threshold < 0) {
+                throw new IllegalArgumentException("Unexpected threshold: "
+                        + threshold
+                        + ", passed to Distance.Builder().threshold(). Valid values are >0");
             }
-            this.calibrationValue = calibrationValue;
+            this.threshold = threshold;
             return this;
         }
 
@@ -129,9 +129,9 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
     @Override
     public Boolean state() {
         if (reverse) {
-            return (sensor.getDistance(DistanceUnit.CM) >= calibrationValue);
+            return (sensor.getDistance(DistanceUnit.CM) >= threshold);
         } else {
-            return (sensor.getDistance(DistanceUnit.CM) < calibrationValue);
+            return (sensor.getDistance(DistanceUnit.CM) < threshold);
         }
     }
 }

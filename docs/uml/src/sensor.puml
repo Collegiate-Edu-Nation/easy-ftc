@@ -7,7 +7,7 @@ abstract class Sensor<S, V> {
     # sensor: S
     # name: String
     # reverse: boolean
-    # calibrationValue: double
+    # threshold: double
     {abstract}# init()
     {abstract}+ state(): V
 }
@@ -45,7 +45,7 @@ class "Builder<Builder>" as Color_Builder {
     + Builder(HardwareMap hardwareMap)
     + reverse(): Builder
     + name(String name): Builder
-    + calibrationValue(double calibrationValue): Builder
+    + threshold(double threshold): Builder
     + rgbOffsets(int[] rgbOffsets): Builder
     + build(): Color
     # self(): Builder
@@ -55,7 +55,7 @@ class "Builder<Builder>" as Distance_Builder {
     + Builder(HardwareMap hardwareMap)
     + reverse(): Builder
     + name(String name): Builder
-    + calibrationValue(double calibrationValue): Builder
+    + threshold(double threshold): Builder
     + build(): Distance
     # self(): Builder
 }

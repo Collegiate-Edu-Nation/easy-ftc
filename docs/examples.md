@@ -239,7 +239,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         Distance distance = new Distance.Builder(hardwareMap)
             .name("distanceSensor") // change the name of the sensor
             .reverse()              // reverse the sensor state
-            .calibrationValue(6.0)  // change the distance threshold
+            .threshold(6.0)         // change the distance threshold
             .build();
 
     </details>

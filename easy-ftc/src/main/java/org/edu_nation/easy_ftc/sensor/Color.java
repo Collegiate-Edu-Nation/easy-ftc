@@ -19,7 +19,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     private Color(Builder builder) {
         super(builder);
         this.name = builder.name;
-        this.calibrationValue = builder.calibrationValue;
+        this.threshold = builder.threshold;
         this.rgbOffsets = builder.rgbOffsets;
         init();
     }
@@ -39,13 +39,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
      * <ul>
      * <li>reverse = false
      * <li>name = "color"
-     * <li>calibrationValue = 85.0
+     * <li>threshold = 85.0
      * <li>rgbOffsets = {10, -25, 0}
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "color";
-        private double calibrationValue = 85.0;
+        private double threshold = 85.0;
         private int[] rgbOffsets = {10, -25, 0};
 
         /**
@@ -84,17 +84,17 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         /**
          * Specify the calibration value
          * 
-         * @param calibrationValue cutoff threshold for what's considered a meaningful reading
+         * @param threshold cutoff threshold for what's considered a meaningful reading
          * @return builder instance
          * @throws IllegalArgumentException if calibration value not in the interval [0, 255]
          */
-        public Builder calibrationValue(double calibrationValue) {
-            if (calibrationValue < 0 || calibrationValue > 255) {
-                throw new IllegalArgumentException("Unexpected calibrationValue: "
-                        + calibrationValue
-                        + ", passed to Color.Builder().calibrationValue(). Valid values are numbers in the interval [0, 255]");
+        public Builder threshold(double threshold) {
+            if (threshold < 0 || threshold > 255) {
+                throw new IllegalArgumentException("Unexpected threshold: "
+                        + threshold
+                        + ", passed to Color.Builder().threshold(). Valid values are numbers in the interval [0, 255]");
             }
-            this.calibrationValue = calibrationValue;
+            this.threshold = threshold;
             return this;
         }
 
@@ -176,7 +176,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         int max = max(rgbNormalized);
 
         RGB color;
-        if (max > calibrationValue) {
+        if (max > threshold) {
             if ((rgbNormalized[0] == rgbNormalized[1] && rgbNormalized[0] == max)
                     || (rgbNormalized[0] == rgbNormalized[2] && rgbNormalized[0] == max)
                     || (rgbNormalized[1] == rgbNormalized[2] && rgbNormalized[1] == max)) {
