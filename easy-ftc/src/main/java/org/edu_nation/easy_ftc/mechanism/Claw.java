@@ -29,7 +29,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     }
 
     /**
-     * Construct a Claw object using the Builder design-pattern
+     * Construct a Claw object using the Builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

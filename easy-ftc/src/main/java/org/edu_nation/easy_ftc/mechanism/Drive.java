@@ -35,7 +35,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Construct a Drive object using the Builder design-pattern
+     * Construct a Drive object using the Builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

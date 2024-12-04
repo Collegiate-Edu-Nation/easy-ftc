@@ -19,10 +19,10 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 * Distance Sensor
 * Touch Sensor
 
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design-pattern 
+This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern 
 
 Additionally, several useful quality-of-life features are included
-* Encoders can be used with minimal setup for either time or distance based command of motor-powered mechanisms
+* Encoders can be used with minimal setup for either time- or distance-based command of motor-powered mechanisms
 * Arm and Lift optionally feature encoder limits on Range-of-Motion (useful for preventing motors from burning out)
 * Both robot and field-centric driving are supported for Mecanum, while tank and arcade schemes are supported for Differential
 * Servo-powered mechanisms can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization
@@ -61,10 +61,10 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
         }
 
 ## Dev Setup
-The development environment can be setup by either using Nix with your IDE of choice, or by importing this project into Android Studio
+The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio
 
 ### Nix
-Nix is my preferred approach for setting up the development environment. Linux and MacOS are supported
+Nix is my preferred approach for setting up the development environment. Linux and macOS are supported
 
 <b>Must install flake-enabled Nix before running</b>
 

@@ -29,7 +29,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     }
 
     /**
-     * Construct an Arm object using the Builder design-pattern
+     * Construct an Arm object using the Builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

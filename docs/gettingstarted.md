@@ -7,15 +7,15 @@ When programming complex systems, there is an almost universal need for low-leve
 
 The FTC SDK does a good job of providing an API (application programming interface) for accomplishing this, but this comes with some challenges for users. Namely, low-level control of individual motors, servos, and sensors does not always neatly translate into making robots perform high-level actions (like moving entire mechanisms).
 
-Thus, there's room in the FTC ecosystem for what are called 'facade-pattern APIs', which interact with the FTC SDK's API at a low-level, but provide users with massively simplified interfaces to control their robots' high-level actions in an intuitive manner.
+Thus, there's room in the FTC ecosystem for what are called 'facade-pattern APIs', which interact with the FTC SDK's API at a low-level but provide users with massively simplified interfaces to control their robots' high-level actions in an intuitive manner.
 
 This is what easy-ftc seeks to provide.
 
 ### Mechanisms
-An obvious way to provide higher-level control of your robot is to think in terms of mechanisms, rather than motors or servos. For instance, many teams have four drive motors which, intuitively, just combine to form a single mechanism- the drivetrain. In this example, rather than focusing on ways to reduce the repetition of setting up and controlling four closely-related but distinct pieces of hardware, teams could opt to leverage easy-ftc's suitable mechanism named Drive, which can allow them to implement their drivetrain in as little as three lines of code.
+An obvious way to provide higher-level control of your robot is to think in terms of mechanisms, rather than motors or servos. For instance, many teams have four drive motors, which, intuitively, just combine to form a single mechanism - the drivetrain. In this example, rather than focusing on ways to reduce the repetition of setting up and controlling four closely related but distinct pieces of hardware, teams could opt to leverage easy-ftc's suitable mechanism named Drive, which can allow them to implement their drivetrain in as little as three lines of code.
 
 ### Standardized API
-Another, less obvious, tactic for creating simple, high-level interfaces, is to standardize the API as much as possible. As a counter-example, motors in the FTC SDK are often controlled via the function 'setPower()', whereas servos are most often controlled via 'setPosition()'. In isolation, this isn't a big deal, but as more advanced features and approaches are implemented, these subtleties can propagate through your codebase to such an extent that forgetting a single function name may cause hours of head-scratching.
+Another, less obvious tactic for creating simple, high-level interfaces, is to standardize the API as much as possible. As a counter-example, motors in the FTC SDK are often controlled via the function 'setPower()', whereas servos are most often controlled via 'setPosition()'. In isolation, this isn't a big deal, but as more advanced features and approaches are implemented, these subtleties can propagate through your codebase to such an extent that forgetting a single function name may cause hours of head-scratching.
 
 This brings us to easy-ftc's API
 
@@ -25,10 +25,10 @@ This brings us to easy-ftc's API
 command() is a function/method that tells (commands) a mechanism to move in a specific manner. This is most often seen in Autonomous routines, where most teams will program their robot to simply perform consecutive actions, though automated sequences in TeleOp can make use of commands as well. easy-ftc provides simple ways to command each mechanism at a specified power and direction for either time-based or distance-based movement.
 
 ### control() - Mechanisms
-control() is a function/method that enables tele-operated control of each mechanism, which is only allowed in the TeleOp portion of a match. More explicitly, this function reads inputs from the gamepad, processes those inputs, then controls the mechanism based on these processed inputs. easy-ftc decides the control-scheme for you, which obviously takes away some user control, but comes with the benefit of being able to program a competitive robot with a single function.
+control() is a function/method that enables teleoperated control of each mechanism, which is only allowed in the TeleOp portion of a match. More explicitly, this function reads inputs from the gamepad, processes those inputs, and then controls the mechanism based on these processed inputs. easy-ftc decides the control scheme for you, which obviously takes away some user control but comes with the benefit of being able to program a competitive robot with a single function.
 
 ### state() - Sensors
-state() is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor, but is either a boolean (Touch return true if the sensor is pressed, false if not) or RGB (Color returns one of RED, GREEN, or BLUE). When combined with conditional statements and command()/control(), this allows teams to determine their robots' actions based on the surrounding environment. For example, if the color sensor returns BLUE, move forward.
+state() is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor but is either a boolean (Touch returns true if the sensor is pressed, false if not) or RGB (Color returns one of RED, GREEN, or BLUE). When combined with conditional statements and command()/control(), this allows teams to determine their robots' actions based on the surrounding environment. For example, if the color sensor returns BLUE, move forward.
 
 ### Builder().build()
 Most objects you'll encounter in Java are built with either basic constructors or setters, but both of these options can introduce some problems for both users and developers as the complexity of the object increases. All Mechanisms and Sensors in easy-ftc are constructed via nested Builder classes, which provide more clarity than constructors and eliminate the mutability of setters (say goodbye to confusing arguments and randomly reversed motors). This is where features (like encoders) are enabled and attributes (like device names) are modified.
@@ -59,7 +59,7 @@ Before we can dive into coding, follow the Install section of the README
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
 
-    Drive is a concrete class, which means we must instantiate it before our hardware can be controlled. easy-ftc relies on the Builder design-pattern to accomplish this, as it enforces immutability (valuable for complex, stateful objects like we see in robotics) and makes arguments more explicit. View Examples or the Javadoc for more details on valid Builder methods
+    Drive is a concrete class, which means we must instantiate it before our hardware can be controlled. easy-ftc relies on the Builder design pattern to accomplish this, as it enforces immutability (valuable for complex, stateful objects like we see in robotics) and makes arguments more explicit. View Examples or the Javadoc for more details on valid Builder methods
 
     Add this inside of runOpMode()- note that we must pass instances of the opMode (this), hardwareMap, and gamepad1
 
@@ -124,25 +124,25 @@ Before we can dive into coding, follow the Install section of the README
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
-    * Add an if statement after the first command() call which checks if state is equal to RGB.BLUE
+    * Add an if statement after the first command() call that checks if the state is equal to RGB.BLUE
 
             if (color.state() == RGB.BLUE) {
 
             }
             
-    * Add an additional command() call inside of the if statement
+    * Add another command() call inside the if statement
 
             drive.command(Drive.Direction.FORWARD, 3, 0.5);
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
-    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences, see Examples for how to do this
+    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
 
 === "Blockly"
-    First, create an OpMode in the blocks editor WebUI
+    First, create an OpMode in the blocks editor Web UI
 
     * Press 'Create New OpMode'
-    * Enter a name, and use the default sample titled 'BasicOpMode'
+    * Enter a name and use the default sample titled 'BasicOpMode'
     * Press ok
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
@@ -189,8 +189,8 @@ Before we can dive into coding, follow the Install section of the README
     * In that same submenu, drag an 'equals' block to the first line of the if statement
     * Move 'state' to the left half of the 'equals' block
     * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
-    * Copy and paste the existing 'command' block to be inside of the if statement
+    * Copy and paste the existing 'command' block to be inside the if statement
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
-    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences, see Examples for how to do this
+    Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
