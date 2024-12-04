@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
- * all claws. Cannot be instantiated, only extended by other abstract classes.
+ * all Mechanisms. Cannot be instantiated, only extended by other abstract classes.
  */
 abstract class Mechanism {
     protected LinearOpMode opMode;
