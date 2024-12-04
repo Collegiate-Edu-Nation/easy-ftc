@@ -1,3 +1,8 @@
+---
+hide:
+  - toc
+---
+
 # Welcome to the docs for easy-ftc
 ## What's here?
 * Getting Started
