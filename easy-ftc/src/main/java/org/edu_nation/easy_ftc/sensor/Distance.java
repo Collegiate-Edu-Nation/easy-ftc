@@ -86,8 +86,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
          */
         public Builder threshold(double threshold) {
             if (threshold < 0) {
-                throw new IllegalArgumentException("Unexpected threshold: "
-                        + threshold
+                throw new IllegalArgumentException("Unexpected threshold: " + threshold
                         + ", passed to Distance.Builder().threshold(). Valid values are >0");
             }
             this.threshold = threshold;

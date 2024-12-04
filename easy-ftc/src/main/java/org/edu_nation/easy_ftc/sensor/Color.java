@@ -90,8 +90,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
          */
         public Builder threshold(double threshold) {
             if (threshold < 0 || threshold > 255) {
-                throw new IllegalArgumentException("Unexpected threshold: "
-                        + threshold
+                throw new IllegalArgumentException("Unexpected threshold: " + threshold
                         + ", passed to Color.Builder().threshold(). Valid values are numbers in the interval [0, 255]");
             }
             this.threshold = threshold;

@@ -38,8 +38,7 @@ public class TestColor {
             new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).build();
             new Color.Builder(mockedHardwareMap).threshold(1).reverse().build();
             new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).reverse().build();
-            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).reverse()
-                    .build();
+            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
