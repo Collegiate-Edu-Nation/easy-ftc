@@ -98,7 +98,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.control();
 
     ### Notes
-    * The power-level of the mechanism can be scaled down (the default is full power)
+    * The power level of the mechanism can be scaled down (the default is full power)
 
         drive.control(0.3);
 
@@ -267,7 +267,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.control();
 
     ### Notes
-    * unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+    * Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
 
     </details>
 
@@ -490,7 +490,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             .gamepad(gamepad1)
             .build();
         
-        // define starting state
+        // define the starting state
         State state = State.ROTATE_LEFT;
 
     ### Methods
@@ -506,14 +506,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                 break;
             case ROTATE_RIGHT:
                 drive.command(Drive.Direction.ROTATE_RIGHT, 2, 0.5);
-                // restart sequence once final state is completed
+                // restart the sequence once final state is completed
                 state = State.ROTATE_LEFT;
                 break;
             default:
                 state = State.ROTATE_LEFT;
         }
         
-        // Termiante sequence when dpad_left is pressed
+        // terminate sequence when dpad_left is pressed
         if (gamepad1.dpad_left) {
             state = State.ROTATE_LEFT;
         }
