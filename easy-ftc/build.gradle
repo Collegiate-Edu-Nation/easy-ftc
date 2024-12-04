@@ -37,7 +37,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    // ignores deprecation of targetting 1_8
+    // ignores deprecation of targeting 1_8
     tasks.withType(JavaCompile) {
         options.compilerArgs << '-Xlint:-options'
     }
@@ -73,7 +73,7 @@ android.libraryVariants.all { variant ->
         // generate javadoc
         task apidoc(type: Javadoc, dependsOn: uml) {
             group = "build"
-            description = "Generate the Javadoc for the public API's"
+            description = "Generate the Javadoc for the public API"
 
             source = variant.javaCompileProvider.get().source
             classpath = files(((Object) android.bootClasspath.join(File.pathSeparator)))

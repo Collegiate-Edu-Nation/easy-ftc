@@ -269,7 +269,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
     /**
      * Initiate an automated arm movement
      * 
-     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command
      * @throws NullPointerException if direction is null
@@ -305,7 +305,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
                 return -1;
             default:
                 throw new IllegalArgumentException(
-                        "Unexpected direction passed to Arm.command(). Valid direction are: Arm.Direction.UP, Arm.Direction.DOWN");
+                        "Unexpected direction passed to Arm.command(). Valid directions are: Arm.Direction.UP, Arm.Direction.DOWN");
         }
     }
 }

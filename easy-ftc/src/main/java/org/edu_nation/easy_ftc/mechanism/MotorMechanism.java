@@ -17,7 +17,7 @@ import java.util.Objects;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
- * common to all Motor Mechanisms. Cannot be instantiated, only extended by other classes.
+ * common to all Motor Mechanisms. Cannot be instantiated; only extended by other classes.
  */
 abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;
@@ -240,7 +240,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /** Initializes motors based on constructor args (e.g. using encoders or not) */
+    /** Initializes motors based on builder args (e.g. using encoders or not) */
     @Override
     protected void init() {
         if (encoder) {
@@ -533,7 +533,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return min(gearings);
     }
 
-    /** Correct the gear-ratio of all motors using encoders. Updates distanceMultiplier */
+    /** Correct the gear ratio of all motors using encoders. Updates distanceMultiplier */
     protected void setGearing() {
         MotorConfigurationType[] motorTypes = getMotorTypes();
         double currentGearing = getGearing(motorTypes);
@@ -605,7 +605,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         return movements;
     }
 
-    /** Calculate posiitons based on distance, diameter, distanceMultiplier, movements */
+    /** Calculate positions based on distance, diameter, distanceMultiplier, movements */
     protected int[] calculatePositions(double distance, double[] movements) {
         double circumference = Math.PI * diameter;
         double revolutions = distance / circumference;

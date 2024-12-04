@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * Blueprints an abstract Servo Mechanism, providing basic functionalities, options, and objects
- * common to all Servo Mechanisms. Cannot be instantiated, only extended by other classes.
+ * common to all Servo Mechanisms. Cannot be instantiated; only extended by other classes.
  */
 abstract class ServoMechanism<E> extends Mechanism {
     protected Servo[] servos;
@@ -168,7 +168,7 @@ abstract class ServoMechanism<E> extends Mechanism {
 
     /**
      * Wrapper around setPositionsByIncrement that enables smooth servo movement until the desired
-     * position is reached. The loop causes thread-blocking, so it's not used for control() calls
+     * position is reached. The loop causes thread blocking, so it's not used for control() calls
      */
     protected void setPositionsByIncrementUntilComplete(double position, double movement) {
         while (opMode.opModeIsActive() && position != movement) {

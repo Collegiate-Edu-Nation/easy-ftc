@@ -273,7 +273,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     /**
      * Initiate an automated lift movement
      * 
-     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command
      * @throws NullPointerException if direction is null
@@ -307,7 +307,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
                 return -1;
             default:
                 throw new IllegalArgumentException(
-                        "Unexpected direction passed to Lift.command(). Valid direction are: Lift.Direction.UP, Lift.Direction.DOWN");
+                        "Unexpected direction passed to Lift.command(). Valid directions are: Lift.Direction.UP, Lift.Direction.DOWN");
         }
     }
 }

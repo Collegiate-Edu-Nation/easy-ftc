@@ -343,7 +343,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     /**
      * Initiate an automated drivetrain movement
      * 
-     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command
      * @throws NullPointerException if direction is null
@@ -379,7 +379,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
     }
 
-    /** Set differential drivetrain movements based on layout: TANK or ARCADE */
+    /** Set DIFFERENTIAL movements based on layout: TANK or ARCADE */
     private double[] controlToDirectionDifferential(double leftY, double rightY, double rightX) {
         double left;
         double right;
@@ -405,7 +405,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         return movements;
     }
 
-    /** Set mecanum drivetrain motor movements based on layout: ROBOT or FIELD */
+    /** Set MECANUM motor movements based on layout: ROBOT or FIELD */
     private double[] controlToDirectionMecanum(double heading, double leftY, double leftX,
             double rightX) {
         double[] axes = {map(-leftY), map(leftX), map(rightX)};
@@ -468,7 +468,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         }
     }
 
-    /** Translate natural-language direction for Differential to numeric values */
+    /** Translate natural-language direction for DIFFERENTIAL to numeric values */
     private double[] languageToDirectionDifferential(Direction direction) {
         double[] motorDirections = new double[count];
 
@@ -501,7 +501,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         return motorDirections;
     }
 
-    /** Translate natural-language direction for Mecanum to axial, lateral, yaw */
+    /** Translate natural-language direction for MECANUM to axial, lateral, yaw */
     private double[] languageToDirectionMecanum(Direction direction) {
         switch (direction) {
             case FORWARD:

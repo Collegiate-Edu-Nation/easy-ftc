@@ -170,7 +170,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return color;
     }
 
-    /** Convert the maximum, normalized rgb value to the corresponding color as a String */
+    /** Convert the maximum normalized RGB value to the corresponding RGB color */
     protected RGB dominantColor(int[] rgbRaw) {
         int[] rgbNormalized = normalize(rgbRaw);
         int max = max(rgbNormalized);
@@ -197,7 +197,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return color;
     }
 
-    /** Convert the minimum, normalized rgb value to the corresponding RGB color */
+    /** Convert the minimum normalized RGB value to the corresponding RGB color */
     protected RGB weakColor(int[] rgbRaw) {
         int[] rgbNormalized = normalize(rgbRaw);
         int min = min(rgbNormalized);
@@ -230,13 +230,13 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         return rgbNormalized;
     }
 
-    /** Return maximum of normalized rgb values */
+    /** Return maximum of normalized RGB values */
     private int max(int[] rgbNormalized) {
         return Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
     }
 
-    /** Return minimum of normalized rgb values */
+    /** Return minimum of normalized RGB values */
     private int min(int[] rgbNormalized) {
         return Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
                 Math.min(rgbNormalized[1], rgbNormalized[2]));

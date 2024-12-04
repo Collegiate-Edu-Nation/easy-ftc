@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Blueprints an abstract sensor, providing basic functionalities, options, and objects common to
- * all sensors. Cannot be instantiated, only extended by actual sensor classes.
+ * all Sensors. Cannot be instantiated; only extended by actual sensor classes.
  */
 abstract class Sensor<S, V> {
     protected HardwareMap hardwareMap;

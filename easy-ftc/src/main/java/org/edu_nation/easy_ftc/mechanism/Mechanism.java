@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
- * all Mechanisms. Cannot be instantiated, only extended by other abstract classes.
+ * all Mechanisms. Cannot be instantiated; only extended by other abstract classes.
  */
 abstract class Mechanism {
     protected LinearOpMode opMode;
@@ -134,7 +134,7 @@ abstract class Mechanism {
 
     protected abstract void reverse(String deviceName);
 
-    /** Helper function to wait (but not suspend) for specified time in s. */
+    /** Helper function to wait (but not suspend) for specified time in s */
     protected void wait(double time) {
         this.timer.reset();
         while (opMode.opModeIsActive() && (this.timer.time() < time));

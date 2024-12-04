@@ -151,7 +151,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the posiiton for {@link Direction OPEN}
+         * Specify the position for {@link Direction OPEN}
          * 
          * @param open position for {@link Direction OPEN}
          * @return builder instance
@@ -167,7 +167,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
 
         /**
-         * Specify the posiiton for {@link Direction CLOSE}
+         * Specify the position for {@link Direction CLOSE}
          * 
          * @param close position for {@link Direction CLOSE}
          * @return builder instance
@@ -240,7 +240,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
     /**
      * Initiate an automated claw movement
      * 
-     * @param direction direction to move the mechanism, see {@link Direction} for accepted values
+     * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @throws NullPointerException if direction is null
      * @throws IllegalArgumentException if direction is an unexpected value
      */
