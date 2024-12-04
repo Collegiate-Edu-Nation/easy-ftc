@@ -266,6 +266,9 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
         drive.control();
 
+    ### Notes
+    * unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+
     </details>
 
 
