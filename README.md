@@ -98,7 +98,7 @@ To generate documentation, you must also install
 - [x] Improve code comments (esp. command(), Builder)
 - [ ] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
-- [ ] Add more examples
+- [x] Add more examples
 - [ ] Add graphics for blocks examples, gettingstarted
 - [ ] Add 'Common Issues' section
 
