@@ -241,17 +241,28 @@ Before we can dive into coding, follow the Install section of the README
     First, create an OpMode in the blocks editor Web UI
 
     * Press 'Create New OpMode'
+    <br>![Create New OpMode](./img/blk/gs/new.png)
     * Enter a name and use the default sample titled 'BasicOpMode'
+    <br>![Create New OpMode](./img/blk/gs/newDialog.png)
     * Press ok
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
 
-    If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism in the green while loop block. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
+    <i>Note the location of Methods</i>
+
+
+    <details>
+    <summary>TeleOp - Starting Code</summary>
+    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png)
+    </details>
+
+
+    If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism to 'Methods'. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
 
     Let's see how to make your robot drive
 
     * In the 'Java Classes' dropdown, click Drive
-    * Drag the 'control' block to the green while loop
+    * Drag the 'control' block to 'Methods'
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
 
@@ -261,7 +272,16 @@ Before we can dive into coding, follow the Install section of the README
 
     * Create a new OpMode following the instructions above
     * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
+    <br>![Annotation](./img/blk/gs/annotation.png)
     * Delete the green while loop block
+    <br>![Loop](./img/blk/gs/loop.png)
+
+
+    <details>
+    <summary>Autonomous - Starting Code</summary>
+    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png)
+    </details>
+
 
     As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (direction, measurement, and power)
 
