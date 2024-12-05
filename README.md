@@ -1,4 +1,4 @@
-<div style="text-align: center;">
+<div align="center">
 <img src='docs/img/logo/easy-ftc_color.png' height=96px>
 
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
