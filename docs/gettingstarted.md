@@ -7,7 +7,7 @@ When programming complex systems, there is an almost universal need for low-leve
 
 The FTC SDK does a good job of providing an API (application programming interface) for accomplishing this, but this comes with some challenges for users. Namely, low-level control of individual motors, servos, and sensors does not always neatly translate into making robots perform high-level actions (like moving entire mechanisms).
 
-Thus, there's room in the FTC ecosystem for what are called 'facade-pattern APIs', which interact with the FTC SDK's API at a low-level but provide users with massively simplified interfaces to control their robots' high-level actions in an intuitive manner.
+Thus, there's room in the FTC ecosystem for what are called 'façade pattern' APIs, which interact with the FTC SDK's API at a low-level but provide users with massively simplified interfaces to control their robots' high-level actions in an intuitive manner.
 
 This is what easy-ftc seeks to provide.
 

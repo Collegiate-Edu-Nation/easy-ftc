@@ -24,7 +24,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
 ## Overview
 
-This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern 
+This library greatly simplifies the implementation of common FTC robotics subsystems by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern
 
 Additionally, several useful quality-of-life features are included
 * Encoders can be used with minimal setup for either time- or distance-based commands
