@@ -37,12 +37,15 @@ Most objects you'll encounter in Java are built with either basic constructors o
 Before we can dive into coding, follow the Install section of the README
 
 === "Java"
+    <h3>TeleOp</h3>
+
     First, create a Linear OpMode- note that easy-ftc only works with Linear OpModes
 
     <i>Note the locations of Imports, Construction, and Methods</i>
 
+
     <details>
-    <summary>TeleOp</summary>
+    <summary>TeleOp - Starting Code</summary>
 
         package org.firstinspires.ftc.teamcode;
 
@@ -65,6 +68,7 @@ Before we can dive into coding, follow the Install section of the README
         }
     </details>
 
+
     Before we can use easy-ftc, we'll need to import the relevant classes. Add the following to 'Imports'
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
@@ -85,12 +89,43 @@ Before we can dive into coding, follow the Install section of the README
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods (which is where hardware initialization is occurring)
 
+
+    <details>
+    <summary>TeleOp - Final Code</summary>
+
+        package org.firstinspires.ftc.teamcode;
+
+        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+        import org.edu_nation.easy_ftc.mechanism.Drive;
+
+        @TeleOp(name="Tele", group="dev")
+        public class Tele extends LinearOpMode {
+
+            @Override
+            public void runOpMode() {
+                Drive drive = new Drive.Builder(this, hardwareMap)
+                    .gamepad(gamepad1)
+                    .build();
+
+                waitForStart();
+                while (opModeIsActive()) {
+                    drive.control();
+                }
+            }
+        }
+    </details>
+
+
+    <h3>Autonomous</h3>
+
     Let's do the same for autonomous
 
     Create a Linear OpMode
 
+
     <details>
-    <summary>Autonomous</summary>
+    <summary>Autonomous - Starting Code</summary>
     
         package org.firstinspires.ftc.teamcode;
 
@@ -112,6 +147,7 @@ Before we can dive into coding, follow the Install section of the README
             }
         }
     </details>
+
 
     Import Drive
 
@@ -162,7 +198,7 @@ Before we can dive into coding, follow the Install section of the README
 
     
     <details>
-    <summary>Final Code</summary>
+    <summary>Autonomous - Final Code</summary>
     
         package org.firstinspires.ftc.teamcode;
 
@@ -193,11 +229,15 @@ Before we can dive into coding, follow the Install section of the README
         }
     </details>
 
+
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
     Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
 
 === "Blockly"
+
+    <h3>TeleOp</h3>
+
     First, create an OpMode in the blocks editor Web UI
 
     * Press 'Create New OpMode'
@@ -214,6 +254,8 @@ Before we can dive into coding, follow the Install section of the README
     * Drag the 'control' block to the green while loop
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
+
+    <h3>Autonomous</h3>
 
     Let's do the same for autonomous
 
