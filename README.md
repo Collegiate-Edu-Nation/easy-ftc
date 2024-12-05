@@ -1,4 +1,4 @@
-<div align="center">
+<div style="text-align: center;">
 <img src='docs/img/logo/easy-ftc_color.png' height=96px>
 
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
@@ -11,21 +11,25 @@
 </div>
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
-* Arm
-* Claw
-* Drivetrain
-* Lift
-* Color Sensor
-* Distance Sensor
-* Touch Sensor
+
+| Name     | Type            |
+| -------- | --------------- |
+| Arm      | Motor Mechanism |
+| Claw     | Servo Mechanism |
+| Drive    | Motor Mechanism |
+| Lift     | Motor Mechanism |
+| Color    | Sensor          |
+| Distance | Sensor          |
+| Touch    | Sensor          |
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern 
 
 Additionally, several useful quality-of-life features are included
-* Encoders can be used with minimal setup for either time- or distance-based command of motor-powered mechanisms
-* Arm and Lift optionally feature encoder limits on Range-of-Motion (useful for preventing motors from burning out)
-* Both robot and field-centric driving are supported for Mecanum, while tank and arcade schemes are supported for Differential
-* Servo-powered mechanisms can optionally leverage smooth-servo control, enabling granular, multi-servo synchronization
+* Encoders can be used with minimal setup for either time- or distance-based commands
+* Arm and Lift optionally feature encoder limits on range-of-motion
+* Robot and field-centric driving are supported for Mecanum
+* Tank and arcade are supported for Differential
+* Servo-powered mechanisms can optionally leverage smooth-servo control
 * Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
 
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
