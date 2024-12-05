@@ -8,7 +8,6 @@
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
 ![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
-</div>
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
@@ -21,6 +20,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 | Color    | Sensor          |
 | Distance | Sensor          |
 | Touch    | Sensor          |
+</div>
 
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern 
 
