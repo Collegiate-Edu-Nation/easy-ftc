@@ -22,6 +22,8 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 | Touch    | Sensor          |
 </div>
 
+## Overview
+
 This library greatly simplifies hardware initialization and control by abstracting away low-level decisions and operations. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern 
 
 Additionally, several useful quality-of-life features are included
