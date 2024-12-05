@@ -8,8 +8,7 @@ import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.edu_nation.easy_ftc.mechanism.Lift.Direction;
 
 public class Lift extends BlocksOpModeCompanion {
-    @ExportToBlocks(
-            comment = "Intermediate function that assigns individual motor powers based on direction specified in runOpMode() calls",
+    @ExportToBlocks(comment = "Initiate an automated lift movement",
             parameterLabels = {"Direction", "Time", "Power"})
     public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -19,7 +18,7 @@ public class Lift extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Enables teleoperated lift movement with gamepad, scaling by multiplier < 1",
+            comment = "Enable teleoperated lift movement with gamepad (lt, rt), scaling by multiplier",
             parameterLabels = {"Multiplier"})
     public static void control(double multiplier) {
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -28,7 +27,8 @@ public class Lift extends BlocksOpModeCompanion {
         lift.control(multiplier);
     }
 
-    @ExportToBlocks(comment = "Enables teleoperated lift movement with gamepad")
+    @ExportToBlocks(
+            comment = "Enable teleoperated lift movement with gamepad (lt, rt), with multiplier = 1.0")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Lift lift =
                 new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
@@ -36,12 +36,12 @@ public class Lift extends BlocksOpModeCompanion {
         lift.control();
     }
 
-    @ExportToBlocks(comment = "Returns the UP Direction")
+    @ExportToBlocks(comment = "Return the UP Direction")
     public static Direction UP() {
         return Direction.UP;
     }
 
-    @ExportToBlocks(comment = "Returns the DOWN Direction")
+    @ExportToBlocks(comment = "Return the DOWN Direction")
     public static Direction DOWN() {
         return Direction.DOWN;
     }

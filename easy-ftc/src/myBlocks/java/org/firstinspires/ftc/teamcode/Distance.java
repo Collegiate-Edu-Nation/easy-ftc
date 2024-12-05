@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 
 public class Distance extends BlocksOpModeCompanion {
     @ExportToBlocks(
-            comment = "Returns distance sensor state (whether an object is within the distance cutoff)")
+            comment = "Return distance sensor state (whether an object is within the distance cutoff)")
     public static boolean state() {
         org.edu_nation.easy_ftc.sensor.Distance distance =
                 new org.edu_nation.easy_ftc.sensor.Distance.Builder(hardwareMap).build();

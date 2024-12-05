@@ -8,25 +8,24 @@ import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
 public class Color extends BlocksOpModeCompanion {
-    @ExportToBlocks(
-            comment = "Returns color sensor state (color of detection, one of: RED, GREEN, BLUE)")
+    @ExportToBlocks(comment = "Return color sensor state (color of detection, one of RGB or null)")
     public static RGB state() {
         org.edu_nation.easy_ftc.sensor.Color color =
                 new org.edu_nation.easy_ftc.sensor.Color.Builder(hardwareMap).build();
         return color.state();
     }
 
-    @ExportToBlocks(comment = "Returns the RED RGB Color")
+    @ExportToBlocks(comment = "Return the RED RGB Color")
     public static RGB RED() {
         return RGB.RED;
     }
 
-    @ExportToBlocks(comment = "Returns the GREEN RGB Color")
+    @ExportToBlocks(comment = "Return the GREEN RGB Color")
     public static RGB GREEN() {
         return RGB.GREEN;
     }
 
-    @ExportToBlocks(comment = "Returns the BLUE RGB Color")
+    @ExportToBlocks(comment = "Return the BLUE RGB Color")
     public static RGB BLUE() {
         return RGB.BLUE;
     }

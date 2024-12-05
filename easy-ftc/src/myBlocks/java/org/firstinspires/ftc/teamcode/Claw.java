@@ -8,8 +8,7 @@ import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.edu_nation.easy_ftc.mechanism.Claw.Direction;
 
 public class Claw extends BlocksOpModeCompanion {
-    @ExportToBlocks(
-            comment = "Intermediate function that assigns individual servo positions based on direction specified in runOpMode() calls",
+    @ExportToBlocks(comment = "Initiate an automated claw movement",
             parameterLabels = {"Power", "Direction", "Time"})
     public static void command(Direction direction) {
         org.edu_nation.easy_ftc.mechanism.Claw claw =
@@ -18,7 +17,7 @@ public class Claw extends BlocksOpModeCompanion {
         claw.command(direction);
     }
 
-    @ExportToBlocks(comment = "Enables teleoperated claw movement with gamepad")
+    @ExportToBlocks(comment = "Enable teleoperated claw movement with gamepad (b, a)")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Claw claw =
                 new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
@@ -26,12 +25,12 @@ public class Claw extends BlocksOpModeCompanion {
         claw.control();
     }
 
-    @ExportToBlocks(comment = "Returns the OPEN Direction")
+    @ExportToBlocks(comment = "Return the OPEN Direction")
     public static Direction OPEN() {
         return Direction.OPEN;
     }
 
-    @ExportToBlocks(comment = "Returns the CLOSE Direction")
+    @ExportToBlocks(comment = "Return the CLOSE Direction")
     public static Direction CLOSE() {
         return Direction.CLOSE;
     }
