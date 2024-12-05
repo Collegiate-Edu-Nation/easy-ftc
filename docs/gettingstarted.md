@@ -196,6 +196,8 @@ Before we can dive into coding, follow the Install section of the README
 
             drive.command(Drive.Direction.FORWARD, 3, 0.5);
 
+    Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
+
     
     <details>
     <summary>Autonomous - Final Code</summary>
@@ -230,8 +232,6 @@ Before we can dive into coding, follow the Install section of the README
     </details>
 
 
-    Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
-
     Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
 
 === "Blockly"
@@ -262,9 +262,18 @@ Before we can dive into coding, follow the Install section of the README
     Let's see how to make your robot drive
 
     * In the 'Java Classes' dropdown, click Drive
+    <br>![Java Classes](./img/blk/gs/javaClasses.png)
     * Drag the 'control' block to 'Methods'
+    <br>![Control](./img/blk/gs/control.png)
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
+
+
+    <details>
+    <summary>TeleOp - Final Code</summary>
+    ![TeleOp - Final Code](./img/blk/gs/teleFinal.png)
+    </details>
+
 
     <h3>Autonomous</h3>
 
@@ -288,12 +297,13 @@ Before we can dive into coding, follow the Install section of the README
     To make your robot drive forward at half-power for 3 seconds
 
     * In the 'Java Classes' dropdown, click Drive
-    * Drag the 'command' block to the blue if statement
+    <br>![Java Classes](./img/blk/gs/javaClasses.png)
+    * Drag the 'command' block to 'Methods'
+    <br>![Command](./img/blk/gs/command.png)
     * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
-    * Click the 'Math' submenu 
-    * Drag two '0' blocks to the 'command' block
-    * Change the second argument to 3
-    * Change the third to 0.5
+    <br>![Forward](./img/blk/gs/forward.png)
+    * Change 'Time' to 3 and 'Power' to 0.5
+    <br>![Time and Power](./img/blk/gs/timePower.png)
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -302,16 +312,31 @@ Before we can dive into coding, follow the Install section of the README
     This is where state() is used
 
     * In the 'Java Classes' dropdown, click Color
-    * Drag the 'state' block to the blue if statement
+    <br>![Color](./img/blk/gs/color.png)
+    * Drag the 'state' block to 'Methods' (it won't click in yet)
+    <br>![State](./img/blk/gs/state.png)
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
-    * In the 'logic' submenu, drag another if statement underneath the 'command' block
-    * In that same submenu, drag an 'equals' block to the first line of the if statement
+    * Click the 'Logic' submenu
+    <br>![Logic](./img/blk/gs/logic.png)
+    * Drag another if statement underneath the 'command' block
+    <br>![If](./img/blk/gs/if.png)
+    * In that same submenu, drag an 'equals' block to the first line of this if statement
+    <br>![Equals](./img/blk/gs/equals.png)
     * Move 'state' to the left half of the 'equals' block
     * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
-    * Copy and paste the existing 'command' block to be inside the if statement
+    <br>![State Equals Blue](./img/blk/gs/stateEqualsBlue.png)
+    * Copy and paste the existing 'command' block to be inside this if statement
+    <br>![If then Command](./img/blk/gs/ifThenCommand.png)
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
+
+
+    <details>
+    <summary>Autonomous - Final Code</summary>
+    ![Autonomous - Final Code](./img/blk/gs/autoFinal.png)
+    </details>
+
 
     Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
