@@ -241,9 +241,9 @@ Before we can dive into coding, follow the Install section of the README
     First, create an OpMode in the blocks editor Web UI
 
     * Press 'Create New OpMode'
-    <br>![Create New OpMode](./img/blk/gs/new.png)
+    <br>![Create New OpMode](./img/blk/gs/new.png){ width=150 }
     * Enter a name and use the default sample titled 'BasicOpMode'
-    <br>![Create New OpMode](./img/blk/gs/newDialog.png)
+    <br>![Create New OpMode](./img/blk/gs/newDialog.png){ width=550 }
     * Press ok
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
@@ -253,7 +253,7 @@ Before we can dive into coding, follow the Install section of the README
 
     <details>
     <summary>TeleOp - Starting Code</summary>
-    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png)
+    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png){ width=500 }
     </details>
 
 
@@ -262,16 +262,16 @@ Before we can dive into coding, follow the Install section of the README
     Let's see how to make your robot drive
 
     * In the 'Java Classes' dropdown, click Drive
-    <br>![Java Classes](./img/blk/gs/javaClasses.png)
+    <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
     * Drag the 'control' block to 'Methods'
-    <br>![Control](./img/blk/gs/control.png)
+    <br>![Control](./img/blk/gs/control.png){ width=225 }
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
 
 
     <details>
     <summary>TeleOp - Final Code</summary>
-    ![TeleOp - Final Code](./img/blk/gs/teleFinal.png)
+    ![TeleOp - Final Code](./img/blk/gs/teleFinal.png){ width=500 }
     </details>
 
 
@@ -281,14 +281,14 @@ Before we can dive into coding, follow the Install section of the README
 
     * Create a new OpMode following the instructions above
     * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
-    <br>![Annotation](./img/blk/gs/annotation.png)
+    <br>![Annotation](./img/blk/gs/annotation.png){ width=300 }
     * Delete the green while loop block
-    <br>![Loop](./img/blk/gs/loop.png)
+    <br>![Loop](./img/blk/gs/loop.png){ width=400 }
 
 
     <details>
     <summary>Autonomous - Starting Code</summary>
-    ![Autonomous - Starting Code](./img/blk/gs/autoStart.png)
+    ![Autonomous - Starting Code](./img/blk/gs/autoStart.png){ width=400 }
     </details>
 
 
@@ -297,13 +297,13 @@ Before we can dive into coding, follow the Install section of the README
     To make your robot drive forward at half-power for 3 seconds
 
     * In the 'Java Classes' dropdown, click Drive
-    <br>![Java Classes](./img/blk/gs/javaClasses.png)
+    <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
     * Drag the 'command' block to 'Methods'
-    <br>![Command](./img/blk/gs/command.png)
+    <br>![Command](./img/blk/gs/command.png){ width=275 }
     * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
-    <br>![Forward](./img/blk/gs/forward.png)
+    <br>![Forward](./img/blk/gs/forward.png){ width=350 }
     * Change 'Time' to 3 and 'Power' to 0.5
-    <br>![Time and Power](./img/blk/gs/timePower.png)
+    <br>![Time and Power](./img/blk/gs/timePower.png){ width=150 }
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -312,23 +312,23 @@ Before we can dive into coding, follow the Install section of the README
     This is where state() is used
 
     * In the 'Java Classes' dropdown, click Color
-    <br>![Color](./img/blk/gs/color.png)
+    <br>![Color](./img/blk/gs/color.png){ width=150 }
     * Drag the 'state' block to 'Methods' (it won't click in yet)
-    <br>![State](./img/blk/gs/state.png)
+    <br>![State](./img/blk/gs/state.png){ width=250 }
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
     * Click the 'Logic' submenu
-    <br>![Logic](./img/blk/gs/logic.png)
+    <br>![Logic](./img/blk/gs/logic.png){ width=100 }
     * Drag another if statement underneath the 'command' block
-    <br>![If](./img/blk/gs/if.png)
+    <br>![If](./img/blk/gs/if.png){ width=90 }
     * In that same submenu, drag an 'equals' block to the first line of this if statement
-    <br>![Equals](./img/blk/gs/equals.png)
+    <br>![Equals](./img/blk/gs/equals.png){ width=200 }
     * Move 'state' to the left half of the 'equals' block
     * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
-    <br>![State Equals Blue](./img/blk/gs/stateEqualsBlue.png)
+    <br>![State Equals Blue](./img/blk/gs/stateEqualsBlue.png){ width=600 }
     * Copy and paste the existing 'command' block to be inside this if statement
-    <br>![If then Command](./img/blk/gs/ifThenCommand.png)
+    <br>![If then Command](./img/blk/gs/ifThenCommand.png){ width=500 }
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 

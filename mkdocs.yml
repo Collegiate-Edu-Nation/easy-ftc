@@ -29,6 +29,7 @@ theme:
 
 markdown_extensions:
   - tables
+  - attr_list
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
