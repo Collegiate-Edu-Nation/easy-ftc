@@ -279,7 +279,7 @@ Before we can dive into coding, follow the Install section of the README
 
     <details>
     <summary>Autonomous - Starting Code</summary>
-    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png)
+    ![Autonomous - Starting Code](./img/blk/gs/autoStart.png)
     </details>
 
 
