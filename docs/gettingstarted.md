@@ -244,7 +244,7 @@ Before we can dive into coding, follow the Install section of the README
     <br>![Create New OpMode](./img/blk/gs/new.png){ width=150 }
     * Enter a name and use the default sample titled 'BasicOpMode'
     <br>![Create New OpMode](./img/blk/gs/newDialog.png){ width=550 }
-    * Press ok
+    * Press OK
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
 
@@ -288,7 +288,7 @@ Before we can dive into coding, follow the Install section of the README
 
     <details>
     <summary>Autonomous - Starting Code</summary>
-    ![Autonomous - Starting Code](./img/blk/gs/autoStart.png){ width=400 }
+    ![Autonomous - Starting Code](./img/blk/gs/autoStart.png){ width=350 }
     </details>
 
 
