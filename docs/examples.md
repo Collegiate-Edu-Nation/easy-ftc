@@ -9,8 +9,6 @@ Examples are provided in the form of code (either Java or Blockly) that must be 
 ## OpModes
 Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but command() can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter (and if no 'Methods' section is included, then either command() or control() can be used).
 
-<i>Note the locations of Imports, Additional, Construction, and Methods.</i>
-
 === "Java"
 
     <details>
@@ -65,6 +63,9 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         }
 
     </details>
+
+
+    <i>Note the locations of Imports, Additional, Construction, and Methods.</i>
 
 
     ## Example Structure
@@ -541,6 +542,100 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <summary>Autonomous</summary>
 
     </details>
+
+
+    <i>Note the locations of Additional and Methods.</i>
+
+
+    ## MyBlocks
+    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java)
+
+    
+    <details>
+    <summary>TeleOp</summary>
+
+        package org.firstinspires.ftc.teamcode;
+
+        import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
+        import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+        import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
+        // Imports
+
+        public class Arm extends BlocksOpModeCompanion {
+            @ExportToBlocks(comment = "Initiate an automated arm movement",
+                    parameterLabels = {"Direction", "Time", "Power"})
+            public static void command(Direction direction, double time, double power) {
+                org.edu_nation.easy_ftc.mechanism.Arm arm =
+                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                                .build();
+                arm.command(direction, time, power);
+            }
+
+            @ExportToBlocks(
+                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
+                    parameterLabels = {"Power"})
+            public static void control(double power) {
+                // Construction
+                arm.control(power);
+            }
+
+            @ExportToBlocks(
+                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
+            public static void control() {
+                // Construction
+                arm.control();
+            }
+            
+            // Direction methods ...
+        }
+
+    </details>
+
+
+    <details>
+    <summary>Autonomous</summary>
+
+        package org.firstinspires.ftc.teamcode;
+
+        import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
+        import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+        import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
+        // Imports
+
+        public class Arm extends BlocksOpModeCompanion {
+            @ExportToBlocks(comment = "Initiate an automated arm movement",
+                    parameterLabels = {"Direction", "Time", "Power"})
+            public static void command(Direction direction, double time, double power) {
+                // Construction
+                arm.command(direction, time, power);
+            }
+
+            @ExportToBlocks(
+                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
+                    parameterLabels = {"Power"})
+            public static void control(double power) {
+                org.edu_nation.easy_ftc.mechanism.Arm arm =
+                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                                .gamepad(gamepad1).build();
+                arm.control(power);
+            }
+
+            @ExportToBlocks(
+                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
+            public static void control() {
+                org.edu_nation.easy_ftc.mechanism.Arm arm =
+                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                                .gamepad(gamepad1).build();
+                arm.control();
+            }
+            
+            // Direction methods ...
+        }
+    
+    </details>
+
+
+    <i>Note the locations of Imports and Construction.</i>
     
 
     ## Example Structure
