@@ -534,13 +534,13 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>TeleOp</summary>
-
+    <br>![TeleOp](./img/blk/ex/tele.png){ width=435 }
     </details>
 
 
     <details>
     <summary>Autonomous</summary>
-
+    <br>![Autonomous](./img/blk/ex/auto.png){ width=350 }
     </details>
 
 
@@ -548,7 +548,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
 
     ## MyBlocks
-    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java)
+    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java).
 
     
     <details>
@@ -646,4 +646,22 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     * <b>Methods</b>: easy-ftc methods called on constructed objects
     * <b>Notes</b>: any relevant details about using the example
 
+    ## Examples
+
+    ### Basic Use
+
+
+    <details>
+    <summary>Control of Motor Mechanism</summary>
     
+    ### Methods
+
+    <br>![Control](./img/blk/ex/control.png){ width=225 }
+
+    ### Notes
+    * The power level of the mechanism can be scaled down (the default is full power)
+
+        <br>![Control](./img/blk/ex/controlMultiplier.png){ width=285 }
+
+    </details>
+
