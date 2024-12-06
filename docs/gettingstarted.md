@@ -41,8 +41,6 @@ Before we can dive into coding, follow the Install section of the README
 
     First, create a Linear OpMode- note that easy-ftc only works with Linear OpModes
 
-    <i>Note the locations of Imports, Construction, and Methods</i>
-
 
     <details>
     <summary>TeleOp - Starting Code</summary>
@@ -67,6 +65,9 @@ Before we can dive into coding, follow the Install section of the README
             }
         }
     </details>
+
+
+    <i>Note the locations of Imports, Construction, and Methods</i>
 
 
     Before we can use easy-ftc, we'll need to import the relevant classes. Add the following to 'Imports'
@@ -147,6 +148,9 @@ Before we can dive into coding, follow the Install section of the README
             }
         }
     </details>
+    
+
+    <i>Note the locations of Imports, Construction, and Methods</i>
 
 
     Import Drive
@@ -245,16 +249,20 @@ Before we can dive into coding, follow the Install section of the README
     * Enter a name and use the default sample titled 'BasicOpMode'
     <br>![Create New OpMode](./img/blk/gs/newDialog.png){ width=550 }
     * Press OK
+    * Move the green while loop block to before the blue if statement
+    <br>![While and If](./img/blk/gs/whileAndIf.png){ width=400 }
+    * Delete the blue if statement block
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
-
-    <i>Note the location of Methods</i>
 
 
     <details>
     <summary>TeleOp - Starting Code</summary>
-    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png){ width=500 }
+    ![TeleOp - Starting Code](./img/blk/gs/teleStart.png){ width=435 }
     </details>
+
+
+    <i>Note the location of Methods</i>
 
 
     If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism to 'Methods'. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
@@ -271,7 +279,7 @@ Before we can dive into coding, follow the Install section of the README
 
     <details>
     <summary>TeleOp - Final Code</summary>
-    ![TeleOp - Final Code](./img/blk/gs/teleFinal.png){ width=500 }
+    ![TeleOp - Final Code](./img/blk/gs/teleFinal.png){ width=435 }
     </details>
 
 
@@ -290,6 +298,9 @@ Before we can dive into coding, follow the Install section of the README
     <summary>Autonomous - Starting Code</summary>
     ![Autonomous - Starting Code](./img/blk/gs/autoStart.png){ width=350 }
     </details>
+
+
+    <i>Note the location of Methods</i>
 
 
     As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (direction, measurement, and power)
