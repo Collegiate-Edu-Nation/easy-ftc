@@ -760,3 +760,24 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                         .build();
 
     </details>
+
+
+    ### Advanced Use
+
+
+    <details>
+    <summary>Control with Command Sequence</summary>
+
+    ### Additional
+
+    <br>![Starting State](./img/blk/ex/startingState.png){ width=385 }
+
+    ### Methods
+
+    <br>![State Machine](./img/blk/ex/stateMachine.png){ width=600 }
+
+    ### Notes 
+    * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
+    * Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
+
+    </details>
