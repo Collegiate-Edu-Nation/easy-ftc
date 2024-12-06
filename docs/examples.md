@@ -656,12 +656,107 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     
     ### Methods
 
-    <br>![Control](./img/blk/ex/control.png){ width=225 }
+    <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
 
     ### Notes
     * The power level of the mechanism can be scaled down (the default is full power)
 
-        <br>![Control](./img/blk/ex/controlMultiplier.png){ width=285 }
+        <br>![Control Multiplier](./img/blk/ex/controlMultiplier.png){ width=285 }
 
     </details>
 
+
+    <details>
+    <summary>Command of Motor Mechanism</summary>
+    
+    ### Methods
+
+    <br>![Command Motor](./img/blk/ex/commandMotor.png){ width=450 }
+
+    </details>
+
+
+    <details>
+    <summary>Modify Motor Mechanism Attributes</summary>
+    
+    ### Imports
+
+        import com.qualcomm.robotcore.hardware.DcMotor;
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Lift lift =
+                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                        .count(2)                                    // use two motors for this mechanism
+                        .names(new String[]{"liftLeft", "newName"})  // change the names of the motors
+                        .reverse()                                   // reverse all motors in the mechanism
+                        .reverse("liftLeft")                         // reverse specific motor
+                        .reverse(new String[]{"liftLeft", "newName}) // reverse multiple specific motors
+                        .behavior(DcMotor.ZeroPowerBehavior.FLOAT)   // change the zero-power behavior of the motors
+                        .build();
+
+    </details>
+
+
+    <details>
+    <summary>Control of Servo Mechanism</summary>
+    
+    ### Methods
+
+    <br>![Control Servo](./img/blk/ex/controlServo.png){ width=225 }
+
+    </details>
+
+
+    <details>
+    <summary>Command of Servo Mechanism</summary>
+    
+    ### Methods
+
+    <br>![Command Servo](./img/blk/ex/commandServo.png){ width=450 }
+
+    </details>
+
+
+    <details>
+    <summary>Modify Servo Mechanism Attributes</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Claw claw =
+                new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
+                        .count(2)                                    // use two servos for this mechanism
+                        .names(new String[]{"clawLeft", "newName"})  // change the names of the servos
+                        .reverse()                                   // reverse all servos in the mechanism
+                        .reverse("clawLeft")                         // reverse specific servo
+                        .reverse(new String[]{"clawLeft", "newName}) // reverse multiple specific servos
+                        .open(0.8).close(0.2)                        // adjust open and close positions
+                        .delay(3)                                    // adjust the delay for non-smooth movement
+                        .build();
+
+    </details>
+
+
+    <details>
+    <summary>Read and Display Sensor State</summary>
+
+    ### Methods
+    
+    <br>![Display State](./img/blk/ex/displayState.png){ width=600 }
+
+    </details>
+
+
+    <details>
+    <summary>Modify Sensor Attributes</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.sensor.Distance distance =
+                new org.edu_nation.easy_ftc.sensor.Distance.Builder(hardwareMap)
+                        .name("distanceSensor") // change the name of the sensor
+                        .reverse()              // reverse the sensor state
+                        .threshold(6.0)         // change the distance threshold
+                        .build();
+
+    </details>
