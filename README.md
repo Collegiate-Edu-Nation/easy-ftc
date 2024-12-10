@@ -43,16 +43,6 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 * Each option requires that you download this repo's latest Android archive
 * Click on 'easy-ftc-release.aar' at https://github.com/collegiate-edu-nation/easy-ftc/releases
 
-### Blockly
-* While at the previous link, also click on 'myBlocks.zip'
-* Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
-    * <i>Each Java file in 'myBlocks' will control a specific mechanism/sensor</i>
-* Modify the myBlocks Java files to change behavior
-    * <i>e.g. add .type(Drive.Type.MECANUM) to Drive.Builder in Drive.java</i>
-* Press the gear icon on the bottom right with the title 'Build Everything'
-* A new menu option 'Java Classes' should be visible in the Blockly GUI now
-* Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
-
 ### OnBot Java
 * Upload the .aar using OnBot Java's GUI
 * Press the gear icon on the bottom right with the title 'Build Everything'
@@ -65,6 +55,16 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
             implementation project(':FtcRobotController')
             implementation files('../libs/easy-ftc-release.aar')
         }
+
+### Blockly
+* While at the previous link, also click on 'myBlocks.zip'
+* Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
+    * <i>Each Java file in 'myBlocks' will control a specific mechanism/sensor</i>
+* Modify the myBlocks Java files to change behavior
+    * <i>e.g. add .type(Drive.Type.MECANUM) to Drive.Builder in Drive.java</i>
+* Press the gear icon on the bottom right with the title 'Build Everything'
+* A new menu option 'Java Classes' should be visible in the Blockly GUI now
+* Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
 
 ## Dev Setup
 The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio
