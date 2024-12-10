@@ -22,8 +22,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
-        this.up = builder.up;
-        this.down = builder.down;
+        this.dir1 = builder.dir1;
+        this.dir2 = builder.dir2;
         this.mechanismName = builder.mechanismName;
         init();
     }
@@ -51,16 +51,16 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      * <li>count = 1
      * <li>names = {"arm"}
      * <li>behavior = BRAKE
-     * <li>up = 0.0
-     * <li>down = 0.0
+     * <li>dir1 = 0.0
+     * <li>dir2 = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"arm"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
-        private double up = 0.0;
-        private double down = 0.0;
+        private double dir1 = 0.0;
+        private double dir2 = 0.0;
         private String mechanismName = "Arm";
 
         /**
@@ -174,7 +174,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * @return builder instance
          */
         public Builder up(double up) {
-            this.up = up;
+            this.dir1 = up;
             return this;
         }
 
@@ -185,7 +185,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * @return builder instance
          */
         public Builder down(double down) {
-            this.down = down;
+            this.dir2 = down;
             return this;
         }
 
@@ -196,7 +196,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
          *         has been set
-         * @throws IllegalStateException if up &lt; down
+         * @throws IllegalStateException if dir1 &lt; dir2
          */
         @Override
         public Arm build() {
@@ -208,9 +208,9 @@ public class Arm extends MotorMechanism<Arm.Direction> {
                 throw new IllegalStateException(
                         "One of: Arm.Builder().diameter(), Arm.Builder().length(), or Arm.Builder().gearing() has been set without enabling Arm.Builder().encoder(). Enable Arm.Builder().encoder()");
             }
-            if (this.up < this.down) {
-                throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "
-                        + this.down
+            if (this.dir1 < this.dir2) {
+                throw new IllegalStateException("Unexpected up and down values: " + this.dir1 + ", "
+                        + this.dir2
                         + ", passed to Arm.Builder().up() and Arm.Builder().down(). Up must be greater than down");
             }
             return new Arm(this);
@@ -247,8 +247,8 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         Arrays.fill(unscaledMovements, direction);
         Arrays.fill(movements, power * direction);
 
-        // setPowers if up and down limits haven't been specified
-        if (up == down) {
+        // setPowers if limits haven't been specified
+        if (dir1 == dir2) {
             setPowers(movements);
         } else {
             // setPowers if limits have not been reached
@@ -283,7 +283,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         Arrays.fill(unscaledMovements, movement);
-        moveForMeasurement(unscaledMovements, measurement, power, up != down);
+        moveForMeasurement(unscaledMovements, measurement, power, dir1 != dir2);
     }
 
     /** Sets arm motor movements based on bumpers */

@@ -22,8 +22,8 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         this.count = builder.count;
         this.names = builder.names;
         this.behavior = builder.behavior;
-        this.up = builder.up;
-        this.down = builder.down;
+        this.dir1 = builder.dir1;
+        this.dir2 = builder.dir2;
         this.mechanismName = builder.mechanismName;
         init();
     }
@@ -51,16 +51,16 @@ public class Lift extends MotorMechanism<Lift.Direction> {
      * <li>count = 1
      * <li>names = {"lift"}
      * <li>behavior = FLOAT
-     * <li>up = 0.0
-     * <li>down = 0.0
+     * <li>dir1 = 0.0
+     * <li>dir2 = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"lift"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
-        private double up = 0.0;
-        private double down = 0.0;
+        private double dir1 = 0.0;
+        private double dir2 = 0.0;
         private String mechanismName = "Lift";
 
         /**
@@ -174,7 +174,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * @return builder instance
          */
         public Builder up(double up) {
-            this.up = up;
+            this.dir1 = up;
             return this;
         }
 
@@ -185,7 +185,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * @return builder instance
          */
         public Builder down(double down) {
-            this.down = down;
+            this.dir2 = down;
             return this;
         }
 
@@ -196,7 +196,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
          *         has been set
-         * @throws IllegalStateException if up &lt; down
+         * @throws IllegalStateException if dir1 &lt; dir2
          */
         @Override
         public Lift build() {
@@ -208,9 +208,9 @@ public class Lift extends MotorMechanism<Lift.Direction> {
                 throw new IllegalStateException(
                         "One of: Lift.Builder().diameter(), Lift.Builder().length(), or Lift.Builder().gearing() has been set without enabling Lift.Builder().encoder(). Enable Lift.Builder().encoder()");
             }
-            if (this.up < this.down) {
-                throw new IllegalStateException("Unexpected up and down values: " + this.up + ", "
-                        + this.down
+            if (this.dir1 < this.dir2) {
+                throw new IllegalStateException("Unexpected up and down values: " + this.dir1 + ", "
+                        + this.dir2
                         + ", passed to Lift.Builder().up() and Lift.Builder().down(). Up must be greater than down");
             }
             return new Lift(this);
@@ -251,8 +251,8 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         }
         Arrays.fill(unscaledMovements, direction);
 
-        // set powers if up and down limits haven't been specified
-        if (up == down) {
+        // set powers if limits haven't been specified
+        if (dir1 == dir2) {
             setPowers(movements, multiplier);
         } else {
             // setPowers if limits have not been reached
@@ -287,7 +287,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         double movement = languageToDirection(direction);
         double[] unscaledMovements = new double[count];
         Arrays.fill(unscaledMovements, movement);
-        moveForMeasurement(unscaledMovements, measurement, power, up != down);
+        moveForMeasurement(unscaledMovements, measurement, power, dir1 != dir2);
     }
 
     /** Set lift motor movements based on triggers */

@@ -25,8 +25,8 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected IMU imu;
     protected boolean encoder;
     protected DcMotor.ZeroPowerBehavior behavior;
-    protected double up;
-    protected double down;
+    protected double dir1;
+    protected double dir2;
     protected double velocityMultiplier;
     protected double distanceMultiplier;
     protected double diameter;
@@ -350,14 +350,14 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         if (direction > 0) {
             for (int position : currentPositions) {
-                move = (position < up);
+                move = (position < dir1);
                 if (!move) {
                     break;
                 }
             }
         } else {
             for (int position : currentPositions) {
-                move = (position > down);
+                move = (position > dir2);
                 if (!move) {
                     break;
                 }
@@ -373,7 +373,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         boolean move = true;
 
         if (direction > 0) {
-            int[] positions = calculatePositions(up, movements);
+            int[] positions = calculatePositions(dir1, movements);
             for (int i = 0; i < count; i++) {
                 move = (currentPositions[i] < positions[i]);
                 if (!move) {
@@ -381,9 +381,9 @@ abstract class MotorMechanism<E> extends Mechanism {
                 }
             }
         } else {
-            int[] positions = calculatePositions(down, movements);
-            if (down < 0) {
-                // calculatePositions is absolute, so reverse values if negative value for down
+            int[] positions = calculatePositions(dir2, movements);
+            if (dir2 < 0) {
+                // calculatePositions is absolute, so reverse values if negative value for dir2
                 // is used
                 for (int i = 0; i < count; i++) {
                     positions[i] *= -1;
