@@ -67,25 +67,27 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 * Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
 
 ## Dev Setup
-The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio
+The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
+
+    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
 
 ### Nix
 Nix is my preferred approach for setting up the development environment. Linux and macOS are supported
 
 <b>Must install flake-enabled Nix before running</b>
 
-Launch development environment
+* Enter directory
 
-    nix develop github:collegiate-edu-nation/easy-ftc
+        cd easy-ftc
+
+* Launch development environment
+
+        nix develop
+
+* Then open your preferred IDE from this shell
 
 ### Non-Nix
 The project can also be imported into Android Studio, where Windows is supported as well
-
-<b>Must install git before running</b>
-
-    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
-
-Then import the project in Android Studio
 
 To generate documentation, you must also install
 
