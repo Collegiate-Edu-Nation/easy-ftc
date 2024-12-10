@@ -106,7 +106,7 @@ To generate documentation, you must also install
 - [x] Support positional limits in command()
 - [x] Update uml
 - [x] Improve code comments (esp. command(), Builder)
-- [ ] Add support for trigger (servo), intake (motor)
+- [x] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
 - [x] Add more examples
 - [x] Add graphics for blocks examples, gettingstarted
