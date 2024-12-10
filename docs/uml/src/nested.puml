@@ -1,5 +1,7 @@
 @startuml
 
+left to right direction
+
 abstract class Mechanism {}
 
 abstract class "Builder<T extends Builder<T>>" as Mechanism_Builder {
