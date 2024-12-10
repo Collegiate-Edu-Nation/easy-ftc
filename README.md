@@ -16,7 +16,9 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 | Arm      | Motor Mechanism |
 | Claw     | Servo Mechanism |
 | Drive    | Motor Mechanism |
+| Intake   | Motor Mechanism |
 | Lift     | Motor Mechanism |
+| Trigger  | Servo Mechanism |
 | Color    | Sensor          |
 | Distance | Sensor          |
 | Touch    | Sensor          |
@@ -28,7 +30,7 @@ This library greatly simplifies the implementation of common FTC robotics subsys
 
 Additionally, several useful quality-of-life features are included
 * Encoders can be used with minimal setup for either time- or distance-based commands
-* Arm and Lift optionally feature encoder limits on range-of-motion
+* Arm, Intake, and Lift optionally feature encoder limits on range-of-motion
 * Robot and field-centric driving are supported for Mecanum
 * Tank and arcade are supported for Differential
 * Servo-powered mechanisms can optionally leverage smooth-servo control

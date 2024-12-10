@@ -56,6 +56,21 @@ These are the default hardware names. They can be modified via Builder.names(), 
     | 3     | backLeft   |
     | 4     | backRight  |
 
+### Intake
+
+=== "1"
+
+    | Motor | Name    |
+    | ----- | ------- |
+    | 1     | intake  |
+
+=== "2"
+
+    | Motor | Name        |
+    | ----- | ----------- |
+    | 1     | intakeLeft  |
+    | 2     | intakeRight |
+
 ### Lift
 
 === "1"
@@ -70,6 +85,21 @@ These are the default hardware names. They can be modified via Builder.names(), 
     | ----- | --------- |
     | 1     | liftLeft  |
     | 2     | liftRight |
+
+### Trigger
+
+=== "1"
+
+    | Motor | Name     |
+    | ----- | -------- |
+    | 1     | trigger  |
+
+=== "2"
+
+    | Motor | Name         |
+    | ----- | ------------ |
+    | 1     | triggerLeft  |
+    | 2     | triggerRight |
 
 ## Sensors
 

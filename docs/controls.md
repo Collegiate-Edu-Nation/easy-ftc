@@ -7,15 +7,19 @@ hide:
 
 ## Buttons
 
-| Button | Action         |
-| ------ | -------------- |
-| LB     | Lower the Arm  |
-| RB     | Raise the Arm  |
-| A      | Close the Claw |
-| B      | Open the Claw  |
-| LT     | Lower the Lift |
-| RT     | Raise the Lift |
-| Option | Reset the Gyro |
+| Button | Action            |
+| ------ | ----------------- |
+| LB     | Lower the Arm     |
+| RB     | Raise the Arm     |
+| LT     | Lower the Lift    |
+| RT     | Raise the Lift    |
+| A      | Close the Claw    |
+| B      | Open the Claw     |
+| X      | Close the Trigger |
+| Y      | Open the Trigger  |
+| Up     | Intake Out        |
+| Down   | Intake In         |
+| Option | Reset the Gyro    |
 <hr>
 
 ## Joysticks

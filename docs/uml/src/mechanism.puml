@@ -24,8 +24,8 @@ abstract class MotorMechanism<E> {
     # imu: IMU
     # encoder: boolean
     # behavior: DcMotor.ZeroPowerBehavior
-    # up: double
-    # down: double
+    # dir1: double
+    # dir2: double
     # velocityMultiplier: double
     # distanceMultiplier: double
     # diameter: double
@@ -115,11 +115,28 @@ class Drive<Drive.Direction> {
     - languageToDirectionMecanum(Direction direction): double[]
 }
 
+class Intake<Intake.Direction> {
+    + control(double power)
+    + control()
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(boolean dpadUp, boolean dpadDown): double
+    # languageToDirection(Direction direction): double
+}
+
 class Lift<Lift.Direction> {
     + control(double multiplier)
     + control()
     + command(Direction direction, double measurement, double power)
     # controlToDirection(float lt, float rt): double
+    # languageToDirection(Direction direction): double
+}
+
+class Trigger<Trigger.Direction> {
+    - open: double
+    - close: double
+    + control()
+    + command(Direction direction)
+    # controlToDirection(double current, boolean openButton, boolean closeButton): double
     # languageToDirection(Direction direction): double
 }
 
@@ -129,6 +146,8 @@ Mechanism <|-- ServoMechanism
 MotorMechanism <|-- Arm
 ServoMechanism <|-- Claw
 MotorMechanism <|-- Drive
+MotorMechanism <|-- Intake
 MotorMechanism <|-- Lift
+ServoMechanism <|-- Trigger
 
 @enduml
