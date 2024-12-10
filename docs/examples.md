@@ -762,6 +762,192 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
 
+    ### Enable Features
+
+    <i>As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
+
+    * Encoder limits in control()
+    * Field-centric driving 
+    
+    If these features are must-haves, use Java instead.</i>
+
+
+    <details>
+    <summary>Encoder: Velocity-Based Control</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .encoder()
+                        .gamepad(gamepad1)
+                        .build();
+
+    ### Methods
+
+    <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
+
+    ### Notes
+    * Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Time-Based Command</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .encoder()
+                        .build();
+
+    ### Methods
+
+    <br>![Command Velocity](./img/blk/ex/commandVelocity.png){ width=450 }
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Distance-Based Command</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .encoder().diameter(4).gearing(19.2)
+                        .build();
+
+    ### Methods
+    
+    <br>![Command Distance](./img/blk/ex/commandDistance.png){ width=450 }
+
+    ### Notes
+    * The distance unit used in command() will be the same as what's used in .diameter()
+    * .gearing() is optional here, but correcting it can improve accuracy
+    * The 'Time' parameterLabel in Drive.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Command Limits Using Ticks</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Lift lift =
+                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                        .encoder().up(300).down(-300)
+                        .build();
+
+    ### Methods
+
+    <br>![Limits Ticks](./img/blk/ex/limitsTicks.png){ width=450 }
+
+    </details>
+
+
+    <details>
+    <summary>Encoder: Command Limits Using Distance</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Lift lift =
+                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                        .encoder().diameter(2).gearing(60).up(3).down(-3)
+                        .build();
+
+    ### Methods
+
+    <br>![Limits Distance](./img/blk/ex/limitsDistance.png){ width=450 }
+
+    ### Notes
+    * .gearing() is optional here, but correcting it can improve accuracy
+    * The 'Time' parameterLabel in Lift.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+
+    </details>
+
+
+    <details>
+    <summary>Smooth Servo</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Claw claw =
+                new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
+                        .smooth()
+                        .gamepad(gamepad1) // only needed for teleop
+                        .build();
+
+    ### Notes
+    * The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
+
+            org.edu_nation ...
+                    new org.edu_nation ...
+                            .smooth().increment(0.04).incrementDelay(0.01)
+                            ...
+
+    </details>
+
+
+    <details>
+    <summary>Arcade Drive Control</summary>
+    
+    ### Imports
+
+        import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .layout(Layout.ARCADE)
+                        .gamepad(gamepad1)
+                        .build();
+
+    ### Methods
+
+    <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
+
+    </details>
+
+
+    <details>
+    <summary>Mecanum Drive</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .type(org.edu_nation.easy_ftc.mechanism.Drive.Type.MECANUM)
+                        .gamepad(gamepad1) // only needed for teleop
+                        .build();
+
+    </details>
+
+
+    <details>
+    <summary>Control of Motor Mechanism with Gamepad Deadzone</summary>
+        
+    ### Construction
+
+        org.edu_nation.easy_ftc.mechanism.Lift lift =
+                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                        .gamepad(gamepad1).deadzone(0.1)
+                        .build();
+
+    ### Methods
+
+    <br>![Control Deadzone](./img/blk/ex/controlDeadzone.png){ width=225 }
+
+    ### Notes
+    * Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
+
+    </details>
+
+
     ### Advanced Use
 
 
