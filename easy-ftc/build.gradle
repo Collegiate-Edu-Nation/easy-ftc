@@ -63,7 +63,7 @@ task uml(type: Exec) {
     description = "Generate UML in docs/uml from uml.puml"
 
     workingDir ".."
-    commandLine "/nix/store/spw80606bd9f1617fm07zknsn9ccqsk0-plantuml-1.2024.7/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
+    commandLine "/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
     ignoreExitValue true
 }
 
