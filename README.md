@@ -105,7 +105,7 @@ To generate documentation, you must also install
 - [ ] Add support for trigger (servo), intake (motor)
 - [x] Add naming section
 - [x] Add more examples
-- [ ] Add graphics for blocks examples, gettingstarted
+- [x] Add graphics for blocks examples, gettingstarted
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
