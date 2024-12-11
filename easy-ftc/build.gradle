@@ -5,17 +5,26 @@ plugins {
     id 'com.android.library'
 }
 
-android {
-    namespace "org.edu_nation.easy_ftc"
+// vars
+int tgt = 30
+String dir = '..'
+String bld = 'build'
+String ftcBase = 'org.firstinspires.ftc:'
+String ftcV = ':10.1.1'
+String hardware = ftcBase + 'Hardware' + ftcV
+String core = ftcBase + 'RobotCore' + ftcV
 
-    compileSdk 30
+android {
+    namespace 'org.edu_nation.easy_ftc'
+
+    compileSdk tgt
 
     defaultConfig {
         minSdk 24
-        targetSdk 30
+        targetSdk tgt
         versionCode = 1
-        versionName = "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName = '1.0'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
@@ -27,11 +36,11 @@ android {
 
     // ignore "debug" variant
     variantFilter { variant ->
-        if(variant.name.equals("debug")) {
-            variant.setIgnore(true);
+        if (variant.name == ("debug")) {
+            variant.setIgnore(true)
         }
     }
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,26 +53,27 @@ android {
 
     // set lint baseline
     lint {
-        baseline = file("lint-baseline.xml")
+        baseline = file('lint-baseline.xml')
     }
 }
 
 // create alias for jacoco report
 task coverage(type: Exec) {
-    group = "reporting"
-    description = "Generates Jacoco coverage report as HTML in build/reports/coverage"
+    group = 'reporting'
+    description = 'Generates Jacoco coverage report as HTML in build/reports/coverage'
 
-    workingDir ".."
-    commandLine "./gradlew", "createReleaseUnitTestCoverageReport"
+    workingDir dir
+    commandLine './gradlew', 'createReleaseUnitTestCoverageReport'
 }
 
 // create task for generating uml
 task uml(type: Exec) {
-    group = "build"
-    description = "Generate UML in docs/uml from uml.puml"
+    group = bld
+    description = 'Generate UML in docs/uml from uml.puml'
 
-    workingDir ".."
-    commandLine "/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml", "./docs/uml/src/*.puml", "-o", "../out"
+    workingDir dir
+    commandLine '/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml',
+        './docs/uml/src/*.puml', '-o', '../out'
     ignoreExitValue true
 }
 
@@ -72,8 +82,8 @@ android.libraryVariants.all { variant ->
     if (variant.name == 'release') {
         // generate javadoc
         task apidoc(type: Javadoc, dependsOn: uml) {
-            group = "build"
-            description = "Generate the Javadoc for the public API"
+            group = bld
+            description = 'Generate the Javadoc for the public API'
 
             source = variant.javaCompileProvider.get().source
             classpath = files(((Object) android.bootClasspath.join(File.pathSeparator)))
@@ -84,39 +94,41 @@ android.libraryVariants.all { variant ->
             options {
                 setMemberLevel JavadocMemberLevel.PUBLIC
                 setStylesheetFile file('../docs/stylesheet.css')
-                addBooleanOption("Xdoclint:none", true)
+                addBooleanOption('Xdoclint:none', true)
             }
         }
 
         // generate docs
         task docs(type: Exec, dependsOn: apidoc) {
-            group = "build"
-            description = "Generate Documentation in docs/ using Jekyll, PlantUML, and Javadoc"
+            group = bld
+            description = 'Generate Documentation in docs/ using Jekyll, PlantUML, and Javadoc'
 
-            workingDir ".."
-            commandLine "mkdocs", "build"
+            workingDir dir
+            commandLine 'mkdocs', bld
         }
     }
 }
 
 // create task for compressing myBlocks to a zip archive
 task myBlocks(type: Zip) {
-    group = "build"
-    description = "Compress myBlocks to a zip archive for release"
+    group = bld
+    description = 'Compress myBlocks to a zip archive for release'
 
-    archiveBaseName = "myBlocks"
+    archiveBaseName = 'myBlocks'
     destinationDirectory = file('build/outputs/zip')
-    from (files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
+    from(files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
 }
 
 dependencies {
-    implementation 'org.firstinspires.ftc:RobotCore:10.1.1'
-    implementation 'org.firstinspires.ftc:Hardware:10.1.1'
-
+    // src
+    implementation core
+    implementation hardware
     implementation 'androidx.appcompat:appcompat:1.2.0'
+
+    // test
+    testImplementation core
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:5.14.2'
     testImplementation 'org.apache.commons:commons-lang3:3.17.0'
-    testImplementation 'org.firstinspires.ftc:RobotCore:10.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 }

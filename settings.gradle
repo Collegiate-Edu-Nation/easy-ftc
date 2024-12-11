@@ -8,5 +8,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "easy-ftc"
+rootProject.name = 'easy-ftc'
 include ':easy-ftc'
