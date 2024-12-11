@@ -197,6 +197,7 @@ Other prefixes may be acceptable (e.g. 'uml:'), so use your discretion
 - Prefix relevant task followed by a forward slash (see [Prefixes](#prefixes-1))
 
 #### Prefixes
+
 - 'feature/' - when adding a feature
 - 'update/' - when completing project-wide updates w/ fixes
 - 'docs/' - when making major doc modifications
