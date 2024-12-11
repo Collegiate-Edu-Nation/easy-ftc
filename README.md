@@ -97,6 +97,10 @@ To generate documentation, you must also install
 * mkdocs
 * mkdocs-material
 
+Correct the path to the plantuml binary in build.gradle, then run the docs task
+
+    ./gradlew docs
+
 ## ToDo
 ### Release
 - [x] Add reverse(String[] names) wrapper
