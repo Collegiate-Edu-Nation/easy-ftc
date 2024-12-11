@@ -29,7 +29,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
     }
 
     /**
-     * Construct an Intake object using the Builder design pattern
+     * Construct an {@link Intake} object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

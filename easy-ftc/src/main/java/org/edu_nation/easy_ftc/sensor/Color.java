@@ -25,7 +25,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
     }
 
     /**
-     * Construct a Color sensor object using the Builder design pattern
+     * Construct a {@link Color} sensor object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

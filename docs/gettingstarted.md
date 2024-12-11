@@ -79,7 +79,7 @@ Before we can dive into coding, follow the Install section of the README
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
 
-    Drive is a concrete class, which means we must instantiate it before our hardware can be controlled. easy-ftc relies on the Builder design pattern to accomplish this, as it enforces immutability (valuable for complex, stateful objects like we see in robotics) and makes arguments more explicit. View Examples or the Javadoc for more details on valid Builder methods
+    Drive is a concrete class, which means we must instantiate it before our hardware can be controlled. easy-ftc relies on the builder design pattern to accomplish this, as it enforces immutability (valuable for complex, stateful objects like we see in robotics) and makes arguments more explicit. View Examples or the Javadoc for more details on valid Builder methods
 
     Add this to 'Construction'- note that we must pass instances of the opMode (this), hardwareMap, and gamepad1
 

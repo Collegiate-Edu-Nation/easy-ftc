@@ -21,7 +21,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
     }
 
     /**
-     * Construct a Touch sensor object using the Builder design pattern
+     * Construct a {@link Touch} sensor object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

@@ -23,7 +23,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
     }
 
     /**
-     * Construct a Distance sensor object using the Builder design pattern
+     * Construct a {@link Distance} sensor object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

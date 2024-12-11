@@ -29,7 +29,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
     }
 
     /**
-     * Construct a Lift object using the Builder design pattern
+     * Construct a {@link Lift} object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 

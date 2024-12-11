@@ -29,7 +29,7 @@ public class Trigger extends ServoMechanism<Trigger.Direction> {
     }
 
     /**
-     * Construct a Trigger object using the Builder design pattern
+     * Construct a {@link Trigger} object using the builder design pattern
      * <p>
      * <b>Basic Usage:</b>
      * 
