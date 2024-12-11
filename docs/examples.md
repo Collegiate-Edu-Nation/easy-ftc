@@ -408,12 +408,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        import org.edu_nation.easy_ftc.mechanism.Drive.Type;
         
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
-            .type(Type.MECANUM)
+            .type(Drive.Type.MECANUM)
             .gamepad(gamepad1)  // only needed for teleop
             .build();
 
@@ -426,13 +425,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        import org.edu_nation.easy_ftc.mechanism.Drive.Type;
         import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
         
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
-            .type(Type.MECANUM).layout(Layout.FIELD)
+            .type(Drive.Type.MECANUM).layout(Layout.FIELD)
             .gamepad(gamepad1)  // only needed for teleop
             .build();
 
