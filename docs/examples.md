@@ -4,9 +4,11 @@ hide:
 ---
 
 # Examples
+
 Examples are provided in the form of code (either Java or Blockly) that must be added to an OpMode. Click an example's dropdown to see its contents.
 
 ## OpModes
+
 Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but command() can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter (and if no 'Methods' section is included, then either command() or control() can be used).
 
 === "Java"
@@ -23,11 +25,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         @TeleOp(name="Tele", group="dev")
         public class Tele extends LinearOpMode {
             // Additional
-        
+
             @Override
             public void runOpMode() {
                 // Construction
-                
+
                 waitForStart();
                 while (opModeIsActive()) {
                     // Methods
@@ -46,15 +48,15 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
         // Imports
-        
+
         @Autonomous(name="Auto", group="dev")
         public class Auto extends LinearOpMode {
             // Additional
-        
+
             @Override
             public void runOpMode() {
                 // Construction
-                
+
                 waitForStart();
                 if (opModeIsActive()) {
                     // Methods
@@ -83,17 +85,17 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Motor Mechanism</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
             .gamepad(gamepad1)
             .build();
-    
+
     ### Methods
 
         drive.control();
@@ -108,16 +110,16 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Command of Motor Mechanism</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Arm;
-        
+
     ### Construction
 
         Arm arm = new Arm.Builder(this, hardwareMap)
             .build();
-    
+
     ### Methods
 
         arm.command(Arm.Direction.UP, 2, 0.5);
@@ -127,12 +129,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Motor Mechanism Attributes</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Lift;
         import com.qualcomm.robotcore.hardware.DcMotor;
-        
+
     ### Construction
 
         Lift lift = new Lift.Builder(this, hardwareMap)
@@ -149,17 +151,17 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Servo Mechanism</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Claw;
-        
+
     ### Construction
 
         Claw claw = new Claw.Builder(this, hardwareMap)
             .gamepad(gamepad1)
             .build();
-    
+
     ### Methods
 
         claw.control();
@@ -169,16 +171,16 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Command of Servo Mechanism</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Claw;
-        
+
     ### Construction
 
         Claw claw = new Claw.Builder(this, hardwareMap)
             .build();
-    
+
     ### Methods
 
         claw.command(Claw.Direction.CLOSE);
@@ -188,11 +190,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Servo Mechanism Attributes</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Claw;
-        
+
     ### Construction
 
         Claw claw = new Claw.Builder(this, hardwareMap)
@@ -230,11 +232,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Sensor Attributes</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.sensor.Distance;
-        
+
     ### Construction
 
         Distance distance = new Distance.Builder(hardwareMap)
@@ -251,11 +253,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Velocity-Based Control</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -275,11 +277,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Time-Based Command</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -296,11 +298,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Distance-Based Command</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -321,11 +323,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Limits Using Ticks</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Lift;
-        
+
     ### Construction
 
         Lift lift = new Lift.Builder(this, hardwareMap)
@@ -338,11 +340,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Limits Using Distance</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Lift;
-        
+
     ### Construction
 
         Lift lift = new Lift.Builder(this, hardwareMap)
@@ -358,11 +360,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Smooth Servo</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Claw;
-        
+
     ### Construction
 
         Claw claw = new Claw.Builder(this, hardwareMap)
@@ -382,12 +384,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Arcade Drive Control</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
         import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -404,11 +406,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Mecanum Drive</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -421,12 +423,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Field-Centric Mecanum Drive</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive;
         import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
@@ -446,11 +448,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Motor Mechanism with Gamepad Deadzone</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Lift;
-        
+
     ### Construction
 
         Lift lift = new Lift.Builder(this, hardwareMap)
@@ -478,17 +480,17 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         import org.edu_nation.easy_ftc.mechanism.Drive;
 
     ### Additional
-    
+
         public enum State {
             ROTATE_LEFT, ROTATE_RIGHT
         }
-        
+
     ### Construction
 
         Drive drive = new Drive.Builder(this, hardwareMap)
             .gamepad(gamepad1)
             .build();
-        
+
         // define the starting state
         State state = State.ROTATE_LEFT;
 
@@ -511,7 +513,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             default:
                 state = State.ROTATE_LEFT;
         }
-        
+
         // terminate sequence when dpad_left is pressed
         if (gamepad1.dpad_left) {
             state = State.ROTATE_LEFT;
@@ -520,15 +522,13 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         // normal drivetrain control
         drive.control();
 
-    ### Notes 
+    ### Notes
     * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
     * Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
 
     </details>
 
-
 === "Blockly"
-
 
     <details>
     <summary>TeleOp</summary>
@@ -548,7 +548,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     ## MyBlocks
     As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java).
 
-    
+
     <details>
     <summary>TeleOp</summary>
 
@@ -583,7 +583,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                 // Construction
                 arm.control();
             }
-            
+
             // Direction methods ...
         }
 
@@ -626,15 +626,15 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                                 .gamepad(gamepad1).build();
                 arm.control();
             }
-            
+
             // Direction methods ...
         }
-    
+
     </details>
 
 
     <i>Note the locations of Imports and Construction.</i>
-    
+
 
     ## Example Structure
 
@@ -651,7 +651,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Motor Mechanism</summary>
-    
+
     ### Methods
 
     <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
@@ -666,7 +666,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Command of Motor Mechanism</summary>
-    
+
     ### Methods
 
     <br>![Command Motor](./img/blk/ex/commandMotor.png){ width=450 }
@@ -676,11 +676,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Motor Mechanism Attributes</summary>
-    
+
     ### Imports
 
         import com.qualcomm.robotcore.hardware.DcMotor;
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -698,7 +698,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Servo Mechanism</summary>
-    
+
     ### Methods
 
     <br>![Control Servo](./img/blk/ex/controlServo.png){ width=225 }
@@ -708,7 +708,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Command of Servo Mechanism</summary>
-    
+
     ### Methods
 
     <br>![Command Servo](./img/blk/ex/commandServo.png){ width=450 }
@@ -718,7 +718,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Servo Mechanism Attributes</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Claw claw =
@@ -739,7 +739,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <summary>Read and Display Sensor State</summary>
 
     ### Methods
-    
+
     <br>![Display State](./img/blk/ex/displayState.png){ width=600 }
 
     </details>
@@ -747,7 +747,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Modify Sensor Attributes</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.sensor.Distance distance =
@@ -765,14 +765,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <i>As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
 
     * Encoder limits in control()
-    * Field-centric driving 
-    
+    * Field-centric driving
+
     If these features are must-haves, use Java instead.</i>
 
 
     <details>
     <summary>Encoder: Velocity-Based Control</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -793,7 +793,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Time-Based Command</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -810,7 +810,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Distance-Based Command</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -819,7 +819,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                         .build();
 
     ### Methods
-    
+
     <br>![Command Distance](./img/blk/ex/commandDistance.png){ width=450 }
 
     ### Notes
@@ -832,7 +832,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Command Limits Using Ticks</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -849,7 +849,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Encoder: Command Limits Using Distance</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -870,7 +870,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Smooth Servo</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Claw claw =
@@ -892,11 +892,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Arcade Drive Control</summary>
-    
+
     ### Imports
 
         import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -914,7 +914,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Mecanum Drive</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -928,7 +928,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <details>
     <summary>Control of Motor Mechanism with Gamepad Deadzone</summary>
-        
+
     ### Construction
 
         org.edu_nation.easy_ftc.mechanism.Lift lift =
@@ -960,7 +960,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     <br>![State Machine](./img/blk/ex/stateMachine.png){ width=600 }
 
-    ### Notes 
+    ### Notes
     * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
     * Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
 

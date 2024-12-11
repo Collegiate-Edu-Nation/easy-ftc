@@ -20,11 +20,13 @@ hide:
 | Up     | Intake Out        |
 | Down   | Intake In         |
 | Option | Reset the Gyro    |
+
 <hr>
 
 ## Joysticks
 
 === "Mecanum"
+
     | Axis | Action                |
     | ---- | --------------------- |
     | LY   | Move forward/backward |
@@ -33,6 +35,7 @@ hide:
     | RX   | Rotate left/right     |
 
 === "Tank"
+
     | Axis | Action                             |
     | ---- | ---------------------------------- |
     | LY   | Move left motors forward/backward  |
@@ -41,6 +44,7 @@ hide:
     | RX   | Nothing                            |
 
 === "Arcade"
+
     | Axis | Action                |
     | ---- | --------------------- |
     | LY   | Move forward/backward |

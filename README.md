@@ -22,6 +22,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 | Color    | Sensor          |
 | Distance | Sensor          |
 | Touch    | Sensor          |
+
 </div>
 
 ## Overview
@@ -29,12 +30,13 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 This library greatly simplifies the implementation of common FTC robotics subsystems by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern
 
 Additionally, several useful quality-of-life features are included
-* Encoders can be used with minimal setup for either time- or distance-based commands
-* Arm, Intake, and Lift optionally feature encoder limits on range-of-motion
-* Robot and field-centric driving are supported for Mecanum
-* Tank and arcade are supported for Differential
-* Servo-powered mechanisms can optionally leverage smooth-servo control
-* Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
+
+- Encoders can be used with minimal setup for either time- or distance-based commands
+- Arm, Intake, and Lift optionally feature encoder limits on range-of-motion
+- Robot and field-centric driving are supported for Mecanum
+- Tank and arcade are supported for Differential
+- Servo-powered mechanisms can optionally leverage smooth-servo control
+- Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
 
 Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 <i>Docs cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc</i>
@@ -42,16 +44,19 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 ## Install
 
 ### Download release archive
-* Each option requires that you download this repo's latest Android archive
-* Click on 'easy-ftc-release.aar' at https://github.com/collegiate-edu-nation/easy-ftc/releases
+
+- Each option requires that you download this repo's latest Android archive
+- Click on 'easy-ftc-release.aar' at https://github.com/collegiate-edu-nation/easy-ftc/releases
 
 ### OnBot Java
-* Upload the .aar using OnBot Java's GUI
-* Press the gear icon on the bottom right with the title 'Build Everything'
+
+- Upload the .aar using OnBot Java's GUI
+- Press the gear icon on the bottom right with the title 'Build Everything'
 
 ### Android Studio
-* Add the .aar to FtcRobotController/libs/
-* Add implementation to TeamCode's buid.gradle  like so
+
+- Add the .aar to FtcRobotController/libs/
+- Add implementation to TeamCode's buid.gradle like so
 
         dependencies {
             implementation project(':FtcRobotController')
@@ -59,50 +64,56 @@ Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
         }
 
 ### Blockly
-* While at the previous link, also click on 'myBlocks.zip'
-* Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
-    * <i>Each Java file in 'myBlocks' will control a specific mechanism/sensor</i>
-* Modify the myBlocks Java files to change behavior
-    * <i>e.g. add .layout(Layout.ARCADE) to Drive.Builder in Drive.java</i>
-* Press the gear icon on the bottom right with the title 'Build Everything'
-* A new menu option 'Java Classes' should be visible in the Blockly GUI now
-* Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
+
+- While at the previous link, also click on 'myBlocks.zip'
+- Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
+  - <i>Each Java file in 'myBlocks' will control a specific mechanism/sensor</i>
+- Modify the myBlocks Java files to change behavior
+  - <i>e.g. add .layout(Layout.ARCADE) to Drive.Builder in Drive.java</i>
+- Press the gear icon on the bottom right with the title 'Build Everything'
+- A new menu option 'Java Classes' should be visible in the Blockly GUI now
+- Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
 
 ## Dev Setup
+
 The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
 
     git clone https://github.com/collegiate-edu-nation/easy-ftc.git
 
 ### Nix
+
 Nix is my preferred approach for setting up the development environment. Linux and macOS are supported
 
 <b>Must install flake-enabled Nix before running</b>
 
-* Enter directory
+- Enter directory
 
         cd easy-ftc
 
-* Launch development environment
+- Launch development environment
 
         nix develop
 
-* Then open your preferred IDE from this shell
+- Then open your preferred IDE from this shell
 
 ### Non-Nix
+
 The project can also be imported into Android Studio, where Windows is supported as well
 
 To generate documentation, you must also install
 
-* PlantUML
-* mkdocs
-* mkdocs-material
+- PlantUML
+- mkdocs
+- mkdocs-material
 
 Correct the path to the plantuml binary in build.gradle, then run the docs task
 
     ./gradlew docs
 
 ## ToDo
+
 ### Release
+
 - [x] Add reverse(String[] names) wrapper
 - [x] Use public enums for direction, type, layout
 - [x] Throw exceptions for invalid builder and method args
@@ -117,6 +128,7 @@ Correct the path to the plantuml binary in build.gradle, then run the docs task
 - [ ] Add 'Common Issues' section
 
 ### Long-Term
+
 - [ ] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
 - [ ] Flesh out Color
@@ -132,4 +144,5 @@ Correct the path to the plantuml binary in build.gradle, then run the docs task
 - [ ] Investigate instrumentation and/or manual hardware tests
 
 ## License
+
 [GPLv3](COPYING)
