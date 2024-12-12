@@ -22,6 +22,8 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [I Want To Contribute](#i-want-to-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
+  - [Dev Setup](#dev-setup)
+  - [ToDo](#todo)
 - [Styleguides](#styleguides)
   - [Source Files](#source-files)
   - [Commit Messages](#commit-messages)
@@ -139,11 +141,86 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Colleg
 
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
 
+### Dev Setup
+
+The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
+
+    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+
+<!-- omit in toc -->
+
+#### Nix
+
+Nix is my preferred approach for setting up the development environment. Linux and macOS are supported
+
+- Enter directory
+
+        cd easy-ftc
+
+- Launch development environment
+
+        nix develop
+
+- Then open your preferred IDE from this shell
+
+<!-- omit in toc -->
+
+#### Non-Nix
+
+The project can also be imported into Android Studio, where Windows is supported as well
+
+To format source files, you must also install
+
+- nodejs
+- nixfmt
+
+Then
+
+- Enter the directory
+
+        cd easy-ftc
+
+- Install npm deps
+
+        npm install
+
+- Remove the path to JRE 17 in build.gradle (task: formatGroovy)
+- Run the format task
+
+        ./gradlew format
+
+To generate documentation, you must also install
+
+- PlantUML
+- mkdocs
+- mkdocs-material
+
+Then
+
+- Correct the path to the plantuml binary in build.gradle (task: uml)
+- Run the docs task
+
+        ./gradlew docs
+
+### ToDo
+
+- [ ] Support gyro-based turning for drive in cmd
+- [ ] Support CRServo
+- [ ] Flesh out Color
+- [ ] Add graphics for blocks and onbot usage
+- [ ] Add graphic for controls
+- [ ] Look into RACE layout for differential (triggers instead of joystick for axial)
+- [ ] Support mechanism + sensor integrations
+- [ ] Investigate sequence abstraction + implementation
+- [ ] Add telemetry for status indicators
+- [ ] Add support for OpenCV, AprilTag
+- [ ] Investigate options for synchronized, multi-system sequences
+- [ ] Investigate further consolidation of builders (esp names, count, etc)
+- [ ] Investigate instrumentation and/or manual hardware tests
+
 ## Styleguides
 
 ### Source Files
-
-The process for installing formatters is IDE-dependant, but the following tools are used
 
 | Ext     | Fmt                |
 | ------- | ------------------ |
