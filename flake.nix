@@ -54,13 +54,26 @@
               ++ (with pkgs; [
                 bashInteractive
                 jdk21
+
+                # docs
                 plantuml
                 python312Packages.mkdocs
                 python312Packages.mkdocs-material
+
+                # npm-groovy-lint
+		            nodejs
+                jre17_minimal
               ]);
 
             shellHook = ''
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
+
+              if ! test -d node_modules; then
+                echo -e "Adding npm-groovy-lint..."
+                npm install
+                echo -e "Done.\n"
+              fi
+
               echo -e "Build:    ./gradlew assemble"
               echo -e "Clean:    ./gradlew clean"
               echo -e "Test:     ./gradlew test"
