@@ -7,10 +7,10 @@ import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import java.util.Objects;
@@ -65,7 +65,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Whether to enable encoders (time-based)
-         * 
+         *
          * @return builder instance
          */
         public T encoder() {
@@ -75,15 +75,17 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the diameter for encoder control (distance-based)
-         * 
+         *
          * @param diameter measurement of the wheel or axel attached to the motor
          * @return builder instance
          * @throws IllegalArgumentException if diameter &lt;= 0
          */
         public T diameter(double diameter) {
             if (diameter <= 0) {
-                throw new IllegalArgumentException("Unexpected diameter value: " + diameter
-                        + ", passed to MotorMechanism.Builder().diameter(). Valid values are numbers > 0");
+                throw new IllegalArgumentException(
+                        "Unexpected diameter value: "
+                                + diameter
+                                + ", passed to MotorMechanism.Builder().diameter(). Valid values are numbers > 0");
             }
             this.diameter = diameter;
             return self();
@@ -91,15 +93,17 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the length for encoder control (distance-based)
-         * 
+         *
          * @param length measurement of the length of the arm attached to the motor
          * @return builder instance
          * @throws IllegalArgumentException if length &lt;= 0
          */
         public T length(double length) {
             if (length <= 0) {
-                throw new IllegalArgumentException("Unexpected length value: " + length
-                        + ", passed to MotorMechanism.Builder().length(). Valid values are numbers > 0");
+                throw new IllegalArgumentException(
+                        "Unexpected length value: "
+                                + length
+                                + ", passed to MotorMechanism.Builder().length(). Valid values are numbers > 0");
             }
             this.length = length;
             // length is the radius of arm's ROM, so double it for arc length = distance
@@ -109,15 +113,17 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the gearing of the motors (increases accuracy of distance-based movement)
-         * 
+         *
          * @param gearing gearing of the motors in the mechanism
          * @return builder instance
          * @throws IllegalArgumentException if gearing &lt;= 0
          */
         public T gearing(double gearing) {
             if (gearing <= 0) {
-                throw new IllegalArgumentException("Unexpected gearing value: " + gearing
-                        + ", passed to MotorMechanism.Builder().gearing(). Valid values are numbers > 0");
+                throw new IllegalArgumentException(
+                        "Unexpected gearing value: "
+                                + gearing
+                                + ", passed to MotorMechanism.Builder().gearing(). Valid values are numbers > 0");
             }
             this.gearing = gearing;
             return self();
@@ -125,15 +131,17 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the joystick deadzone
-         * 
+         *
          * @param deadzone minimum joystick/trigger value registered as input
          * @return builder instance
          * @throws IllegalArgumentException if deadzone &lt; 0
          */
         public T deadzone(double deadzone) {
             if (deadzone < 0) {
-                throw new IllegalArgumentException("Unexpected deadzone value: " + deadzone
-                        + ", passed to MotorMechanism.Builder().deadzone(). Valid values are numbers >= 0");
+                throw new IllegalArgumentException(
+                        "Unexpected deadzone value: "
+                                + deadzone
+                                + ", passed to MotorMechanism.Builder().deadzone(). Valid values are numbers >= 0");
             }
             this.deadzone = deadzone;
             return self();
@@ -141,7 +149,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the logo direction of the IMU/gyro
-         * 
+         *
          * @param logo direction of the Hub's logo
          * @return builder instance
          * @throws NullPointerException if logo is null
@@ -157,7 +165,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         /**
          * Specify the logo direction of the IMU/gyro
-         * 
+         *
          * @param usb direction of the Hub's usb ports
          * @return builder instance
          * @throws NullPointerException if usb is null
@@ -186,7 +194,10 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected void validate(double multiplier) {
         if (multiplier <= 0 || multiplier > 1) {
             throw new IllegalArgumentException(
-                    "Unexpected multiplier value: " + multiplier + connect + mechanismName
+                    "Unexpected multiplier value: "
+                            + multiplier
+                            + connect
+                            + mechanismName
                             + ".control(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -194,12 +205,19 @@ abstract class MotorMechanism<E> extends Mechanism {
     /** Ensure power is in (0, 1], measurement is positive */
     protected void validate(double measurement, double power) {
         if (measurement < 0) {
-            throw new IllegalArgumentException("Unexpected measurement value: " + measurement
-                    + connect + mechanismName + ".command(). Valid values are numbers >= 0");
+            throw new IllegalArgumentException(
+                    "Unexpected measurement value: "
+                            + measurement
+                            + connect
+                            + mechanismName
+                            + ".command(). Valid values are numbers >= 0");
         }
         if (power <= 0 || power > 1) {
             throw new IllegalArgumentException(
-                    "Unexpected power value: " + power + connect + mechanismName
+                    "Unexpected power value: "
+                            + power
+                            + connect
+                            + mechanismName
                             + ".command(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -215,12 +233,14 @@ abstract class MotorMechanism<E> extends Mechanism {
                 found = true;
                 if (encoder) {
                     DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                            (i % 2 == 0)
+                                    ? DcMotorSimple.Direction.FORWARD
                                     : DcMotorSimple.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 } else {
                     DcMotorSimple.Direction direction =
-                            (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
+                            (i % 2 == 0)
+                                    ? DcMotorSimple.Direction.FORWARD
                                     : DcMotorSimple.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
@@ -235,8 +255,13 @@ abstract class MotorMechanism<E> extends Mechanism {
             }
             String validNames = bld.toString();
             validNames = validNames.substring(0, validNames.length() - 2);
-            throw new IllegalArgumentException("Unexpected deviceName: " + deviceName + connect
-                    + mechanismName + ".Builder().reverse(). Valid names are: " + validNames);
+            throw new IllegalArgumentException(
+                    "Unexpected deviceName: "
+                            + deviceName
+                            + connect
+                            + mechanismName
+                            + ".Builder().reverse(). Valid names are: "
+                            + validNames);
         }
     }
 
@@ -298,8 +323,8 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Moves the mechanism for the given measurement at power */
-    protected void moveForMeasurement(double[] unscaledMovements, double measurement, double power,
-            boolean limit) {
+    protected void moveForMeasurement(
+            double[] unscaledMovements, double measurement, double power, boolean limit) {
         double[] movements = scaleDirections(unscaledMovements, power);
 
         if (diameter == 0.0) {
@@ -309,8 +334,10 @@ abstract class MotorMechanism<E> extends Mechanism {
                 wait(measurement);
             } else {
                 this.timer.reset();
-                while (opMode.opModeIsActive() && (this.timer.time() < measurement)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements));
+                while (opMode.opModeIsActive()
+                        && (this.timer.time() < measurement)
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                    ;
             }
             setPowers();
         } else {
@@ -321,10 +348,12 @@ abstract class MotorMechanism<E> extends Mechanism {
             setPositions(positions, currentPositions);
             setPowers(movements);
             if (!limit) {
-                while (motorsAreBusy(movements));
+                while (motorsAreBusy(movements))
+                    ;
             } else {
                 while (motorsAreBusy(movements)
-                        && limitsNotReached(unscaledMovements[0], unscaledMovements));
+                        && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                    ;
             }
             setPowers();
 
@@ -472,14 +501,18 @@ abstract class MotorMechanism<E> extends Mechanism {
     private void setDirectionsDefault() {
         if (encoder) {
             for (int i = 0; i < count; i++) {
-                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
-                        : DcMotorSimple.Direction.FORWARD;
+                DcMotorSimple.Direction direction =
+                        (i % 2 == 0)
+                                ? DcMotorSimple.Direction.REVERSE
+                                : DcMotorSimple.Direction.FORWARD;
                 motorsEx[i].setDirection(direction);
             }
         } else {
             for (int i = 0; i < count; i++) {
-                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.REVERSE
-                        : DcMotorSimple.Direction.FORWARD;
+                DcMotorSimple.Direction direction =
+                        (i % 2 == 0)
+                                ? DcMotorSimple.Direction.REVERSE
+                                : DcMotorSimple.Direction.FORWARD;
                 motors[i].setDirection(direction);
             }
         }
@@ -489,14 +522,18 @@ abstract class MotorMechanism<E> extends Mechanism {
     private void setDirectionsReversed() {
         if (encoder) {
             for (int i = 0; i < count; i++) {
-                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
-                        : DcMotorSimple.Direction.REVERSE;
+                DcMotorSimple.Direction direction =
+                        (i % 2 == 0)
+                                ? DcMotorSimple.Direction.FORWARD
+                                : DcMotorSimple.Direction.REVERSE;
                 motorsEx[i].setDirection(direction);
             }
         } else {
             for (int i = 0; i < count; i++) {
-                DcMotorSimple.Direction direction = (i % 2 == 0) ? DcMotorSimple.Direction.FORWARD
-                        : DcMotorSimple.Direction.REVERSE;
+                DcMotorSimple.Direction direction =
+                        (i % 2 == 0)
+                                ? DcMotorSimple.Direction.FORWARD
+                                : DcMotorSimple.Direction.REVERSE;
                 motors[i].setDirection(direction);
             }
         }

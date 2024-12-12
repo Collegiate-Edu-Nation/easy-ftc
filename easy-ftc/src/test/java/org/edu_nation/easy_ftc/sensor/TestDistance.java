@@ -3,12 +3,13 @@
 
 package org.edu_nation.easy_ftc.sensor;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.junit.Test;
 
 public class TestDistance {
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);

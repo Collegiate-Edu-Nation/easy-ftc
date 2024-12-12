@@ -3,17 +3,17 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
  * Implements a drivetrain by extending the functionality of {@link MotorMechanism}
- * 
+ *
  * @see Builder
  * @see Direction
  * @see Type
@@ -36,31 +36,30 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /**
      * Construct a {@link Drive} object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Drive drive = new Drive.Builder(this, hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>reverseDevices = {}
-     * <li>gamepad = null
-     * <li>encoder = false
-     * <li>diameter = 0.0
-     * <li>gearing = 0.0
-     * <li>deadzone = 0.0
-     * <li>logo = UP
-     * <li>usb = FORWARD
-     * <li>count = 2
-     * <li>names = {"driveLeft", "driveRight"}
-     * <li>behavior = FLOAT
-     * <li>type = DIFFERENTIAL
-     * <li>layout = TANK
+     *   <li>reverse = false
+     *   <li>reverseDevices = {}
+     *   <li>gamepad = null
+     *   <li>encoder = false
+     *   <li>diameter = 0.0
+     *   <li>gearing = 0.0
+     *   <li>deadzone = 0.0
+     *   <li>logo = UP
+     *   <li>usb = FORWARD
+     *   <li>count = 2
+     *   <li>names = {"driveLeft", "driveRight"}
+     *   <li>behavior = FLOAT
+     *   <li>type = DIFFERENTIAL
+     *   <li>layout = TANK
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
@@ -73,7 +72,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
@@ -137,15 +136,17 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         // drive-specific methods
         /**
          * Specify the number of motors
-         * 
+         *
          * @param count the number of motors in the drive mechanism
          * @return builder instance
          * @throws IllegalArgumentException if count isn't 2 or 4
          */
         public Builder count(int count) {
             if (count != 2 && count != 4) {
-                throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Drive.Builder().count(). Valid values are 2 or 4");
+                throw new IllegalArgumentException(
+                        "Unexpected count value: "
+                                + count
+                                + ", passed to Drive.Builder().count(). Valid values are 2 or 4");
             }
             this.count = count;
 
@@ -162,7 +163,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Change the names of the hardware devices
-         * 
+         *
          * @param names an array of the names for the hardware devices
          * @return builder instance
          * @throws NullPointerException if names is null
@@ -177,7 +178,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Specify the zero-power behavior of the motors
-         * 
+         *
          * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
@@ -193,7 +194,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Specify the drivetrain type
-         * 
+         *
          * @param type drivetrain type, one of {@link Type DIFFERENTIAL} or {@link Type MECANUM}
          * @return builder instance
          * @throws NullPointerException if type is null
@@ -224,13 +225,14 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Specify the drivetrain layout
-         * 
+         *
          * @param layout drivetrain layout
-         *        <ul>
-         *        <li>For {@link Type DIFFERENTIAL}, one of {@link Layout ARCADE} or {@link Layout
-         *        TANK}
-         *        <li>For {@link Type MECANUM}, one of {@link Layout FIELD} or {@link Layout ROBOT}
-         *        </ul>
+         *     <ul>
+         *       <li>For {@link Type DIFFERENTIAL}, one of {@link Layout ARCADE} or {@link Layout
+         *           TANK}
+         *       <li>For {@link Type MECANUM}, one of {@link Layout FIELD} or {@link Layout ROBOT}
+         *     </ul>
+         *
          * @return builder instance
          * @throws NullPointerException if layout is null
          * @see Layout
@@ -245,11 +247,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Build the drivetrain
-         * 
+         *
          * @return drive instance
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
-         *         has been set
+         *     has been set
          * @throws IllegalStateException if type = DIFFERENTIAL and layout is one of: ROBOT, FIELD
          * @throws IllegalStateException if type = MECANUM and count != 4
          * @throws IllegalStateException if type = MECANUM and layout is one of: ARCADE, TANK
@@ -284,7 +286,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -295,24 +297,37 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /** Directions that can be passed to {@link Drive#command(direction, measurement, power)} */
     public enum Direction {
-        FORWARD, BACKWARD, LEFT, RIGHT, ROTATE_LEFT, ROTATE_RIGHT, FORWARD_LEFT, FORWARD_RIGHT, BACKWARD_LEFT, BACKWARD_RIGHT
+        FORWARD,
+        BACKWARD,
+        LEFT,
+        RIGHT,
+        ROTATE_LEFT,
+        ROTATE_RIGHT,
+        FORWARD_LEFT,
+        FORWARD_RIGHT,
+        BACKWARD_LEFT,
+        BACKWARD_RIGHT
     }
 
     /** Drivetrain types that can be passed to {@link Builder#type(type)} */
     public enum Type {
-        DIFFERENTIAL, MECANUM
+        DIFFERENTIAL,
+        MECANUM
     }
 
     /** Drivetrain layouts that can be passed to {@link Builder#layout(layout)} */
     public enum Layout {
-        ARCADE, TANK, FIELD, ROBOT
+        ARCADE,
+        TANK,
+        FIELD,
+        ROBOT
     }
 
     /**
      * Enable teleoperated drivetrain movement with gamepad (joysticks), scaling by multiplier
      *
      * @param multiplier fraction of total power/velocity to use for mechanism control at given
-     *        input value
+     *     input value
      * @throws IllegalArgumentException if multiplier is not in the interval (0, 1]
      */
     @Override
@@ -328,8 +343,13 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             }
         }
 
-        double[] movements = controlToDirection(heading, gamepad.left_stick_y, gamepad.left_stick_x,
-                gamepad.right_stick_y, gamepad.right_stick_x);
+        double[] movements =
+                controlToDirection(
+                        heading,
+                        gamepad.left_stick_y,
+                        gamepad.left_stick_x,
+                        gamepad.right_stick_y,
+                        gamepad.right_stick_x);
 
         setPowers(movements, multiplier);
     }
@@ -342,7 +362,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /**
      * Initiate an automated drivetrain movement
-     * 
+     *
      * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command
@@ -366,8 +386,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Set drivetrain motor movements based on type: DIFFERENTIAL or MECANUM */
-    protected double[] controlToDirection(double heading, float leftY, float leftX, float rightY,
-            float rightX) {
+    protected double[] controlToDirection(
+            double heading, float leftY, float leftX, float rightY, float rightX) {
         switch (type) {
             case DIFFERENTIAL:
                 return controlToDirectionDifferential(leftY, rightY, rightX);
@@ -406,8 +426,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /** Set MECANUM motor movements based on layout: ROBOT or FIELD */
-    private double[] controlToDirectionMecanum(double heading, double leftY, double leftX,
-            double rightX) {
+    private double[] controlToDirectionMecanum(
+            double heading, double leftY, double leftX, double rightX) {
         double[] axes = {map(-leftY), map(leftX), map(rightX)};
         return axesToDirection(axes, heading);
     }

@@ -3,11 +3,11 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.util.Arrays;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Gamepad;
+import java.util.Arrays;
 
 /**
  * Blueprints an abstract Mechanism, providing basic functionalities, options, and objects common to
@@ -42,7 +42,7 @@ abstract class Mechanism {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
@@ -60,7 +60,7 @@ abstract class Mechanism {
 
         /**
          * Whether to reverse devices
-         * 
+         *
          * @return builder instance
          */
         public T reverse() {
@@ -70,7 +70,7 @@ abstract class Mechanism {
 
         /**
          * Reverse the specified device
-         * 
+         *
          * @param deviceName name of the device to be reversed
          * @return builder instance
          * @throws NullPointerException if deviceName is null
@@ -89,7 +89,7 @@ abstract class Mechanism {
 
         /**
          * Reverse the specified devices
-         * 
+         *
          * @param deviceNames an array of the names of devices to be reversed
          * @return builder instance
          * @throws NullPointerException if deviceNames is null
@@ -107,7 +107,7 @@ abstract class Mechanism {
 
         /**
          * Pass gamepad for teleop control
-         * 
+         *
          * @param gamepad instance of the gamepad
          * @return builder instance
          * @throws NullPointerException if gamepad is null
@@ -137,6 +137,7 @@ abstract class Mechanism {
     /** Helper function to wait (but not suspend) for specified time in s */
     protected void wait(double time) {
         this.timer.reset();
-        while (opMode.opModeIsActive() && (this.timer.time() < time));
+        while (opMode.opModeIsActive() && (this.timer.time() < time))
+            ;
     }
 }

@@ -3,12 +3,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.mechanism.Intake.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.mechanism.Intake.Direction;
 
 public class Intake extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Initiate an automated intake movement",
+    @ExportToBlocks(
+            comment = "Initiate an automated intake movement",
             parameterLabels = {"Direction", "Time", "Power"})
     public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Intake intake =
@@ -18,21 +19,25 @@ public class Intake extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Enable teleoperated intake movement with gamepad (dpadUp, dpadDown) at the specified power",
+            comment =
+                    "Enable teleoperated intake movement with gamepad (dpadUp, dpadDown) at the specified power",
             parameterLabels = {"Power"})
     public static void control(double power) {
         org.edu_nation.easy_ftc.mechanism.Intake intake =
                 new org.edu_nation.easy_ftc.mechanism.Intake.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         intake.control(power);
     }
 
     @ExportToBlocks(
-            comment = "Enable teleoperated intake movement with gamepad (dpadUp, dpadDown) at a power of 0.5")
+            comment =
+                    "Enable teleoperated intake movement with gamepad (dpadUp, dpadDown) at a power of 0.5")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Intake intake =
                 new org.edu_nation.easy_ftc.mechanism.Intake.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         intake.control();
     }
 

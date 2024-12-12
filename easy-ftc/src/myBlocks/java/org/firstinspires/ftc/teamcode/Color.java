@@ -3,9 +3,9 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.sensor.Color.RGB;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
 public class Color extends BlocksOpModeCompanion {
     @ExportToBlocks(comment = "Return color sensor state (color of detection, one of RGB or null)")

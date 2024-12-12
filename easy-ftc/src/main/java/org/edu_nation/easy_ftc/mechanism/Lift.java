@@ -3,15 +3,15 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.util.Arrays;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import java.util.Arrays;
 
 /**
  * Implements a lift by extending the functionality of {@link MotorMechanism}
- * 
+ *
  * @see Builder
  * @see Direction
  */
@@ -30,29 +30,28 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
     /**
      * Construct a {@link Lift} object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Lift lift = new Lift.Builder(this, hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>reverseDevices = {}
-     * <li>gamepad = null
-     * <li>encoder = false
-     * <li>diameter = 0.0
-     * <li>gearing = 0.0
-     * <li>deadzone = 0.0
-     * <li>count = 1
-     * <li>names = {"lift"}
-     * <li>behavior = FLOAT
-     * <li>dir1 = 0.0
-     * <li>dir2 = 0.0
+     *   <li>reverse = false
+     *   <li>reverseDevices = {}
+     *   <li>gamepad = null
+     *   <li>encoder = false
+     *   <li>diameter = 0.0
+     *   <li>gearing = 0.0
+     *   <li>deadzone = 0.0
+     *   <li>count = 1
+     *   <li>names = {"lift"}
+     *   <li>behavior = FLOAT
+     *   <li>dir1 = 0.0
+     *   <li>dir2 = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
@@ -65,7 +64,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
@@ -119,15 +118,17 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         // lift-specific methods
         /**
          * Specify the number of motors
-         * 
+         *
          * @param count the number of motors in the lift mechanism
          * @return builder instance
          * @throws IllegalArgumentException if count isn't 1 or 2
          */
         public Builder count(int count) {
             if (count < 1 || count > 2) {
-                throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Lift.Builder().count(). Valid values are integers in the interval [1, 2]");
+                throw new IllegalArgumentException(
+                        "Unexpected count value: "
+                                + count
+                                + ", passed to Lift.Builder().count(). Valid values are integers in the interval [1, 2]");
             }
             this.count = count;
             if (count == 2) {
@@ -139,7 +140,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Change the names of the hardware devices
-         * 
+         *
          * @param names an array of the names for the hardware devices
          * @return builder instance
          * @throws NullPointerException if names is null
@@ -154,7 +155,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Specify the zero-power behavior of the motors
-         * 
+         *
          * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
@@ -169,7 +170,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Specify the positional limit for {@link Direction UP}
-         * 
+         *
          * @param up positional limit for {@link Direction UP}
          * @return builder instance
          */
@@ -180,7 +181,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Specify the positional limit for {@link Direction DOWN}
-         * 
+         *
          * @param down positional limit for {@link Direction DOWN}
          * @return builder instance
          */
@@ -191,11 +192,11 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
         /**
          * Build the lift
-         * 
+         *
          * @return lift instance
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
-         *         has been set
+         *     has been set
          * @throws IllegalStateException if dir1 &lt; dir2
          */
         @Override
@@ -209,16 +210,19 @@ public class Lift extends MotorMechanism<Lift.Direction> {
                         "One of: Lift.Builder().diameter(), Lift.Builder().length(), or Lift.Builder().gearing() has been set without enabling Lift.Builder().encoder(). Enable Lift.Builder().encoder()");
             }
             if (this.dir1 < this.dir2) {
-                throw new IllegalStateException("Unexpected up and down values: " + this.dir1 + ", "
-                        + this.dir2
-                        + ", passed to Lift.Builder().up() and Lift.Builder().down(). Up must be greater than down");
+                throw new IllegalStateException(
+                        "Unexpected up and down values: "
+                                + this.dir1
+                                + ", "
+                                + this.dir2
+                                + ", passed to Lift.Builder().up() and Lift.Builder().down(). Up must be greater than down");
             }
             return new Lift(this);
         }
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -229,14 +233,15 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
     /** Directions that can be passed to {@link Lift#command(direction, measurement, power)} */
     public enum Direction {
-        UP, DOWN
+        UP,
+        DOWN
     }
 
     /**
      * Enable teleoperated lift movement with gamepad (lt, rt), scaling by multiplier
      *
      * @param multiplier fraction of total power/velocity to use for mechanism control at given
-     *        input value
+     *     input value
      * @throws IllegalArgumentException if multiplier is not in the interval (0, 1]
      */
     @Override
@@ -272,7 +277,7 @@ public class Lift extends MotorMechanism<Lift.Direction> {
 
     /**
      * Initiate an automated lift movement
-     * 
+     *
      * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command

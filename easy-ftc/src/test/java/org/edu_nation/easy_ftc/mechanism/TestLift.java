@@ -3,16 +3,17 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import org.apache.commons.lang3.reflect.FieldUtils;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import org.apache.commons.lang3.reflect.FieldUtils;
+import org.junit.Test;
 
 public class TestLift {
     LinearOpMode mockedOpMode = mock(LinearOpMode.class);
@@ -42,7 +43,8 @@ public class TestLift {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).up(1.0).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).down(-1.0).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"lift"}).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse(new String[] {"lift"})
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .reverse(new String[] {"lift"})
                     .build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap)
                     .behavior(DcMotor.ZeroPowerBehavior.FLOAT);
@@ -54,14 +56,27 @@ public class TestLift {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().gamepad(mockedGamepad)
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .encoder()
+                    .gamepad(mockedGamepad)
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4)
-                    .gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).gearing(19.2)
-                    .gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).reverse()
-                    .gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .encoder()
+                    .diameter(4)
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .encoder()
+                    .diameter(4)
+                    .gearing(19.2)
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .encoder()
+                    .diameter(4)
+                    .reverse()
+                    .gamepad(mockedGamepad)
+                    .build();
 
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).deadzone(0.1).build();
@@ -69,25 +84,56 @@ public class TestLift {
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftLeft").build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse("liftLeft")
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .reverse("liftLeft")
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftLeft")
-                    .reverse("liftRight").build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .reverse("liftLeft")
+                    .reverse("liftRight")
+                    .build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftRight").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .reverse("liftRight").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).gamepad(mockedGamepad)
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .reverse("liftRight")
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .gamepad(mockedGamepad)
                     .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
-                    .gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
-                    .gearing(19.2).gamepad(mockedGamepad).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
-                    .reverse().gamepad(mockedGamepad).build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .diameter(4)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .diameter(4)
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .diameter(4)
+                    .gearing(19.2)
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .encoder()
+                    .diameter(4)
+                    .reverse()
+                    .gamepad(mockedGamepad)
+                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -111,7 +157,9 @@ public class TestLift {
     public void namesLengthThrowsException() {
         mockInit();
 
-        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] {"abc"})
+        new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                .count(2)
+                .names(new String[] {"abc"})
                 .build();
     }
 
@@ -148,14 +196,30 @@ public class TestLift {
         mockInit();
 
         try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad)
-                    .build();
-            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder()
-                    .gamepad(mockedGamepad).build();
-            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().up(1.0)
-                    .down(-1.0).gamepad(mockedGamepad).build();
-            Lift liftDia = new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(2)
-                    .up(1.0).down(-1.0).gamepad(mockedGamepad).build();
+            Lift lift =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftEnc =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .encoder()
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftPos =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .encoder()
+                            .up(1.0)
+                            .down(-1.0)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftDia =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .encoder()
+                            .diameter(2)
+                            .up(1.0)
+                            .down(-1.0)
+                            .gamepad(mockedGamepad)
+                            .build();
 
             lift.control();
             lift.control(0.9);
@@ -184,14 +248,34 @@ public class TestLift {
         mockInit();
 
         try {
-            Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2)
-                    .gamepad(mockedGamepad).build();
-            Lift liftEnc = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .gamepad(mockedGamepad).build();
-            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .up(1.0).down(-1.0).gamepad(mockedGamepad).build();
-            Lift liftDia = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .diameter(2).up(1.0).down(-1.0).gamepad(mockedGamepad).build();
+            Lift lift =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftEnc =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .encoder()
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftPos =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .encoder()
+                            .up(1.0)
+                            .down(-1.0)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Lift liftDia =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .encoder()
+                            .diameter(2)
+                            .up(1.0)
+                            .down(-1.0)
+                            .gamepad(mockedGamepad)
+                            .build();
 
             lift.control();
             lift.control(0.9);
@@ -241,8 +325,12 @@ public class TestLift {
             Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
             Lift liftEnc =
                     new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
-            Lift liftPos = new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder()
-                    .diameter(4).build();
+            Lift liftPos =
+                    new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .encoder()
+                            .diameter(4)
+                            .build();
 
             lift.command(Lift.Direction.UP, 1, 0.5);
             liftEnc.command(Lift.Direction.UP, 1, 0.5);
@@ -319,7 +407,11 @@ public class TestLift {
     public void setGearingDual_ThrowsException() {
         mockInit();
 
-        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4).gearing(-1)
+        new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                .count(2)
+                .encoder()
+                .diameter(4)
+                .gearing(-1)
                 .build();
     }
 
@@ -327,7 +419,10 @@ public class TestLift {
     public void setdeadzoneSolo_ThrowsException() {
         mockInit();
 
-        new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().diameter(4).deadzone(-1)
+        new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                .encoder()
+                .diameter(4)
+                .deadzone(-1)
                 .build();
     }
 
@@ -335,8 +430,12 @@ public class TestLift {
     public void setdeadzoneDual_ThrowsException() {
         mockInit();
 
-        new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().diameter(4)
-                .deadzone(-1).build();
+        new Lift.Builder(mockedOpMode, mockedHardwareMap)
+                .count(2)
+                .encoder()
+                .diameter(4)
+                .deadzone(-1)
+                .build();
     }
 
     @Test

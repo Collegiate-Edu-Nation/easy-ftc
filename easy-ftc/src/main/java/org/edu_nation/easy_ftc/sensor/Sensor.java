@@ -28,7 +28,7 @@ abstract class Sensor<S, V> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if hardwareMap is null
          */
@@ -41,7 +41,7 @@ abstract class Sensor<S, V> {
 
         /**
          * Reverse the sensor's state
-         * 
+         *
          * @return builder instance
          */
         public T reverse() {

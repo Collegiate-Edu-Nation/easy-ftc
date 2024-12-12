@@ -3,12 +3,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.mechanism.Claw.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.mechanism.Claw.Direction;
 
 public class Claw extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Initiate an automated claw movement",
+    @ExportToBlocks(
+            comment = "Initiate an automated claw movement",
             parameterLabels = {"Power", "Direction", "Time"})
     public static void command(Direction direction) {
         org.edu_nation.easy_ftc.mechanism.Claw claw =
@@ -21,7 +22,8 @@ public class Claw extends BlocksOpModeCompanion {
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Claw claw =
                 new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         claw.control();
     }
 

@@ -3,12 +3,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.mechanism.Trigger.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.mechanism.Trigger.Direction;
 
 public class Trigger extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Initiate an automated trigger movement",
+    @ExportToBlocks(
+            comment = "Initiate an automated trigger movement",
             parameterLabels = {"Power", "Direction", "Time"})
     public static void command(Direction direction) {
         org.edu_nation.easy_ftc.mechanism.Trigger trigger =
@@ -21,7 +22,8 @@ public class Trigger extends BlocksOpModeCompanion {
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Trigger trigger =
                 new org.edu_nation.easy_ftc.mechanism.Trigger.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         trigger.control();
     }
 

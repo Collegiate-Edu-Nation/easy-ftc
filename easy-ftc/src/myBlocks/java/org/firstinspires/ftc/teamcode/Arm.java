@@ -3,12 +3,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
 
 public class Arm extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Initiate an automated arm movement",
+    @ExportToBlocks(
+            comment = "Initiate an automated arm movement",
             parameterLabels = {"Direction", "Time", "Power"})
     public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Arm arm =
@@ -18,12 +19,14 @@ public class Arm extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
+            comment =
+                    "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
             parameterLabels = {"Power"})
     public static void control(double power) {
         org.edu_nation.easy_ftc.mechanism.Arm arm =
                 new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         arm.control(power);
     }
 
@@ -32,7 +35,8 @@ public class Arm extends BlocksOpModeCompanion {
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Arm arm =
                 new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         arm.control();
     }
 

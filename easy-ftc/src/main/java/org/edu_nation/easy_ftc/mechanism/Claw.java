@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Implements a claw by extending the functionality of {@link ServoMechanism}
- * 
+ *
  * @see Builder
  * @see Direction
  */
@@ -30,28 +30,27 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
     /**
      * Construct a {@link Claw} object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Claw claw = new Claw.Builder(this, hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>reverseDevices = {}
-     * <li>gamepad = null
-     * <li>smooth = false
-     * <li>increment = 0.02
-     * <li>incrementDelay = 0.02
-     * <li>delay = 2
-     * <li>count = 1
-     * <li>names = {"claw"}
-     * <li>open = 1.0
-     * <li>close = 0.0
+     *   <li>reverse = false
+     *   <li>reverseDevices = {}
+     *   <li>gamepad = null
+     *   <li>smooth = false
+     *   <li>increment = 0.02
+     *   <li>incrementDelay = 0.02
+     *   <li>delay = 2
+     *   <li>count = 1
+     *   <li>names = {"claw"}
+     *   <li>open = 1.0
+     *   <li>close = 0.0
      * </ul>
      */
     public static class Builder extends ServoMechanism.Builder<Builder> {
@@ -63,7 +62,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
@@ -117,15 +116,17 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         // claw-specific methods
         /**
          * Specify the number of servos
-         * 
+         *
          * @param count the number of servos in the claw mechanism
          * @return builder instance
          * @throws IllegalArgumentException if count isn't 1 or 2
          */
         public Builder count(int count) {
             if (count < 1 || count > 2) {
-                throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Claw.Builder().count(). Valid values are integers in the interval [1, 2]");
+                throw new IllegalArgumentException(
+                        "Unexpected count value: "
+                                + count
+                                + ", passed to Claw.Builder().count(). Valid values are integers in the interval [1, 2]");
             }
             this.count = count;
             if (count == 2) {
@@ -137,7 +138,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Change the names of the hardware devices
-         * 
+         *
          * @param names an array of the names for the hardware devices
          * @return builder instance
          * @throws NullPointerException if names is null
@@ -152,15 +153,17 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Specify the position for {@link Direction OPEN}
-         * 
+         *
          * @param open position for {@link Direction OPEN}
          * @return builder instance
          * @throws IllegalArgumentException if open not in the interval [0, 1]
          */
         public Builder open(double open) {
             if (open < 0 || open > 1) {
-                throw new IllegalArgumentException("Unexpected open value: " + open
-                        + ", passed to Claw.Builder().open(). Valid values are numbers in the interval [0, 1]");
+                throw new IllegalArgumentException(
+                        "Unexpected open value: "
+                                + open
+                                + ", passed to Claw.Builder().open(). Valid values are numbers in the interval [0, 1]");
             }
             this.open = open;
             return this;
@@ -168,15 +171,17 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Specify the position for {@link Direction CLOSE}
-         * 
+         *
          * @param close position for {@link Direction CLOSE}
          * @return builder instance
          * @throws IllegalArgumentException if close not in the interval [0, 1]
          */
         public Builder close(double close) {
             if (close < 0 || close > 1) {
-                throw new IllegalArgumentException("Unexpected close value: " + close
-                        + ", passed to Claw.Builder().close(). Valid values are numbers in the interval [0, 1]");
+                throw new IllegalArgumentException(
+                        "Unexpected close value: "
+                                + close
+                                + ", passed to Claw.Builder().close(). Valid values are numbers in the interval [0, 1]");
             }
             this.close = close;
             return this;
@@ -184,11 +189,11 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
         /**
          * Build the claw
-         * 
+         *
          * @return claw instance
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if smooth = false and one of: increment, incrementDelay has
-         *         been set
+         *     been set
          * @throws IllegalStateException if open &lt; close
          */
         @Override
@@ -202,16 +207,19 @@ public class Claw extends ServoMechanism<Claw.Direction> {
                         "One of: Claw.Builder().increment() or Claw.Builder().incrementDelay() has been set without enabling Claw.Builder().smooth(). Enable Claw.Builder().smooth() for intended functionality");
             }
             if (this.open < this.close) {
-                throw new IllegalStateException("Unexpected open and close values: " + this.open
-                        + ", " + this.close
-                        + ", passed to Claw.Builder().open() and Claw.Builder().close(). Open must be greater than close");
+                throw new IllegalStateException(
+                        "Unexpected open and close values: "
+                                + this.open
+                                + ", "
+                                + this.close
+                                + ", passed to Claw.Builder().open() and Claw.Builder().close(). Open must be greater than close");
             }
             return new Claw(this);
         }
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -222,7 +230,8 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
     /** Directions that can be passed to {@link Claw#command(direction)} */
     public enum Direction {
-        OPEN, CLOSE
+        OPEN,
+        CLOSE
     }
 
     /** Enable teleoperated claw movement with gamepad (b, a) */
@@ -239,7 +248,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
 
     /**
      * Initiate an automated claw movement
-     * 
+     *
      * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @throws NullPointerException if direction is null
      * @throws IllegalArgumentException if direction is an unexpected value

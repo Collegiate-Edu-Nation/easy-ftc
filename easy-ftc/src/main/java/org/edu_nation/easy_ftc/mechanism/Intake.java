@@ -3,15 +3,15 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.util.Arrays;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import java.util.Arrays;
 
 /**
  * Implements an intake by extending the functionality of {@link MotorMechanism}
- * 
+ *
  * @see Builder
  * @see Direction
  */
@@ -30,29 +30,28 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
     /**
      * Construct an {@link Intake} object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Intake intake = new Intake.Builder(this, hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>reverseDevices = {}
-     * <li>gamepad = null
-     * <li>encoder = false
-     * <li>diameter = 0.0
-     * <li>length = 0.0
-     * <li>gearing = 0.0
-     * <li>count = 1
-     * <li>names = {"intake"}
-     * <li>behavior = BRAKE
-     * <li>dir1 = 0.0
-     * <li>dir2 = 0.0
+     *   <li>reverse = false
+     *   <li>reverseDevices = {}
+     *   <li>gamepad = null
+     *   <li>encoder = false
+     *   <li>diameter = 0.0
+     *   <li>length = 0.0
+     *   <li>gearing = 0.0
+     *   <li>count = 1
+     *   <li>names = {"intake"}
+     *   <li>behavior = BRAKE
+     *   <li>dir1 = 0.0
+     *   <li>dir2 = 0.0
      * </ul>
      */
     public static class Builder extends MotorMechanism.Builder<Builder> {
@@ -65,7 +64,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param opMode instance of the calling opMode
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if opMode or hardwareMap are null
@@ -114,15 +113,17 @@ public class Intake extends MotorMechanism<Intake.Direction> {
         // intake-specific methods
         /**
          * Specify the number of motors
-         * 
+         *
          * @param count the number of motors in the intake mechanism
          * @return builder instance
          * @throws IllegalArgumentException if count isn't 1 or 2
          */
         public Builder count(int count) {
             if (count < 1 || count > 2) {
-                throw new IllegalArgumentException("Unexpected count value: " + count
-                        + ", passed to Intake.Builder().count(). Valid values are integers in the interval [1, 2]");
+                throw new IllegalArgumentException(
+                        "Unexpected count value: "
+                                + count
+                                + ", passed to Intake.Builder().count(). Valid values are integers in the interval [1, 2]");
             }
             this.count = count;
             if (count == 2) {
@@ -134,7 +135,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Change the names of the hardware devices
-         * 
+         *
          * @param names an array of the names for the hardware devices
          * @return builder instance
          * @throws NullPointerException if names is null
@@ -149,7 +150,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Specify the zero-power behavior of the motors
-         * 
+         *
          * @param behavior the zero-power behavior, one of ZeroPowerBehavior.BRAKE or FLOAT
          * @return builder instance
          * @throws NullPointerException if behavior is null
@@ -165,7 +166,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Specify the positional limit for {@link Direction IN}
-         * 
+         *
          * @param in positional limit for {@link Direction IN}
          * @return builder instance
          */
@@ -176,7 +177,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Specify the positional limit for {@link Direction OUT}
-         * 
+         *
          * @param out positional limit for {@link Direction OUT}
          * @return builder instance
          */
@@ -187,11 +188,11 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
         /**
          * Build the intake
-         * 
+         *
          * @return intake instance
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if encoder = false and one of: diameter, length, or gearing
-         *         has been set
+         *     has been set
          * @throws IllegalStateException if dir1 &lt; dir2
          */
         @Override
@@ -205,16 +206,19 @@ public class Intake extends MotorMechanism<Intake.Direction> {
                         "One of: Intake.Builder().diameter(), Intake.Builder().length(), or Intake.Builder().gearing() has been set without enabling Intake.Builder().encoder(). Enable Intake.Builder().encoder()");
             }
             if (this.dir1 < this.dir2) {
-                throw new IllegalStateException("Unexpected in and out values: " + this.dir1 + ", "
-                        + this.dir2
-                        + ", passed to Intake.Builder().in() and Intake.Builder().out(). In must be greater than out");
+                throw new IllegalStateException(
+                        "Unexpected in and out values: "
+                                + this.dir1
+                                + ", "
+                                + this.dir2
+                                + ", passed to Intake.Builder().in() and Intake.Builder().out(). In must be greater than out");
             }
             return new Intake(this);
         }
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -225,7 +229,8 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
     /** Directions that can be passed to {@link Intake#command(direction, measurement, power)} */
     public enum Direction {
-        IN, OUT
+        IN,
+        OUT
     }
 
     /**
@@ -264,7 +269,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
 
     /**
      * Initiate an automated intake movement
-     * 
+     *
      * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command

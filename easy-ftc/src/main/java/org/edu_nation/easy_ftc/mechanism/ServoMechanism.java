@@ -40,7 +40,7 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         /**
          * Whether to enable smooth-servo control
-         * 
+         *
          * @return builder instance
          */
         public T smooth() {
@@ -53,15 +53,17 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         /**
          * Specify the increment to move by for smooth-servo control
-         * 
+         *
          * @param increment portion of total range-of-motion moved in each iteration
          * @return builder instance
          * @throws IllegalArgumentException if increment is not in the interval (0, 1]
          */
         public T increment(double increment) {
             if (increment <= 0 || increment > 1) {
-                throw new IllegalArgumentException("Unexpected increment value: " + increment
-                        + ", passed to ServoMechanism.Builder().increment(). Valid values are numbers in the interval (0, 1]");
+                throw new IllegalArgumentException(
+                        "Unexpected increment value: "
+                                + increment
+                                + ", passed to ServoMechanism.Builder().increment(). Valid values are numbers in the interval (0, 1]");
             }
             this.increment = increment;
             return self();
@@ -69,16 +71,17 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         /**
          * Specify the increment delay for smooth-servo control
-         * 
+         *
          * @param incrementDelay the time (in s) to wait between each increment
          * @return builder instance
          * @throws IllegalArgumentException if incrementDelay &lt;= 0
          */
         public T incrementDelay(double incrementDelay) {
             if (incrementDelay <= 0) {
-                throw new IllegalArgumentException("Unexpected incrementDelay value: "
-                        + incrementDelay
-                        + ", passed to ServoMechanism.Builder().incrementDelay(). Valid values are numbers > 0");
+                throw new IllegalArgumentException(
+                        "Unexpected incrementDelay value: "
+                                + incrementDelay
+                                + ", passed to ServoMechanism.Builder().incrementDelay(). Valid values are numbers > 0");
             }
             this.incrementDelay = incrementDelay;
             return self();
@@ -86,15 +89,17 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         /**
          * Specify the delay for normal servo control
-         * 
+         *
          * @param delay the time to wait (in s) for servo movements to complete
          * @return builder instance
          * @throws IllegalArgumentException if delay &lt;= 0
          */
         public T delay(double delay) {
             if (delay <= 0) {
-                throw new IllegalArgumentException("Unexpected delay value: " + delay
-                        + ", passed to ServoMechanism.Builder().delay(). Valid values are numbers > 0");
+                throw new IllegalArgumentException(
+                        "Unexpected delay value: "
+                                + delay
+                                + ", passed to ServoMechanism.Builder().delay(). Valid values are numbers > 0");
             }
             this.delay = delay;
             return self();
@@ -133,8 +138,12 @@ abstract class ServoMechanism<E> extends Mechanism {
             String validNames = bld.toString();
             validNames = validNames.substring(0, validNames.length() - 2);
             throw new IllegalArgumentException(
-                    "Unexpected deviceName: " + deviceName + ", passed to " + mechanismName
-                            + ".Builder().reverse(). Valid names are: " + validNames);
+                    "Unexpected deviceName: "
+                            + deviceName
+                            + ", passed to "
+                            + mechanismName
+                            + ".Builder().reverse(). Valid names are: "
+                            + validNames);
         }
     }
 

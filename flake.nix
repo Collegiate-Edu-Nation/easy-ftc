@@ -62,7 +62,7 @@
 
                 # formatting
                 nixfmt-rfc-style
-		            nodejs
+                nodejs
                 jre17_minimal
               ]);
 

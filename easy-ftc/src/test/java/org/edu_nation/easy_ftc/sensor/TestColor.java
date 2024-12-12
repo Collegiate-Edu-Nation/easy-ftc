@@ -3,12 +3,13 @@
 
 package org.edu_nation.easy_ftc.sensor;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.edu_nation.easy_ftc.sensor.Color.RGB;
+import org.junit.Test;
 
 public class TestColor {
     HardwareMap mockedHardwareMap = mock(HardwareMap.class);
@@ -124,15 +125,23 @@ public class TestColor {
     public void dominantColor_isCorrect() {
         mockInit();
 
-        Color color = new Color.Builder(mockedHardwareMap).rgbOffsets(new int[] {10, -25, 0})
-                .threshold(85.0).build();
-        int[][] rgbRawArrays =
-                {{76, 110, 85}, {75, 111, 85}, {75, 110, 86}, {75, 110, 85}, {76, 111, 86}};
+        Color color =
+                new Color.Builder(mockedHardwareMap)
+                        .rgbOffsets(new int[] {10, -25, 0})
+                        .threshold(85.0)
+                        .build();
+        int[][] rgbRawArrays = {
+            {76, 110, 85}, {75, 111, 85}, {75, 110, 86}, {75, 110, 85}, {76, 111, 86}
+        };
 
         RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null, null};
-        RGB[] colorsActual = {color.dominantColor(rgbRawArrays[0]),
-                color.dominantColor(rgbRawArrays[1]), color.dominantColor(rgbRawArrays[2]),
-                color.dominantColor(rgbRawArrays[3]), color.dominantColor(rgbRawArrays[4])};
+        RGB[] colorsActual = {
+            color.dominantColor(rgbRawArrays[0]),
+            color.dominantColor(rgbRawArrays[1]),
+            color.dominantColor(rgbRawArrays[2]),
+            color.dominantColor(rgbRawArrays[3]),
+            color.dominantColor(rgbRawArrays[4])
+        };
 
         for (int i = 0; i < colorsActual.length; i++) {
             assertEquals(colorsExpected[i], colorsActual[i]);
@@ -148,8 +157,12 @@ public class TestColor {
         int[][] rgbRawArrays = {{74, 110, 85}, {75, 109, 85}, {75, 110, 84}, {75, 110, 85}};
 
         RGB[] colorsExpected = {RGB.RED, RGB.GREEN, RGB.BLUE, null};
-        RGB[] colorsActual = {color.weakColor(rgbRawArrays[0]), color.weakColor(rgbRawArrays[1]),
-                color.weakColor(rgbRawArrays[2]), color.weakColor(rgbRawArrays[3])};
+        RGB[] colorsActual = {
+            color.weakColor(rgbRawArrays[0]),
+            color.weakColor(rgbRawArrays[1]),
+            color.weakColor(rgbRawArrays[2]),
+            color.weakColor(rgbRawArrays[3])
+        };
 
         for (int i = 0; i < colorsActual.length; i++) {
             assertEquals(colorsExpected[i], colorsActual[i]);

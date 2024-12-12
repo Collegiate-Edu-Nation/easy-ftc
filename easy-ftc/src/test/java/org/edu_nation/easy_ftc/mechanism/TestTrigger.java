@@ -3,13 +3,14 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.junit.Test;
 
 public class TestTrigger {
     LinearOpMode mockedOpMode = mock(LinearOpMode.class);
@@ -30,29 +31,56 @@ public class TestTrigger {
 
         try {
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"trigger"})
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .names(new String[] {"trigger"})
                     .build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).reverse("trigger").build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("triggerLeft")
-                    .reverse("triggerRight").build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2)
-                    .reverse(new String[] {"triggerLeft", "triggerRight"}).build();
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .reverse("triggerLeft")
+                    .reverse("triggerRight")
+                    .build();
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .reverse(new String[] {"triggerLeft", "triggerRight"})
+                    .build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).gamepad(mockedGamepad)
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .gamepad(mockedGamepad)
                     .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).smooth().gamepad(mockedGamepad)
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .smooth()
+                    .gamepad(mockedGamepad)
                     .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth()
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .smooth()
                     .gamepad(mockedGamepad);
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().open(0.9)
-                    .close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
-                    .gamepad(mockedGamepad).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().reverse()
-                    .open(0.9).close(0.1).increment(0.01).incrementDelay(0.02).delay(2.1)
-                    .gamepad(mockedGamepad).build();
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .smooth()
+                    .open(0.9)
+                    .close(0.1)
+                    .increment(0.01)
+                    .incrementDelay(0.02)
+                    .delay(2.1)
+                    .gamepad(mockedGamepad)
+                    .build();
+            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                    .count(2)
+                    .smooth()
+                    .reverse()
+                    .open(0.9)
+                    .close(0.1)
+                    .increment(0.01)
+                    .incrementDelay(0.02)
+                    .delay(2.1)
+                    .gamepad(mockedGamepad)
+                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -125,7 +153,9 @@ public class TestTrigger {
     public void namesLengthThrowsException() {
         mockInit();
 
-        new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).names(new String[] {"abc"})
+        new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                .count(2)
+                .names(new String[] {"abc"})
                 .build();
     }
 
@@ -141,10 +171,15 @@ public class TestTrigger {
         mockInit();
 
         try {
-            Trigger trigger = new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .gamepad(mockedGamepad).build();
-            Trigger triggerSmooth = new Trigger.Builder(mockedOpMode, mockedHardwareMap).smooth()
-                    .gamepad(mockedGamepad).build();
+            Trigger trigger =
+                    new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Trigger triggerSmooth =
+                    new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                            .smooth()
+                            .gamepad(mockedGamepad)
+                            .build();
             trigger.control();
             triggerSmooth.control();
         } catch (Exception e) {
@@ -157,10 +192,17 @@ public class TestTrigger {
         mockInit();
 
         try {
-            Trigger trigger = new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2)
-                    .gamepad(mockedGamepad).build();
-            Trigger triggerSmooth = new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2)
-                    .smooth().gamepad(mockedGamepad).build();
+            Trigger trigger =
+                    new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Trigger triggerSmooth =
+                    new Trigger.Builder(mockedOpMode, mockedHardwareMap)
+                            .count(2)
+                            .smooth()
+                            .gamepad(mockedGamepad)
+                            .build();
             trigger.control();
             triggerSmooth.control();
         } catch (Exception e) {

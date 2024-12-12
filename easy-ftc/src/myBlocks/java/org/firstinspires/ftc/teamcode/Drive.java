@@ -3,12 +3,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 
 public class Drive extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Initiate an automated drivetrain movement",
+    @ExportToBlocks(
+            comment = "Initiate an automated drivetrain movement",
             parameterLabels = {"Direction", "Time", "Power"})
     public static void command(Direction direction, double time, double power) {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
@@ -18,21 +19,25 @@ public class Drive extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Enable teleoperated drivetrain movement with gamepad (joysticks), scaling by multiplier",
+            comment =
+                    "Enable teleoperated drivetrain movement with gamepad (joysticks), scaling by multiplier",
             parameterLabels = {"Multiplier"})
     public static void control(double multiplier) {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
                 new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         drive.control(multiplier);
     }
 
     @ExportToBlocks(
-            comment = "Enable teleoperated drivetrain movement with gamepad (joysticks), with multiplier = 1.0")
+            comment =
+                    "Enable teleoperated drivetrain movement with gamepad (joysticks), with multiplier = 1.0")
     public static void control() {
         org.edu_nation.easy_ftc.mechanism.Drive drive =
                 new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).build();
+                        .gamepad(gamepad1)
+                        .build();
         drive.control();
     }
 

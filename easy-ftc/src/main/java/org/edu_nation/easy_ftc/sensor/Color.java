@@ -3,12 +3,12 @@
 
 package org.edu_nation.easy_ftc.sensor;
 
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
  * Implements a color sensor by extending the functionality of {@link Sensor}
- * 
+ *
  * @see Builder
  * @see RGB
  */
@@ -26,21 +26,20 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
     /**
      * Construct a {@link Color} sensor object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Color color = new Color.Builder(hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>name = "color"
-     * <li>threshold = 85.0
-     * <li>rgbOffsets = {10, -25, 0}
+     *   <li>reverse = false
+     *   <li>name = "color"
+     *   <li>threshold = 85.0
+     *   <li>rgbOffsets = {10, -25, 0}
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
@@ -50,7 +49,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if hardwareMap is null
          */
@@ -67,7 +66,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
         // color-specific methods
         /**
          * Change the name of the hardware device
-         * 
+         *
          * @param name name of the hardware devices
          * @return builder instance
          * @throws NullPointerException if name is null
@@ -83,15 +82,17 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Specify the calibration value
-         * 
+         *
          * @param threshold cutoff threshold for what's considered a meaningful reading
          * @return builder instance
          * @throws IllegalArgumentException if calibration value not in the interval [0, 255]
          */
         public Builder threshold(double threshold) {
             if (threshold < 0 || threshold > 255) {
-                throw new IllegalArgumentException("Unexpected threshold: " + threshold
-                        + ", passed to Color.Builder().threshold(). Valid values are numbers in the interval [0, 255]");
+                throw new IllegalArgumentException(
+                        "Unexpected threshold: "
+                                + threshold
+                                + ", passed to Color.Builder().threshold(). Valid values are numbers in the interval [0, 255]");
             }
             this.threshold = threshold;
             return this;
@@ -99,7 +100,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Specify the rgbOffsets (array of 3 integers, -255-255)
-         * 
+         *
          * @param rgbOffsets array of 3 integer offsets that are added to the RGB values
          * @return builder instance
          * @throws NullPointerException if rgbOffsets is null
@@ -112,8 +113,10 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
             }
             for (int rgbOffset : rgbOffsets) {
                 if (rgbOffset < -255 || rgbOffset > 255) {
-                    throw new IllegalArgumentException("Unexpected rgbOffsets value: " + rgbOffset
-                            + ", passed to Color.Builder().rgbOffsets(). Valid values are arrays of integers in the interval [-255, 255]");
+                    throw new IllegalArgumentException(
+                            "Unexpected rgbOffsets value: "
+                                    + rgbOffset
+                                    + ", passed to Color.Builder().rgbOffsets(). Valid values are arrays of integers in the interval [-255, 255]");
                 }
             }
             this.rgbOffsets = rgbOffsets;
@@ -122,7 +125,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Build the sensor
-         * 
+         *
          * @return color instance
          */
         @Override
@@ -132,7 +135,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -143,7 +146,9 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
     /** RGB values that can be returned by {@link Color#state()} */
     public enum RGB {
-        RED, GREEN, BLUE
+        RED,
+        GREEN,
+        BLUE
     }
 
     /** Initialize color sensor */
@@ -154,7 +159,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
     /**
      * Return color sensor state
-     * 
+     *
      * @return color of detection, one of {@link RGB} or null
      */
     @Override
@@ -231,13 +236,15 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
 
     /** Return maximum of normalized RGB values */
     private int max(int[] rgbNormalized) {
-        return Math.max(Math.max(rgbNormalized[0], rgbNormalized[1]),
+        return Math.max(
+                Math.max(rgbNormalized[0], rgbNormalized[1]),
                 Math.max(rgbNormalized[1], rgbNormalized[2]));
     }
 
     /** Return minimum of normalized RGB values */
     private int min(int[] rgbNormalized) {
-        return Math.min(Math.min(rgbNormalized[0], rgbNormalized[1]),
+        return Math.min(
+                Math.min(rgbNormalized[0], rgbNormalized[1]),
                 Math.min(rgbNormalized[1], rgbNormalized[2]));
     }
 }

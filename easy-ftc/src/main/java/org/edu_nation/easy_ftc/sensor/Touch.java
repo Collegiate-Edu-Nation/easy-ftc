@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * Implements a touch sensor by extending the functionality of {@link Sensor}
- * 
+ *
  * @see Builder
  */
 public class Touch extends Sensor<TouchSensor, Boolean> {
@@ -22,19 +22,18 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
 
     /**
      * Construct a {@link Touch} sensor object using the builder design pattern
-     * <p>
-     * <b>Basic Usage:</b>
-     * 
-     * <pre>
-     * {@code
+     *
+     * <p><b>Basic Usage:</b>
+     *
+     * <pre>{@code
      * Touch touch = new Touch.Builder(hardwareMap).build();
-     * }
-     * </pre>
-     * 
+     * }</pre>
+     *
      * <b>Defaults:</b>
+     *
      * <ul>
-     * <li>reverse = false
-     * <li>name = "touch"
+     *   <li>reverse = false
+     *   <li>name = "touch"
      * </ul>
      */
     public static class Builder extends Sensor.Builder<Builder> {
@@ -42,7 +41,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
 
         /**
          * Builder constructor
-         * 
+         *
          * @param hardwareMap instance of the calling opMode's hardwareMap
          * @throws NullPointerException if hardwareMap is null
          */
@@ -59,7 +58,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
         // touch-specific methods
         /**
          * Change the name of the hardware device
-         * 
+         *
          * @param name name of the hardware devices
          * @return builder instance
          * @throws NullPointerException if name is null
@@ -75,7 +74,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
 
         /**
          * Build the sensor
-         * 
+         *
          * @return touch instance
          */
         @Override
@@ -85,7 +84,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
 
         /**
          * Return builder instance
-         * 
+         *
          * @return builder instance
          */
         @Override
@@ -102,7 +101,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
 
     /**
      * Return touch sensor state
-     * 
+     *
      * @return whether the sensor has been pressed or not
      */
     @Override
