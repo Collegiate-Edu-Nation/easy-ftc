@@ -82,6 +82,10 @@ Deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 - A new menu option 'Java Classes' should be visible in the Blockly GUI now
 - Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
 
+## Contributing
+
+If you want to contribute to the project, be sure to read the [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## License
 
 [GPLv3](COPYING)
