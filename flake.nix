@@ -60,7 +60,8 @@
                 python312Packages.mkdocs
                 python312Packages.mkdocs-material
 
-                # npm-groovy-lint
+                # formatting
+                nixfmt-rfc-style
 		            nodejs
                 jre17_minimal
               ]);
