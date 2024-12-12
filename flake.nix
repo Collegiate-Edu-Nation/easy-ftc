@@ -69,21 +69,20 @@
             shellHook = ''
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
 
+              echo -e "┌───────────────────────────────┐"
+              echo -e "│      Custom Gradle Tasks      │"
+              echo -e "├──────────┬────────────────────┤"
+              echo -e "│ Coverage │ ./gradlew coverage │"
+              echo -e "│ Docs     │ ./gradlew docs     │"
+              echo -e "│ Format   │ ./gradlew format   │"
+              echo -e "│ myBlocks │ ./gradlew myBlocks │"
+              echo -e "└──────────┴────────────────────┘\n"
+
               if ! test -d node_modules; then
                 echo -e "Adding npm-groovy-lint and prettier..."
                 npm install
                 echo -e "Done.\n"
               fi
-
-              echo -e "Build:    ./gradlew assemble"
-              echo -e "Clean:    ./gradlew clean"
-              echo -e "Test:     ./gradlew test"
-              echo -e "Coverage: ./gradlew coverage"
-              echo -e "Docs:     ./gradlew docs"
-              echo -e "UML:      ./gradlew uml"
-              echo -e "myBlocks: ./gradlew myBlocks\n"
-              java --version
-              echo -e ""
             '';
           };
         }
