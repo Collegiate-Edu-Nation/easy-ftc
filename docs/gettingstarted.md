@@ -360,7 +360,7 @@ Before we can dive into coding, follow the Install section of the README
 
     <details>
     <summary>Autonomous - Final Code</summary>
-    ![Autonomous - Final Code](./img/blk/gs/autoFinal.png)
+    ![Autonomous - Final Code](./img/blk/gs/autoFinal.png){ width=725 }
     </details>
 
 
