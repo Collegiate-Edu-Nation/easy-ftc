@@ -70,7 +70,7 @@
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
 
               if ! test -d node_modules; then
-                echo -e "Adding npm-groovy-lint..."
+                echo -e "Adding npm-groovy-lint and prettier..."
                 npm install
                 echo -e "Done.\n"
               fi
