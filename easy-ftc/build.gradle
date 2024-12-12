@@ -95,6 +95,7 @@ task formatMisc(type: Exec) {
     commandLine 'npx', 'prettier', '--write', '**/*.yml', '**/*.md'
 }
 
+// formats all files
 task format(dependsOn: [spotlessApply, formatNix, formatGroovy, formatMisc]) {
     group = ver
     description = 'Formats all files'
