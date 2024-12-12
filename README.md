@@ -27,9 +27,15 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
 ## Overview
 
-This library greatly simplifies the implementation of common FTC robotics subsystems by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern
+### What does this do?
 
-Additionally, several useful quality-of-life features are included
+This library greatly simplifies the implementation of common FTC robotics subsystems and features by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern
+
+### Who is this for?
+
+The target audience is beginner-level FTC teams and hobbyists, but even advanced users can elect to utilize easy-ftc à la carte (e.g. leverage easy-ftc for peripheral devices so you can focus on more complex features like motion planning)
+
+### Features
 
 - Encoders can be used with minimal setup for either time- or distance-based commands
 - Arm, Intake, and Lift optionally feature encoder limits on range-of-motion
@@ -38,8 +44,10 @@ Additionally, several useful quality-of-life features are included
 - Servo-powered mechanisms can optionally leverage smooth-servo control
 - Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
 
-Docs deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
-<i>Docs cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc</i>
+### Docs
+
+Deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
+<i>Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc</i>
 
 ## Install
 
