@@ -3,12 +3,14 @@
 
 plugins {
     id 'com.android.library'
+    id 'com.diffplug.spotless' version '7.0.0.BETA4'
 }
 
 // vars
 int tgt = 30
 String dir = '..'
 String bld = 'build'
+String ver = 'verification'
 String ftcBase = 'org.firstinspires.ftc:'
 String ftcV = ':10.1.1'
 String hardware = ftcBase + 'Hardware' + ftcV
@@ -55,6 +57,47 @@ android {
     lint {
         baseline = file('lint-baseline.xml')
     }
+}
+
+// formats all java files
+spotless {
+    java {
+        googleJavaFormat().aosp() // 4 lines instead of 2 (default)
+        target '**/*.java'        // fix for android project discovery
+    }
+}
+
+// formats all nix files
+task formatNix(type: Exec) {
+    group = ver
+    description = 'Formats all nix files'
+
+    workingDir dir
+    commandLine 'nixfmt', 'flake.nix'
+}
+
+// formats all groovy files
+task formatGroovy(type: Exec) {
+    group = ver
+    description = 'Formats all groovy files'
+
+    environment 'JAVA_HOME', '/nix/store/pkjbmz578c2f1dwzzh860n9mq8y98yfv-zulu-ca-jdk-minimal-jre-17.0.12'
+    workingDir dir
+    commandLine 'npx', 'npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle', 'easy-ftc/build.gradle'
+}
+
+// formats all yml, md files
+task formatMisc(type: Exec) {
+    group = ver
+    description = 'Formats all yml, md files'
+
+    workingDir dir
+    commandLine 'npx', 'prettier', '--write', '**/*.yml', '**/*.md'
+}
+
+task format(dependsOn: [spotlessApply, formatNix, formatGroovy, formatMisc]) {
+    group = ver
+    description = 'Formats all files'
 }
 
 // create alias for jacoco report
