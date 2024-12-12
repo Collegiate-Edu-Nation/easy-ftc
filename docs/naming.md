@@ -9,98 +9,41 @@ These are the default hardware names. They can be modified via Builder.names(), 
 
 ## Mechanisms
 
-### Arm
+### Non-Drive
 
 === "1"
 
-    | Motor | Name |
-    | ----- | ---- |
-    | 1     | arm  |
+    | Mechanism | Name    |
+    | --------- | ------- |
+    | Arm       | arm     |
+    | Claw      | claw    |
+    | Intake    | intake  |
+    | Lift      | lift    |
+    | Trigger   | trigger |
 
 === "2"
 
-    | Motor | Name     |
-    | ----- | -------- |
-    | 1     | armLeft  |
-    | 2     | armRight |
-
-### Claw
-
-=== "1"
-
-    | Motor | Name  |
-    | ----- | ----- |
-    | 1     | claw  |
-
-=== "2"
-
-    | Motor | Name      |
-    | ----- | --------- |
-    | 1     | clawLeft  |
-    | 2     | clawRight |
+    | Mechanism | Names                     |
+    | --------- | ------------------------- |
+    | Arm       | armLeft, armRight         |
+    | Claw      | clawLeft, clawRight       |
+    | Intake    | intakeLeft, intakeRight   |
+    | Lift      | liftLeft, liftRight       |
+    | Trigger   | triggerLeft, triggerRight |
 
 ### Drive
 
 === "2"
 
-    | Motor | Name       |
-    | ----- | ---------- |
-    | 1     | driveLeft  |
-    | 2     | driveRight |
+    | Names                 |
+    | --------------------- |
+    | driveLeft, driveRight |
 
 === "4"
 
-    | Motor | Name       |
-    | ----- | ---------- |
-    | 1     | frontLeft  |
-    | 2     | frontRight |
-    | 3     | backLeft   |
-    | 4     | backRight  |
-
-### Intake
-
-=== "1"
-
-    | Motor | Name    |
-    | ----- | ------- |
-    | 1     | intake  |
-
-=== "2"
-
-    | Motor | Name        |
-    | ----- | ----------- |
-    | 1     | intakeLeft  |
-    | 2     | intakeRight |
-
-### Lift
-
-=== "1"
-
-    | Motor | Name  |
-    | ----- | ----- |
-    | 1     | lift  |
-
-=== "2"
-
-    | Motor | Name      |
-    | ----- | --------- |
-    | 1     | liftLeft  |
-    | 2     | liftRight |
-
-### Trigger
-
-=== "1"
-
-    | Motor | Name     |
-    | ----- | -------- |
-    | 1     | trigger  |
-
-=== "2"
-
-    | Motor | Name         |
-    | ----- | ------------ |
-    | 1     | triggerLeft  |
-    | 2     | triggerRight |
+    | Names                                      |
+    | ------------------------------------------ |
+    | frontLeft, frontRight, backLeft, backRight |
 
 ## Sensors
 
