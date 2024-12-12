@@ -246,14 +246,41 @@ Then
 
 ### Source Files
 
-| Ext     | Fmt                |
-| ------- | ------------------ |
-| java    | google-java-format |
-| gradle  | npm-groovy-lint    |
-| nix     | nixfmt             |
-| md, yml | prettier           |
+<!-- omit in toc -->
 
-<i>Sonarlint is also used to check code quality</i>
+#### Formatting and Quality
+
+| Ext     | Fmt                       |
+| ------- | ------------------------- |
+| java    | google-java-format (aosp) |
+| gradle  | npm-groovy-lint           |
+| nix     | nixfmt                    |
+| md, yml | prettier                  |
+
+<i>Sonarlint is used to check code quality</i>
+
+<!-- omit in toc -->
+
+#### Naming
+
+- Simplicity over descriptivity
+- camelCase for variables and functions
+- PascalCase for classes
+- SNAKE_CASE for constants
+
+<!-- omit in toc -->
+
+#### Javadoc
+
+- Only use one-liners for private and protected functions, classes
+- Include the following for public functions and classes (as applicable)
+  - @param
+  - @return
+  - @throws
+- Include the following for each Builder class
+  - Basic Usage
+  - Defaults (all default field values)
+- Override relevant inherited Builder methods
 
 ### Commit Messages
 
