@@ -22,6 +22,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [I Want To Contribute](#i-want-to-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
+  - [Your First Code Contribution](#your-first-code-contribution)
   - [Dev Setup](#dev-setup)
   - [ToDo](#todo)
 - [Styleguides](#styleguides)
@@ -140,6 +141,29 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/Colleg
 - **Explain why this enhancement would be useful** to most easy-ftc users. You may also want to point out the other projects that solved it better and which could serve as inspiration.
 
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
+
+### Your First Code Contribution
+
+Before submitting a PR, ensure it's addressed by the [ToDo](#todo) or a [GitHub issue](https://github.com/Collegiate-Edu-Nation/easy-ftc/issues). Once you're sure the item is addressed in one (or both) of these locations, follow these steps:
+
+1.  [Fork this repository](https://github.com/Collegiate-Edu-Nation/easy-ftc/fork)
+2.  Check out the source code with:
+
+        git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+
+3.  Switch to dev with
+
+        cd easy-ftc
+        git switch dev
+
+4.  Start a new git branch with
+
+        git checkout -b feature/your-feature
+
+5.  Make desired changes to `easy-ftc/src` (see [Dev Setup](#dev-setup) for setting up the environment)
+6.  Add relevant tests to `easy-ftc/src/test`
+7.  Make sure your code, commit history, and branch name all follow the [Styleguides](#styleguides), that your code is properly formatted `./gradlew format`, that your branch builds `./gradlew build`, and that the documentation builds `./gradlew docs`
+8.  Finally, [create a pull request](https://help.github.com/articles/creating-a-pull-request). We'll then review and merge it
 
 ### Dev Setup
 
