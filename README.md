@@ -84,7 +84,7 @@ Deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 
 ## Contributing
 
-If you want to contribute to the project, be sure to read the [CONTRIBUTING.md](CONTRIBUTING.md)
+[CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## License
 
