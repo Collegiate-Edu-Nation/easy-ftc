@@ -47,7 +47,7 @@ The target audience is beginner-level FTC teams and hobbyists, but even advanced
 ### Docs
 
 Deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
-*Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc*
+_Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 
 ## Install
 
@@ -75,9 +75,9 @@ Deployed at https://collegiate-edu-nation.github.io/easy-ftc<br>
 
 - While at the previous link, also click on 'myBlocks.zip'
 - Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
-  - *Each Java file in 'myBlocks' will control a specific mechanism/sensor*
+  - _Each Java file in 'myBlocks' will control a specific mechanism/sensor_
 - Modify the myBlocks Java files to change behavior
-  - *e.g. add .layout(Layout.ARCADE) to Drive.Builder in Drive.java*
+  - _e.g. add .layout(Layout.ARCADE) to Drive.Builder in Drive.java_
 - Press the gear icon on the bottom right with the title 'Build Everything'
 - A new menu option 'Java Classes' should be visible in the Blockly GUI now
 - Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
