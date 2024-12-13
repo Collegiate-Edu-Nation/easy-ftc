@@ -239,11 +239,20 @@ Then
 
         cd easy-ftc
 
-- Create and activate venv
+- Create venv
 
         mkdir .venv
         python -m venv .venv
+
+- Activate venv
+
+  - Linux and macOS
+
         source .venv/bin/activate
+
+  - Windows
+
+        .venv/Scripts/activate
 
 - Install dependencies
 
