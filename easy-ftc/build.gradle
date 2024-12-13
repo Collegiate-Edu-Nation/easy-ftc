@@ -66,11 +66,11 @@ android {
     }
 }
 
-// prepend 'npm' on unix if nix isn't used, 'npm.cmd' on windows
+// prepend 'npx' on unix if nix isn't used, 'npx.cmd' on windows
 def List<String> finalizeRunCmd(List<String> runCmd, String jre17, String store) {
-    String npmCmd = (Os.isFamily(Os.FAMILY_WINDOWS)) ? 'npm.cmd' : 'npm'
+    String npxCmd = (Os.isFamily(Os.FAMILY_WINDOWS)) ? 'npx.cmd' : 'npx'
     if (!jre17.contains(store)) {
-        runCmd.prepend(npmCmd)
+        runCmd.prepend(npxCmd)
     }
     return runCmd
 }
