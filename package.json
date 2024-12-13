@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "npm-groovy-lint": "15.0.2",
-    "prettier": "3.4.2"
+    "prettier": "3.3.3"
   }
 }
