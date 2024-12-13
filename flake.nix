@@ -79,6 +79,10 @@
                 ]
               );
 
+            # set env vars for binary paths
+            JRE17_PATH = "${pkgs.jre17_minimal}";
+            PUML_PATH = "${pkgs.plantuml}/bin/plantuml";
+
             shellHook = ''
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
 

@@ -196,7 +196,7 @@ The project can also be imported into Android Studio, where Windows is supported
 To format source files, you must also install
 
 - nodejs
-- nixfmt
+- nixfmt (optional as long as no nix files are modified)
 
 Then
 
@@ -208,23 +208,45 @@ Then
 
         npm install
 
-- Remove the path to JRE 17 in build.gradle (task: formatGroovy)
+- Set JRE17_PATH (path to JRE 17 binary)
+
+  - Linux and macOS
+
+        export JRE17_PATH=path/to/jre17
+
+  - Windows
+
+        [System.Environment]::SetEnvironmentVariable('JRE17_PATH','path/to/jre17', 'Machine')
+
 - Run the format task
 
         ./gradlew format
 
+  <i>Append `-x formatNix` if nixfmt has not been installed</i>
+
 To generate documentation, you must also install
 
-- PlantUML
+- PlantUML (optional as long as no puml files are modified)
 - mkdocs
 - mkdocs-material
 
 Then
 
-- Correct the path to the plantuml binary in build.gradle (task: uml)
+- Set PUML_PATH (path to plantuml binary)
+
+  - Linux and macOS
+
+        export PUML_PATH=path/to/plantuml
+
+  - Windows
+
+        [System.Environment]::SetEnvironmentVariable('PUML_PATH','path/to/plantuml', 'Machine')
+
 - Run the docs task
 
         ./gradlew docs
+
+  <i>Append `-x uml` if plantuml has not been installed</i>
 
 ### ToDo
 

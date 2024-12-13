@@ -15,8 +15,8 @@ String ftcBase = 'org.firstinspires.ftc:'
 String ftcV = ':10.1.1'
 String hardware = ftcBase + 'Hardware' + ftcV
 String core = ftcBase + 'RobotCore' + ftcV
-String jre17 = '/nix/store/pkjbmz578c2f1dwzzh860n9mq8y98yfv-zulu-ca-jdk-minimal-jre-17.0.12'
-String puml = '/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml'
+String jre17 = System.getenv('JRE17_PATH')
+String puml = System.getenv('PUML_PATH')
 
 android {
     namespace 'org.edu_nation.easy_ftc'
