@@ -70,7 +70,7 @@ android {
 def List<String> finalizeRunCmd(List<String> runCmd, String jre17, String store) {
     String npxCmd = (Os.isFamily(Os.FAMILY_WINDOWS)) ? 'npx.cmd' : 'npx'
     if (!jre17.contains(store)) {
-        runCmd.prepend(npxCmd)
+        runCmd.add(0, npxCmd)
     }
     return runCmd
 }
