@@ -67,16 +67,16 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
 
-    <i>Note the locations of Imports, Additional, Construction, and Methods.</i>
+    *Note the locations of Imports, Additional, Construction, and Methods*
 
 
     ## Example Structure
 
-    * <b>Imports:</b> classes and enums that must be imported
-    * <b>Additional:</b> additional variables and objects that must be setup
-    * <b>Construction:</b> easy-ftc object construction
-    * <b>Methods:</b> easy-ftc methods called on constructed objects
-    * <b>Notes:</b> any relevant details about using the example
+    * **Imports:** classes and enums that must be imported
+    * **Additional:** additional variables and objects that must be setup
+    * **Construction:** easy-ftc object construction
+    * **Methods:** easy-ftc methods called on constructed objects
+    * **Notes:** any relevant details about using the example
 
     ## Examples
 
@@ -542,7 +542,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
 
-    <i>Note the locations of Additional and Methods.</i>
+    *Note the locations of Additional and Methods*
 
 
     ## MyBlocks
@@ -633,16 +633,16 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
 
-    <i>Note the locations of Imports and Construction.</i>
+    *Note the locations of Imports and Construction*
 
 
     ## Example Structure
 
-    * <b>Imports</b>: classes and enums that must be imported
-    * <b>Additional</b>: additional variables and objects that must be setup
-    * <b>Construction</b>: easy-ftc object construction
-    * <b>Methods</b>: easy-ftc methods called on constructed objects
-    * <b>Notes</b>: any relevant details about using the example
+    * **Imports:** classes and enums that must be imported
+    * **Additional:** additional variables and objects that must be setup
+    * **Construction:** easy-ftc object construction
+    * **Methods:** easy-ftc methods called on constructed objects
+    * **Notes:** any relevant details about using the example
 
     ## Examples
 
@@ -762,12 +762,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Enable Features
 
-    <i>As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
+    *As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
 
     * Encoder limits in control()
     * Field-centric driving
 
-    If these features are must-haves, use Java instead.</i>
+    If these features are must-haves, use Java instead.*
 
 
     <details>

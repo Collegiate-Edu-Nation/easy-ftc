@@ -224,7 +224,7 @@ Then
 
         ./gradlew format
 
-  <i>Append `-x formatNix` if nixfmt has not been installed</i>
+  *Append `-x formatNix` if nixfmt has not been installed*
 
 To generate documentation, you must also install
 
@@ -263,7 +263,7 @@ Then
 
         ./gradlew docs
 
-  <i>Append `-x uml` if PlantUML has not been installed</i>
+  *Append `-x uml` if PlantUML has not been installed*
 
 ### ToDo
 
@@ -296,7 +296,7 @@ Then
 | nix     | nixfmt                    |
 | md, yml | prettier                  |
 
-<i>Sonarlint is used to check code quality</i>
+*Sonarlint is used to check code quality*
 
 <!-- omit in toc -->
 

@@ -25,7 +25,7 @@ An obvious way to provide higher-level control of your robot is to think in term
 
 Another, less obvious tactic for creating simple, high-level interfaces, is to standardize the API as much as possible. As a counter-example, motors in the FTC SDK are often controlled via the function 'setPower()', whereas servos are most often controlled via 'setPosition()'. In isolation, this isn't a big deal, but as more advanced features and approaches are implemented, these subtleties can propagate through your codebase to such an extent that forgetting a single function name may cause hours of head-scratching.
 
-This brings us to easy-ftc's API
+This brings us to easy-ftc's API.
 
 ## API
 
@@ -81,7 +81,7 @@ Before we can dive into coding, follow the Install section of the README
     </details>
 
 
-    <i>Note the locations of Imports, Construction, and Methods</i>
+    *Note the locations of Imports, Construction, and Methods*
 
 
     Before we can use easy-ftc, we'll need to import the relevant classes. Add the following to 'Imports'
@@ -164,7 +164,7 @@ Before we can dive into coding, follow the Install section of the README
     </details>
 
 
-    <i>Note the locations of Imports, Construction, and Methods</i>
+    *Note the locations of Imports, Construction, and Methods*
 
 
     Import Drive
@@ -276,7 +276,7 @@ Before we can dive into coding, follow the Install section of the README
     </details>
 
 
-    <i>Note the location of Methods</i>
+    *Note the location of Methods*
 
 
     If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism to 'Methods'. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
@@ -314,7 +314,7 @@ Before we can dive into coding, follow the Install section of the README
     </details>
 
 
-    <i>Note the location of Methods</i>
+    *Note the location of Methods*
 
 
     As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (direction, measurement, and power)
