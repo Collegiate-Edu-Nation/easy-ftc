@@ -208,9 +208,9 @@ Then
 
 - Install npm deps
 
-        npm install
+        npm i
 
-- Set JRE17_PATH (path to JRE 17 binary)
+- Set JRE17_PATH (path to JRE 17 binary, will default to ~/.java-caller)
 
   - Linux and macOS
 
@@ -218,7 +218,7 @@ Then
 
   - Windows
 
-        [System.Environment]::SetEnvironmentVariable('JRE17_PATH','path/to/jre17', 'Machine')
+        setx JRE17_PATH 'path\to\jre17'
 
 - Run the format task
 
@@ -229,8 +229,6 @@ Then
 To generate documentation, you must also install
 
 - Python 3.12.7
-- pip
-- venv
 - PlantUML (optional as long as no puml files are modified)
 
 Then
@@ -239,12 +237,12 @@ Then
 
         cd easy-ftc
 
-- Create venv
+- Create venv (optional)
 
         mkdir .venv
         python -m venv .venv
 
-- Activate venv
+- Activate venv (optional)
 
   - Linux and macOS
 
@@ -266,7 +264,7 @@ Then
 
   - Windows
 
-        [System.Environment]::SetEnvironmentVariable('PUML_PATH','path/to/plantuml', 'Machine')
+        setx PUML_PATH 'path\to\plantuml'
 
 - Run the docs task
 
