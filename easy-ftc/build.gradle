@@ -6,17 +6,22 @@ plugins {
     id 'com.diffplug.spotless' version '7.0.0.BETA4'
 }
 
+import org.apache.tools.ant.taskdefs.condition.Os
+
 // vars
 int tgt = 30
 String dir = '..'
 String bld = 'build'
 String ver = 'verification'
+String store = '/nix/store'
 String ftcBase = 'org.firstinspires.ftc:'
 String ftcV = ':10.1.1'
 String hardware = ftcBase + 'Hardware' + ftcV
 String core = ftcBase + 'RobotCore' + ftcV
 String jre17 = System.getenv('JRE17_PATH')
 String puml = System.getenv('PUML_PATH')
+jre17 = (jre17 != null) ? jre17 : ''
+puml = (puml != null) ? puml : ''
 
 android {
     namespace 'org.edu_nation.easy_ftc'
@@ -61,6 +66,15 @@ android {
     }
 }
 
+// prepend 'npm' on unix if nix isn't used, 'npm.cmd' on windows
+def List<String> finalizeRunCmd(List<String> runCmd, String jre17, String store) {
+    String npmCmd = (Os.isFamily(Os.FAMILY_WINDOWS)) ? 'npm.cmd' : 'npm'
+    if (!jre17.contains(store)) {
+        runCmd.prepend(npmCmd)
+    }
+    return runCmd
+}
+
 // formats all java files
 spotless {
     java {
@@ -83,9 +97,12 @@ task formatGroovy(type: Exec) {
     group = ver
     description = 'Formats all groovy files'
 
+    List<String> runCmd = ['npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle',
+        'easy-ftc/build.gradle', '--javaexecutable', jre17]
+    runCmd = finalizeRunCmd(runCmd, jre17, store)
+
     workingDir dir
-    commandLine 'npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle',
-        'easy-ftc/build.gradle', '--javaexecutable', jre17
+    commandLine runCmd
 }
 
 // formats all yml, md files
@@ -93,8 +110,11 @@ task formatMisc(type: Exec) {
     group = ver
     description = 'Formats all yml, md files'
 
+    List<String> runCmd = ['prettier', '--write', '**/*.yml', '**/*.md']
+    runCmd = finalizeRunCmd(runCmd, jre17, store)
+
     workingDir dir
-    commandLine 'prettier', '--write', '**/*.yml', '**/*.md'
+    commandLine runCmd
 }
 
 // formats all files
