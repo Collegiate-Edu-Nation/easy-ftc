@@ -193,9 +193,11 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 The project can also be imported into Android Studio, where Windows is supported as well
 
-To format source files, you must also install
+**If you're not on Windows, I strongly recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix**
 
-- nodejs
+With that said, to format source files, you must also install
+
+- Node.js v20.18.1 (LTS)
 - nixfmt (optional as long as no nix files are modified)
 
 Then
@@ -226,13 +228,28 @@ Then
 
 To generate documentation, you must also install
 
+- Python 3.12.7
+- pip
+- venv
 - PlantUML (optional as long as no puml files are modified)
-- mkdocs
-- mkdocs-material
 
 Then
 
-- Set PUML_PATH (path to plantuml binary)
+- Enter the directory
+
+        cd easy-ftc
+
+- Create and activate venv
+
+        mkdir .venv
+        python -m venv .venv
+        source .venv/bin/activate
+
+- Install dependencies
+
+        pip install -r requirements.txt
+
+- Set PUML_PATH (path to PlantUML binary)
 
   - Linux and macOS
 
@@ -246,7 +263,7 @@ Then
 
         ./gradlew docs
 
-  <i>Append `-x uml` if plantuml has not been installed</i>
+  <i>Append `-x uml` if PlantUML has not been installed</i>
 
 ### ToDo
 
