@@ -15,6 +15,8 @@ String ftcBase = 'org.firstinspires.ftc:'
 String ftcV = ':10.1.1'
 String hardware = ftcBase + 'Hardware' + ftcV
 String core = ftcBase + 'RobotCore' + ftcV
+String jre17 = '/nix/store/pkjbmz578c2f1dwzzh860n9mq8y98yfv-zulu-ca-jdk-minimal-jre-17.0.12'
+String puml = '/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml'
 
 android {
     namespace 'org.edu_nation.easy_ftc'
@@ -73,7 +75,7 @@ task formatNix(type: Exec) {
     description = 'Formats all nix files'
 
     workingDir dir
-    commandLine 'nixfmt', 'flake.nix'
+    commandLine 'nixfmt', 'flake.nix', 'lib/npm-groovy-lint/default.nix'
 }
 
 // formats all groovy files
@@ -81,9 +83,9 @@ task formatGroovy(type: Exec) {
     group = ver
     description = 'Formats all groovy files'
 
-    environment 'JAVA_HOME', '/nix/store/pkjbmz578c2f1dwzzh860n9mq8y98yfv-zulu-ca-jdk-minimal-jre-17.0.12'
     workingDir dir
-    commandLine 'npx', 'npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle', 'easy-ftc/build.gradle'
+    commandLine 'npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle',
+        'easy-ftc/build.gradle', '--javaexecutable', jre17
 }
 
 // formats all yml, md files
@@ -92,7 +94,7 @@ task formatMisc(type: Exec) {
     description = 'Formats all yml, md files'
 
     workingDir dir
-    commandLine 'npx', 'prettier', '--write', '**/*.yml', '**/*.md'
+    commandLine 'prettier', '--write', '**/*.yml', '**/*.md'
 }
 
 // formats all files
@@ -116,8 +118,7 @@ task uml(type: Exec) {
     description = 'Generate UML in docs/uml from uml.puml'
 
     workingDir dir
-    commandLine '/nix/store/4898h3r0igkl39fnbzakbnlg2g055ji0-plantuml-1.2024.8/bin/plantuml',
-        './docs/uml/src/*.puml', '-o', '../out'
+    commandLine puml, './docs/uml/src/*.puml', '-o', '../out'
     ignoreExitValue true
 }
 

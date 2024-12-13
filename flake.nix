@@ -51,20 +51,33 @@
               [
                 android-sdk
               ]
-              ++ (with pkgs; [
-                bashInteractive
-                jdk21
+              ++ (
+                with pkgs;
+                with pkgs.python312Packages;
+                with pkgs.nodePackages;
+                [
+                  bashInteractive
+                  jdk21
 
-                # docs
-                plantuml
-                python312Packages.mkdocs
-                python312Packages.mkdocs-material
+                  # docs
+                  plantuml
+                  mkdocs
+                  mkdocs-material
 
-                # formatting
-                nixfmt-rfc-style
-                nodejs
-                jre17_minimal
-              ]);
+                  # formatting
+                  nixfmt-rfc-style
+                  (callPackage ./lib/npm-groovy-lint { })
+                  prettier
+                  (jre17_minimal.overrideAttrs (old: {
+                    # fixes EACCESS when specifying --javaexecutable for groovy-lint
+                    postInstall =
+                      (old.postInstall or "")
+                      + ''
+                        chmod +x $out/bin/java
+                      '';
+                  }))
+                ]
+              );
 
             shellHook = ''
               echo -e "\neasy-ftc Development Environment via Nix Flake\n"
@@ -77,12 +90,6 @@
               echo -e "│ Format   │ ./gradlew format   │"
               echo -e "│ myBlocks │ ./gradlew myBlocks │"
               echo -e "└──────────┴────────────────────┘\n"
-
-              if ! test -d node_modules; then
-                echo -e "Adding npm-groovy-lint and prettier..."
-                npm install
-                echo -e "Done.\n"
-              fi
             '';
           };
         }
