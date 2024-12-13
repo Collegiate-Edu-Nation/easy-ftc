@@ -135,6 +135,7 @@ android.libraryVariants.all { variant ->
             classpath += variant.javaCompileProvider.get().classpath
             destinationDir = file('../docs/javadoc')
             failOnError false
+            doNotTrackState('AS workaround')
 
             options {
                 setMemberLevel JavadocMemberLevel.PUBLIC
