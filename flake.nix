@@ -16,9 +16,9 @@
 
   outputs =
     {
-      self,
       nixpkgs,
       android-nixpkgs,
+      ...
     }:
     let
       supportedSystems = [
