@@ -231,17 +231,13 @@ abstract class MotorMechanism<E> extends Mechanism {
         for (int i = 0; i < count; i++) {
             if (Objects.equals(deviceName, names[i])) {
                 found = true;
+                DcMotorSimple.Direction direction =
+                        (i % 2 == 0)
+                                ? DcMotorSimple.Direction.FORWARD
+                                : DcMotorSimple.Direction.REVERSE;
                 if (encoder) {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0)
-                                    ? DcMotorSimple.Direction.FORWARD
-                                    : DcMotorSimple.Direction.REVERSE;
                     motorsEx[i].setDirection(direction);
                 } else {
-                    DcMotorSimple.Direction direction =
-                            (i % 2 == 0)
-                                    ? DcMotorSimple.Direction.FORWARD
-                                    : DcMotorSimple.Direction.REVERSE;
                     motors[i].setDirection(direction);
                 }
             }
