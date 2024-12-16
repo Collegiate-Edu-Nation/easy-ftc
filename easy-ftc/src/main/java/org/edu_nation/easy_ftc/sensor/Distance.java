@@ -39,6 +39,7 @@ public class Distance extends Sensor<DistanceSensor, Boolean> {
      *   <li>threshold = 7.0
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "distance";
         private double threshold = 7.0;

@@ -36,7 +36,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     protected LogoFacingDirection logo;
     protected UsbFacingDirection usb;
     protected Drive.Layout layout;
-    private String connect = ", passed to ";
+    private static final String CONNECT = ", passed to ";
 
     /** Constructor */
     protected MotorMechanism(Builder<?> builder) {
@@ -181,7 +181,7 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         public abstract T names(String[] names);
 
-        public abstract MotorMechanism<?> build();
+        abstract MotorMechanism<?> build();
 
         protected abstract T self();
     }
@@ -196,8 +196,8 @@ abstract class MotorMechanism<E> extends Mechanism {
             throw new IllegalArgumentException(
                     "Unexpected multiplier value: "
                             + multiplier
-                            + connect
-                            + mechanismName
+                            + CONNECT
+                            + MECHANISM_NAME
                             + ".control(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -208,16 +208,16 @@ abstract class MotorMechanism<E> extends Mechanism {
             throw new IllegalArgumentException(
                     "Unexpected measurement value: "
                             + measurement
-                            + connect
-                            + mechanismName
+                            + CONNECT
+                            + MECHANISM_NAME
                             + ".command(). Valid values are numbers >= 0");
         }
         if (power <= 0 || power > 1) {
             throw new IllegalArgumentException(
                     "Unexpected power value: "
                             + power
-                            + connect
-                            + mechanismName
+                            + CONNECT
+                            + MECHANISM_NAME
                             + ".command(). Valid values are numbers in the interval (0, 1]");
         }
     }
@@ -254,8 +254,8 @@ abstract class MotorMechanism<E> extends Mechanism {
             throw new IllegalArgumentException(
                     "Unexpected deviceName: "
                             + deviceName
-                            + connect
-                            + mechanismName
+                            + CONNECT
+                            + MECHANISM_NAME
                             + ".Builder().reverse(). Valid names are: "
                             + validNames);
         }
@@ -280,7 +280,7 @@ abstract class MotorMechanism<E> extends Mechanism {
             setModesEx(DcMotor.RunMode.RUN_USING_ENCODER);
 
             if (diameter == 0.0) {
-                velocityMultiplier = getAchieveableMaxTicksPerSecond(motorTypes);
+                velocityMultiplier = getAchievableMaxTicksPerSecond(motorTypes);
             } else {
                 distanceMultiplier = getTicksPerRev(motorTypes);
                 if (gearing != 0.0) {
@@ -295,11 +295,11 @@ abstract class MotorMechanism<E> extends Mechanism {
             }
 
             // Set motors to run without the encoders (power, not velocity or position)
-            setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            setModes();
         }
 
         // Initializes imu for field-centric layout
-        if ("Drive".equals(mechanismName) && layout == Drive.Layout.FIELD) {
+        if ("Drive".equals(MECHANISM_NAME) && layout == Drive.Layout.FIELD) {
             imu = hardwareMap.get(IMU.class, "imu");
             IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(logo, usb));
             imu.initialize(parameters);
@@ -319,6 +319,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Moves the mechanism for the given measurement at power */
+    @SuppressWarnings("java:S3776")
     protected void moveForMeasurement(
             double[] unscaledMovements, double measurement, double power, boolean limit) {
         double[] movements = scaleDirections(unscaledMovements, power);
@@ -393,6 +394,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Helper function to determine positional limits with distance-based movement */
+    @SuppressWarnings("java:S3776")
     private boolean limitsNotReachedDistanceBased(double direction, double[] movements) {
         int[] currentPositions = getCurrentPositions();
         boolean move = true;
@@ -444,9 +446,9 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Sets all basic motors to the specified mode */
-    protected void setModes(DcMotor.RunMode runMode) {
+    protected void setModes() {
         for (DcMotor motor : motors) {
-            motor.setMode(runMode);
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         }
     }
 
@@ -584,13 +586,13 @@ abstract class MotorMechanism<E> extends Mechanism {
         return isBusy;
     }
 
-    /** Wrapper around getAchieveableMaxTicksPerSecond to return minimum of all motors */
-    protected double getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
-        double[] achieveableMaxTicksPerSecondArr = new double[count];
+    /** Wrapper around getAchievableMaxTicksPerSecond to return minimum of all motors */
+    protected double getAchievableMaxTicksPerSecond(MotorConfigurationType[] motorTypes) {
+        double[] achievableMaxTicksPerSecondArr = new double[count];
         for (int i = 0; i < count; i++) {
-            achieveableMaxTicksPerSecondArr[i] = motorTypes[i].getAchieveableMaxTicksPerSecond();
+            achievableMaxTicksPerSecondArr[i] = motorTypes[i].getAchieveableMaxTicksPerSecond();
         }
-        return min(achieveableMaxTicksPerSecondArr);
+        return min(achievableMaxTicksPerSecondArr);
     }
 
     /** Wrapper around getTicksPerRev to return minimum of all motors */

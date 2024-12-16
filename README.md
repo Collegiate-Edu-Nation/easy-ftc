@@ -1,5 +1,5 @@
 <div align="center">
-<img src='docs/img/logo/easy-ftc_color.png' height=96px>
+<img src='docs/img/logo/easy-ftc_color.png' alt='easy-ftc' height=96px>
 
 ![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
 ![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-blue)
@@ -64,7 +64,7 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 ### Android Studio
 
 - Add the .aar to FtcRobotController/libs/
-- Add implementation to TeamCode's buid.gradle like so
+- Add implementation to TeamCode's build.gradle like so
 
         dependencies {
             implementation project(':FtcRobotController')

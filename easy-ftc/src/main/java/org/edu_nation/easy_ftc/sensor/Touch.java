@@ -36,6 +36,7 @@ public class Touch extends Sensor<TouchSensor, Boolean> {
      *   <li>name = "touch"
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "touch";
 

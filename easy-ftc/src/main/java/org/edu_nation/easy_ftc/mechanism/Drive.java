@@ -20,7 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  * @see Layout
  */
 public class Drive extends MotorMechanism<Drive.Direction> {
-    private Type type;
+    private final Type type;
 
     /** Constructor */
     private Drive(Builder builder) {
@@ -30,7 +30,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         this.behavior = builder.behavior;
         this.type = builder.type;
         this.layout = builder.layout;
-        this.mechanismName = builder.mechanismName;
+        MECHANISM_NAME = Builder.MECHANISM_NAME;
         init();
     }
 
@@ -62,13 +62,14 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      *   <li>layout = TANK
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 2;
         private String[] names = {"driveLeft", "driveRight"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.FLOAT;
         private Type type = Type.DIFFERENTIAL;
         private Layout layout = Layout.TANK;
-        private String mechanismName = "Drive";
+        private static final String MECHANISM_NAME = "Drive";
 
         /**
          * Builder constructor
@@ -152,11 +153,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
             // correct the default names based on count
             if (count == 4 && names.length == 2) {
-                String[] newNames = {"frontLeft", "frontRight", "backLeft", "backRight"};
-                this.names = newNames;
+                this.names = new String[] {"frontLeft", "frontRight", "backLeft", "backRight"};
             } else if (count == 2 && names.length == 4) {
-                String[] newNames = {"driveLeft", "driveRight"};
-                this.names = newNames;
+                this.names = new String[] {"driveLeft", "driveRight"};
             }
             return this;
         }
@@ -212,8 +211,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                     this.count = 4;
                 }
                 if (this.names.length == 2) {
-                    String[] newNames = {"frontLeft", "frontRight", "backLeft", "backRight"};
-                    this.names = newNames;
+                    this.names = new String[] {"frontLeft", "frontRight", "backLeft", "backRight"};
                 }
                 if (this.layout == Layout.TANK) {
                     this.layout = Layout.ROBOT;
@@ -433,8 +431,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here:
-     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
+     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here: <a
+     * href="https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html"></a>
      */
     private double[] axesToDirection(double[] axes, double heading) {
         double axial;

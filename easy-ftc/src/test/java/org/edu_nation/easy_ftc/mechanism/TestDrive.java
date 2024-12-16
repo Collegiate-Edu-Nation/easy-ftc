@@ -536,7 +536,7 @@ public class TestDrive {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setdeadzoneDif_ThrowsException() {
+    public void setDeadzoneDif_ThrowsException() {
         mockInit();
 
         new Drive.Builder(mockedOpMode, mockedHardwareMap)
@@ -547,7 +547,7 @@ public class TestDrive {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setdeadzoneMec_ThrowsException() {
+    public void setDeadzoneMec_ThrowsException() {
         mockInit();
 
         new Drive.Builder(mockedOpMode, mockedHardwareMap)
@@ -571,20 +571,20 @@ public class TestDrive {
 
         // Test no movement
         double[] result = drive.controlToDirection(heading, 0, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(0, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(0, v, 0.01);
         }
 
         // Test forward
         result = drive.controlToDirection(heading, -1, 0, -1, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(1, v, 0.01);
         }
 
         // Test backward
         result = drive.controlToDirection(heading, 1, 0, 1, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(-1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(-1, v, 0.01);
         }
     }
 
@@ -601,20 +601,20 @@ public class TestDrive {
 
         // Test no movement
         double[] result = drive.controlToDirection(heading, 0, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(0, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(0, v, 0.01);
         }
 
         // Test forward
         result = drive.controlToDirection(heading, -1, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(1, v, 0.01);
         }
 
         // Test backward
         result = drive.controlToDirection(heading, 1, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(-1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(-1, v, 0.01);
         }
     }
 
@@ -631,20 +631,20 @@ public class TestDrive {
 
         // Test no movement
         double[] result = drive.controlToDirection(heading, 0, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(0, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(0, v, 0.01);
         }
 
         // Test forward
         result = drive.controlToDirection(heading, -1, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(1, v, 0.01);
         }
 
         // Test backward
         result = drive.controlToDirection(heading, 1, 0, 0, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(-1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(-1, v, 0.01);
         }
     }
 
@@ -657,7 +657,7 @@ public class TestDrive {
         final double[][] expectedValues = {{0, 0, 0, 0}, {1, -1, -1, 1}, {-1, 1, 1, -1}};
         try {
             FieldUtils.writeField(drive, "layout", Layout.FIELD, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test no movement
@@ -687,7 +687,7 @@ public class TestDrive {
                 new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.DIFFERENTIAL).build();
         try {
             FieldUtils.writeField(drive, "layout", Layout.ROBOT, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test Layout.ROBOT
@@ -701,7 +701,7 @@ public class TestDrive {
         Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).type(Type.MECANUM).build();
         try {
             FieldUtils.writeField(drive, "layout", Layout.ARCADE, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test Layout.ARCADE
@@ -720,14 +720,14 @@ public class TestDrive {
 
         // Test Direction.FORWARD
         double[] result = drive.languageToDirection(Direction.FORWARD, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(1, result[i], 0.01);
+        for (double value : result) {
+            assertEquals(1, value, 0.01);
         }
 
         // Test Direction.BACKWARD
         result = drive.languageToDirection(Direction.BACKWARD, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(-1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(-1, v, 0.01);
         }
 
         // Test Direction.ROTATE_LEFT
@@ -757,14 +757,14 @@ public class TestDrive {
 
         // Test Direction.FORWARD
         double[] result = drive.languageToDirection(Direction.FORWARD, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(1, result[i], 0.01);
+        for (double value : result) {
+            assertEquals(1, value, 0.01);
         }
 
         // Test Direction.BACKWARD
         result = drive.languageToDirection(Direction.BACKWARD, 0);
-        for (int i = 0; i < result.length; i++) {
-            assertEquals(-1, result[i], 0.01);
+        for (double v : result) {
+            assertEquals(-1, v, 0.01);
         }
 
         // Test Direction.LEFT
@@ -833,7 +833,7 @@ public class TestDrive {
         final double[][] expectedValues = {{1, -1, -1, 1}, {-1, 1, 1, -1}};
         try {
             FieldUtils.writeField(drive, "layout", Layout.FIELD, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test forward
@@ -994,7 +994,7 @@ public class TestDrive {
         };
         try {
             FieldUtils.writeField(drive, "distanceMultiplier", 400.0, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test distance = circumference

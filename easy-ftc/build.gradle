@@ -46,6 +46,7 @@ android {
     }
 
     // ignore "debug" variant
+    // variantFilter has been deprecated, but 'beforeVariants' breaks the build
     variantFilter { variant ->
         if (variant.name == ("debug")) {
             variant.setIgnore(true)

@@ -24,7 +24,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         this.behavior = builder.behavior;
         this.dir1 = builder.dir1;
         this.dir2 = builder.dir2;
-        this.mechanismName = builder.mechanismName;
+        MECHANISM_NAME = Builder.MECHANISM_NAME;
         init();
     }
 
@@ -54,13 +54,14 @@ public class Arm extends MotorMechanism<Arm.Direction> {
      *   <li>dir2 = 0.0
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"arm"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private double dir1 = 0.0;
         private double dir2 = 0.0;
-        private String mechanismName = "Arm";
+        private static final String MECHANISM_NAME = "Arm";
 
         /**
          * Builder constructor
@@ -132,8 +133,7 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] newNames = {"armLeft", "armRight"};
-                this.names = newNames;
+                this.names = new String[] {"armLeft", "armRight"};
             }
             return this;
         }

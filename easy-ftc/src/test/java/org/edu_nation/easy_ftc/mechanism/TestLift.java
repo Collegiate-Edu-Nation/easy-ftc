@@ -373,7 +373,7 @@ public class TestLift {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidMeasurment_commandThrowsException() {
+    public void whenInvalidMeasurement_commandThrowsException() {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).build();
@@ -416,7 +416,7 @@ public class TestLift {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setdeadzoneSolo_ThrowsException() {
+    public void setDeadzoneSolo_ThrowsException() {
         mockInit();
 
         new Lift.Builder(mockedOpMode, mockedHardwareMap)
@@ -427,7 +427,7 @@ public class TestLift {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void setdeadzoneDual_ThrowsException() {
+    public void setDeadzoneDual_ThrowsException() {
         mockInit();
 
         new Lift.Builder(mockedOpMode, mockedHardwareMap)
@@ -439,7 +439,7 @@ public class TestLift {
     }
 
     @Test
-    public void controlToDirection_iscorrect() {
+    public void controlToDirection_isCorrect() {
         mockInit();
 
         Lift lift = new Lift.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();

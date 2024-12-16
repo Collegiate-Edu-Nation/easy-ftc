@@ -467,7 +467,7 @@ public class TestArm {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidMeasurment_commandThrowsException() {
+    public void whenInvalidMeasurement_commandThrowsException() {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
@@ -517,7 +517,7 @@ public class TestArm {
     }
 
     @Test
-    public void controlToDirection_iscorrect() {
+    public void controlToDirection_isCorrect() {
         mockInit();
 
         Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
@@ -663,7 +663,7 @@ public class TestArm {
         final int[][] expectedValues = {{400}, {0}, {382}, {414}, {-400}};
         try {
             FieldUtils.writeField(arm, "distanceMultiplier", 400.0, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test distance = circumference
@@ -712,7 +712,7 @@ public class TestArm {
         final int[][] expectedValues = {{400, 400}, {0, 0}, {382, 382}, {414, 414}, {400, -400}};
         try {
             FieldUtils.writeField(arm, "distanceMultiplier", 400.0, true);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         // Test distance = circumference

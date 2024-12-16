@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * @see RGB
  */
 public class Color extends Sensor<ColorSensor, Color.RGB> {
-    private int[] rgbOffsets;
+    private final int[] rgbOffsets;
 
     /** Constructor */
     private Color(Builder builder) {
@@ -42,6 +42,7 @@ public class Color extends Sensor<ColorSensor, Color.RGB> {
      *   <li>rgbOffsets = {10, -25, 0}
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends Sensor.Builder<Builder> {
         private String name = "color";
         private double threshold = 85.0;

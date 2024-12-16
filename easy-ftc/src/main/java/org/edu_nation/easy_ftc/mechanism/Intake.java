@@ -24,7 +24,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
         this.behavior = builder.behavior;
         this.dir1 = builder.dir1;
         this.dir2 = builder.dir2;
-        this.mechanismName = builder.mechanismName;
+        MECHANISM_NAME = Builder.MECHANISM_NAME;
         init();
     }
 
@@ -54,13 +54,14 @@ public class Intake extends MotorMechanism<Intake.Direction> {
      *   <li>dir2 = 0.0
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends MotorMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"intake"};
         private DcMotor.ZeroPowerBehavior behavior = DcMotor.ZeroPowerBehavior.BRAKE;
         private double dir1 = 0.0;
         private double dir2 = 0.0;
-        private String mechanismName = "Intake";
+        private static final String MECHANISM_NAME = "Intake";
 
         /**
          * Builder constructor
@@ -127,8 +128,7 @@ public class Intake extends MotorMechanism<Intake.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] newNames = {"intakeLeft", "intakeRight"};
-                this.names = newNames;
+                this.names = new String[] {"intakeLeft", "intakeRight"};
             }
             return this;
         }

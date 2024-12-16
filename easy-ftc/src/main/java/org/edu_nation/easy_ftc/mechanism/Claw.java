@@ -14,8 +14,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * @see Direction
  */
 public class Claw extends ServoMechanism<Claw.Direction> {
-    private double open;
-    private double close;
+    private final double open;
+    private final double close;
 
     /** Constructor */
     private Claw(Builder builder) {
@@ -24,7 +24,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         this.names = builder.names;
         this.open = builder.open;
         this.close = builder.close;
-        this.mechanismName = builder.mechanismName;
+        MECHANISM_NAME = Builder.MECHANISM_NAME;
         init();
     }
 
@@ -53,12 +53,13 @@ public class Claw extends ServoMechanism<Claw.Direction> {
      *   <li>close = 0.0
      * </ul>
      */
+    @SuppressWarnings("java:S1185")
     public static class Builder extends ServoMechanism.Builder<Builder> {
         private int count = 1;
         private String[] names = {"claw"};
         private double open = 1.0;
         private double close = 0.0;
-        private String mechanismName = "Claw";
+        private static final String MECHANISM_NAME = "Claw";
 
         /**
          * Builder constructor
@@ -130,8 +131,7 @@ public class Claw extends ServoMechanism<Claw.Direction> {
             }
             this.count = count;
             if (count == 2) {
-                String[] newNames = {"clawLeft", "clawRight"};
-                this.names = newNames;
+                this.names = new String[] {"clawLeft", "clawRight"};
             }
             return this;
         }

@@ -46,12 +46,12 @@ public class TestTouch {
         // getDistance() >= threshold
         when(mockedTouchSensor.isPressed()).thenReturn(true);
         boolean result = mockedTouch.state();
-        assertEquals(true, result);
+        assertTrue(result);
 
         // getDistance() < threshold
         when(mockedTouchSensor.isPressed()).thenReturn(false);
         result = mockedTouch.state();
-        assertEquals(false, result);
+        assertFalse(result);
 
         // reversed-state
         Touch mockedTouchReverse = new Touch.Builder(mockedHardwareMap).reverse().build();
@@ -59,11 +59,11 @@ public class TestTouch {
         // getDistance() >= threshold
         when(mockedTouchSensor.isPressed()).thenReturn(true);
         result = mockedTouchReverse.state();
-        assertEquals(false, result);
+        assertFalse(result);
 
         // getDistance() < threshold
         when(mockedTouchSensor.isPressed()).thenReturn(false);
         result = mockedTouchReverse.state();
-        assertEquals(true, result);
+        assertTrue(result);
     }
 }

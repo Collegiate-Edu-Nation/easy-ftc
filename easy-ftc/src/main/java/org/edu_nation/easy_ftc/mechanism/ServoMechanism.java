@@ -107,7 +107,7 @@ abstract class ServoMechanism<E> extends Mechanism {
 
         public abstract T names(String[] names);
 
-        public abstract ServoMechanism<?> build();
+        abstract ServoMechanism<?> build();
 
         protected abstract T self();
     }
@@ -141,7 +141,7 @@ abstract class ServoMechanism<E> extends Mechanism {
                     "Unexpected deviceName: "
                             + deviceName
                             + ", passed to "
-                            + mechanismName
+                            + MECHANISM_NAME
                             + ".Builder().reverse(). Valid names are: "
                             + validNames);
         }

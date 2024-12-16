@@ -11,7 +11,10 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  */
 abstract class Sensor<S, V> {
     protected HardwareMap hardwareMap;
+
+    @SuppressWarnings("java:S1700")
     protected S sensor;
+
     protected String name;
     protected boolean reverse;
     protected double threshold;
@@ -23,7 +26,7 @@ abstract class Sensor<S, V> {
     }
 
     public abstract static class Builder<T extends Builder<T>> {
-        private HardwareMap hardwareMap;
+        private final HardwareMap hardwareMap;
         private boolean reverse = false;
 
         /**
@@ -51,7 +54,8 @@ abstract class Sensor<S, V> {
 
         public abstract T name(String name);
 
-        public abstract Sensor<?, ?> build();
+        @SuppressWarnings("java:S1452")
+        abstract Sensor<?, ?> build();
 
         protected abstract T self();
     }

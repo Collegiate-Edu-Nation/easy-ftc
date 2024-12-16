@@ -59,7 +59,7 @@ abstract class MotorMechanism<E> {
     # getGearing(MotorConfigurationType[] motorTypes): double
     + setGearing()
     # motorsAreBusy(double[] movements): boolean
-    # getAchieveableMaxTicksPerSecond(MotorConfigurationType[] motorTypes): double
+    # getAchievableMaxTicksPerSecond(MotorConfigurationType[] motorTypes): double
     # getTicksPerRev(MotorConfigurationType[] motorTypes): double
     # getCurrentPositions(): int[]
     # map(double controllerValue): double

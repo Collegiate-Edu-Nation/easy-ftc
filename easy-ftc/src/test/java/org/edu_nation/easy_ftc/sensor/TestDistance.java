@@ -58,12 +58,12 @@ public class TestDistance {
         // getDistance() >= threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
         boolean result = mockedDistance.state();
-        assertEquals(false, result);
+        assertFalse(result);
 
         // getDistance() < threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
         result = mockedDistance.state();
-        assertEquals(true, result);
+        assertTrue(result);
 
         // reversed-state
         Distance mockedDistanceReverse = new Distance.Builder(mockedHardwareMap).reverse().build();
@@ -71,11 +71,11 @@ public class TestDistance {
         // getDistance() >= threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(7.0);
         result = mockedDistanceReverse.state();
-        assertEquals(true, result);
+        assertTrue(result);
 
         // getDistance() < threshold
         when(mockedDistanceSensor.getDistance(DistanceUnit.CM)).thenReturn(6.0);
         result = mockedDistanceReverse.state();
-        assertEquals(false, result);
+        assertFalse(result);
     }
 }

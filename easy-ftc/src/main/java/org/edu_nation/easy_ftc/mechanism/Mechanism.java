@@ -22,7 +22,9 @@ abstract class Mechanism {
     protected String[] reverseDevices;
     protected Gamepad gamepad;
     protected ElapsedTime timer = new ElapsedTime();
-    protected String mechanismName;
+
+    @SuppressWarnings("java:S3008")
+    protected static String MECHANISM_NAME;
 
     /** Constructor */
     protected Mechanism(Builder<?> builder) {
@@ -34,8 +36,8 @@ abstract class Mechanism {
     }
 
     public abstract static class Builder<T extends Builder<T>> {
-        private LinearOpMode opMode;
-        private HardwareMap hardwareMap;
+        private final LinearOpMode opMode;
+        private final HardwareMap hardwareMap;
         private boolean reverse = false;
         private String[] reverseDevices = {};
         private Gamepad gamepad = null;
@@ -123,7 +125,7 @@ abstract class Mechanism {
 
         public abstract T names(String[] names);
 
-        public abstract Mechanism build();
+        abstract Mechanism build();
 
         protected abstract T self();
     }
@@ -132,6 +134,7 @@ abstract class Mechanism {
 
     public abstract void control();
 
+    @SuppressWarnings("java:S1845")
     protected abstract void reverse(String deviceName);
 
     /** Helper function to wait (but not suspend) for specified time in s */

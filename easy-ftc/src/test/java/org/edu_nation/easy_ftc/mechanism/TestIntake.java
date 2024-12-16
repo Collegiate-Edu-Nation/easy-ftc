@@ -488,7 +488,7 @@ public class TestIntake {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenInvalidMeasurment_commandThrowsException() {
+    public void whenInvalidMeasurement_commandThrowsException() {
         mockInit();
 
         Intake intake = new Intake.Builder(mockedOpMode, mockedHardwareMap).build();
@@ -542,7 +542,7 @@ public class TestIntake {
     }
 
     @Test
-    public void controlToDirection_iscorrect() {
+    public void controlToDirection_isCorrect() {
         mockInit();
 
         Intake intake = new Intake.Builder(mockedOpMode, mockedHardwareMap).build();
