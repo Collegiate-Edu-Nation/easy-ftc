@@ -68,19 +68,12 @@
                   nixfmt-rfc-style
                   (callPackage ./lib/npm-groovy-lint { })
                   prettier
-                  (temurin-jre-bin-17.overrideAttrs (old: {
-                    # fixes EACCESS when specifying --javaexecutable for groovy-lint
-                    postInstall =
-                      (old.postInstall or "")
-                      + ''
-                        chmod +x $out/bin/java
-                      '';
-                  }))
+                  jre17_minimal
                 ]
               );
 
             # set env vars for binary paths
-            JRE17_PATH = "${pkgs.temurin-jre-bin-17}/bin/java";
+            JRE17_PATH = "${pkgs.jre17_minimal}/bin/java";
             PUML_PATH = "${pkgs.plantuml}/bin/plantuml";
 
             shellHook = ''
