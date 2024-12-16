@@ -13,6 +13,7 @@ int tgt = 30
 String dir = '..'
 String bld = 'build'
 String ver = 'verification'
+String blk = 'myBlocks'
 String store = '/nix/store'
 String ftcBase = 'org.firstinspires.ftc:'
 String ftcV = ':10.1.1'
@@ -178,11 +179,11 @@ android.libraryVariants.configureEach { variant ->
 }
 
 // create task for compressing myBlocks to a zip archive
-tasks.register('myBlocks', Zip) {
+tasks.register(blk, Zip) {
     group = bld
     description = 'Compress myBlocks to a zip archive for release'
 
-    archiveBaseName = 'myBlocks'
+    archiveBaseName = blk
     destinationDirectory = file('build/outputs/zip')
     from(files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
 }
