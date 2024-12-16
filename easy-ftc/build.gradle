@@ -127,6 +127,16 @@ tasks.register('format') {
     description = 'Formats all files'
 }
 
+// create task for compressing myBlocks to a zip archive
+tasks.register(blk, Zip) {
+    group = bld
+    description = 'Compress myBlocks to a zip archive for release'
+
+    archiveBaseName = blk
+    destinationDirectory = file('build/outputs/zip')
+    from(files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
+}
+
 // create alias for jacoco report
 tasks.register('coverage', Exec) {
     group = 'reporting'
@@ -179,16 +189,6 @@ android.libraryVariants.configureEach { variant ->
             commandLine 'mkdocs', bld
         }
     }
-}
-
-// create task for compressing myBlocks to a zip archive
-tasks.register(blk, Zip) {
-    group = bld
-    description = 'Compress myBlocks to a zip archive for release'
-
-    archiveBaseName = blk
-    destinationDirectory = file('build/outputs/zip')
-    from(files('./src/myBlocks/java/org/firstinspires/ftc/teamcode'))
 }
 
 dependencies {
