@@ -13,6 +13,7 @@ int tgt = 30
 String dir = '..'
 String bld = 'build'
 String ver = 'verification'
+String api = 'apidoc'
 String blk = 'myBlocks'
 String store = '/nix/store'
 String ftcBase = 'org.firstinspires.ftc:'
@@ -148,7 +149,7 @@ tasks.register('uml', Exec) {
 android.libraryVariants.configureEach { variant ->
     if (variant.name == 'release') {
         // generate javadoc
-        tasks.register('apidoc', Javadoc) {
+        tasks.register(api, Javadoc) {
             dependsOn uml
             group = bld
             description = 'Generate the Javadoc for the public API'
@@ -168,7 +169,8 @@ android.libraryVariants.configureEach { variant ->
         }
 
         // generate docs
-        task docs(type: Exec, dependsOn: apidoc) {
+        tasks.register('docs', Exec) {
+            dependsOn tasks.named(api)
             group = bld
             description = 'Generate Documentation in docs/ using Jekyll, PlantUML, and Javadoc'
 
