@@ -68,12 +68,12 @@
                   nixfmt-rfc-style
                   (callPackage ./lib/npm-groovy-lint { })
                   prettier
-                  jre17_minimal
+                  temurin-jre-bin-17
                 ]
               );
 
             # set env vars for binary paths
-            JRE17_PATH = "${pkgs.jre17_minimal}/bin/java";
+            JRE17_PATH = "${pkgs.temurin-jre-bin-17}/bin/java";
             PUML_PATH = "${pkgs.plantuml}/bin/plantuml";
 
             shellHook = ''
