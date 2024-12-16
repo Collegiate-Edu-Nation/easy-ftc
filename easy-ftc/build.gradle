@@ -56,7 +56,7 @@ android {
     }
 
     // ignores deprecation of targeting 1_8
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.compilerArgs << '-Xlint:-options'
     }
 
@@ -84,7 +84,7 @@ spotless {
 }
 
 // formats all nix files
-task formatNix(type: Exec) {
+tasks.register('formatNix', Exec) {
     group = ver
     description = 'Formats all nix files'
 
@@ -93,12 +93,12 @@ task formatNix(type: Exec) {
 }
 
 // formats all groovy files
-task formatGroovy(type: Exec) {
+tasks.register('formatGroovy', Exec) {
     group = ver
     description = 'Formats all groovy files'
 
     List<String> runCmd = ['npm-groovy-lint', '--format', 'build.gradle', 'settings.gradle',
-        'easy-ftc/build.gradle', '--javaexecutable', jre17]
+                           'easy-ftc/build.gradle', '--javaexecutable', jre17]
     runCmd = finalizeRunCmd(runCmd, jre17, store)
 
     workingDir dir
@@ -106,7 +106,7 @@ task formatGroovy(type: Exec) {
 }
 
 // formats all yml, md files
-task formatMisc(type: Exec) {
+tasks.register('formatMisc', Exec) {
     group = ver
     description = 'Formats all yml, md files'
 
@@ -118,13 +118,14 @@ task formatMisc(type: Exec) {
 }
 
 // formats all files
-task format(dependsOn: [spotlessApply, formatNix, formatGroovy, formatMisc]) {
+tasks.register('format') {
+    dependsOn spotlessApply, formatNix, formatGroovy, formatMisc
     group = ver
     description = 'Formats all files'
 }
 
 // create alias for jacoco report
-task coverage(type: Exec) {
+tasks.register('coverage', Exec) {
     group = 'reporting'
     description = 'Generates Jacoco coverage report as HTML in build/reports/coverage'
 
@@ -133,7 +134,7 @@ task coverage(type: Exec) {
 }
 
 // create task for generating uml
-task uml(type: Exec) {
+tasks.register('uml', Exec) {
     group = bld
     description = 'Generate UML in docs/uml from uml.puml'
 
@@ -143,10 +144,11 @@ task uml(type: Exec) {
 }
 
 // create tasks for docs
-android.libraryVariants.all { variant ->
+android.libraryVariants.configureEach { variant ->
     if (variant.name == 'release') {
         // generate javadoc
-        task apidoc(type: Javadoc, dependsOn: uml) {
+        tasks.register('apidoc', Javadoc) {
+            dependsOn uml
             group = bld
             description = 'Generate the Javadoc for the public API'
 
@@ -176,7 +178,7 @@ android.libraryVariants.all { variant ->
 }
 
 // create task for compressing myBlocks to a zip archive
-task myBlocks(type: Zip) {
+tasks.register('myBlocks', Zip) {
     group = bld
     description = 'Compress myBlocks to a zip archive for release'
 
