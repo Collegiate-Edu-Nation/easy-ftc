@@ -251,7 +251,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         if (!found) {
             StringBuilder bld = new StringBuilder();
             for (String name : names) {
-                bld.append(name + ", ");
+                bld.append(name).append(", ");
             }
             String validNames = bld.toString();
             validNames = validNames.substring(0, validNames.length() - 2);
