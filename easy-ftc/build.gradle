@@ -67,7 +67,7 @@ android {
 }
 
 // prepend 'npx' on unix if nix isn't used, 'npx.cmd' on windows
-def List<String> finalizeRunCmd(List<String> runCmd, String jre17, String store) {
+static List<String> finalizeRunCmd(List<String> runCmd, String jre17, String store) {
     String npxCmd = (Os.isFamily(Os.FAMILY_WINDOWS)) ? 'npx.cmd' : 'npx'
     if (!jre17.contains(store)) {
         runCmd.add(0, npxCmd)
