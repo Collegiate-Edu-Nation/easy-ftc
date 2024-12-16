@@ -58,6 +58,7 @@
                 [
                   bashInteractive
                   jdk21
+                  aapt
 
                   # docs
                   plantuml
@@ -73,6 +74,7 @@
               );
 
             # set env vars for binary paths
+            GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2";
             JRE17_PATH = "${pkgs.temurin-jre-bin-17}/bin/java";
             PUML_PATH = "${pkgs.plantuml}/bin/plantuml";
 
