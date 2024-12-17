@@ -193,7 +193,7 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 The project can also be imported into Android Studio, where Windows is supported as well
 
-**If you're not on Windows, I strongly recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix**
+If you're not on Windows, I strongly recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
 
 With that said, to format source files, you must also install
 
