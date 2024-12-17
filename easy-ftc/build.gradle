@@ -183,7 +183,7 @@ android.libraryVariants.configureEach { variant ->
         tasks.register('docs', Exec) {
             dependsOn tasks.named(api)
             group = bld
-            description = 'Generate Documentation in docs/ using Jekyll, PlantUML, and Javadoc'
+            description = 'Generate Documentation in docs/ using MkDocs, PlantUML, and Javadoc'
 
             workingDir dir
             commandLine 'mkdocs', bld
