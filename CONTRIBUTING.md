@@ -186,15 +186,16 @@ The custom tasks leverage these tools
 - Coverage
   - Jacoco Gradle plugin
 - Documentation
+  - Javadoc Gradle plugin
   - pip packages
     - MkDocs
     - Material for MkDocs
   - PlantUML
 - Formatting
+  - Spotless Gradle plugin
   - npm packages
     - prettier
     - npm-groovy-lint
-  - Spotless Gradle plugin
   - nixfmt
 
 Altogether, properly building this project requires installing and configuring multiple package managers, binaries, runtimes, and interpreters. Thus, if you're not on Windows, I **STRONGLY** recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
