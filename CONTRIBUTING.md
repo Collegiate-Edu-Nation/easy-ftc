@@ -305,9 +305,15 @@ Then
 
 #### Known Quirks
 
-- Running the build using the Gradle extension for VSCode on NixOS fails as the extension doesn't seem to pass environment variables to the Gradle daemon correctly (note the setting of GRADLE_OPTS in flake.nix). The workaround is to invoke the build task manually via `./gradlew build`
+- Running the build using the Gradle extension for VSCode on NixOS fails as the extension doesn't seem to pass environment variables to the Gradle daemon correctly (note the setting of `GRADLE_OPTS` in `flake.nix`). The workaround is to invoke the build task manually via `./gradlew build`
 
-- The coverage task will not work in Windows, but since it's simply an alias of sorts around `createReleaseUnitTestCoverageReport`, just invoke that task directly
+- The coverage task will not work in Android Studio on Windows, but since it's simply an alias of sorts around `createReleaseUnitTestCoverageReport`, just invoke that task directly
+
+  - The task should work in Android Studio on Linux and macOS once `JAVA_HOME` is specified
+
+    - _Note that this is distinct from `JRE17_PATH`, which is only used for formatting Groovy scripts_
+
+- There seems to be a longstanding bug in Android Studio on macOS where environment variables are not propagated properly, breaking several tasks. The workaround is to launch Android Studio from the terminal via `open /Applications/Android\ Studio.app/`
 
 ### ToDo
 
