@@ -762,12 +762,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Enable Features
 
-    *As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
+    As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
 
     * Encoder limits in control()
     * Field-centric driving
 
-    If these features are must-haves, use Java instead.*
+    If these features are must-haves, use Java instead.
 
 
     <details>
