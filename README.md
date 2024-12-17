@@ -84,7 +84,7 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 
 ## Contributing
 
-[CONTRIBUTING.md](CONTRIBUTING.md)
+[CONTRIBUTING.md](.github/CONTRIBUTING.md)
 
 ## License
 

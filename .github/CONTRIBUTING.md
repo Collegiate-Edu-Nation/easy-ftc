@@ -34,7 +34,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[easy-ftc Code of Conduct](https://github.com/Collegiate-Edu-Nation/easy-ftc/blob/main/CODE_OF_CONDUCT.md).
+[easy-ftc Code of Conduct](https://github.com/Collegiate-Edu-Nation/easy-ftc/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
 to <***REMOVED***>.
 
