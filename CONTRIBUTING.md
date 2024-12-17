@@ -198,7 +198,7 @@ The custom tasks leverage these tools
     - npm-groovy-lint
   - nixfmt
 
-Altogether, properly building this project requires installing and configuring multiple package managers, binaries, runtimes, and interpreters. Thus, if you're not on Windows, I **STRONGLY** recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
+> Altogether, properly building this project requires installing and configuring multiple package managers, binaries, runtimes, and interpreters. Thus, if you're not on Windows, I **STRONGLY** recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
 
 With that said, the development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
 
