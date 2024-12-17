@@ -431,8 +431,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
     }
 
     /**
-     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here: <a
-     * href="https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html"></a>
+     * Converts axial, lateral, yaw, and heading to motor directions using the formulas here:
+     * https://gm0.org/en/latest/docs/software/tutorials/mecanum-drive.html
      */
     private double[] axesToDirection(double[] axes, double heading) {
         double axial;
