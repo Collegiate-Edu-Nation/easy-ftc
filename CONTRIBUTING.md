@@ -167,7 +167,39 @@ Before submitting a PR, ensure it's addressed by the [ToDo](#todo) or a [GitHub 
 
 ### Dev Setup
 
-The development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
+<!-- omit in toc -->
+
+#### Overview
+
+Being an Android project, Gradle is the build system. Note the following
+
+- A Gradle wrapper is used for compatibility with established tooling
+  - Some tooling versions are also kept in sync w/ the FTC SDK for the same reason
+- Custom Gradle tasks have been created for
+  - Running coverage reports
+  - Generating docs
+  - Verifying format
+  - Zipping myBlocks
+
+The custom tasks leverage these tools
+
+- Coverage
+  - Jacoco Gradle plugin
+- Documentation
+  - pip packages
+    - MkDocs
+    - Material for MkDocs
+  - PlantUML
+- Formatting
+  - npm packages
+    - prettier
+    - npm-groovy-lint
+  - Spotless Gradle plugin
+  - nixfmt
+
+Altogether, properly building this project requires installing and configuring multiple package managers, binaries, runtimes, and interpreters. Thus, if you're not on Windows, I **STRONGLY** recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
+
+With that said, the development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
 
     git clone https://github.com/collegiate-edu-nation/easy-ftc.git
 
@@ -193,9 +225,7 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 The project can also be imported into Android Studio, where Windows is supported as well
 
-If you're not on Windows, I strongly recommend using Nix instead of manually setting up the environment, as I wouldn't have bothered using multi-language solutions if this project wasn't powered by Nix
-
-With that said, to format source files, you must also install
+To format source files, you must also install
 
 - Node.js v20.18.1 (LTS)
 - nixfmt (optional as long as no nix files are modified)
