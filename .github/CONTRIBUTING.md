@@ -402,15 +402,15 @@ _Sonarlint is used to check code quality_
 
 #### Javadoc
 
-- Only use one-liners for private and protected functions, classes
-- Include the following for public functions and classes (as applicable)
+- Only use one-liners for `private` and `protected` functions, classes
+- Include the following for `public` functions and classes (as applicable)
   - `@param`
   - `@return`
   - `@throws`
-- Include the following for each Builder class
+- Include the following for each `Builder` class
   - Basic Usage
   - Defaults (all default field values)
-- Override relevant inherited Builder methods
+- Override relevant inherited `Builder` methods
 
 ### Commit Messages
 
