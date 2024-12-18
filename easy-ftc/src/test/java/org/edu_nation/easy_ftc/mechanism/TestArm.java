@@ -44,7 +44,8 @@ public class TestArm {
             new Arm.Builder(mockedOpMode, mockedHardwareMap).down(-1.0).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"arm"}).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .behavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    .behavior(DcMotor.ZeroPowerBehavior.BRAKE)
+                    .build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse().build();

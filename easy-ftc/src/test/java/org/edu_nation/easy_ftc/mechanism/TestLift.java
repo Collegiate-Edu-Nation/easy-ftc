@@ -47,7 +47,8 @@ public class TestLift {
                     .reverse(new String[] {"lift"})
                     .build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .behavior(DcMotor.ZeroPowerBehavior.FLOAT);
+                    .behavior(DcMotor.ZeroPowerBehavior.FLOAT)
+                    .build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).deadzone(0.1).build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Lift.Builder(mockedOpMode, mockedHardwareMap).reverse("lift").build();

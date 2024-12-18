@@ -57,7 +57,8 @@ public class TestClaw {
             new Claw.Builder(mockedOpMode, mockedHardwareMap)
                     .count(2)
                     .smooth()
-                    .gamepad(mockedGamepad);
+                    .gamepad(mockedGamepad)
+                    .build();
             new Claw.Builder(mockedOpMode, mockedHardwareMap)
                     .count(2)
                     .smooth()

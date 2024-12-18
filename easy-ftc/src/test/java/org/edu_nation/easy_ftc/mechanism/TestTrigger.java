@@ -59,7 +59,8 @@ public class TestTrigger {
             new Trigger.Builder(mockedOpMode, mockedHardwareMap)
                     .count(2)
                     .smooth()
-                    .gamepad(mockedGamepad);
+                    .gamepad(mockedGamepad)
+                    .build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap)
                     .count(2)
                     .smooth()

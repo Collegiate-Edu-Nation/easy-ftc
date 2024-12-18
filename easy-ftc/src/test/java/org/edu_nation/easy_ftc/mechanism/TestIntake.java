@@ -46,7 +46,8 @@ public class TestIntake {
                     .names(new String[] {"intake"})
                     .build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .behavior(DcMotor.ZeroPowerBehavior.BRAKE);
+                    .behavior(DcMotor.ZeroPowerBehavior.BRAKE)
+                    .build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse().build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
