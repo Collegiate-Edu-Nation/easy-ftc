@@ -55,7 +55,6 @@ Before we can dive into coding, follow the Install section of the README
 
     First, create a Linear OpMode- note that easy-ftc only works with Linear OpModes
 
-
     <details>
     <summary>TeleOp - Starting Code</summary>
 
@@ -78,11 +77,10 @@ Before we can dive into coding, follow the Install section of the README
                 }
             }
         }
+
     </details>
 
-
-    *Note the locations of Imports, Construction, and Methods*
-
+    _Note the locations of Imports, Construction, and Methods_
 
     Before we can use easy-ftc, we'll need to import the relevant classes. Add the following to 'Imports'
 
@@ -103,7 +101,6 @@ Before we can dive into coding, follow the Install section of the README
         drive.control();
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods (which is where hardware initialization is occurring)
-
 
     <details>
     <summary>TeleOp - Final Code</summary>
@@ -129,15 +126,14 @@ Before we can dive into coding, follow the Install section of the README
                 }
             }
         }
-    </details>
 
+    </details>
 
     <h3>Autonomous</h3>
 
     Let's do the same for autonomous
 
     Create a Linear OpMode
-
 
     <details>
     <summary>Autonomous - Starting Code</summary>
@@ -161,11 +157,10 @@ Before we can dive into coding, follow the Install section of the README
                 }
             }
         }
+
     </details>
 
-
-    *Note the locations of Imports, Construction, and Methods*
-
+    _Note the locations of Imports, Construction, and Methods_
 
     Import Drive
 
@@ -188,34 +183,33 @@ Before we can dive into coding, follow the Install section of the README
 
     This is where state() is used
 
-    * Import Color and Color.RGB
+    - Import Color and Color.RGB
 
             import org.edu_nation.easy_ftc.sensor.Color;
             import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
-    * Construct the sensor
+    - Construct the sensor
 
             Color color = new Color.Builder(hardwareMap)
                 .build();
 
-    * Retrieve the state in 'Methods'
+    - Retrieve the state in 'Methods'
 
             color.state();
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
-    * Add an if statement after the first command() call that checks if the state is equal to RGB.BLUE
+    - Add an if statement after the first command() call that checks if the state is equal to RGB.BLUE
 
             if (color.state() == RGB.BLUE) {
 
             }
 
-    * Add another command() call inside the if statement
+    - Add another command() call inside the if statement
 
             drive.command(Drive.Direction.FORWARD, 3, 0.5);
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
-
 
     <details>
     <summary>Autonomous - Final Code</summary>
@@ -247,8 +241,8 @@ Before we can dive into coding, follow the Install section of the README
                 }
             }
         }
-    </details>
 
+    </details>
 
     Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this
 
@@ -258,77 +252,69 @@ Before we can dive into coding, follow the Install section of the README
 
     First, create an OpMode in the blocks editor Web UI
 
-    * Press 'Create New OpMode'
-    <br>![Create New OpMode](./img/blk/gs/new.png){ width=150 }
-    * Enter a name and use the default sample titled 'BasicOpMode'
-    <br>![Create New OpMode](./img/blk/gs/newDialog.png){ width=550 }
-    * Press OK
-    * Move the green while loop block to before the blue if statement
-    <br>![While and If](./img/blk/gs/whileAndIf.png){ width=400 }
-    * Delete the blue if statement block
+    - Press 'Create New OpMode'
+      <br>![Create New OpMode](./img/blk/gs/new.png){ width=150 }
+    - Enter a name and use the default sample titled 'BasicOpMode'
+      <br>![Create New OpMode](./img/blk/gs/newDialog.png){ width=550 }
+    - Press OK
+    - Move the green while loop block to before the blue if statement
+      <br>![While and If](./img/blk/gs/whileAndIf.png){ width=400 }
+    - Delete the blue if statement block
 
     By default, this is a Linear OpMode setup for TeleOp- note that easy-ftc only works with Linear OpModes
-
 
     <details>
     <summary>TeleOp - Starting Code</summary>
     ![TeleOp - Starting Code](./img/blk/gs/teleStart.png){ width=435 }
     </details>
 
-
-    *Note the location of Methods*
-
+    _Note the location of Methods_
 
     If you want to control a mechanism in TeleOp, you'll need to add a control() block for that mechanism to 'Methods'. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
 
     Let's see how to make your robot drive
 
-    * In the 'Java Classes' dropdown, click Drive
-    <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
-    * Drag the 'control' block to 'Methods'
-    <br>![Control](./img/blk/gs/control.png){ width=225 }
+    - In the 'Java Classes' dropdown, click Drive
+      <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
+    - Drag the 'control' block to 'Methods'
+      <br>![Control](./img/blk/gs/control.png){ width=225 }
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods in Drive.java (which is where hardware initialization is occurring)
-
 
     <details>
     <summary>TeleOp - Final Code</summary>
     ![TeleOp - Final Code](./img/blk/gs/teleFinal.png){ width=435 }
     </details>
 
-
     <h3>Autonomous</h3>
 
     Let's do the same for autonomous
 
-    * Create a new OpMode following the instructions above
-    * Change the OpMode annotation from 'TeleOp' to 'Autonomous'
-    <br>![Annotation](./img/blk/gs/annotation.png){ width=300 }
-    * Delete the green while loop block
-    <br>![Loop](./img/blk/gs/loop.png){ width=400 }
-
+    - Create a new OpMode following the instructions above
+    - Change the OpMode annotation from 'TeleOp' to 'Autonomous'
+      <br>![Annotation](./img/blk/gs/annotation.png){ width=300 }
+    - Delete the green while loop block
+      <br>![Loop](./img/blk/gs/loop.png){ width=400 }
 
     <details>
     <summary>Autonomous - Starting Code</summary>
     ![Autonomous - Starting Code](./img/blk/gs/autoStart.png){ width=350 }
     </details>
 
-
-    *Note the location of Methods*
-
+    _Note the location of Methods_
 
     As autonomous does not allow gamepad control, we'll need to use the command() block to move a mechanism in this match phase. This block commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (direction, measurement, and power)
 
     To make your robot drive forward at half-power for 3 seconds
 
-    * In the 'Java Classes' dropdown, click Drive
-    <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
-    * Drag the 'command' block to 'Methods'
-    <br>![Command](./img/blk/gs/command.png){ width=275 }
-    * Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
-    <br>![Forward](./img/blk/gs/forward.png){ width=350 }
-    * Change 'Time' to 3 and 'Power' to 0.5
-    <br>![Time and Power](./img/blk/gs/timePower.png){ width=150 }
+    - In the 'Java Classes' dropdown, click Drive
+      <br>![Java Classes](./img/blk/gs/javaClasses.png){ width=150 }
+    - Drag the 'command' block to 'Methods'
+      <br>![Command](./img/blk/gs/command.png){ width=275 }
+    - Drag the 'FORWARD' block to the 'Direction' argument of the 'command' block
+      <br>![Forward](./img/blk/gs/forward.png){ width=350 }
+    - Change 'Time' to 3 and 'Power' to 0.5
+      <br>![Time and Power](./img/blk/gs/timePower.png){ width=150 }
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder() in Drive.java. .gearing(motorGearing) may also need to be corrected for greater accuracy
 
@@ -336,32 +322,30 @@ Before we can dive into coding, follow the Install section of the README
 
     This is where state() is used
 
-    * In the 'Java Classes' dropdown, click Color
-    <br>![Color](./img/blk/gs/color.png){ width=150 }
-    * Drag the 'state' block to 'Methods' (it won't click in yet)
-    <br>![State](./img/blk/gs/state.png){ width=250 }
+    - In the 'Java Classes' dropdown, click Color
+      <br>![Color](./img/blk/gs/color.png){ width=150 }
+    - Drag the 'state' block to 'Methods' (it won't click in yet)
+      <br>![State](./img/blk/gs/state.png){ width=250 }
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
-    * Click the 'Logic' submenu
-    <br>![Logic](./img/blk/gs/logic.png){ width=100 }
-    * Drag another if statement underneath the 'command' block
-    <br>![If](./img/blk/gs/if.png){ width=90 }
-    * In that same submenu, drag an 'equals' block to the first line of this if statement
-    <br>![Equals](./img/blk/gs/equals.png){ width=200 }
-    * Move 'state' to the left half of the 'equals' block
-    * Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
-    <br>![State Equals Blue](./img/blk/gs/stateEqualsBlue.png){ width=600 }
-    * Copy and paste the existing 'command' block to be inside this if statement
-    <br>![If then Command](./img/blk/gs/ifThenCommand.png){ width=500 }
+    - Click the 'Logic' submenu
+      <br>![Logic](./img/blk/gs/logic.png){ width=100 }
+    - Drag another if statement underneath the 'command' block
+      <br>![If](./img/blk/gs/if.png){ width=90 }
+    - In that same submenu, drag an 'equals' block to the first line of this if statement
+      <br>![Equals](./img/blk/gs/equals.png){ width=200 }
+    - Move 'state' to the left half of the 'equals' block
+    - Drag the 'BLUE' block in the 'Color' submenu to the right half of the 'equals' block
+      <br>![State Equals Blue](./img/blk/gs/stateEqualsBlue.png){ width=600 }
+    - Copy and paste the existing 'command' block to be inside this if statement
+      <br>![If then Command](./img/blk/gs/ifThenCommand.png){ width=500 }
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
-
 
     <details>
     <summary>Autonomous - Final Code</summary>
     ![Autonomous - Final Code](./img/blk/gs/autoFinal.png){ width=725 }
     </details>
-
 
     Any mechanism or sensor can be implemented in this manner for either TeleOp or Autonomous. In fact, even command() can be used in TeleOp for planned sequences; see Examples for how to do this

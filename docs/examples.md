@@ -39,7 +39,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Autonomous</summary>
 
@@ -66,22 +65,19 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
-    *Note the locations of Imports, Additional, Construction, and Methods*
-
+    _Note the locations of Imports, Additional, Construction, and Methods_
 
     ## Example Structure
 
-    * **Imports:** classes and enums that must be imported
-    * **Additional:** additional variables and objects that must be setup
-    * **Construction:** easy-ftc object construction
-    * **Methods:** easy-ftc methods called on constructed objects
-    * **Notes:** any relevant details about using the example
+    - **Imports:** classes and enums that must be imported
+    - **Additional:** additional variables and objects that must be setup
+    - **Construction:** easy-ftc object construction
+    - **Methods:** easy-ftc methods called on constructed objects
+    - **Notes:** any relevant details about using the example
 
     ## Examples
 
     ### Basic Use
-
 
     <details>
     <summary>Control of Motor Mechanism</summary>
@@ -101,12 +97,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.control();
 
     ### Notes
-    * The power level of the mechanism can be scaled down (the default is full power)
+
+    - The power level of the mechanism can be scaled down (the default is full power)
 
             drive.control(0.3);
 
     </details>
-
 
     <details>
     <summary>Command of Motor Mechanism</summary>
@@ -125,7 +121,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         arm.command(Arm.Direction.UP, 2, 0.5);
 
     </details>
-
 
     <details>
     <summary>Modify Motor Mechanism Attributes</summary>
@@ -148,7 +143,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Control of Servo Mechanism</summary>
 
@@ -168,7 +162,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Command of Servo Mechanism</summary>
 
@@ -186,7 +179,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         claw.command(Claw.Direction.CLOSE);
 
     </details>
-
 
     <details>
     <summary>Modify Servo Mechanism Attributes</summary>
@@ -209,7 +201,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Read and Display Sensor State</summary>
 
@@ -229,7 +220,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Modify Sensor Attributes</summary>
 
@@ -247,9 +237,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     ### Enable Features
-
 
     <details>
     <summary>Encoder: Velocity-Based Control</summary>
@@ -270,10 +258,10 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.control();
 
     ### Notes
-    * Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+
+    - Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
 
     </details>
-
 
     <details>
     <summary>Encoder: Time-Based Command</summary>
@@ -295,7 +283,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Encoder: Distance-Based Command</summary>
 
@@ -315,11 +302,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.command(Drive.Direction.FORWARD, 12, 0.5);
 
     ### Notes
-    * The distance unit used in command() will be the same as what's used in .diameter()
-    * .gearing() is optional here, but correcting it can improve accuracy
+
+    - The distance unit used in command() will be the same as what's used in .diameter()
+    - .gearing() is optional here, but correcting it can improve accuracy
 
     </details>
-
 
     <details>
     <summary>Encoder: Limits Using Ticks</summary>
@@ -337,7 +324,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Encoder: Limits Using Distance</summary>
 
@@ -353,10 +339,10 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             .build();
 
     ### Notes
-    * .gearing() is optional here, but correcting it can improve accuracy
+
+    - .gearing() is optional here, but correcting it can improve accuracy
 
     </details>
-
 
     <details>
     <summary>Smooth Servo</summary>
@@ -373,14 +359,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             .build();
 
     ### Notes
-    * The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
+
+    - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
 
             Claw claw ...
                 .smooth().increment(0.04).incrementDelay(0.01)
                 ...
 
     </details>
-
 
     <details>
     <summary>Arcade Drive Control</summary>
@@ -403,7 +389,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Mecanum Drive</summary>
 
@@ -419,7 +404,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             .build();
 
     </details>
-
 
     <details>
     <summary>Field-Centric Mecanum Drive</summary>
@@ -437,14 +421,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
             .build();
 
     ### Notes
-    * LogoFacingDirection and UsbFacingDirection can be changed if field-centric movement is offset
+
+    - LogoFacingDirection and UsbFacingDirection can be changed if field-centric movement is offset
 
             Drive drive ...
                 .logo(LogoFacingDirection.DOWN).usb(UsbFacingDirection.BACKWARD)
                 ...
 
     </details>
-
 
     <details>
     <summary>Control of Motor Mechanism with Gamepad Deadzone</summary>
@@ -464,13 +448,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         lift.control();
 
     ### Notes
-    * Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
+
+    - Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
 
     </details>
 
-
     ### Advanced Use
-
 
     <details>
     <summary>Control with Command Sequence</summary>
@@ -523,8 +506,9 @@ Each example will use the following OpModes. For the sake of brevity, these are 
         drive.control();
 
     ### Notes
-    * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
-    * Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
+
+    - Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
+    - Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
 
     </details>
 
@@ -535,19 +519,16 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![TeleOp](./img/blk/ex/tele.png){ width=435 }
     </details>
 
-
     <details>
     <summary>Autonomous</summary>
     <br>![Autonomous](./img/blk/ex/auto.png){ width=350 }
     </details>
 
-
-    *Note the locations of Additional and Methods*
-
+    _Note the locations of Additional and Methods_
 
     ## MyBlocks
-    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java).
 
+    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java).
 
     <details>
     <summary>TeleOp</summary>
@@ -589,7 +570,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Autonomous</summary>
 
@@ -632,22 +612,19 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
-    *Note the locations of Imports and Construction*
-
+    _Note the locations of Imports and Construction_
 
     ## Example Structure
 
-    * **Imports:** classes and enums that must be imported
-    * **Additional:** additional variables and objects that must be setup
-    * **Construction:** easy-ftc object construction
-    * **Methods:** easy-ftc methods called on constructed objects
-    * **Notes:** any relevant details about using the example
+    - **Imports:** classes and enums that must be imported
+    - **Additional:** additional variables and objects that must be setup
+    - **Construction:** easy-ftc object construction
+    - **Methods:** easy-ftc methods called on constructed objects
+    - **Notes:** any relevant details about using the example
 
     ## Examples
 
     ### Basic Use
-
 
     <details>
     <summary>Control of Motor Mechanism</summary>
@@ -657,12 +634,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
 
     ### Notes
-    * The power level of the mechanism can be scaled down (the default is full power)
 
-        <br>![Control Multiplier](./img/blk/ex/controlMultiplier.png){ width=285 }
+    - The power level of the mechanism can be scaled down (the default is full power)
+
+      <br>![Control Multiplier](./img/blk/ex/controlMultiplier.png){ width=285 }
 
     </details>
-
 
     <details>
     <summary>Command of Motor Mechanism</summary>
@@ -672,7 +649,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Command Motor](./img/blk/ex/commandMotor.png){ width=450 }
 
     </details>
-
 
     <details>
     <summary>Modify Motor Mechanism Attributes</summary>
@@ -695,7 +671,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Control of Servo Mechanism</summary>
 
@@ -705,7 +680,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Command of Servo Mechanism</summary>
 
@@ -714,7 +688,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Command Servo](./img/blk/ex/commandServo.png){ width=450 }
 
     </details>
-
 
     <details>
     <summary>Modify Servo Mechanism Attributes</summary>
@@ -734,7 +707,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Read and Display Sensor State</summary>
 
@@ -743,7 +715,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Display State](./img/blk/ex/displayState.png){ width=600 }
 
     </details>
-
 
     <details>
     <summary>Modify Sensor Attributes</summary>
@@ -759,16 +730,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     ### Enable Features
 
     As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
 
-    * Encoder limits in control()
-    * Field-centric driving
+    - Encoder limits in control()
+    - Field-centric driving
 
     If these features are must-haves, use Java instead.
-
 
     <details>
     <summary>Encoder: Velocity-Based Control</summary>
@@ -786,10 +755,10 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Control Motor](./img/blk/ex/controlMotor.png){ width=225 }
 
     ### Notes
-    * Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+
+    - Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
 
     </details>
-
 
     <details>
     <summary>Encoder: Time-Based Command</summary>
@@ -807,7 +776,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Encoder: Distance-Based Command</summary>
 
@@ -823,12 +791,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Command Distance](./img/blk/ex/commandDistance.png){ width=450 }
 
     ### Notes
-    * The distance unit used in command() will be the same as what's used in .diameter()
-    * .gearing() is optional here, but correcting it can improve accuracy
-    * The 'Time' parameterLabel in Drive.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+
+    - The distance unit used in command() will be the same as what's used in .diameter()
+    - .gearing() is optional here, but correcting it can improve accuracy
+    - The 'Time' parameterLabel in Drive.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
 
     </details>
-
 
     <details>
     <summary>Encoder: Command Limits Using Ticks</summary>
@@ -846,7 +814,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Encoder: Command Limits Using Distance</summary>
 
@@ -862,11 +829,11 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Limits Distance](./img/blk/ex/limitsDistance.png){ width=450 }
 
     ### Notes
-    * .gearing() is optional here, but correcting it can improve accuracy
-    * The 'Time' parameterLabel in Lift.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+
+    - .gearing() is optional here, but correcting it can improve accuracy
+    - The 'Time' parameterLabel in Lift.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
 
     </details>
-
 
     <details>
     <summary>Smooth Servo</summary>
@@ -880,7 +847,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                         .build();
 
     ### Notes
-    * The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
+
+    - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
 
             org.edu_nation ...
                     new org.edu_nation ...
@@ -888,7 +856,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                             ...
 
     </details>
-
 
     <details>
     <summary>Arcade Drive Control</summary>
@@ -911,7 +878,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     </details>
 
-
     <details>
     <summary>Mecanum Drive</summary>
 
@@ -924,7 +890,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
                         .build();
 
     </details>
-
 
     <details>
     <summary>Control of Motor Mechanism with Gamepad Deadzone</summary>
@@ -941,13 +906,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![Control Deadzone](./img/blk/ex/controlDeadzone.png){ width=225 }
 
     ### Notes
-    * Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
+
+    - Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
 
     </details>
 
-
     ### Advanced Use
-
 
     <details>
     <summary>Control with Command Sequence</summary>
@@ -961,7 +925,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <br>![State Machine](./img/blk/ex/stateMachine.png){ width=600 }
 
     ### Notes
-    * Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
-    * Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
+
+    - Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
+    - Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
 
     </details>
