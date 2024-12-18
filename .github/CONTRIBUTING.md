@@ -149,16 +149,22 @@ Before submitting a PR, ensure it's addressed by the [ToDo](#todo) or a [GitHub 
 1.  [Fork this repository](https://github.com/Collegiate-Edu-Nation/easy-ftc/fork)
 2.  Check out the source code with:
 
-        git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+    ```shell
+    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+    ```
 
 3.  Switch to dev with
 
-        cd easy-ftc
-        git switch dev
+    ```shell
+    cd easy-ftc
+    git switch dev
+    ```
 
 4.  Start a new git branch with
 
-        git checkout -b feature/your-feature
+    ```shell
+    git checkout -b feature/your-feature
+    ```
 
 5.  Make desired changes to `easy-ftc/src` (see [Dev Setup](#dev-setup) for setting up the environment)
 6.  Add relevant tests to `easy-ftc/src/test`
@@ -202,7 +208,9 @@ The custom tasks leverage these tools
 
 With that said, the development environment can be setup by either using Nix with your IDE of choice or by importing this project into Android Studio. Both options require that you make a local clone of this repo
 
-    git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+```shell
+git clone https://github.com/collegiate-edu-nation/easy-ftc.git
+```
 
 <!-- omit in toc -->
 
@@ -212,11 +220,15 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 - Enter directory
 
-        cd easy-ftc
+  ```shell
+  cd easy-ftc
+  ```
 
 - Launch development environment
 
-        nix develop
+  ```shell
+  nix develop
+  ```
 
 - Then open your preferred IDE from this shell
 
@@ -235,25 +247,35 @@ Then
 
 - Enter the directory
 
-        cd easy-ftc
+  ```shell
+  cd easy-ftc
+  ```
 
 - Install npm deps
 
-        npm i
+  ```shell
+  npm i
+  ```
 
 - Set JRE17_PATH (path to JRE 17 binary, will default to ~/.java-caller)
 
   - Linux and macOS
 
-        export JRE17_PATH=path/to/jre17
+    ```shell
+    export JRE17_PATH=path/to/jre17
+    ```
 
   - Windows
 
-        setx JRE17_PATH 'path\to\jre17'
+    ```shell
+    setx JRE17_PATH 'path\to\jre17'
+    ```
 
 - Run the format task
 
-        ./gradlew format
+  ```shell
+  ./gradlew format
+  ```
 
   _Append `-x formatNix` if nixfmt has not been installed_
 
@@ -266,40 +288,56 @@ Then
 
 - Enter the directory
 
-        cd easy-ftc
+  ```shell
+  cd easy-ftc
+  ```
 
 - Create venv (optional)
 
-        mkdir .venv
-        python -m venv .venv
+  ```shell
+  mkdir .venv
+  python -m venv .venv
+  ```
 
 - Activate venv (optional)
 
   - Linux and macOS
 
-        source .venv/bin/activate
+    ```shell
+    source .venv/bin/activate
+    ```
 
   - Windows
 
-        .venv/Scripts/activate
+    ```shell
+    .venv/Scripts/activate
+    ```
 
 - Install dependencies
 
-        pip install -r requirements.txt
+  ```shell
+  pip install -r requirements.txt
+  ```
 
 - Set PUML_PATH (path to PlantUML binary)
 
   - Linux and macOS
 
-        export PUML_PATH=path/to/plantuml
+    ```shell
+    export PUML_PATH=path/to/plantuml
+    ```
 
   - Windows
 
-        setx PUML_PATH 'path\to\plantuml'
+    ```shell
+    setx PUML_PATH 'path\to\plantuml'
+    ```
 
 - Run the docs task
 
-        ./gradlew docs
+  ```shell
+  ./gradlew docs
+  ```
 
   _Append `-x uml` if PlantUML has not been installed_
 

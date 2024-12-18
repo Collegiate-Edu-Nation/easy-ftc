@@ -16,52 +16,56 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <details>
     <summary>TeleOp</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-        // Imports
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+    // Imports
 
-        @TeleOp(name="Tele", group="dev")
-        public class Tele extends LinearOpMode {
-            // Additional
+    @TeleOp(name="Tele", group="dev")
+    public class Tele extends LinearOpMode {
+        // Additional
 
-            @Override
-            public void runOpMode() {
-                // Construction
+        @Override
+        public void runOpMode() {
+            // Construction
 
-                waitForStart();
-                while (opModeIsActive()) {
-                    // Methods
-                }
+            waitForStart();
+            while (opModeIsActive()) {
+                // Methods
             }
         }
+    }
+    ```
 
     </details>
 
     <details>
     <summary>Autonomous</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        // Imports
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+    // Imports
 
-        @Autonomous(name="Auto", group="dev")
-        public class Auto extends LinearOpMode {
-            // Additional
+    @Autonomous(name="Auto", group="dev")
+    public class Auto extends LinearOpMode {
+        // Additional
 
-            @Override
-            public void runOpMode() {
-                // Construction
+        @Override
+        public void runOpMode() {
+            // Construction
 
-                waitForStart();
-                if (opModeIsActive()) {
-                    // Methods
-                }
+            waitForStart();
+            if (opModeIsActive()) {
+                // Methods
             }
         }
+    }
+    ```
 
     </details>
 
@@ -84,23 +88,31 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .gamepad(gamepad1)
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .gamepad(gamepad1)
+        .build();
+    ```
 
     ### Methods
 
-        drive.control();
+    ```java
+    drive.control();
+    ```
 
     ### Notes
 
     - The power level of the mechanism can be scaled down (the default is full power)
 
-            drive.control(0.3);
+        ```java
+        drive.control(0.3);
+        ```
 
     </details>
 
@@ -109,16 +121,22 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Arm;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Arm;
+    ```
 
     ### Construction
 
-        Arm arm = new Arm.Builder(this, hardwareMap)
-            .build();
+    ```java
+    Arm arm = new Arm.Builder(this, hardwareMap)
+        .build();
+    ```
 
     ### Methods
 
-        arm.command(Arm.Direction.UP, 2, 0.5);
+    ```java
+    arm.command(Arm.Direction.UP, 2, 0.5);
+    ```
 
     </details>
 
@@ -127,19 +145,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Lift;
-        import com.qualcomm.robotcore.hardware.DcMotor;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Lift;
+    import com.qualcomm.robotcore.hardware.DcMotor;
+    ```
 
     ### Construction
 
-        Lift lift = new Lift.Builder(this, hardwareMap)
-            .count(2)                                    // use two motors for this mechanism
-            .names(new String[]{"liftLeft", "newName"})  // change the names of the motors
-            .reverse()                                   // reverse all motors in the mechanism
-            .reverse("liftLeft")                         // reverse specific motor
-            .reverse(new String[]{"liftLeft", "newName}) // reverse multiple specific motors
-            .behavior(DcMotor.ZeroPowerBehavior.FLOAT)   // change the zero-power behavior of the motors
-            .build();
+    ```java
+    Lift lift = new Lift.Builder(this, hardwareMap)
+        .count(2)                                     // use two motors for this mechanism
+        .names(new String[]{"liftLeft", "newName"})   // change the names of the motors
+        .reverse()                                    // reverse all motors in the mechanism
+        .reverse("liftLeft")                          // reverse specific motor
+        .reverse(new String[]{"liftLeft", "newName"}) // reverse multiple specific motors
+        .behavior(DcMotor.ZeroPowerBehavior.FLOAT)    // change the zero-power behavior of the motors
+        .build();
+    ```
 
     </details>
 
@@ -148,17 +170,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```
 
     ### Construction
 
-        Claw claw = new Claw.Builder(this, hardwareMap)
-            .gamepad(gamepad1)
-            .build();
+    ```java
+    Claw claw = new Claw.Builder(this, hardwareMap)
+        .gamepad(gamepad1)
+        .build();
+    ```
 
     ### Methods
 
-        claw.control();
+    ```java
+    claw.control();
+    ```
 
     </details>
 
@@ -167,16 +195,22 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```
 
     ### Construction
 
-        Claw claw = new Claw.Builder(this, hardwareMap)
-            .build();
+    ```java
+    Claw claw = new Claw.Builder(this, hardwareMap)
+        .build();
+    ```
 
     ### Methods
 
-        claw.command(Claw.Direction.CLOSE);
+    ```java
+    claw.command(Claw.Direction.CLOSE);
+    ```
 
     </details>
 
@@ -185,19 +219,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```
 
     ### Construction
 
-        Claw claw = new Claw.Builder(this, hardwareMap)
-            .count(2)                                    // use two servos for this mechanism
-            .names(new String[]{"clawLeft", "newName"})  // change the names of the servos
-            .reverse()                                   // reverse all servos in the mechanism
-            .reverse("clawLeft")                         // reverse specific servo
-            .reverse(new String[]{"clawLeft", "newName}) // reverse multiple specific servos
-            .open(0.8).close(0.2)                        // adjust open and close positions
-            .delay(3)                                    // adjust the delay for non-smooth movement
-            .build();
+    ```java
+    Claw claw = new Claw.Builder(this, hardwareMap)
+        .count(2)                                     // use two servos for this mechanism
+        .names(new String[]{"clawLeft", "newName"})   // change the names of the servos
+        .reverse()                                    // reverse all servos in the mechanism
+        .reverse("clawLeft")                          // reverse specific servo
+        .reverse(new String[]{"clawLeft", "newName"}) // reverse multiple specific servos
+        .open(0.8).close(0.2)                         // adjust open and close positions
+        .delay(3)                                     // adjust the delay for non-smooth movement
+        .build();
+    ```
 
     </details>
 
@@ -206,17 +244,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.sensor.Touch;
+    ```java
+    import org.edu_nation.easy_ftc.sensor.Touch;
+    ```
 
     ### Construction
 
-        Touch touch = new Touch.Builder(hardwareMap)
-            .build();
+    ```java
+    Touch touch = new Touch.Builder(hardwareMap)
+        .build();
+    ```
 
     ### Methods
 
-        telemetry.addData("Touch: ", touch.state());
-        telemetry.update();
+    ```java
+    telemetry.addData("Touch: ", touch.state());
+    telemetry.update();
+    ```
 
     </details>
 
@@ -225,15 +269,19 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.sensor.Distance;
+    ```java
+    import org.edu_nation.easy_ftc.sensor.Distance;
+    ```
 
     ### Construction
 
-        Distance distance = new Distance.Builder(hardwareMap)
-            .name("distanceSensor") // change the name of the sensor
-            .reverse()              // reverse the sensor state
-            .threshold(6.0)         // change the distance threshold
-            .build();
+    ```java
+    Distance distance = new Distance.Builder(hardwareMap)
+        .name("distanceSensor") // change the name of the sensor
+        .reverse()              // reverse the sensor state
+        .threshold(6.0)         // change the distance threshold
+        .build();
+    ```
 
     </details>
 
@@ -244,18 +292,24 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .encoder()
-            .gamepad(gamepad1)
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .encoder()
+        .gamepad(gamepad1)
+        .build();
+    ```
 
     ### Methods
 
-        drive.control();
+    ```java
+    drive.control();
+    ```
 
     ### Notes
 
@@ -268,18 +322,24 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .encoder()
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .encoder()
+        .build();
+    ```
 
     ### Methods
 
-        // moves forward for 2 seconds at half velocity
-        drive.command(Drive.Direction.FORWARD, 2, 0.5);
+    ```java
+    // moves forward for 2 seconds at half velocity
+    drive.command(Drive.Direction.FORWARD, 2, 0.5);
+    ```
 
     </details>
 
@@ -288,18 +348,24 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .encoder().diameter(4).gearing(19.2)
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .encoder().diameter(4).gearing(19.2)
+        .build();
+    ```
 
     ### Methods
 
-        // moves forward for 12 inches at half power
-        drive.command(Drive.Direction.FORWARD, 12, 0.5);
+    ```java
+    // moves forward for 12 inches at half power
+    drive.command(Drive.Direction.FORWARD, 12, 0.5);
+    ```
 
     ### Notes
 
@@ -313,14 +379,18 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```
 
     ### Construction
 
-        Lift lift = new Lift.Builder(this, hardwareMap)
-            .encoder().up(300).down(-300)
-            .gamepad(gamepad1)  // only needed for teleop
-            .build();
+    ```java
+    Lift lift = new Lift.Builder(this, hardwareMap)
+        .encoder().up(300).down(-300)
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
 
     </details>
 
@@ -329,14 +399,18 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```
 
     ### Construction
 
-        Lift lift = new Lift.Builder(this, hardwareMap)
-            .encoder().diameter(2).gearing(60).up(3).down(-3)
-            .gamepad(gamepad1)  // only needed for teleop
-            .build();
+    ```java
+    Lift lift = new Lift.Builder(this, hardwareMap)
+        .encoder().diameter(2).gearing(60).up(3).down(-3)
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
 
     ### Notes
 
@@ -349,22 +423,28 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Claw;
+    ```
 
     ### Construction
 
-        Claw claw = new Claw.Builder(this, hardwareMap)
-            .smooth()
-            .gamepad(gamepad1)  // only needed for teleop
-            .build();
+    ```java
+    Claw claw = new Claw.Builder(this, hardwareMap)
+        .smooth()
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
 
     ### Notes
 
     - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
 
-            Claw claw ...
-                .smooth().increment(0.04).incrementDelay(0.01)
-                ...
+        ```java
+        Claw claw ...
+            .smooth().increment(0.04).incrementDelay(0.01)
+            ...
+        ```
 
     </details>
 
@@ -373,19 +453,25 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
-        import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .layout(Layout.ARCADE)
-            .gamepad(gamepad1)
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .layout(Layout.ARCADE)
+        .gamepad(gamepad1)
+        .build();
+    ```
 
     ### Methods
 
-        drive.control();
+    ```java
+    drive.control();
+    ```
 
     </details>
 
@@ -394,14 +480,18 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .type(Drive.Type.MECANUM)
-            .gamepad(gamepad1)  // only needed for teleop
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .type(Drive.Type.MECANUM)
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
 
     </details>
 
@@ -410,23 +500,29 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
-        import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .type(Drive.Type.MECANUM).layout(Layout.FIELD)
-            .gamepad(gamepad1)  // only needed for teleop
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .type(Drive.Type.MECANUM).layout(Layout.FIELD)
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
 
     ### Notes
 
     - LogoFacingDirection and UsbFacingDirection can be changed if field-centric movement is offset
 
-            Drive drive ...
-                .logo(LogoFacingDirection.DOWN).usb(UsbFacingDirection.BACKWARD)
-                ...
+        ```java
+        Drive drive ...
+            .logo(LogoFacingDirection.DOWN).usb(UsbFacingDirection.BACKWARD)
+            ...
+        ```
 
     </details>
 
@@ -435,17 +531,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Lift;
+    ```
 
     ### Construction
 
-        Lift lift = new Lift.Builder(this, hardwareMap)
-            .gamepad(gamepad1).deadzone(0.1)
-            .build();
+    ```java
+    Lift lift = new Lift.Builder(this, hardwareMap)
+        .gamepad(gamepad1).deadzone(0.1)
+        .build();
+    ```
 
     ### Methods
 
-        lift.control();
+    ```java
+    lift.control();
+    ```
 
     ### Notes
 
@@ -460,50 +562,58 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    ```
 
     ### Additional
 
-        public enum State {
-            ROTATE_LEFT, ROTATE_RIGHT
-        }
+    ```java
+    public enum State {
+        ROTATE_LEFT, ROTATE_RIGHT
+    }
+    ```
 
     ### Construction
 
-        Drive drive = new Drive.Builder(this, hardwareMap)
-            .gamepad(gamepad1)
-            .build();
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .gamepad(gamepad1)
+        .build();
 
-        // define the starting state
-        State state = State.ROTATE_LEFT;
+    // define the starting state
+    State state = State.ROTATE_LEFT;
+    ```
 
     ### Methods
 
-        // state machine
-        switch (state) {
-            case ROTATE_LEFT:
-                // initiate sequence when dpad_right is pressed
-                if (gamepad1.dpad_right) {
-                    drive.command(Drive.Direction.ROTATE_LEFT, 2, 0.5);
-                    state = State.ROTATE_RIGHT;
-                }
-                break;
-            case ROTATE_RIGHT:
-                drive.command(Drive.Direction.ROTATE_RIGHT, 2, 0.5);
-                // restart the sequence once final state is completed
-                state = State.ROTATE_LEFT;
-                break;
-            default:
-                state = State.ROTATE_LEFT;
-        }
-
-        // terminate sequence when dpad_left is pressed
-        if (gamepad1.dpad_left) {
+    ```java
+    // state machine
+    switch (state) {
+        case ROTATE_LEFT:
+            // initiate sequence when dpad_right is pressed
+            if (gamepad1.dpad_right) {
+                drive.command(Drive.Direction.ROTATE_LEFT, 2, 0.5);
+                state = State.ROTATE_RIGHT;
+            }
+            break;
+        case ROTATE_RIGHT:
+            drive.command(Drive.Direction.ROTATE_RIGHT, 2, 0.5);
+            // restart the sequence once final state is completed
             state = State.ROTATE_LEFT;
-        }
+            break;
+        default:
+            state = State.ROTATE_LEFT;
+    }
 
-        // normal drivetrain control
-        drive.control();
+    // terminate sequence when dpad_left is pressed
+    if (gamepad1.dpad_left) {
+        state = State.ROTATE_LEFT;
+    }
+
+    // normal drivetrain control
+    drive.control();
+    ```
 
     ### Notes
 
@@ -533,82 +643,86 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     <details>
     <summary>TeleOp</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
-        import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-        import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
-        // Imports
+    import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
+    import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+    import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
+    // Imports
 
-        public class Arm extends BlocksOpModeCompanion {
-            @ExportToBlocks(comment = "Initiate an automated arm movement",
-                    parameterLabels = {"Direction", "Time", "Power"})
-            public static void command(Direction direction, double time, double power) {
-                org.edu_nation.easy_ftc.mechanism.Arm arm =
-                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
-                                .build();
-                arm.command(direction, time, power);
-            }
-
-            @ExportToBlocks(
-                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
-                    parameterLabels = {"Power"})
-            public static void control(double power) {
-                // Construction
-                arm.control(power);
-            }
-
-            @ExportToBlocks(
-                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
-            public static void control() {
-                // Construction
-                arm.control();
-            }
-
-            // Direction methods ...
+    public class Arm extends BlocksOpModeCompanion {
+        @ExportToBlocks(comment = "Initiate an automated arm movement",
+                parameterLabels = {"Direction", "Time", "Power"})
+        public static void command(Direction direction, double time, double power) {
+            org.edu_nation.easy_ftc.mechanism.Arm arm =
+                    new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                            .build();
+            arm.command(direction, time, power);
         }
+
+        @ExportToBlocks(
+                comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
+                parameterLabels = {"Power"})
+        public static void control(double power) {
+            // Construction
+            arm.control(power);
+        }
+
+        @ExportToBlocks(
+                comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
+        public static void control() {
+            // Construction
+            arm.control();
+        }
+
+        // Direction methods ...
+    }
+    ```
 
     </details>
 
     <details>
     <summary>Autonomous</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
-        import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
-        import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
-        // Imports
+    import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
+    import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+    import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
+    // Imports
 
-        public class Arm extends BlocksOpModeCompanion {
-            @ExportToBlocks(comment = "Initiate an automated arm movement",
-                    parameterLabels = {"Direction", "Time", "Power"})
-            public static void command(Direction direction, double time, double power) {
-                // Construction
-                arm.command(direction, time, power);
-            }
-
-            @ExportToBlocks(
-                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
-                    parameterLabels = {"Power"})
-            public static void control(double power) {
-                org.edu_nation.easy_ftc.mechanism.Arm arm =
-                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
-                                .gamepad(gamepad1).build();
-                arm.control(power);
-            }
-
-            @ExportToBlocks(
-                    comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
-            public static void control() {
-                org.edu_nation.easy_ftc.mechanism.Arm arm =
-                        new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
-                                .gamepad(gamepad1).build();
-                arm.control();
-            }
-
-            // Direction methods ...
+    public class Arm extends BlocksOpModeCompanion {
+        @ExportToBlocks(comment = "Initiate an automated arm movement",
+                parameterLabels = {"Direction", "Time", "Power"})
+        public static void command(Direction direction, double time, double power) {
+            // Construction
+            arm.command(direction, time, power);
         }
+
+        @ExportToBlocks(
+                comment = "Enable teleoperated arm movement with gamepad (lb, rb) at the specified power",
+                parameterLabels = {"Power"})
+        public static void control(double power) {
+            org.edu_nation.easy_ftc.mechanism.Arm arm =
+                    new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                            .gamepad(gamepad1).build();
+            arm.control(power);
+        }
+
+        @ExportToBlocks(
+                comment = "Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5")
+        public static void control() {
+            org.edu_nation.easy_ftc.mechanism.Arm arm =
+                    new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap)
+                            .gamepad(gamepad1).build();
+            arm.control();
+        }
+
+        // Direction methods ...
+    }
+    ```
 
     </details>
 
@@ -637,7 +751,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     - The power level of the mechanism can be scaled down (the default is full power)
 
-      <br>![Control Multiplier](./img/blk/ex/controlMultiplier.png){ width=285 }
+        <br>![Control Multiplier](./img/blk/ex/controlMultiplier.png){ width=285 }
 
     </details>
 
@@ -655,19 +769,23 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import com.qualcomm.robotcore.hardware.DcMotor;
+    ```java
+    import com.qualcomm.robotcore.hardware.DcMotor;
+    ```
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Lift lift =
-                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
-                        .count(2)                                    // use two motors for this mechanism
-                        .names(new String[]{"liftLeft", "newName"})  // change the names of the motors
-                        .reverse()                                   // reverse all motors in the mechanism
-                        .reverse("liftLeft")                         // reverse specific motor
-                        .reverse(new String[]{"liftLeft", "newName}) // reverse multiple specific motors
-                        .behavior(DcMotor.ZeroPowerBehavior.FLOAT)   // change the zero-power behavior of the motors
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Lift lift =
+            new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                    .count(2)                                     // use two motors for this mechanism
+                    .names(new String[]{"liftLeft", "newName"})   // change the names of the motors
+                    .reverse()                                    // reverse all motors in the mechanism
+                    .reverse("liftLeft")                          // reverse specific motor
+                    .reverse(new String[]{"liftLeft", "newName"}) // reverse multiple specific motors
+                    .behavior(DcMotor.ZeroPowerBehavior.FLOAT)    // change the zero-power behavior of the motors
+                    .build();
+    ```
 
     </details>
 
@@ -694,16 +812,18 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Claw claw =
-                new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
-                        .count(2)                                    // use two servos for this mechanism
-                        .names(new String[]{"clawLeft", "newName"})  // change the names of the servos
-                        .reverse()                                   // reverse all servos in the mechanism
-                        .reverse("clawLeft")                         // reverse specific servo
-                        .reverse(new String[]{"clawLeft", "newName}) // reverse multiple specific servos
-                        .open(0.8).close(0.2)                        // adjust open and close positions
-                        .delay(3)                                    // adjust the delay for non-smooth movement
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Claw claw =
+            new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
+                    .count(2)                                     // use two servos for this mechanism
+                    .names(new String[]{"clawLeft", "newName"})   // change the names of the servos
+                    .reverse()                                    // reverse all servos in the mechanism
+                    .reverse("clawLeft")                          // reverse specific servo
+                    .reverse(new String[]{"clawLeft", "newName"}) // reverse multiple specific servos
+                    .open(0.8).close(0.2)                         // adjust open and close positions
+                    .delay(3)                                     // adjust the delay for non-smooth movement
+                    .build();
+    ```
 
     </details>
 
@@ -721,12 +841,14 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.sensor.Distance distance =
-                new org.edu_nation.easy_ftc.sensor.Distance.Builder(hardwareMap)
-                        .name("distanceSensor") // change the name of the sensor
-                        .reverse()              // reverse the sensor state
-                        .threshold(6.0)         // change the distance threshold
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.sensor.Distance distance =
+            new org.edu_nation.easy_ftc.sensor.Distance.Builder(hardwareMap)
+                    .name("distanceSensor") // change the name of the sensor
+                    .reverse()              // reverse the sensor state
+                    .threshold(6.0)         // change the distance threshold
+                    .build();
+    ```
 
     </details>
 
@@ -744,11 +866,13 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Drive drive =
-                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .encoder()
-                        .gamepad(gamepad1)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Drive drive =
+            new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                    .encoder()
+                    .gamepad(gamepad1)
+                    .build();
+    ```
 
     ### Methods
 
@@ -765,10 +889,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Drive drive =
-                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .encoder()
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Drive drive =
+            new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                    .encoder()
+                    .build();
+    ```
 
     ### Methods
 
@@ -781,10 +907,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Drive drive =
-                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .encoder().diameter(4).gearing(19.2)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Drive drive =
+            new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                    .encoder().diameter(4).gearing(19.2)
+                    .build();
+    ```
 
     ### Methods
 
@@ -803,10 +931,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Lift lift =
-                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
-                        .encoder().up(300).down(-300)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Lift lift =
+            new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                    .encoder().up(300).down(-300)
+                    .build();
+    ```
 
     ### Methods
 
@@ -819,10 +949,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Lift lift =
-                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
-                        .encoder().diameter(2).gearing(60).up(3).down(-3)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Lift lift =
+            new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                    .encoder().diameter(2).gearing(60).up(3).down(-3)
+                    .build();
+    ```
 
     ### Methods
 
@@ -840,20 +972,24 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Claw claw =
-                new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
-                        .smooth()
-                        .gamepad(gamepad1) // only needed for teleop
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Claw claw =
+            new org.edu_nation.easy_ftc.mechanism.Claw.Builder(linearOpMode, hardwareMap)
+                    .smooth()
+                    .gamepad(gamepad1) // only needed for teleop
+                    .build();
+    ```
 
     ### Notes
 
     - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
 
-            org.edu_nation ...
-                    new org.edu_nation ...
-                            .smooth().increment(0.04).incrementDelay(0.01)
-                            ...
+        ```java
+        org.edu_nation ...
+                new org.edu_nation ...
+                        .smooth().increment(0.04).incrementDelay(0.01)
+                        ...
+        ```
 
     </details>
 
@@ -862,15 +998,19 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Imports
 
-        import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
+    ```
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Drive drive =
-                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .layout(Layout.ARCADE)
-                        .gamepad(gamepad1)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Drive drive =
+            new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                    .layout(Layout.ARCADE)
+                    .gamepad(gamepad1)
+                    .build();
+    ```
 
     ### Methods
 
@@ -883,11 +1023,13 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Drive drive =
-                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
-                        .type(org.edu_nation.easy_ftc.mechanism.Drive.Type.MECANUM)
-                        .gamepad(gamepad1) // only needed for teleop
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Drive drive =
+            new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                    .type(org.edu_nation.easy_ftc.mechanism.Drive.Type.MECANUM)
+                    .gamepad(gamepad1) // only needed for teleop
+                    .build();
+    ```
 
     </details>
 
@@ -896,10 +1038,12 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Construction
 
-        org.edu_nation.easy_ftc.mechanism.Lift lift =
-                new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
-                        .gamepad(gamepad1).deadzone(0.1)
-                        .build();
+    ```java
+    org.edu_nation.easy_ftc.mechanism.Lift lift =
+            new org.edu_nation.easy_ftc.mechanism.Lift.Builder(linearOpMode, hardwareMap)
+                    .gamepad(gamepad1).deadzone(0.1)
+                    .build();
+    ```
 
     ### Methods
 

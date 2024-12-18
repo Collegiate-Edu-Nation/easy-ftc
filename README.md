@@ -66,10 +66,12 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 - Add the .aar to FtcRobotController/libs/
 - Add implementation to TeamCode's build.gradle like so
 
-        dependencies {
-            implementation project(':FtcRobotController')
-            implementation files('../libs/easy-ftc-release.aar')
-        }
+  ```groovy
+  dependencies {
+      implementation project(':FtcRobotController')
+      implementation files('../libs/easy-ftc-release.aar')
+  }
+  ```
 
 ### Blockly
 

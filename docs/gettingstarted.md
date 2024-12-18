@@ -58,74 +58,87 @@ Before we can dive into coding, follow the Install section of the README
     <details>
     <summary>TeleOp - Starting Code</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-        // Imports
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+    // Imports
 
-        @TeleOp(name="Tele", group="dev")
-        public class Tele extends LinearOpMode {
+    @TeleOp(name="Tele", group="dev")
+    public class Tele extends LinearOpMode {
 
-            @Override
-            public void runOpMode() {
-                // Construction
+        @Override
+        public void runOpMode() {
+            // Construction
 
-                waitForStart();
-                while (opModeIsActive()) {
-                    // Methods
-                }
+            waitForStart();
+            while (opModeIsActive()) {
+                // Methods
             }
         }
+    }
+    ```
 
     </details>
 
     _Note the locations of Imports, Construction, and Methods_
 
-    Before we can use easy-ftc, we'll need to import the relevant classes. Add the following to 'Imports'
+    Before we can use easy-ftc, we'll need to import the relevant classes<br>
 
+    - Add the following to 'Imports'
+
+        ```java
         import org.edu_nation.easy_ftc.mechanism.Drive;
+        ```
 
     Drive is a concrete class, which means we must instantiate it before our hardware can be controlled. easy-ftc relies on the builder design pattern to accomplish this, as it enforces immutability (valuable for complex, stateful objects like we see in robotics) and makes arguments more explicit. View Examples or the Javadoc for more details on valid Builder methods
 
-    Add this to 'Construction'- note that we must pass instances of the opMode (this), hardwareMap, and gamepad1
+    - Add this to 'Construction'<br>
+    _Note that we must pass instances of the opMode (this), hardwareMap, and gamepad1_
 
+        ```java
         Drive drive = new Drive.Builder(this, hardwareMap)
             .gamepad(gamepad1)
             .build();
+        ```
 
     If you want to control a mechanism in TeleOp, you'll need to add a control() method call for that mechanism in the while loop. For every loop iteration, this block will read the relevant gamepad inputs and send them to that mechanism's hardware devices, enabling TeleOp control
 
-    Add this to 'Methods' to make your robot drive
+    - Add this to 'Methods' to make your robot drive
 
+        ```java
         drive.control();
+        ```
 
     That's it! By default, this will control a two-motor tank drivetrain with the gamepad joysticks. This behavior can be changed by modifying the Builder methods (which is where hardware initialization is occurring)
 
     <details>
     <summary>TeleOp - Final Code</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-        import org.edu_nation.easy_ftc.mechanism.Drive;
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+    import org.edu_nation.easy_ftc.mechanism.Drive;
 
-        @TeleOp(name="Tele", group="dev")
-        public class Tele extends LinearOpMode {
+    @TeleOp(name="Tele", group="dev")
+    public class Tele extends LinearOpMode {
 
-            @Override
-            public void runOpMode() {
-                Drive drive = new Drive.Builder(this, hardwareMap)
-                    .gamepad(gamepad1)
-                    .build();
+        @Override
+        public void runOpMode() {
+            Drive drive = new Drive.Builder(this, hardwareMap)
+                .gamepad(gamepad1)
+                .build();
 
-                waitForStart();
-                while (opModeIsActive()) {
-                    drive.control();
-                }
+            waitForStart();
+            while (opModeIsActive()) {
+                drive.control();
             }
         }
+    }
+    ```
 
     </details>
 
@@ -138,44 +151,52 @@ Before we can dive into coding, follow the Install section of the README
     <details>
     <summary>Autonomous - Starting Code</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        // Imports
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+    // Imports
 
-        @Autonomous(name="Auto", group="dev")
-        public class Auto extends LinearOpMode {
+    @Autonomous(name="Auto", group="dev")
+    public class Auto extends LinearOpMode {
 
-            @Override
-            public void runOpMode() {
-                // Construction
+        @Override
+        public void runOpMode() {
+            // Construction
 
-                waitForStart();
-                if (opModeIsActive()) {
-                    // Methods
-                }
+            waitForStart();
+            if (opModeIsActive()) {
+                // Methods
             }
         }
+    }
+    ```
 
     </details>
 
     _Note the locations of Imports, Construction, and Methods_
 
-    Import Drive
+    - Import Drive
 
+        ```java
         import org.edu_nation.easy_ftc.mechanism.Drive;
+        ```
 
-    Construct Drive
+    - Construct Drive
 
+        ```java
         Drive drive = new Drive.Builder(this, hardwareMap)
             .build();
+        ```
 
     As autonomous does not allow gamepad control, we'll need to use the command() method to move a mechanism in this match phase. This method commands mechanisms to move as the user specifies, with servo mechanisms taking only one argument (direction) and motor mechanisms taking three (direction, measurement, and power)
 
-    Adding this to 'Methods' to make your robot drive forward for 3 seconds at half-power
+    - Add this to 'Methods' to make your robot drive forward for 3 seconds at half-power
 
+        ```java
         drive.command(Drive.Direction.FORWARD, 3, 0.5);
+        ```
 
     Distance-based movement can be automatically used instead of time by adding .encoder() and .diameter(wheelDiameter) to Drive.Builder(). .gearing(motorGearing) may also need to be corrected for increased accuracy
 
@@ -185,62 +206,74 @@ Before we can dive into coding, follow the Install section of the README
 
     - Import Color and Color.RGB
 
-            import org.edu_nation.easy_ftc.sensor.Color;
-            import org.edu_nation.easy_ftc.sensor.Color.RGB;
+        ```java
+        import org.edu_nation.easy_ftc.sensor.Color;
+        import org.edu_nation.easy_ftc.sensor.Color.RGB;
+        ```
 
     - Construct the sensor
 
-            Color color = new Color.Builder(hardwareMap)
-                .build();
+        ```java
+        Color color = new Color.Builder(hardwareMap)
+            .build();
+        ```
 
     - Retrieve the state in 'Methods'
 
-            color.state();
+        ```java
+        color.state();
+        ```
 
     This will allow your robot to read the color value of an object, but without additional logic, nothing will be different about your code. Let's change that
 
     - Add an if statement after the first command() call that checks if the state is equal to RGB.BLUE
 
-            if (color.state() == RGB.BLUE) {
+        ```java
+        if (color.state() == RGB.BLUE) {
 
-            }
+        }
+        ```
 
     - Add another command() call inside the if statement
 
-            drive.command(Drive.Direction.FORWARD, 3, 0.5);
+        ```java
+        drive.command(Drive.Direction.FORWARD, 3, 0.5);
+        ```
 
     Now your robot will drive forward for 3 seconds at half-power, then do it again if it detects the color blue
 
     <details>
     <summary>Autonomous - Final Code</summary>
 
-        package org.firstinspires.ftc.teamcode;
+    ```java
+    package org.firstinspires.ftc.teamcode;
 
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import org.edu_nation.easy_ftc.mechanism.Drive;
-        import org.edu_nation.easy_ftc.sensor.Color;
-        import org.edu_nation.easy_ftc.sensor.Color.RGB;
+    import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+    import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    import org.edu_nation.easy_ftc.sensor.Color;
+    import org.edu_nation.easy_ftc.sensor.Color.RGB;
 
-        @Autonomous(name="Auto", group="dev")
-        public class Auto extends LinearOpMode {
+    @Autonomous(name="Auto", group="dev")
+    public class Auto extends LinearOpMode {
 
-            @Override
-            public void runOpMode() {
-                Drive drive = new Drive.Builder(this, hardwareMap)
-                    .build();
-                Color color = new Color.Builder(hardwareMap)
-                    .build();
+        @Override
+        public void runOpMode() {
+            Drive drive = new Drive.Builder(this, hardwareMap)
+                .build();
+            Color color = new Color.Builder(hardwareMap)
+                .build();
 
-                waitForStart();
-                if (opModeIsActive()) {
+            waitForStart();
+            if (opModeIsActive()) {
+                drive.command(Drive.Direction.FORWARD, 3, 0.5);
+                if (color.state() == RGB.BLUE) {
                     drive.command(Drive.Direction.FORWARD, 3, 0.5);
-                    if (color.state() == RGB.BLUE) {
-                        drive.command(Drive.Direction.FORWARD, 3, 0.5);
-                    }
                 }
             }
         }
+    }
+    ```
 
     </details>
 
