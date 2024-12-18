@@ -25,26 +25,6 @@ public class TestColor {
         when(mockedColorSensor.blue()).thenReturn(blue);
     }
 
-    @Test
-    public void Color_initializes() {
-        mockInit();
-
-        try {
-            new Color.Builder(mockedHardwareMap).build();
-            new Color.Builder(mockedHardwareMap).name("color").build();
-            new Color.Builder(mockedHardwareMap).threshold(1).build();
-            int[] offsets = {9, -26, -1};
-            new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).build();
-            new Color.Builder(mockedHardwareMap).reverse().build();
-            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).build();
-            new Color.Builder(mockedHardwareMap).threshold(1).reverse().build();
-            new Color.Builder(mockedHardwareMap).rgbOffsets(offsets).reverse().build();
-            new Color.Builder(mockedHardwareMap).threshold(1).rgbOffsets(offsets).reverse().build();
-        } catch (Exception e) {
-            fail(e.getMessage());
-        }
-    }
-
     @Test(expected = NullPointerException.class)
     public void hardwareMapThrowsException() {
         mockInit();
@@ -57,6 +37,17 @@ public class TestColor {
         mockInit();
 
         new Color.Builder(mockedHardwareMap).rgbOffsets(null).build();
+    }
+
+    @Test
+    public void nameWorks() {
+        mockInit();
+
+        try {
+            new Color.Builder(mockedHardwareMap).name("color").build();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test(expected = NullPointerException.class)

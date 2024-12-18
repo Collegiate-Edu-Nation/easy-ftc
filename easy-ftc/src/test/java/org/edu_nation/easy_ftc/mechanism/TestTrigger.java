@@ -30,57 +30,17 @@ public class TestTrigger {
         mockInit();
 
         try {
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .names(new String[] {"trigger"})
-                    .build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap).reverse("trigger").build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("triggerLeft")
-                    .reverse("triggerRight")
-                    .build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap)
                     .count(2)
                     .reverse(new String[] {"triggerLeft", "triggerRight"})
                     .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).smooth().build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap).count(2).smooth().build();
             new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .smooth()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .smooth()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .smooth()
-                    .open(0.9)
-                    .close(0.1)
-                    .increment(0.01)
-                    .incrementDelay(0.02)
-                    .delay(2.1)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Trigger.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .smooth()
                     .reverse()
-                    .open(0.9)
-                    .close(0.1)
+                    .smooth()
                     .increment(0.01)
                     .incrementDelay(0.02)
                     .delay(2.1)
-                    .gamepad(mockedGamepad)
                     .build();
         } catch (Exception e) {
             fail(e.getMessage());

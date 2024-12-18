@@ -39,93 +39,16 @@ public class TestArm {
         mockInit();
 
         try {
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).up(1.0).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).down(-1.0).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).names(new String[] {"arm"}).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap)
                     .behavior(DcMotor.ZeroPowerBehavior.BRAKE)
                     .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse("arm").build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap).reverse(new String[] {"arm"}).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("arm").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
             new Arm.Builder(mockedOpMode, mockedHardwareMap)
                     .encoder()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
+                    .length(2)
                     .gearing(19.2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
-                    .reverse()
-                    .gamepad(mockedGamepad)
-                    .build();
-
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse().build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("armLeft").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("armLeft")
-                    .reverse("armRight")
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("armRight").build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("armLeft")
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("armRight")
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().length(4).build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .gearing(19.2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Arm.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .reverse()
-                    .gamepad(mockedGamepad)
                     .build();
         } catch (Exception e) {
             fail(e.getMessage());

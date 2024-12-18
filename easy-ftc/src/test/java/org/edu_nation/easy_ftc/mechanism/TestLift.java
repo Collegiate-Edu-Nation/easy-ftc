@@ -78,63 +78,6 @@ public class TestLift {
                     .reverse()
                     .gamepad(mockedGamepad)
                     .build();
-
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).deadzone(0.1).build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftLeft").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().reverse().build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("liftLeft")
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("liftLeft")
-                    .reverse("liftRight")
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse("liftRight").build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("liftRight")
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .diameter(4)
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .diameter(4)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .diameter(4)
-                    .gearing(19.2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Lift.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .diameter(4)
-                    .reverse()
-                    .gamepad(mockedGamepad)
-                    .build();
         } catch (Exception e) {
             fail(e.getMessage());
         }

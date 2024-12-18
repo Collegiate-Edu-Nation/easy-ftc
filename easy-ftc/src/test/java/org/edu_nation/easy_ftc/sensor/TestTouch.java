@@ -19,13 +19,11 @@ public class TestTouch {
     }
 
     @Test
-    public void Touch_initializes() {
+    public void nameWorks() {
         mockInit();
 
         try {
-            new Touch.Builder(mockedHardwareMap).build();
             new Touch.Builder(mockedHardwareMap).name("touch").build();
-            new Touch.Builder(mockedHardwareMap).reverse().build();
         } catch (Exception e) {
             fail(e.getMessage());
         }

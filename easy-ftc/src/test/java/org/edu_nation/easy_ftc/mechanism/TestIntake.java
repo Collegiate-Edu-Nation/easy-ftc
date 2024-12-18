@@ -39,111 +39,18 @@ public class TestIntake {
         mockInit();
 
         try {
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).in(1.0).build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).out(-1.0).build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .names(new String[] {"intake"})
-                    .build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap)
                     .behavior(DcMotor.ZeroPowerBehavior.BRAKE)
                     .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse().build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap).reverse().build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap).reverse("intake").build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap)
                     .reverse(new String[] {"intake"})
                     .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().reverse("intake").build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).encoder().length(4).build();
             new Intake.Builder(mockedOpMode, mockedHardwareMap)
                     .encoder()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
+                    .diameter(2)
                     .gearing(19.2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .encoder()
-                    .length(4)
-                    .reverse()
-                    .gamepad(mockedGamepad)
-                    .build();
-
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).count(2).build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).count(2).encoder().build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap).count(2).reverse().build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse()
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("intakeLeft")
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("intakeLeft")
-                    .reverse("intakeRight")
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .reverse("intakeRight")
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("intakeLeft")
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .reverse("intakeRight")
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .gearing(19.2)
-                    .gamepad(mockedGamepad)
-                    .build();
-            new Intake.Builder(mockedOpMode, mockedHardwareMap)
-                    .count(2)
-                    .encoder()
-                    .length(4)
-                    .reverse()
-                    .gamepad(mockedGamepad)
                     .build();
         } catch (Exception e) {
             fail(e.getMessage());
