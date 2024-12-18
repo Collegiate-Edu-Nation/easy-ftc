@@ -5,7 +5,7 @@ hide:
 
 # Naming
 
-These are the default hardware names. They can be modified via Builder.names(), if desired. Check the Javadoc for an object's Builder to see all default values
+These are the default hardware names. They can be modified via `Builder.names()`, if desired. Check the Javadoc for an object's `Builder` to see all default values
 
 ## Mechanisms
 

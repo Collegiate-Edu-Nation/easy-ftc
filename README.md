@@ -29,7 +29,7 @@ Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
 ### What does this do?
 
-This library greatly simplifies the implementation of common FTC robotics subsystems and features by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (command(), control(), and state()) due to a reliance on sane defaults and the builder design pattern
+This library greatly simplifies the implementation of common FTC robotics subsystems and features by abstracting away low-level decisions and providing a simplified, façade pattern API. As such, users will only need to use a few methods (`command()`, `control()`, and `state()`) due to a reliance on sane defaults and the builder design pattern
 
 ### Who is this for?
 
@@ -38,11 +38,11 @@ The target audience is beginner-level FTC teams and hobbyists, but even advanced
 ### Features
 
 - Encoders can be used with minimal setup for either time- or distance-based commands
-- Arm, Intake, and Lift optionally feature encoder limits on range-of-motion
-- Robot and field-centric driving are supported for Mecanum
-- Tank and arcade are supported for Differential
+- `Arm`, `Intake`, and `Lift` optionally feature encoder limits on range-of-motion
+- `ROBOT` and `FIELD`-centric driving are supported for `MECANUM`
+- `TANK` and `ARCADE` are supported for `DIFFERENTIAL`
 - Servo-powered mechanisms can optionally leverage smooth-servo control
-- Lift and Drive optionally feature gamepad deadzones, mitigating stick/trigger drift
+- `Lift` and `Drive` optionally feature gamepad deadzones, mitigating stick/trigger drift
 
 ### Docs
 
@@ -54,7 +54,7 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 ### Download release archive
 
 - Each option requires that you download this repo's latest Android archive
-- Click on 'easy-ftc-release.aar' at https://github.com/collegiate-edu-nation/easy-ftc/releases
+- Click on `easy-ftc-release.aar` at https://github.com/collegiate-edu-nation/easy-ftc/releases
 
 ### OnBot Java
 
@@ -63,8 +63,8 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 
 ### Android Studio
 
-- Add the .aar to FtcRobotController/libs/
-- Add implementation to TeamCode's build.gradle like so
+- Add the .aar to `FtcRobotController/libs/`
+- Add implementation to TeamCode's `build.gradle` like so
 
   ```groovy
   dependencies {
@@ -75,14 +75,14 @@ _Cover Getting Started, Examples, Controls, Naming, Diagrams, and the Javadoc_
 
 ### Blockly
 
-- While at the previous link, also click on 'myBlocks.zip'
+- While at the previous link, also click on `myBlocks.zip`
 - Upload the .aar and all relevant Java files from myBlocks using OnBot Java's GUI
-  - _Each Java file in 'myBlocks' will control a specific mechanism/sensor_
+  - _Each Java file in `myBlocks/` will control a specific mechanism/sensor_
 - Modify the myBlocks Java files to change behavior
-  - _e.g. add .layout(Layout.ARCADE) to Drive.Builder in Drive.java_
+  - _e.g. add `.layout(Layout.ARCADE)` to `Drive.Builder` in `Drive.java`_
 - Press the gear icon on the bottom right with the title 'Build Everything'
 - A new menu option 'Java Classes' should be visible in the Blockly GUI now
-- Each class listed there will provide relevant methods from easy-ftc, like control(), command(), and state()
+- Each class listed there will provide relevant methods from easy-ftc, like `control()`, `command()`, and `state()`
 
 ## Contributing
 

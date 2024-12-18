@@ -9,7 +9,7 @@ Examples are provided in the form of code (either Java or Blockly) that must be 
 
 ## OpModes
 
-Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but command() can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter (and if no 'Methods' section is included, then either command() or control() can be used).
+Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but `command()` can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter (and if no 'Methods' section is included, then either `command()` or `control()` can be used).
 
 === "Java"
 
@@ -313,7 +313,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+    - Unlike `command()`, adding `.diameter()` doesn't affect `control()`, so velocity will be used either way so long as `.encoder()` is enabled
 
     </details>
 
@@ -369,8 +369,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - The distance unit used in command() will be the same as what's used in .diameter()
-    - .gearing() is optional here, but correcting it can improve accuracy
+    - The distance unit used in `command()` will be the same as what's used in `.diameter()`
+    - `.gearing()` is optional here, but correcting it can improve accuracy
 
     </details>
 
@@ -414,7 +414,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - .gearing() is optional here, but correcting it can improve accuracy
+    - `.gearing()` is optional here, but correcting it can improve accuracy
 
     </details>
 
@@ -438,7 +438,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
+    - The `increment` and `incrementDelay` can be adjusted if you'd like to change the 'smoothness' and/or speed
 
         ```java
         Claw claw ...
@@ -516,7 +516,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - LogoFacingDirection and UsbFacingDirection can be changed if field-centric movement is offset
+    - `LogoFacingDirection` and `UsbFacingDirection` can be changed if field-centric movement is offset
 
         ```java
         Drive drive ...
@@ -551,7 +551,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
+    - `.deadzone()` only affects mechanisms using either Joysticks or Triggers (`Drive` and `Lift`)
 
     </details>
 
@@ -617,8 +617,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
-    - Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
+    - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
+    - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
 
     </details>
 
@@ -638,7 +638,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ## MyBlocks
 
-    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of Arm's MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the Drive subsystem, any changes to Imports or Construction will be made in Drive.java).
+    As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of `Arm`'s MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the `Drive` subsystem, any changes to Imports or Construction will be made in `Drive.java`).
 
     <details>
     <summary>TeleOp</summary>
@@ -856,7 +856,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:
 
-    - Encoder limits in control()
+    - Encoder limits in `control()`
     - Field-centric driving
 
     If these features are must-haves, use Java instead.
@@ -880,7 +880,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Unlike command(), adding .diameter() doesn't affect control(), so velocity will be used either way so long as .encoder() is enabled
+    - Unlike `command()`, adding `.diameter()` doesn't affect `control()`, so velocity will be used either way so long as `.encoder()` is enabled
 
     </details>
 
@@ -920,9 +920,9 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - The distance unit used in command() will be the same as what's used in .diameter()
-    - .gearing() is optional here, but correcting it can improve accuracy
-    - The 'Time' parameterLabel in Drive.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+    - The distance unit used in `command()` will be the same as what's used in `.diameter()`
+    - `.gearing()` is optional here, but correcting it can improve accuracy
+    - The `Time` parameterLabel in `Drive.command()` has been changed to `Distance` here. This is optional, but it clarifies the intended functionality for Blockly users
 
     </details>
 
@@ -962,8 +962,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - .gearing() is optional here, but correcting it can improve accuracy
-    - The 'Time' parameterLabel in Lift.command() has been changed to 'Distance' here. This is optional, but it clarifies the intended functionality for Blockly users
+    - `.gearing()` is optional here, but correcting it can improve accuracy
+    - The `Time` parameterLabel in `Lift.command()` has been changed to `Distance` here. This is optional, but it clarifies the intended functionality for Blockly users
 
     </details>
 
@@ -982,7 +982,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - The increment and incrementDelay can be adjusted if you'd like to change the 'smoothness' and/or speed
+    - The `increment` and `incrementDelay` can be adjusted if you'd like to change the 'smoothness' and/or speed
 
         ```java
         org.edu_nation ...
@@ -1051,7 +1051,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Deadzone only affects mechanisms using either Joysticks or Triggers (Drive and Lift)
+    - `.deadzone()` only affects mechanisms using either Joysticks or Triggers (`Drive` and `Lift`)
 
     </details>
 
@@ -1070,7 +1070,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - Sequence is initiated by pressing dpad_right and can be interrupted with dpad_left
-    - Holding down dpad_left works best since the loop used by command() is thread blocking, meaning its value is only read between sequence states
+    - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
+    - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
 
     </details>

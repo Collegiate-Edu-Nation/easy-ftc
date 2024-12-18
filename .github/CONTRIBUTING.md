@@ -241,7 +241,8 @@ The project can also be imported into Android Studio, where Windows is supported
 To format source files, you must also install
 
 - Node.js v20.18.1 (LTS)
-- nixfmt (optional as long as no nix files are modified)
+- nixfmt
+  - _Optional as long as no nix files are modified_
 
 Then
 
@@ -257,7 +258,7 @@ Then
   npm i
   ```
 
-- Set JRE17_PATH (path to JRE 17 binary, will default to ~/.java-caller)
+- Set `JRE17_PATH` (path to JRE 17 binary, will default to `~/.java-caller`)
 
   - Linux and macOS
 
@@ -282,7 +283,8 @@ Then
 To generate documentation, you must also install
 
 - Python 3.12.7
-- PlantUML (optional as long as no puml files are modified)
+- PlantUML
+  - _Optional as long as no puml files are modified_
 
 Then
 
@@ -319,7 +321,7 @@ Then
   pip install -r requirements.txt
   ```
 
-- Set PUML_PATH (path to PlantUML binary)
+- Set `PUML_PATH` (path to PlantUML binary)
 
   - Linux and macOS
 
@@ -392,9 +394,9 @@ _Sonarlint is used to check code quality_
 #### Naming
 
 - Simplicity over descriptivity
-- camelCase for variables and functions
-- PascalCase for classes
-- SNAKE_CASE for constants
+- `camelCase` for variables and functions
+- `PascalCase` for classes
+- `SNAKE_CASE` for constants
 
 <!-- omit in toc -->
 
@@ -402,9 +404,9 @@ _Sonarlint is used to check code quality_
 
 - Only use one-liners for private and protected functions, classes
 - Include the following for public functions and classes (as applicable)
-  - @param
-  - @return
-  - @throws
+  - `@param`
+  - `@return`
+  - `@throws`
 - Include the following for each Builder class
   - Basic Usage
   - Defaults (all default field values)
