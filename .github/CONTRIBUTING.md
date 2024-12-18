@@ -360,6 +360,7 @@ Then
 - [ ] Package for both nix and maven
 - [ ] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
+- [ ] Finish removing 'Object_initializes' tests
 - [ ] Flesh out Color
 - [ ] Add graphics for blocks and onbot usage
 - [ ] Add graphic for controls
