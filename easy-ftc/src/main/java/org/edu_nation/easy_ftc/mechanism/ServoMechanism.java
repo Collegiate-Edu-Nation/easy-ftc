@@ -165,7 +165,10 @@ abstract class ServoMechanism<E> extends Mechanism {
         }
     }
 
-    /** Wrapper around setPositions that enables smooth servo control */
+    /**
+     * Wrapper around setPositions that enables smooth servo control. Concept from:
+     * https://github.com/OpenFTC/Extracted-RC/blob/ef28faaa763eb00edb200f21e9df72ac12f63cf8/Blocks/src/main/assets/blocks/samples/ConceptSmoothServo.blk
+     */
     protected double setPositionsByIncrement(double position, double movement) {
         double signedIncrement = (movement > position) ? increment : -increment;
         position += (movement == position) ? 0 : signedIncrement;
