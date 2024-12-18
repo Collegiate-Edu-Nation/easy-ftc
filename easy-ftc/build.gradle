@@ -108,12 +108,12 @@ tasks.register('formatGroovy', Exec) {
     commandLine runCmd
 }
 
-// formats all yml, md files
+// formats all yml, md, json files
 tasks.register('formatMisc', Exec) {
     group = ver
-    description = 'Formats all yml, md files'
+    description = 'Formats all yml, md, json files'
 
-    List<String> runCmd = ['prettier', '--write', '**/*.yml', '**/*.md']
+    List<String> runCmd = ['prettier', '--write', '**/*.yml', '**/*.md', '**/*.json']
     runCmd = finalizeRunCmd(runCmd, jre17, store)
 
     workingDir dir
@@ -138,6 +138,7 @@ tasks.register(blk, Zip) {
 }
 
 // create alias for jacoco report
+// groovylint-disable-next-line UnnecessaryObjectReferences
 tasks.register('coverage', Exec) {
     group = 'reporting'
     description = 'Generates Jacoco coverage report as HTML in build/reports/coverage'
@@ -147,6 +148,7 @@ tasks.register('coverage', Exec) {
 }
 
 // create task for generating uml
+// groovylint-disable-next-line UnnecessaryObjectReferences
 tasks.register('uml', Exec) {
     group = bld
     description = 'Generate UML in docs/uml from uml.puml'
