@@ -317,6 +317,7 @@ Then
 
 ### ToDo
 
+- [ ] Package for both nix and maven
 - [ ] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
 - [ ] Flesh out Color
