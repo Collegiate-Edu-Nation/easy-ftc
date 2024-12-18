@@ -1,13 +1,13 @@
 <div align="center">
 <img src='docs/img/logo/easy-ftc_color.png' alt='easy-ftc' height=128px>
 
-![Static Badge](https://img.shields.io/badge/Version-1.0-blue)
-![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-blue)
-![Static Badge](https://img.shields.io/badge/Android_API-30-blue)
-![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-blue)
-![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green)
-![Static Badge](https://img.shields.io/badge/Coverage-97%25-green)
-![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white)
+![Static Badge](https://img.shields.io/badge/Version-1.0-blue?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-blue?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Android_API-30-blue?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-blue?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-green?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Coverage-97%25-green?style=for-the-badge)
+![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white&style=for-the-badge)
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
