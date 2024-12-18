@@ -7,7 +7,7 @@
 ![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-dodgerblue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-brightgreen?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Coverage-97%25-brightgreen?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white&style=for-the-badge&color=8C8F8F)
+![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white&logoSize=auto&style=for-the-badge&color=8C8F8F)
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including
 
