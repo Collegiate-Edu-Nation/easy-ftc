@@ -36,7 +36,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 This project and everyone participating in it is governed by the
 [easy-ftc Code of Conduct](https://github.com/Collegiate-Edu-Nation/easy-ftc/blob/main/.github/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code. Please report unacceptable behavior
-to <***REMOVED***>.
+to [camdenboren](https://github.com/camdenboren/).
 
 ## I Have a Question
 
@@ -96,7 +96,7 @@ A good bug report shouldn't leave others needing to chase you up for more inform
 
 #### How Do I Submit a Good Bug Report?
 
-> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to <***REMOVED***>.
+> You must never report security related issues, vulnerabilities or bugs including sensitive information to the issue tracker, or elsewhere in public. Instead sensitive bugs must be sent by email to [camdenboren](https://github.com/camdenboren/).
 
 <!-- You may add a PGP key to allow the messages to be sent encrypted as well. -->
 
@@ -464,7 +464,7 @@ Other prefixes may be acceptable (e.g. 'uml:'), so use your discretion
 
 ## Join The Project Team
 
-Requests to join the project team may be submitted to the responsible community leaders at <***REMOVED***>.
+Requests to join the project team may be submitted to the responsible community leaders at [camdenboren](https://github.com/camdenboren/).
 
 <!-- omit in toc -->
 
