@@ -1,0 +1,153 @@
+@startuml
+
+left to right direction
+
+abstract class Mechanism {
+    # opMode: LinearOpMode
+    # hardwareMap: HardwareMap
+    # count: int
+    # names: String[]
+    # reverse: boolean
+    # reverseDevices: String[]
+    # gamepad: Gamepad
+    # timer: ElapsedTime
+    # mechanismName: String
+    {abstract}# init()
+    {abstract}+ control()
+    {abstract}# reverse()
+    # wait(double time)
+}
+
+abstract class MotorMechanism<E> {
+    # motors: DcMotor[] 
+    # motorsEx: DcMotorEx[] 
+    # imu: IMU
+    # encoder: boolean
+    # behavior: DcMotor.ZeroPowerBehavior
+    # dir1: double
+    # dir2: double
+    # velocityMultiplier: double
+    # distanceMultiplier: double
+    # diameter: double
+    # length: double
+    # gearing: double
+    # deadzone: double
+    # logo: LogoFacingDirection
+    # usb: UsbFacingDirection
+    # layout: Drive.Layout
+    - connect: String
+    {abstract}+ control(double multiplier)
+    {abstract}+ command(E direction, double measurement, double power)
+    # validate(double multiplier)
+    # validate(double measurement, double power)
+    # reverse(String deviceName)
+    # init()
+    # moveForMeasurement(double[] unscaledMovements, double measurement, double power, boolean limit)
+    # limitsNotReached(double direction, double[] movements): boolean
+    - limitsNotReachedTimeBased(double direction): boolean
+    - limitsNotReachedDistanceBased(double direction, double[] movements): boolean
+    # setPositions(int[] positions, int[] currentPositions)
+    # setModesEx(DcMotorEx.RunMode runMode)
+    # setModes(DcMotor.RunMode runMode)
+    # setPowers(double[] movements)
+    # setPowers()
+    # setDirections(boolean reverse)
+    - setDirectionsDefault()
+    - setDirectionsReversed()
+    # setBehaviors(DcMotor.ZeroPowerBehavior behavior)
+    # getMotorTypes(): MotorConfigurationType[]
+    # getGearing(MotorConfigurationType[] motorTypes): double
+    + setGearing()
+    # motorsAreBusy(double[] movements): boolean
+    # getAchievableMaxTicksPerSecond(MotorConfigurationType[] motorTypes): double
+    # getTicksPerRev(MotorConfigurationType[] motorTypes): double
+    # getCurrentPositions(): int[]
+    # map(double controllerValue): double
+    # scaleDirections(double[] motorDirections, double power): double[]
+    # calculatePositions(double distance, double[] movements): int[]
+    - min(double[] arr): double
+    - min(double a, double b, double c, double d): double
+}
+
+abstract class ServoMechanism<E> {
+    # servos: Servo[]
+    # smooth: boolean
+    # increment: double
+    # incrementDelay: double
+    # delay: double
+    {abstract}+ command(E direction)
+    # reverse(String deviceName)
+    # init()
+    # setPositionsByIncrement(double position, double movement): double
+    # setPositionsByIncrementUntilComplete(double position, double movement)
+    # setPositions(double movement)
+    # setDirections(boolean reverse)
+}
+
+class Arm<Arm.Direction> {
+    + control(double power)
+    + control()
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(boolean lb, boolean rb): double
+    # languageToDirection(Direction direction): double
+}
+
+class Claw<Claw.Direction> {
+    - open: double
+    - close: double
+    + control()
+    + command(Direction direction)
+    # controlToDirection(double current, boolean openButton, boolean closeButton): double
+    # languageToDirection(Direction direction): double
+}
+
+class Drive<Drive.Direction> {
+    - type: Type
+    + control(double multiplier)
+    + control()
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(double heading, float leftY, float leftX, float rightY, float rightX): double[]
+    - controlToDirectionDifferential(double leftY, double rightY, double rightX): double[]
+    - controlToDirectionMecanum(double heading, double leftY, double leftX, double rightX): double[]
+    - axesToDirection(double[] axes, double heading): double[]
+    # languageToDirection(Direction direction, double heading): double[]
+    - languageToDirectionDifferential(Direction direction): double[]
+    - languageToDirectionMecanum(Direction direction): double[]
+}
+
+class Intake<Intake.Direction> {
+    + control(double power)
+    + control()
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(boolean dpadUp, boolean dpadDown): double
+    # languageToDirection(Direction direction): double
+}
+
+class Lift<Lift.Direction> {
+    + control(double multiplier)
+    + control()
+    + command(Direction direction, double measurement, double power)
+    # controlToDirection(float lt, float rt): double
+    # languageToDirection(Direction direction): double
+}
+
+class Trigger<Trigger.Direction> {
+    - open: double
+    - close: double
+    + control()
+    + command(Direction direction)
+    # controlToDirection(double current, boolean openButton, boolean closeButton): double
+    # languageToDirection(Direction direction): double
+}
+
+Mechanism <|-- MotorMechanism
+Mechanism <|-- ServoMechanism
+
+MotorMechanism <|-- Arm
+ServoMechanism <|-- Claw
+MotorMechanism <|-- Drive
+MotorMechanism <|-- Intake
+MotorMechanism <|-- Lift
+ServoMechanism <|-- Trigger
+
+@enduml

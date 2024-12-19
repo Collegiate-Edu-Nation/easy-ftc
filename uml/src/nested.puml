@@ -1,0 +1,263 @@
+@startuml
+
+left to right direction
+
+abstract class Mechanism {}
+
+abstract class "Builder<T extends Builder<T>>" as Mechanism_Builder {
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): T
+    + reverse(String deviceName): T
+    + reverse(String[] deviceNames): T
+    + gamepad(Gamepad gamepad): T
+    {abstract}+ names(String[] names): T
+    {abstract}+ build(): Mechanism
+    {abstract}# self(): T
+}
+
+abstract class MotorMechanism<E> {}
+
+abstract class ServoMechanism<E> {}
+
+abstract class "Builder<T extends Builder<T>> extends Mechanism.Builder<T>" as MotorMechanism_Builder {
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + encoder(): T
+    + diameter(double diameter): T
+    + length(double length): T
+    + gearing(double gearing): T
+    + deadzone(double deadzone): T
+    + logo(LogoFacingDirection logo): T
+    + usb(UsbFacingDirection usb): T
+    {abstract}+ names(String[] names): T
+    {abstract}+ build(): MotorMechanism<?>
+    {abstract}+ self(): T
+}
+
+abstract class "Builder<T extends Builder<T>> extends Mechanism.Builder<T>" as ServoMechanism_Builder {
+    # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + smooth(): T
+    + increment(double increment): T
+    + incrementDelay(double incrementDelay): T
+    + delay(double delay): T
+    {abstract}+ names(String[] names): T
+    {abstract}+ build(): ServoMechanism<?>
+    {abstract}# self(): T
+}
+
+class Arm<Arm.Direction> {}
+
+class Claw<Claw.Direction> {}
+
+class Drive<Drive.Direction> {}
+
+class Intake<Intake.Direction> {}
+
+class Lift<Lift.Direction> {}
+
+class Trigger<Trigger.Direction> {}
+
+class "Builder<Builder>" as Arm_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + length(double length): Builder
+    + gearing(double gearing): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + up(double up): Builder
+    + down(double down): Builder
+    + build(): Arm
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Claw_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + smooth(): Builder
+    + increment(double increment): Builder
+    + incrementDelay(double incrementDelay): Builder
+    + delay(double delay): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + open(double open): Builder
+    + close(double close): Builder
+    + build(): Claw
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Drive_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + gearing(double gearing): Builder
+    + deadzone(double deadzone): Builder
+    + logo(LogoFacingDirection logo): Builder
+    + usb(UsbFacingDirection usb): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + type(Type type): Builder
+    + layout(Layout layout): Builder
+    + build(): Drive
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Intake_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + gearing(double gearing): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + in(double in): Builder
+    + out(double out): Builder
+    + build(): Intake
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Lift_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + encoder(): Builder
+    + diameter(double diameter): Builder
+    + gearing(double gearing): Builder
+    + deadzone(double deadzone): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + behavior(DcMotor.ZeroPowerBehavior behavior): Builder
+    + up(double up): Builder
+    + down(double down): Builder
+    + build(): Lift
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Trigger_Builder {
+    + Builder(LinearOpMode opMode, HardwareMap hardwareMap)
+    + reverse(): Builder
+    + reverse(String deviceName): Builder
+    + reverse(String[] deviceNames): Builder
+    + gamepad(Gamepad gamepad): Builder
+    + smooth(): Builder
+    + increment(double increment): Builder
+    + incrementDelay(double incrementDelay): Builder
+    + delay(double delay): Builder
+    + count(int count): Builder
+    + names(String[] names): Builder
+    + open(double open): Builder
+    + close(double close): Builder
+    + build(): Trigger
+    # self(): Builder
+}
+
+enum "Direction" as Arm_Direction {
+    UP
+    DOWN
+}
+
+enum "Direction" as Claw_Direction {
+    OPEN
+    CLOSE
+}
+
+enum "Direction" as Drive_Direction {
+    FORWARD
+    BACKWARD
+    LEFT
+    RIGHT
+    ROTATE_LEFT
+    ROTATE_RIGHT
+    FORWARD_LEFT
+    FORWARD_RIGHT
+    BACKWARD_LEFT
+    BACKWARD_RIGHT
+}
+
+enum "Direction" as Intake_Direction {
+    IN
+    OUT
+}
+
+enum "Direction" as Lift_Direction {
+    UP
+    DOWN
+}
+
+enum "Direction" as Trigger_Direction {
+    OPEN
+    CLOSE
+}
+
+enum Type {
+    DIFFERENTIAL
+    MECANUM
+}
+
+enum Layout {
+    ARCADE
+    TANK
+    FIELD
+    ROBOT
+}
+
+Mechanism <|-- MotorMechanism
+Mechanism <|-- ServoMechanism
+
+MotorMechanism <|-- Arm
+ServoMechanism <|-- Claw
+MotorMechanism <|-- Drive
+MotorMechanism <|-- Intake
+MotorMechanism <|-- Lift
+ServoMechanism <|-- Trigger
+
+Mechanism_Builder <|-- MotorMechanism_Builder
+Mechanism_Builder <|-- ServoMechanism_Builder
+
+MotorMechanism_Builder <|-- Arm_Builder
+ServoMechanism_Builder <|-- Claw_Builder
+MotorMechanism_Builder <|-- Drive_Builder
+MotorMechanism_Builder <|-- Intake_Builder
+MotorMechanism_Builder <|-- Lift_Builder
+ServoMechanism_Builder <|-- Trigger_Builder
+
+Mechanism +-- Mechanism_Builder
+MotorMechanism +-- MotorMechanism_Builder
+ServoMechanism +-- ServoMechanism_Builder
+
+Arm +-- Arm_Builder
+Claw +-- Claw_Builder
+Drive +-- Drive_Builder
+Intake +-- Intake_Builder
+Lift +-- Lift_Builder
+Trigger +-- Trigger_Builder
+
+Arm +-- Arm_Direction
+Claw +-- Claw_Direction
+Drive +-- Drive_Direction
+Intake +-- Intake_Direction
+Lift +-- Lift_Direction
+Trigger +-- Trigger_Direction
+
+Drive +-- Type
+Drive +-- Layout
+
+@enduml

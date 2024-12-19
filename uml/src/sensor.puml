@@ -1,0 +1,93 @@
+@startuml
+
+left to right direction
+
+abstract class Sensor<S, V> {
+    # hardwareMap: HardwareMap
+    # sensor: S
+    # name: String
+    # reverse: boolean
+    # threshold: double
+    {abstract}# init()
+    {abstract}+ state(): V
+}
+
+abstract class "Builder<T extends Builder<T>>" as Sensor_Builder {
+    # Builder(HardwareMap hardwareMap)
+    + reverse(): T
+    {abstract}+ name(String name): T
+    {abstract}+ build(): Sensor<?, ?>
+    {abstract}+ self(): T
+}
+
+class Color<ColorSensor, Color.RGB> {
+    - rgbOffsets: int[]
+    # init()
+    + state(): RGB
+    # dominantColor(int[] rgbRaw): RGB
+    # weakColor(int[] rgbRaw): RGB
+    - normalize(int[] rgbRaw): int[]
+    - max(int[] rgbNormalized): int
+    - min(int[] rgbNormalized): int
+}
+
+class Distance<DistanceSensor, Boolean> {
+    # init()
+    + state(): Boolean
+}
+
+class Touch<TouchSensor, Boolean> {
+    # init()
+    + state(): Boolean
+}
+
+class "Builder<Builder>" as Color_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
+    + threshold(double threshold): Builder
+    + rgbOffsets(int[] rgbOffsets): Builder
+    + build(): Color
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Distance_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
+    + threshold(double threshold): Builder
+    + build(): Distance
+    # self(): Builder
+}
+
+class "Builder<Builder>" as Touch_Builder {
+    + Builder(HardwareMap hardwareMap)
+    + reverse(): Builder
+    + name(String name): Builder
+    + build(): Touch
+    # self(): Builder
+}
+
+enum RGB {
+    RED
+    GREEN
+    BLUE
+}
+
+Sensor <|-- Color
+Sensor <|-- Distance
+Sensor <|-- Touch
+
+Sensor_Builder <|-- Color_Builder
+Sensor_Builder <|-- Distance_Builder
+Sensor_Builder <|-- Touch_Builder
+
+Sensor +-- Sensor_Builder
+
+Color +-- Color_Builder
+Distance +-- Distance_Builder
+Touch +-- Touch_Builder
+
+Color +-- RGB
+
+@enduml

@@ -1,0 +1,3216 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../gettingstarted/">
+      
+      
+        <link rel="next" href="../controls/">
+      
+      
+      <link rel="icon" href="../img/logo/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.39">
+    
+    
+      
+        <title>Examples - easy-ftc docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#examples" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="easy-ftc docs" class="md-header__button md-logo" aria-label="easy-ftc docs" data-md-component="logo">
+      
+  <img src="../img/logo/easy-ftc.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            easy-ftc docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Examples
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/collegiate-edu-nation/easy-ftc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    collegiate-edu-nation/easy-ftc
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="easy-ftc docs" class="md-nav__button md-logo" aria-label="easy-ftc docs" data-md-component="logo">
+      
+  <img src="../img/logo/easy-ftc.png" alt="logo">
+
+    </a>
+    easy-ftc docs
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/collegiate-edu-nation/easy-ftc" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    collegiate-edu-nation/easy-ftc
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gettingstarted/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Examples
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opmodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpModes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#myblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBlocks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-structure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../controls/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Controls
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Naming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diagrams/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diagrams
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../javadoc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Javadoc
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    License
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opmodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpModes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#myblocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      MyBlocks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-structure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Structure
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Examples
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#enable-features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#imports_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Imports
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#construction_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      Construction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-use_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Use
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      Methods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notes_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="examples">Examples</h1>
+<p>Examples are provided in the form of code (either Java or Blockly) that must be added to an OpMode. Click an example's dropdown to see its contents.</p>
+<h2 id="opmodes">OpModes</h2>
+<p>Each example will use the following OpModes. For the sake of brevity, these are not repeated for each example. If an example mentions 'Control', then it must use the TeleOp OpMode. If it mentions 'Command', then it is primarily intended for use in Autonomous, but <code>command()</code> can be used in TeleOp as well. If neither term is used, then the OpMode type doesn't matter (and if no 'Methods' section is included, then either <code>command()</code> or <code>control()</code> can be used).</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Java</label><label for="__tabbed_1_2">Blockly</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><details>
+<summary>TeleOp</summary></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.eventloop.opmode.TeleOp</span><span class="p">;</span>
+<span class="c1">// Imports</span>
+
+<span class="nd">@TeleOp</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;Tele&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="s">&quot;dev&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Tele</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">LinearOpMode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Additional</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">runOpMode</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Construction</span>
+
+<span class="w">        </span><span class="n">waitForStart</span><span class="p">();</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">opModeIsActive</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Methods</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Autonomous</summary></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.eventloop.opmode.LinearOpMode</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.eventloop.opmode.Autonomous</span><span class="p">;</span>
+<span class="c1">// Imports</span>
+
+<span class="nd">@Autonomous</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;Auto&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">group</span><span class="o">=</span><span class="s">&quot;dev&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Auto</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">LinearOpMode</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Additional</span>
+
+<span class="w">    </span><span class="nd">@Override</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">runOpMode</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Construction</span>
+
+<span class="w">        </span><span class="n">waitForStart</span><span class="p">();</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">opModeIsActive</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// Methods</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p><em>Note the locations of Imports, Additional, Construction, and Methods</em></p>
+<h2 id="example-structure">Example Structure</h2>
+<ul>
+<li><strong>Imports:</strong> classes and enums that must be imported</li>
+<li><strong>Additional:</strong> additional variables and objects that must be setup</li>
+<li><strong>Construction:</strong> easy-ftc object construction</li>
+<li><strong>Methods:</strong> easy-ftc methods called on constructed objects</li>
+<li><strong>Notes:</strong> any relevant details about using the example</li>
+</ul>
+<h2 id="examples_1">Examples</h2>
+<h3 id="basic-use">Basic Use</h3>
+<p><details>
+<summary>Control of Motor Mechanism</summary></p>
+<h3 id="imports">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">drive</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes">Notes</h3>
+<ul>
+<li>
+<p>The power level of the mechanism can be scaled down (the default is full power)</p>
+<div class="highlight"><pre><span></span><code><span class="n">drive</span><span class="p">.</span><span class="na">control</span><span class="p">(</span><span class="mf">0.3</span><span class="p">);</span>
+</code></pre></div>
+</li>
+</ul>
+</details>
+<p><details>
+<summary>Command of Motor Mechanism</summary></p>
+<h3 id="imports_1">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Arm</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_1">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Arm</span><span class="w"> </span><span class="n">arm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Arm</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_1">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">arm</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Arm</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">UP</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Modify Motor Mechanism Attributes</summary></p>
+<h3 id="imports_2">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Lift</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.hardware.DcMotor</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_2">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// use two motors for this mechanism</span>
+<span class="w">    </span><span class="p">.</span><span class="na">names</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;liftLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w">   </span><span class="c1">// change the names of the motors</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">                                    </span><span class="c1">// reverse all motors in the mechanism</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="s">&quot;liftLeft&quot;</span><span class="p">)</span><span class="w">                          </span><span class="c1">// reverse specific motor</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;liftLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w"> </span><span class="c1">// reverse multiple specific motors</span>
+<span class="w">    </span><span class="p">.</span><span class="na">behavior</span><span class="p">(</span><span class="n">DcMotor</span><span class="p">.</span><span class="na">ZeroPowerBehavior</span><span class="p">.</span><span class="na">FLOAT</span><span class="p">)</span><span class="w">    </span><span class="c1">// change the zero-power behavior of the motors</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Control of Servo Mechanism</summary></p>
+<h3 id="imports_3">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Claw</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_3">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_2">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">claw</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Command of Servo Mechanism</summary></p>
+<h3 id="imports_4">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Claw</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_4">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_3">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">claw</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Claw</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">CLOSE</span><span class="p">);</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Modify Servo Mechanism Attributes</summary></p>
+<h3 id="imports_5">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Claw</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_5">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// use two servos for this mechanism</span>
+<span class="w">    </span><span class="p">.</span><span class="na">names</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;clawLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w">   </span><span class="c1">// change the names of the servos</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">                                    </span><span class="c1">// reverse all servos in the mechanism</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="s">&quot;clawLeft&quot;</span><span class="p">)</span><span class="w">                          </span><span class="c1">// reverse specific servo</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;clawLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w"> </span><span class="c1">// reverse multiple specific servos</span>
+<span class="w">    </span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="mf">0.8</span><span class="p">).</span><span class="na">close</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="w">                         </span><span class="c1">// adjust open and close positions</span>
+<span class="w">    </span><span class="p">.</span><span class="na">delay</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// adjust the delay for non-smooth movement</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Read and Display Sensor State</summary></p>
+<h3 id="imports_6">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.sensor.Touch</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_6">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Touch</span><span class="w"> </span><span class="n">touch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Touch</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_4">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">telemetry</span><span class="p">.</span><span class="na">addData</span><span class="p">(</span><span class="s">&quot;Touch: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">touch</span><span class="p">.</span><span class="na">state</span><span class="p">());</span>
+<span class="n">telemetry</span><span class="p">.</span><span class="na">update</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Modify Sensor Attributes</summary></p>
+<h3 id="imports_7">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.sensor.Distance</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_7">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Distance</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Distance</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;distanceSensor&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// change the name of the sensor</span>
+<span class="w">    </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">              </span><span class="c1">// reverse the sensor state</span>
+<span class="w">    </span><span class="p">.</span><span class="na">threshold</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span><span class="w">         </span><span class="c1">// change the distance threshold</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<h3 id="enable-features">Enable Features</h3>
+<p><details>
+<summary>Encoder: Velocity-Based Control</summary></p>
+<h3 id="imports_8">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_8">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">encoder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_5">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">drive</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_1">Notes</h3>
+<ul>
+<li>Unlike <code>command()</code>, adding <code>.diameter()</code> doesn't affect <code>control()</code>, so velocity will be used either way so long as <code>.encoder()</code> is enabled</li>
+</ul>
+</details>
+<p><details>
+<summary>Encoder: Time-Based Command</summary></p>
+<h3 id="imports_9">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_9">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">encoder</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_6">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// moves forward for 2 seconds at half velocity</span>
+<span class="n">drive</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">FORWARD</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Encoder: Distance-Based Command</summary></p>
+<h3 id="imports_10">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_10">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">diameter</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="na">gearing</span><span class="p">(</span><span class="mf">19.2</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_7">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// moves forward for 12 inches at half power</span>
+<span class="n">drive</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">FORWARD</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="notes_2">Notes</h3>
+<ul>
+<li>The distance unit used in <code>command()</code> will be the same as what's used in <code>.diameter()</code></li>
+<li><code>.gearing()</code> is optional here, but correcting it can improve accuracy</li>
+</ul>
+</details>
+<p><details>
+<summary>Encoder: Limits Using Ticks</summary></p>
+<h3 id="imports_11">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Lift</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_11">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">up</span><span class="p">(</span><span class="mi">300</span><span class="p">).</span><span class="na">down</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w">  </span><span class="c1">// only needed for teleop</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Encoder: Limits Using Distance</summary></p>
+<h3 id="imports_12">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Lift</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_12">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">diameter</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="na">gearing</span><span class="p">(</span><span class="mi">60</span><span class="p">).</span><span class="na">up</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="na">down</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w">  </span><span class="c1">// only needed for teleop</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_3">Notes</h3>
+<ul>
+<li><code>.gearing()</code> is optional here, but correcting it can improve accuracy</li>
+</ul>
+</details>
+<p><details>
+<summary>Smooth Servo</summary></p>
+<h3 id="imports_13">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Claw</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_13">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">smooth</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w">  </span><span class="c1">// only needed for teleop</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_4">Notes</h3>
+<ul>
+<li>
+<p>The <code>increment</code> and <code>incrementDelay</code> can be adjusted if you'd like to change the 'smoothness' and/or speed</p>
+<div class="highlight"><pre><span></span><code><span class="n">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="p">...</span>
+<span class="w">    </span><span class="p">.</span><span class="na">smooth</span><span class="p">().</span><span class="na">increment</span><span class="p">(</span><span class="mf">0.04</span><span class="p">).</span><span class="na">incrementDelay</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="w">    </span><span class="p">...</span>
+</code></pre></div>
+</li>
+</ul>
+</details>
+<p><details>
+<summary>Arcade Drive Control</summary></p>
+<h3 id="imports_14">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive.Layout</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_14">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">layout</span><span class="p">(</span><span class="n">Layout</span><span class="p">.</span><span class="na">ARCADE</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_8">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">drive</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Mecanum Drive</summary></p>
+<h3 id="imports_15">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_15">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Type</span><span class="p">.</span><span class="na">MECANUM</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w">  </span><span class="c1">// only needed for teleop</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Field-Centric Mecanum Drive</summary></p>
+<h3 id="imports_16">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive.Layout</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_16">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Type</span><span class="p">.</span><span class="na">MECANUM</span><span class="p">).</span><span class="na">layout</span><span class="p">(</span><span class="n">Layout</span><span class="p">.</span><span class="na">FIELD</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w">  </span><span class="c1">// only needed for teleop</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_5">Notes</h3>
+<ul>
+<li>
+<p><code>LogoFacingDirection</code> and <code>UsbFacingDirection</code> can be changed if field-centric movement is offset</p>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="p">...</span>
+<span class="w">    </span><span class="p">.</span><span class="na">logo</span><span class="p">(</span><span class="n">LogoFacingDirection</span><span class="p">.</span><span class="na">DOWN</span><span class="p">).</span><span class="na">usb</span><span class="p">(</span><span class="n">UsbFacingDirection</span><span class="p">.</span><span class="na">BACKWARD</span><span class="p">)</span>
+<span class="w">    </span><span class="p">...</span>
+</code></pre></div>
+</li>
+</ul>
+</details>
+<p><details>
+<summary>Control of Motor Mechanism with Gamepad Deadzone</summary></p>
+<h3 id="imports_17">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Lift</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_17">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">).</span><span class="na">deadzone</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_9">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="n">lift</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_6">Notes</h3>
+<ul>
+<li><code>.deadzone()</code> only affects mechanisms using either Joysticks or Triggers (<code>Drive</code> and <code>Lift</code>)</li>
+</ul>
+</details>
+<h3 id="advanced-use">Advanced Use</h3>
+<p><details>
+<summary>Control with Command Sequence</summary></p>
+<h3 id="imports_18">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="additional">Additional</h3>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">enum</span><span class="w"> </span><span class="n">State</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">ROTATE_LEFT</span><span class="p">,</span><span class="w"> </span><span class="n">ROTATE_RIGHT</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="construction_18">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+
+<span class="c1">// define the starting state</span>
+<span class="n">State</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">ROTATE_LEFT</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="methods_10">Methods</h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// state machine</span>
+<span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">ROTATE_LEFT</span><span class="p">:</span>
+<span class="w">        </span><span class="c1">// initiate sequence when dpad_right is pressed</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad1</span><span class="p">.</span><span class="na">dpad_right</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">drive</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">ROTATE_LEFT</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="w">            </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">ROTATE_RIGHT</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">ROTATE_RIGHT</span><span class="p">:</span>
+<span class="w">        </span><span class="n">drive</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">Drive</span><span class="p">.</span><span class="na">Direction</span><span class="p">.</span><span class="na">ROTATE_RIGHT</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mf">0.5</span><span class="p">);</span>
+<span class="w">        </span><span class="c1">// restart the sequence once final state is completed</span>
+<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">ROTATE_LEFT</span><span class="p">;</span>
+<span class="w">        </span><span class="k">break</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="p">:</span>
+<span class="w">        </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">ROTATE_LEFT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// terminate sequence when dpad_left is pressed</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">gamepad1</span><span class="p">.</span><span class="na">dpad_left</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">State</span><span class="p">.</span><span class="na">ROTATE_LEFT</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// normal drivetrain control</span>
+<span class="n">drive</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_7">Notes</h3>
+<ul>
+<li>Sequence is initiated by pressing <code>dpad_right</code> and can be interrupted with <code>dpad_left</code></li>
+<li>Holding down <code>dpad_left</code> works best since the loop used by <code>command()</code> is thread blocking, meaning its value is only read between sequence states</li>
+</ul>
+</details>
+</div>
+<div class="tabbed-block">
+<p><details>
+<summary>TeleOp</summary>
+<br><img alt="TeleOp" src="../img/blk/ex/tele.png" width="435" />
+</details></p>
+<p><details>
+<summary>Autonomous</summary>
+<br><img alt="Autonomous" src="../img/blk/ex/auto.png" width="350" />
+</details></p>
+<p><em>Note the locations of Additional and Methods</em></p>
+<h2 id="myblocks">MyBlocks</h2>
+<p>As Blockly doesn't yet allow the import of non-static, external Java classes, any changes to Imports and Construction must be done in a subsystem's associated MyBlock file rather than the Blockly OpModes above. An abridged form of <code>Arm</code>'s MyBlock file is included below, but the exact MyBlock file used will be the one associated with the given subsystem (so if an example is using the <code>Drive</code> subsystem, any changes to Imports or Construction will be made in <code>Drive.java</code>).</p>
+<p><details>
+<summary>TeleOp</summary></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.robotcore.external.ExportToBlocks</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Arm.Direction</span><span class="p">;</span>
+<span class="c1">// Imports</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Arm</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">BlocksOpModeCompanion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Initiate an automated arm movement&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">parameterLabels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Direction&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Power&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="n">Direction</span><span class="w"> </span><span class="n">direction</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="w"> </span><span class="n">arm</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span>
+<span class="w">            </span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Enable teleoperated arm movement with gamepad (lb, rb) at the specified power&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">parameterLabels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Power&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Construction</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">control</span><span class="p">(</span><span class="n">power</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span>
+<span class="w">            </span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">control</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Construction</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Direction methods ...</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Autonomous</summary></p>
+<div class="highlight"><pre><span></span><code><span class="kn">package</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.teamcode</span><span class="p">;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.firstinspires.ftc.robotcore.external.ExportToBlocks</span><span class="p">;</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Arm.Direction</span><span class="p">;</span>
+<span class="c1">// Imports</span>
+
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Arm</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">BlocksOpModeCompanion</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Initiate an automated arm movement&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">parameterLabels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Direction&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Time&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Power&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">command</span><span class="p">(</span><span class="n">Direction</span><span class="w"> </span><span class="n">direction</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Construction</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">command</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span><span class="w"> </span><span class="n">time</span><span class="p">,</span><span class="w"> </span><span class="n">power</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span>
+<span class="w">            </span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Enable teleoperated arm movement with gamepad (lb, rb) at the specified power&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">parameterLabels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;Power&quot;</span><span class="p">})</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">control</span><span class="p">(</span><span class="kt">double</span><span class="w"> </span><span class="n">power</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="w"> </span><span class="n">arm</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">control</span><span class="p">(</span><span class="n">power</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="nd">@ExportToBlocks</span><span class="p">(</span>
+<span class="w">            </span><span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Enable teleoperated arm movement with gamepad (lb, rb) at a power of 0.5&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">control</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="w"> </span><span class="n">arm</span><span class="w"> </span><span class="o">=</span>
+<span class="w">                </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Arm</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">).</span><span class="na">build</span><span class="p">();</span>
+<span class="w">        </span><span class="n">arm</span><span class="p">.</span><span class="na">control</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1">// Direction methods ...</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p><em>Note the locations of Imports and Construction</em></p>
+<h2 id="example-structure_1">Example Structure</h2>
+<ul>
+<li><strong>Imports:</strong> classes and enums that must be imported</li>
+<li><strong>Additional:</strong> additional variables and objects that must be setup</li>
+<li><strong>Construction:</strong> easy-ftc object construction</li>
+<li><strong>Methods:</strong> easy-ftc methods called on constructed objects</li>
+<li><strong>Notes:</strong> any relevant details about using the example</li>
+</ul>
+<h2 id="examples_2">Examples</h2>
+<h3 id="basic-use_1">Basic Use</h3>
+<p><details>
+<summary>Control of Motor Mechanism</summary></p>
+<h3 id="methods_11">Methods</h3>
+<p><br><img alt="Control Motor" src="../img/blk/ex/controlMotor.png" width="225" /></p>
+<h3 id="notes_8">Notes</h3>
+<ul>
+<li>
+<p>The power level of the mechanism can be scaled down (the default is full power)</p>
+<p><br><img alt="Control Multiplier" src="../img/blk/ex/controlMultiplier.png" width="285" /></p>
+</li>
+</ul>
+</details>
+<p><details>
+<summary>Command of Motor Mechanism</summary></p>
+<h3 id="methods_12">Methods</h3>
+<p><br><img alt="Command Motor" src="../img/blk/ex/commandMotor.png" width="450" /></p>
+</details>
+<p><details>
+<summary>Modify Motor Mechanism Attributes</summary></p>
+<h3 id="imports_19">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">com.qualcomm.robotcore.hardware.DcMotor</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_19">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// use two motors for this mechanism</span>
+<span class="w">                </span><span class="p">.</span><span class="na">names</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;liftLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w">   </span><span class="c1">// change the names of the motors</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">                                    </span><span class="c1">// reverse all motors in the mechanism</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="s">&quot;liftLeft&quot;</span><span class="p">)</span><span class="w">                          </span><span class="c1">// reverse specific motor</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;liftLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w"> </span><span class="c1">// reverse multiple specific motors</span>
+<span class="w">                </span><span class="p">.</span><span class="na">behavior</span><span class="p">(</span><span class="n">DcMotor</span><span class="p">.</span><span class="na">ZeroPowerBehavior</span><span class="p">.</span><span class="na">FLOAT</span><span class="p">)</span><span class="w">    </span><span class="c1">// change the zero-power behavior of the motors</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Control of Servo Mechanism</summary></p>
+<h3 id="methods_13">Methods</h3>
+<p><br><img alt="Control Servo" src="../img/blk/ex/controlServo.png" width="225" /></p>
+</details>
+<p><details>
+<summary>Command of Servo Mechanism</summary></p>
+<h3 id="methods_14">Methods</h3>
+<p><br><img alt="Command Servo" src="../img/blk/ex/commandServo.png" width="450" /></p>
+</details>
+<p><details>
+<summary>Modify Servo Mechanism Attributes</summary></p>
+<h3 id="construction_20">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">count</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// use two servos for this mechanism</span>
+<span class="w">                </span><span class="p">.</span><span class="na">names</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;clawLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w">   </span><span class="c1">// change the names of the servos</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">                                    </span><span class="c1">// reverse all servos in the mechanism</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="s">&quot;clawLeft&quot;</span><span class="p">)</span><span class="w">                          </span><span class="c1">// reverse specific servo</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="p">{</span><span class="s">&quot;clawLeft&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newName&quot;</span><span class="p">})</span><span class="w"> </span><span class="c1">// reverse multiple specific servos</span>
+<span class="w">                </span><span class="p">.</span><span class="na">open</span><span class="p">(</span><span class="mf">0.8</span><span class="p">).</span><span class="na">close</span><span class="p">(</span><span class="mf">0.2</span><span class="p">)</span><span class="w">                         </span><span class="c1">// adjust open and close positions</span>
+<span class="w">                </span><span class="p">.</span><span class="na">delay</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">                                     </span><span class="c1">// adjust the delay for non-smooth movement</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Read and Display Sensor State</summary></p>
+<h3 id="methods_15">Methods</h3>
+<p><br><img alt="Display State" src="../img/blk/ex/displayState.png" width="600" /></p>
+</details>
+<p><details>
+<summary>Modify Sensor Attributes</summary></p>
+<h3 id="construction_21">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">sensor</span><span class="p">.</span><span class="na">Distance</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">sensor</span><span class="p">.</span><span class="na">Distance</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">name</span><span class="p">(</span><span class="s">&quot;distanceSensor&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// change the name of the sensor</span>
+<span class="w">                </span><span class="p">.</span><span class="na">reverse</span><span class="p">()</span><span class="w">              </span><span class="c1">// reverse the sensor state</span>
+<span class="w">                </span><span class="p">.</span><span class="na">threshold</span><span class="p">(</span><span class="mf">6.0</span><span class="p">)</span><span class="w">         </span><span class="c1">// change the distance threshold</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<h3 id="enable-features_1">Enable Features</h3>
+<p>As an easy-ftc object must be constructed for every Blockly function call, these objects are unable to persist their state, which breaks the following features for Blockly users:</p>
+<ul>
+<li>Encoder limits in <code>control()</code></li>
+<li>Field-centric driving</li>
+</ul>
+<p>If these features are must-haves, use Java instead.</p>
+<p><details>
+<summary>Encoder: Velocity-Based Control</summary></p>
+<h3 id="construction_22">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">encoder</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_16">Methods</h3>
+<p><br><img alt="Control Motor" src="../img/blk/ex/controlMotor.png" width="225" /></p>
+<h3 id="notes_9">Notes</h3>
+<ul>
+<li>Unlike <code>command()</code>, adding <code>.diameter()</code> doesn't affect <code>control()</code>, so velocity will be used either way so long as <code>.encoder()</code> is enabled</li>
+</ul>
+</details>
+<p><details>
+<summary>Encoder: Time-Based Command</summary></p>
+<h3 id="construction_23">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">encoder</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_17">Methods</h3>
+<p><br><img alt="Command Velocity" src="../img/blk/ex/commandVelocity.png" width="450" /></p>
+</details>
+<p><details>
+<summary>Encoder: Distance-Based Command</summary></p>
+<h3 id="construction_24">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">diameter</span><span class="p">(</span><span class="mi">4</span><span class="p">).</span><span class="na">gearing</span><span class="p">(</span><span class="mf">19.2</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_18">Methods</h3>
+<p><br><img alt="Command Distance" src="../img/blk/ex/commandDistance.png" width="450" /></p>
+<h3 id="notes_10">Notes</h3>
+<ul>
+<li>The distance unit used in <code>command()</code> will be the same as what's used in <code>.diameter()</code></li>
+<li><code>.gearing()</code> is optional here, but correcting it can improve accuracy</li>
+<li>The <code>Time</code> parameterLabel in <code>Drive.command()</code> has been changed to <code>Distance</code> here. This is optional, but it clarifies the intended functionality for Blockly users</li>
+</ul>
+</details>
+<p><details>
+<summary>Encoder: Command Limits Using Ticks</summary></p>
+<h3 id="construction_25">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">up</span><span class="p">(</span><span class="mi">300</span><span class="p">).</span><span class="na">down</span><span class="p">(</span><span class="o">-</span><span class="mi">300</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_19">Methods</h3>
+<p><br><img alt="Limits Ticks" src="../img/blk/ex/limitsTicks.png" width="450" /></p>
+</details>
+<p><details>
+<summary>Encoder: Command Limits Using Distance</summary></p>
+<h3 id="construction_26">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">encoder</span><span class="p">().</span><span class="na">diameter</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="na">gearing</span><span class="p">(</span><span class="mi">60</span><span class="p">).</span><span class="na">up</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="na">down</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_20">Methods</h3>
+<p><br><img alt="Limits Distance" src="../img/blk/ex/limitsDistance.png" width="450" /></p>
+<h3 id="notes_11">Notes</h3>
+<ul>
+<li><code>.gearing()</code> is optional here, but correcting it can improve accuracy</li>
+<li>The <code>Time</code> parameterLabel in <code>Lift.command()</code> has been changed to <code>Distance</code> here. This is optional, but it clarifies the intended functionality for Blockly users</li>
+</ul>
+</details>
+<p><details>
+<summary>Smooth Servo</summary></p>
+<h3 id="construction_27">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Claw</span><span class="w"> </span><span class="n">claw</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Claw</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">smooth</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w"> </span><span class="c1">// only needed for teleop</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="notes_12">Notes</h3>
+<ul>
+<li>
+<p>The <code>increment</code> and <code>incrementDelay</code> can be adjusted if you'd like to change the 'smoothness' and/or speed</p>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="w"> </span><span class="p">...</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="w"> </span><span class="p">...</span>
+<span class="w">                </span><span class="p">.</span><span class="na">smooth</span><span class="p">().</span><span class="na">increment</span><span class="p">(</span><span class="mf">0.04</span><span class="p">).</span><span class="na">incrementDelay</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="w">                </span><span class="p">...</span>
+</code></pre></div>
+</li>
+</ul>
+</details>
+<p><details>
+<summary>Arcade Drive Control</summary></p>
+<h3 id="imports_20">Imports</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">org.edu_nation.easy_ftc.mechanism.Drive.Layout</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="construction_28">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">layout</span><span class="p">(</span><span class="n">Layout</span><span class="p">.</span><span class="na">ARCADE</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_21">Methods</h3>
+<p><br><img alt="Control Motor" src="../img/blk/ex/controlMotor.png" width="225" /></p>
+</details>
+<p><details>
+<summary>Mecanum Drive</summary></p>
+<h3 id="construction_29">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="w"> </span><span class="n">drive</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">type</span><span class="p">(</span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Drive</span><span class="p">.</span><span class="na">Type</span><span class="p">.</span><span class="na">MECANUM</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">)</span><span class="w"> </span><span class="c1">// only needed for teleop</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+</details>
+<p><details>
+<summary>Control of Motor Mechanism with Gamepad Deadzone</summary></p>
+<h3 id="construction_30">Construction</h3>
+<div class="highlight"><pre><span></span><code><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="w"> </span><span class="n">lift</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="k">new</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">edu_nation</span><span class="p">.</span><span class="na">easy_ftc</span><span class="p">.</span><span class="na">mechanism</span><span class="p">.</span><span class="na">Lift</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">linearOpMode</span><span class="p">,</span><span class="w"> </span><span class="n">hardwareMap</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">gamepad</span><span class="p">(</span><span class="n">gamepad1</span><span class="p">).</span><span class="na">deadzone</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div>
+<h3 id="methods_22">Methods</h3>
+<p><br><img alt="Control Deadzone" src="../img/blk/ex/controlDeadzone.png" width="225" /></p>
+<h3 id="notes_13">Notes</h3>
+<ul>
+<li><code>.deadzone()</code> only affects mechanisms using either Joysticks or Triggers (<code>Drive</code> and <code>Lift</code>)</li>
+</ul>
+</details>
+<h3 id="advanced-use_1">Advanced Use</h3>
+<p><details>
+<summary>Control with Command Sequence</summary></p>
+<h3 id="additional_1">Additional</h3>
+<p><br><img alt="Starting State" src="../img/blk/ex/startingState.png" width="385" /></p>
+<h3 id="methods_23">Methods</h3>
+<p><br><img alt="State Machine" src="../img/blk/ex/stateMachine.png" width="600" /></p>
+<h3 id="notes_14">Notes</h3>
+<ul>
+<li>Sequence is initiated by pressing <code>dpad_right</code> and can be interrupted with <code>dpad_left</code></li>
+<li>Holding down <code>dpad_left</code> works best since the loop used by <code>command()</code> is thread blocking, meaning its value is only read between sequence states</li>
+</ul>
+</details>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright 2024 Collegiate Edu-Nation
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.525ec568.min.js"></script>
+      
+    
+  </body>
+</html>
