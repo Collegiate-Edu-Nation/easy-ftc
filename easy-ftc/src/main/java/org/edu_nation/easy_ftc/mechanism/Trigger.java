@@ -212,7 +212,7 @@ public class Trigger extends ServoMechanism<Trigger.Direction> {
          * @throws IllegalStateException if count != names.length
          * @throws IllegalStateException if smooth = false and one of: increment, incrementDelay has
          *     been set
-         * @throws IllegalStateException if open &lt; close
+         * @throws IllegalStateException if open &lt;= close
          */
         @Override
         public Trigger build() {
@@ -224,7 +224,7 @@ public class Trigger extends ServoMechanism<Trigger.Direction> {
                 throw new IllegalStateException(
                         "One of: Trigger.Builder().increment() or Trigger.Builder().incrementDelay() has been set without enabling Trigger.Builder().smooth(). Enable Trigger.Builder().smooth() for intended functionality");
             }
-            if (this.open < this.close) {
+            if (this.open <= this.close) {
                 throw new IllegalStateException(
                         "Unexpected open and close values: "
                                 + this.open
