@@ -171,8 +171,15 @@ abstract class ServoMechanism<E> extends Mechanism {
      */
     protected double setPositionsByIncrement(double position, double movement) {
         double signedIncrement = (movement > position) ? increment : -increment;
-        position += (movement == position) ? 0 : signedIncrement;
+
+        // base case - set position = movement when adding increment won't do so
+        if (Math.abs(movement - position) < increment) {
+            position = movement;
+        } else {
+            position += (movement == position) ? 0 : signedIncrement;
+        }
         position = Math.min(Math.max(position, 0), 1);
+
         setPositions(position);
         wait(incrementDelay);
         return position;
@@ -183,7 +190,7 @@ abstract class ServoMechanism<E> extends Mechanism {
      * position is reached. The loop causes thread blocking, so it's not used for control() calls
      */
     protected void setPositionsByIncrementUntilComplete(double position, double movement) {
-        while (opMode.opModeIsActive() && position != movement) {
+        while (opMode.opModeIsActive() && (position != movement)) {
             position = setPositionsByIncrement(position, movement);
         }
     }
