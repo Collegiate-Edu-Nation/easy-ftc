@@ -78,16 +78,25 @@ public class Trigger extends ServoMechanism<Trigger.Direction> {
             return super.reverse();
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String deviceName) {
             return super.reverse(deviceName);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String[] deviceNames) {
             return super.reverse(deviceNames);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder gamepad(Gamepad gamepad) {
             return super.gamepad(gamepad);
@@ -99,16 +108,25 @@ public class Trigger extends ServoMechanism<Trigger.Direction> {
             return super.smooth();
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder increment(double increment) {
             return super.increment(increment);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder incrementDelay(double incrementDelay) {
             return super.incrementDelay(incrementDelay);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder delay(double delay) {
             return super.delay(delay);

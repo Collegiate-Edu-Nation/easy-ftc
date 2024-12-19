@@ -88,16 +88,25 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             return super.reverse();
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String deviceName) {
             return super.reverse(deviceName);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String[] deviceNames) {
             return super.reverse(deviceNames);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder gamepad(Gamepad gamepad) {
             return super.gamepad(gamepad);
@@ -109,26 +118,41 @@ public class Drive extends MotorMechanism<Drive.Direction> {
             return super.encoder();
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder diameter(double diameter) {
             return super.diameter(diameter);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder gearing(double gearing) {
             return super.gearing(gearing);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder deadzone(double deadzone) {
             return super.deadzone(deadzone);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder logo(LogoFacingDirection logo) {
             return super.logo(logo);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder usb(UsbFacingDirection usb) {
             return super.usb(usb);

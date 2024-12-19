@@ -80,16 +80,25 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             return super.reverse();
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String deviceName) {
             return super.reverse(deviceName);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder reverse(String[] deviceNames) {
             return super.reverse(deviceNames);
         }
 
+        /**
+         * @throws NullPointerException {@inheritDoc}
+         */
         @Override
         public Builder gamepad(Gamepad gamepad) {
             return super.gamepad(gamepad);
@@ -101,16 +110,25 @@ public class Arm extends MotorMechanism<Arm.Direction> {
             return super.encoder();
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder diameter(double diameter) {
             return super.diameter(diameter);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder length(double length) {
             return super.length(length);
         }
 
+        /**
+         * @throws IllegalArgumentException {@inheritDoc}
+         */
         @Override
         public Builder gearing(double gearing) {
             return super.gearing(gearing);
