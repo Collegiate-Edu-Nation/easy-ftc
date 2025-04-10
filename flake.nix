@@ -12,12 +12,17 @@
       url = "github:tadfisher/android-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    gradle2nix-input = {
+      url = "github:tadfisher/gradle2nix/v2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
       android-nixpkgs,
+      gradle2nix-input,
       ...
     }:
     let
@@ -39,12 +44,30 @@
                 platform-tools
               ]
             );
+            gradle2nix = gradle2nix-input.builders.${system};
           }
         );
     in
     {
+      packages = forEachSupportedSystem (
+        { gradle2nix, ... }:
+        {
+          default = gradle2nix.buildGradlePackage {
+            pname = "easy-ftc";
+            version = "1.0";
+
+            src = ./.;
+            lockFile = ./gradle.lock;
+
+            configurePhase = ''
+              mkdir .android
+            '';
+            gradleBuildFlags = [ ":easy-ftc:assemble" ];
+          };
+        }
+      );
       devShells = forEachSupportedSystem (
-        { pkgs, android-sdk }:
+        { pkgs, android-sdk, ... }:
         {
           default = pkgs.mkShell {
             packages =
