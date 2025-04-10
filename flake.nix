@@ -12,12 +12,17 @@
       url = "github:tadfisher/android-nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    gradle-dot-nix = {
+      url = "github:CrazyChaoz/gradle-dot-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
     {
       nixpkgs,
       android-nixpkgs,
+      gradle-dot-nix,
       ...
     }:
     let
@@ -29,7 +34,7 @@
         function:
         nixpkgs.lib.genAttrs supportedSystems (
           system:
-          function {
+          function rec {
             pkgs = nixpkgs.legacyPackages.${system};
             android-sdk = android-nixpkgs.sdk.${system} (
               sdkPkgs: with sdkPkgs; [
@@ -39,10 +44,48 @@
                 platform-tools
               ]
             );
+            gradle-init-script =
+              (import gradle-dot-nix {
+                inherit pkgs;
+                gradle-verification-metadata-file = ./gradle/verification-metadata.xml;
+              }).gradle-init;
           }
         );
     in
     {
+      packages = forEachSupportedSystem (
+        {
+          pkgs,
+          android-sdk,
+          gradle-init-script,
+        }:
+        {
+          default = pkgs.stdenv.mkDerivation {
+            name = "easy-ftc";
+            version = "1.0";
+
+            JDK_HOME = "${pkgs.jdk21.home}";
+            ANDROID_HOME = "${android-sdk}/share/android-sdk";
+
+            src = ./.;
+            nativeBuildInputs = [
+              android-sdk
+              pkgs.gradle
+              pkgs.jdk21
+            ];
+            configurePhase = ''
+              mkdir .android
+            '';
+            buildPhase = ''
+              gradle build --info -I ${gradle-init-script} --offline --full-stacktrace -Dorg.gradle.project.android.aapt2FromMavenOverride=$ANDROID_HOME/build-tools/34.0.0/aapt2
+            '';
+            installPhase = ''
+              mkdir -p $out
+              cp -r ./easy-ftc/build/outputs/aar/easy-ftc-release.aar $out
+            '';
+          };
+        }
+      );
       devShells = forEachSupportedSystem (
         { pkgs, android-sdk }:
         {

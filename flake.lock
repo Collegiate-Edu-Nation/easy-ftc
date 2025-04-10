@@ -61,6 +61,26 @@
         "type": "github"
       }
     },
+    "gradle-dot-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1730301489,
+        "narHash": "sha256-59k5AuQ+qn3El6AseUmtN0MMadBVzNj0Lmh81MdKavM=",
+        "owner": "CrazyChaoz",
+        "repo": "gradle-dot-nix",
+        "rev": "7c7aef4e7cf60c4fd1922d08b3e710186b741fa8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "CrazyChaoz",
+        "repo": "gradle-dot-nix",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1733581040,
@@ -80,6 +100,7 @@
     "root": {
       "inputs": {
         "android-nixpkgs": "android-nixpkgs",
+        "gradle-dot-nix": "gradle-dot-nix",
         "nixpkgs": "nixpkgs"
       }
     },
