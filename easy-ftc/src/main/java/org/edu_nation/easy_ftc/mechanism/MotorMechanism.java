@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import java.util.Objects;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
@@ -222,6 +223,16 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
+    /** Ensure measurement is in (0, inf] */
+    protected void validate_deg(double measurement) {
+        if (measurement <= 0) {
+            throw new IllegalArgumentException(
+                    "Unexpected measurement value: "
+                            + measurement
+                            + " passed to Drive.command(). Valid values are numbers in the interval (0, inf]");
+        }
+    }
+
     /** Reverse the direction of the specified motor */
     @Override
     protected void reverse(String deviceName) {
@@ -358,6 +369,25 @@ abstract class MotorMechanism<E> extends Mechanism {
             // Allows for using command() w/ length along w/ control()
             setModesEx(DcMotor.RunMode.RUN_USING_ENCODER);
         }
+    }
+
+    /** Moves the mechanism for the given measurement at power */
+    @SuppressWarnings("java:S3776")
+    protected void moveForMeasurement(
+            double[] unscaledMovements,
+            double measurement,
+            double power,
+            AngleUnit unit,
+            boolean limit) {
+        double measurementDeg = 0;
+        if (unit == AngleUnit.RADIANS) {
+            measurementDeg = unit.fromRadians(measurement);
+        } else {
+            measurementDeg = measurement;
+        }
+
+        validate(measurementDeg);
+        moveForMeasurement(unscaledMovements, measurementDeg, power, limit);
     }
 
     /** Determines whether positional limits have not yet been reached */

@@ -3,12 +3,14 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.LogoFacingDirection;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot.UsbFacingDirection;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
@@ -405,6 +407,37 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         double[] unscaledMovements = languageToDirection(direction, heading);
         moveForMeasurement(unscaledMovements, measurement, power, false);
+    }
+
+    /**
+     * Initiate an automated drivetrain turn using the IMU's gyro
+     *
+     * @param direction direction to move the mechanism; see {@link Direction} for accepted values
+     *     (one of: ROTATE_LEFT, ROTATE_RIGHT)
+     * @param measurement number of degrees to rotate
+     * @param power fraction of total power/velocity to use for mechanism command
+     * @throws NullPointerException if direction is null
+     * @throws IllegalArgumentException if direction is an unexpected value
+     * @throws IllegalArgumentException if measurement &lt; 0
+     * @throws IllegalArgumentException if power is not in the interval (0, 1]
+     */
+    public void command(Direction direction, double measurement, double power, AngleUnit unit) {
+        validate(power);
+        double heading = 0;
+
+        // initialize IMU if applicable
+        if (layout != Layout.FIELD) {
+            imu = hardwareMap.get(IMU.class, "imu");
+            IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(logo, usb));
+            imu.initialize(parameters);
+        }
+
+        // set heading
+        imu.resetYaw();
+        heading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+        double[] unscaledMovements = languageToDirection(direction, heading);
+        moveForMeasurement(unscaledMovements, measurement, power, unit, false);
     }
 
     /** Set drivetrain motor movements based on type: DIFFERENTIAL or MECANUM */
