@@ -371,23 +371,32 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
     }
 
-    /** Moves the mechanism for the given measurement at power */
-    @SuppressWarnings("java:S3776")
+    /** Moves the mechanism for the given measurement angle at power */
     protected void moveForMeasurement(
             double[] unscaledMovements,
             double measurement,
             double power,
             AngleUnit unit,
             boolean limit) {
+        double[] movements = scaleDirections(unscaledMovements, power);
         double measurementDeg = 0;
         if (unit == AngleUnit.RADIANS) {
             measurementDeg = unit.fromRadians(measurement);
         } else {
             measurementDeg = measurement;
         }
-
         validate(measurementDeg);
-        moveForMeasurement(unscaledMovements, measurementDeg, power, limit);
+
+        setPowers(movements);
+        if (!limit) {
+            while (gyroIsBusy(measurement))
+                ;
+        } else {
+            while (gyroIsBusy(measurement)
+                    && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                ;
+        }
+        setPowers();
     }
 
     /** Determines whether positional limits have not yet been reached */
@@ -612,6 +621,17 @@ abstract class MotorMechanism<E> extends Mechanism {
             if (motorsEx[i].isBusy() && Math.abs(movements[i]) > 0.01) {
                 isBusy = true;
             }
+        }
+        return isBusy;
+    }
+
+    /** Helper to identify whether the movement angle has been reached */
+    private boolean gyroIsBusy(double measurement) {
+        boolean isBusy = false;
+        if (Math.abs(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES))
+                        - Math.abs(measurement)
+                > 1) {
+            isBusy = true;
         }
         return isBusy;
     }
