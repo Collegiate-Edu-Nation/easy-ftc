@@ -4,9 +4,9 @@
 ![Static Badge](https://img.shields.io/badge/Version-1.0-mediumblue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-mediumblue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Android_API-30-mediumblue?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-mediumblue?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/Platforms-Linux,_macOS,_Windows-forestgreen?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/Coverage-97%25-forestgreen?style=for-the-badge&labelColor=8C8F8F)
+![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-mediumblue?style=for-the-badge&labelColor=8C8F8F)\
+![Dynamic Badge](https://img.shields.io/github/actions/workflow/status/collegiate-edu-nation/easy-ftc/build.yaml?branch=main&style=for-the-badge&labelColor=8C8F8F&color=forestgreen)
+[![Dynamic Badge](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fcollegiate-edu-nation%2Feasy-ftc%3Fbranch%3Dmain&style=for-the-badge&color=8C8F8F&labelColor=8C8F8F)](https://garnix.io/repo/collegiate-edu-nation/easy-ftc)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white&logoSize=auto&style=for-the-badge&color=8C8F8F)
 
 Library for easily leveraging in-the-box FTC mechanisms and sensors, including

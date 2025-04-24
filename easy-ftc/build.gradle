@@ -108,12 +108,12 @@ tasks.register('formatGroovy', Exec) {
     commandLine runCmd
 }
 
-// formats all yml, md, json files
+// formats all yaml, md, json files
 tasks.register('formatMisc', Exec) {
     group = ver
-    description = 'Formats all yml, md, json files'
+    description = 'Formats all yaml, md, json files'
 
-    List<String> runCmd = ['prettier', '--write', '**/*.yml', '**/*.md', '**/*.json']
+    List<String> runCmd = ['prettier', '--write', '**/*.yaml', '**/*.md', '**/*.json']
     runCmd = finalizeRunCmd(runCmd, jre17, store)
 
     workingDir dir

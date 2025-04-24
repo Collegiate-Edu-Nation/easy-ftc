@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2025 Collegiate Edu-Nation
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+name: build
+
+on:
+  push:
+    paths-ignore:
+      - "**/README.md"
+      - ".github/*.md"
+  pull_request:
+    paths-ignore:
+      - "**/README.md"
+      - ".github/*.md"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up zulu OpenJDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: zulu
+          java-version: 21
+      - name: build myBlocks
+        run: ./gradlew myBlocks
+      - name: build easy-ftc
+        run: ./gradlew build

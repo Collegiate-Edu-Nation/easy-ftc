@@ -232,6 +232,13 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 - Then open your preferred IDE from this shell
 
+- Optionally, leverage the binary cache by adding [Garnix] to your nix-config
+
+  ```nix
+  nix.settings.substituters = [ "https://cache.garnix.io" ];
+  nix.settings.trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  ```
+
 <!-- omit in toc -->
 
 #### Non-Nix
@@ -381,12 +388,12 @@ Then
 
 #### Formatting and Quality
 
-| Ext     | Fmt                       |
-| ------- | ------------------------- |
-| java    | google-java-format (aosp) |
-| gradle  | npm-groovy-lint           |
-| nix     | nixfmt                    |
-| md, yml | prettier                  |
+| Ext      | Fmt                       |
+| -------- | ------------------------- |
+| java     | google-java-format (aosp) |
+| gradle   | npm-groovy-lint           |
+| nix      | nixfmt                    |
+| md, yaml | prettier                  |
 
 _Sonarlint is used to check code quality_
 
@@ -471,3 +478,5 @@ Requests to join the project team may be submitted to the responsible community 
 ## Attribution
 
 This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
+
+[Garnix]: https://garnix.io/
