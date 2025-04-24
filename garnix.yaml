@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2025 Collegiate Edu-Nation
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+builds:
+  exclude: []
+  include:
+    - "*.x86_64-linux.*"
+    - "*.aarch64-darwin.*"
+    - devShell.x86_64-linux
+    - devShell.aarch64-darwin
