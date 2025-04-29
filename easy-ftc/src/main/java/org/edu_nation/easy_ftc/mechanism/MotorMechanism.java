@@ -389,10 +389,11 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         setPowers(movements);
         if (!limit) {
-            while (gyroIsBusy(measurementDeg))
+            while (opMode.opModeIsActive() && gyroIsBusy(measurementDeg))
                 ;
         } else {
-            while (gyroIsBusy(measurementDeg)
+            while (opMode.opModeIsActive()
+                    && gyroIsBusy(measurementDeg)
                     && limitsNotReached(unscaledMovements[0], unscaledMovements))
                 ;
         }
