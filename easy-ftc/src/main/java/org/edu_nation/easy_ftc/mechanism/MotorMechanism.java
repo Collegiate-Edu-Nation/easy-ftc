@@ -387,16 +387,50 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
         validateDeg(measurementDeg);
 
+        double[] measurementsDeg = trimDegrees(measurementDeg);
         setPowers(movements);
         if (!limit) {
-            while (gyroIsBusy(measurementDeg))
-                ;
+            for (double deg : measurementsDeg) {
+                while (gyroIsBusy(deg))
+                    ;
+            }
         } else {
-            while (gyroIsBusy(measurementDeg)
-                    && limitsNotReached(unscaledMovements[0], unscaledMovements))
-                ;
+            for (double deg : measurementsDeg) {
+                while (gyroIsBusy(deg) && limitsNotReached(unscaledMovements[0], unscaledMovements))
+                    ;
+            }
         }
         setPowers();
+    }
+
+    /** Converts degree measurement to array of measurements < 180 */
+    protected double[] trimDegrees(double measurement) {
+        int num;
+        double leftover;
+        double[] measurements;
+        if (measurement > 180) {
+            num = (int) (measurement / 180);
+            leftover = measurement % 180;
+            boolean isLeftover = false;
+            if (leftover >= 0.01) {
+                isLeftover = true;
+                num++;
+            }
+            measurements = new double[num];
+            for (int i = 0; i < num; i++) {
+                double relative = i % 2 == 0 ? 0 : 180;
+                if (i != num - 1 || !isLeftover) {
+                    measurements[i] = 180 - relative;
+                } else {
+                    measurements[i] = leftover - relative;
+                }
+            }
+        } else {
+            measurements = new double[1];
+            measurements[0] = measurement;
+        }
+
+        return measurements;
     }
 
     /** Determines whether positional limits have not yet been reached */

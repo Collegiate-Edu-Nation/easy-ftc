@@ -283,6 +283,28 @@ public class TestDrive {
         }
     }
 
+    @Test
+    public void trimDegrees_isCorrect() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+
+        double[] result = drive.trimDegrees(5);
+        assertEquals(5, result[0], 0.01);
+
+        result = drive.trimDegrees(360);
+        double[] expected = {180, 0};
+        for (int i = 0; i < 2; i++) {
+            assertEquals(expected[i], result[i], 0.01);
+        }
+
+        result = drive.trimDegrees(365);
+        double[] expected2 = {180, 0, 5};
+        for (int i = 0; i < 3; i++) {
+            assertEquals(expected2[i], result[i], 0.01);
+        }
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void whenLargeMultiplier_controlThrowsException() {
         mockInit();
