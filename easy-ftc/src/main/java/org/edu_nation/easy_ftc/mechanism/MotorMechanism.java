@@ -628,8 +628,9 @@ abstract class MotorMechanism<E> extends Mechanism {
     /** Helper to identify whether the movement angle has been reached */
     private boolean gyroIsBusy(double measurement) {
         boolean isBusy = false;
-        if (Math.abs(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES))
-                        - Math.abs(measurement)
+        if (Math.abs(
+                        Math.abs(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.DEGREES))
+                                - Math.abs(measurement))
                 > 1) {
             isBusy = true;
         }
