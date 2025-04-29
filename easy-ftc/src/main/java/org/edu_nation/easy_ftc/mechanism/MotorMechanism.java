@@ -389,11 +389,10 @@ abstract class MotorMechanism<E> extends Mechanism {
 
         setPowers(movements);
         if (!limit) {
-            while (opMode.opModeIsActive() && gyroIsBusy(measurementDeg))
+            while (gyroIsBusy(measurementDeg))
                 ;
         } else {
-            while (opMode.opModeIsActive()
-                    && gyroIsBusy(measurementDeg)
+            while (gyroIsBusy(measurementDeg)
                     && limitsNotReached(unscaledMovements[0], unscaledMovements))
                 ;
         }
@@ -635,7 +634,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                 > 1) {
             isBusy = true;
         }
-        return isBusy;
+        return isBusy && opMode.opModeIsActive();
     }
 
     /** Wrapper around getAchievableMaxTicksPerSecond to return minimum of all motors */
