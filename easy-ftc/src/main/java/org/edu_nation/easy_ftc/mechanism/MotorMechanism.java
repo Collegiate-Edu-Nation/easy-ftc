@@ -385,7 +385,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         } else {
             measurementDeg = measurement;
         }
-        validate(measurementDeg);
+        validate_deg(measurementDeg);
 
         setPowers(movements);
         if (!limit) {
