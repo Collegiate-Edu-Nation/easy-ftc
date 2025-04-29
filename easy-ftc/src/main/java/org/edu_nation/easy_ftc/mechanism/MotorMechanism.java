@@ -224,7 +224,7 @@ abstract class MotorMechanism<E> extends Mechanism {
     }
 
     /** Ensure measurement is in (0, inf] */
-    protected void validate_deg(double measurement) {
+    protected void validateDeg(double measurement) {
         if (measurement <= 0) {
             throw new IllegalArgumentException(
                     "Unexpected measurement value: "
@@ -385,14 +385,14 @@ abstract class MotorMechanism<E> extends Mechanism {
         } else {
             measurementDeg = measurement;
         }
-        validate_deg(measurementDeg);
+        validateDeg(measurementDeg);
 
         setPowers(movements);
         if (!limit) {
-            while (gyroIsBusy(measurement))
+            while (gyroIsBusy(measurementDeg))
                 ;
         } else {
-            while (gyroIsBusy(measurement)
+            while (gyroIsBusy(measurementDeg)
                     && limitsNotReached(unscaledMovements[0], unscaledMovements))
                 ;
         }
