@@ -381,7 +381,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         double[] movements = scaleDirections(unscaledMovements, power);
         double measurementDeg = 0;
         if (unit == AngleUnit.RADIANS) {
-            measurementDeg = unit.fromRadians(measurement);
+            measurementDeg = unit.toDegrees(measurement);
         } else {
             measurementDeg = measurement;
         }
