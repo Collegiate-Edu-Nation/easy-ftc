@@ -419,6 +419,36 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
     <details>
+    <summary>Gyro: Rotate by Angle</summary>
+
+    ### Imports
+
+    ```java
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+    ```
+
+    ### Construction
+
+    ```java
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .gamepad(gamepad1)  // only needed for teleop
+        .build();
+    ```
+
+    ### Methods
+
+    ```java
+    drive.command(Drive.Direction.ROTATE_LEFT, 90, 0.2, AngleUnit.DEGREES);
+    ```
+
+    ### Notes
+
+    - `AngleUnit.RADIANS` can be used as well
+
+    </details>
+
+    <details>
     <summary>Smooth Servo</summary>
 
     ### Imports
