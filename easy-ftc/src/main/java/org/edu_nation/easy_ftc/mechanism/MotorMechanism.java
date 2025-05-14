@@ -379,6 +379,8 @@ abstract class MotorMechanism<E> extends Mechanism {
             AngleUnit unit,
             boolean limit) {
         double[] movements = scaleDirections(unscaledMovements, power);
+
+        // Convert measuremnt to degrees and validate
         double measurementDeg = 0;
         if (unit == AngleUnit.RADIANS) {
             measurementDeg = unit.toDegrees(measurement);
@@ -387,6 +389,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
         validateDeg(measurementDeg);
 
+        // move the motors at power until the gyro measurement has been reached (or the limit)
         double[] measurementsDeg = trimDegrees(measurementDeg);
         setPowers(movements);
         if (!limit) {
@@ -408,7 +411,13 @@ abstract class MotorMechanism<E> extends Mechanism {
         int num;
         double leftover;
         double[] measurements;
-        if (measurement > 180) {
+
+        if (measurement <= 180) {
+            // pass-thru measurement when no trimming is needed
+            measurements = new double[1];
+            measurements[0] = measurement;
+        } else {
+            // split measurement into chunks <= 180 degrees
             num = (int) (measurement / 180);
             leftover = measurement % 180;
             boolean isLeftover = false;
@@ -416,6 +425,10 @@ abstract class MotorMechanism<E> extends Mechanism {
                 isLeftover = true;
                 num++;
             }
+
+            // the gyro only measures from 0 to +-180 degrees, so 180 degree
+            // chunks are translated to 0 when the robot is at the +-180 degree
+            // point
             measurements = new double[num];
             for (int i = 0; i < num; i++) {
                 double relative = i % 2 == 0 ? 0 : 180;
@@ -425,9 +438,6 @@ abstract class MotorMechanism<E> extends Mechanism {
                     measurements[i] = leftover - relative;
                 }
             }
-        } else {
-            measurements = new double[1];
-            measurements[0] = measurement;
         }
 
         return measurements;
