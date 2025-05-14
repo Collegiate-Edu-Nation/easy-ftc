@@ -419,7 +419,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     </details>
 
     <details>
-    <summary>Gyro: Rotate by Angle</summary>
+    <summary>Gyro: Angle-Based Command</summary>
 
     ### Imports
 
@@ -994,6 +994,19 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     - `.gearing()` is optional here, but correcting it can improve accuracy
     - The `Time` parameterLabel in `Lift.command()` has been changed to `Distance` here. This is optional, but it clarifies the intended functionality for Blockly users
+
+    </details>
+
+    <details>
+    <summary>Gyro: Angle-Based Command</summary>
+
+    ### Methods
+
+    <br>![Command Gyro](./img/blk/ex/commandGyro.png){ width=500 }
+
+    ### Notes
+
+    - `AngleUnit.RADIANS` can be used as well
 
     </details>
 

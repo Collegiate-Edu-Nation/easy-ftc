@@ -6,6 +6,7 @@ package org.firstinspires.ftc.teamcode;
 import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Drive extends BlocksOpModeCompanion {
     @ExportToBlocks(
@@ -16,6 +17,16 @@ public class Drive extends BlocksOpModeCompanion {
                 new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
                         .build();
         drive.command(direction, time, power);
+    }
+
+    @ExportToBlocks(
+            comment = "Initiate an automated drivetrain rotation by angle",
+            parameterLabels = {"Direction", "Angle", "Power", "Unit"})
+    public static void command(Direction direction, double angle, double power, AngleUnit unit) {
+        org.edu_nation.easy_ftc.mechanism.Drive drive =
+                new org.edu_nation.easy_ftc.mechanism.Drive.Builder(linearOpMode, hardwareMap)
+                        .build();
+        drive.command(direction, angle, power, unit);
     }
 
     @ExportToBlocks(
