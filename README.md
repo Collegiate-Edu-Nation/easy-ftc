@@ -38,6 +38,7 @@ The target audience is beginner-level FTC teams and hobbyists, but even advanced
 ### Features
 
 - Encoders can be used with minimal setup for either time- or distance-based commands
+- The IMU's Gyro can be leveraged with minimal setup for angle-based commands
 - `Arm`, `Intake`, and `Lift` optionally feature encoder limits on range-of-motion
 - `ROBOT` and `FIELD`-centric driving are supported for `MECANUM`
 - `TANK` and `ARCADE` are supported for `DIFFERENTIAL`
