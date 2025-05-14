@@ -18,6 +18,7 @@ import org.apache.commons.lang3.reflect.FieldUtils;
 import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
 import org.edu_nation.easy_ftc.mechanism.Drive.Layout;
 import org.edu_nation.easy_ftc.mechanism.Drive.Type;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.junit.Test;
 
 public class TestDrive {
@@ -281,6 +282,31 @@ public class TestDrive {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void moveForMeasurementGyro_isCalled() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        Drive mockedDrive = spy(drive);
+        doReturn(false).when(mockedDrive).gyroIsBusy(90);
+        double[] movements = {1, 0};
+
+        try {
+            mockedDrive.moveForMeasurement(movements, 90, 0.5, AngleUnit.DEGREES, false);
+            mockedDrive.moveForMeasurement(movements, Math.PI / 2, 0.5, AngleUnit.RADIANS, false);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateDeg_throwsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.validateDeg(-1);
     }
 
     @Test
