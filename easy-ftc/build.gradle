@@ -92,7 +92,7 @@ tasks.register('formatNix', Exec) {
     description = 'Formats all nix files'
 
     workingDir dir
-    commandLine 'nixfmt', 'flake.nix', 'lib/npm-groovy-lint/default.nix'
+    commandLine 'nixfmt', 'flake.nix', 'nix/npm-groovy-lint/default.nix', 'nix/deps.nix', 'nix/shell.nix'
 }
 
 // formats all groovy files
