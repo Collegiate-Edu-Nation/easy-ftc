@@ -18,12 +18,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: set up zulu OpenJDK 21
-        uses: actions/setup-java@v4
+      - name: set up nix
+        uses: cachix/install-nix-action@v31
         with:
-          distribution: zulu
-          java-version: 21
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+          extra_nix_config: |
+            trusted-public-keys = cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+            substituters = https://cache.garnix.io
       - name: build myBlocks
-        run: ./gradlew myBlocks
+        run: nix develop --command bash -c "./gradlew myBlocks"
       - name: build easy-ftc
-        run: ./gradlew build
+        run: nix develop --command bash -c "./gradlew build"
+      - name: build docs
+        run: nix develop --command bash -c "./gradlew docs"
