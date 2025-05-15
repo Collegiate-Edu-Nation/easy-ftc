@@ -423,6 +423,7 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      */
     public void command(Direction direction, double measurement, double power, AngleUnit unit) {
         validate(power);
+        validate(direction);
         double heading = 0;
 
         // initialize IMU if applicable
@@ -438,6 +439,21 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
         double[] unscaledMovements = languageToDirection(direction, heading);
         moveForMeasurement(unscaledMovements, measurement, power, unit, false);
+    }
+
+    /** Ensures directions passed to angular command() are rotational */
+    private void validate(Direction direction) {
+        switch (direction) {
+            case ROTATE_LEFT:
+                break;
+            case ROTATE_RIGHT:
+                break;
+            default:
+                throw new IllegalArgumentException(
+                        "Unexpected direction value: "
+                                + direction
+                                + " passed to Drive.command(). Valid values are ROTATE_LEFT and ROTATE_RIGHT");
+        }
     }
 
     /** Set drivetrain motor movements based on type: DIFFERENTIAL or MECANUM */

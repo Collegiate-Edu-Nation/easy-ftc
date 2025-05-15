@@ -284,6 +284,14 @@ public class TestDrive {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void commandGyro_throwsException() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.command(Direction.FORWARD, 90, 0.5, AngleUnit.DEGREES);
+    }
+
     @Test
     public void moveForMeasurementGyro_isCalled() {
         mockInit();

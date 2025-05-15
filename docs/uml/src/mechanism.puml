@@ -110,6 +110,7 @@ class Drive<Drive.Direction> {
     + control()
     + command(Direction direction, double measurement, double power)
     + command(Direction direction, double measurement, double power, AngleUnit unit)
+    - validate(Direction direction)
     # controlToDirection(double heading, float leftY, float leftX, float rightY, float rightX): double[]
     - controlToDirectionDifferential(double leftY, double rightY, double rightX): double[]
     - controlToDirectionMecanum(double heading, double leftY, double leftX, double rightX): double[]
