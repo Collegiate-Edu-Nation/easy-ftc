@@ -43,6 +43,8 @@ abstract class MotorMechanism<E> {
     # reverse(String deviceName)
     # init()
     # moveForMeasurement(double[] unscaledMovements, double measurement, double power, boolean limit)
+    # moveForMeasurement(double[] unscaledMovements, double measurement, double power, AngleUnit unit, boolean limit)
+    # trimDegrees(double measurement): double[]
     # limitsNotReached(double direction, double[] movements): boolean
     - limitsNotReachedTimeBased(double direction): boolean
     - limitsNotReachedDistanceBased(double direction, double[] movements): boolean
@@ -59,6 +61,7 @@ abstract class MotorMechanism<E> {
     # getGearing(MotorConfigurationType[] motorTypes): double
     + setGearing()
     # motorsAreBusy(double[] movements): boolean
+    # gyroIsBusy(double measurement): boolean
     # getAchievableMaxTicksPerSecond(MotorConfigurationType[] motorTypes): double
     # getTicksPerRev(MotorConfigurationType[] motorTypes): double
     # getCurrentPositions(): int[]
@@ -106,6 +109,7 @@ class Drive<Drive.Direction> {
     + control(double multiplier)
     + control()
     + command(Direction direction, double measurement, double power)
+    + command(Direction direction, double measurement, double power, AngleUnit unit)
     # controlToDirection(double heading, float leftY, float leftX, float rightY, float rightX): double[]
     - controlToDirectionDifferential(double leftY, double rightY, double rightX): double[]
     - controlToDirectionMecanum(double heading, double leftY, double leftX, double rightX): double[]
