@@ -51,9 +51,9 @@ public class TestCommandSequence {
                             .gamepad(mockedGamepad)
                             .build();
             CommandSequence sequence =
-                    new CommandSequence(drive)
-                            .command(Direction.FORWARD, 2, 0.5)
-                            .command(Direction.BACKWARD, 2, 0.5);
+                    new CommandSequence()
+                            .command(drive, Direction.FORWARD, 2, 0.5)
+                            .command(drive, Direction.BACKWARD, 2, 0.5);
 
             FieldUtils.writeField(mockedGamepad, "dpad_left", false);
             FieldUtils.writeField(mockedGamepad, "dpad_right", true);
@@ -66,9 +66,6 @@ public class TestCommandSequence {
 
     @Test(expected = NullPointerException.class)
     public void CommandSequence_nullThrowsException() {
-        CommandSequence sequence =
-                new CommandSequence(null)
-                        .command(Direction.FORWARD, 2, 0.5)
-                        .command(Direction.BACKWARD, 2, 0.5);
+        CommandSequence sequence = new CommandSequence().command(null, Direction.FORWARD, 2, 0.5);
     }
 }

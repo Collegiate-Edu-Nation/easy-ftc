@@ -3,8 +3,7 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
-import java.util.Vector;
-import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
+import java.util.ArrayList;
 
 /**
  * List of commands to execute sequentially for the associated mechanisms. This is an abstraction
@@ -15,26 +14,27 @@ import org.edu_nation.easy_ftc.mechanism.Drive.Direction;
  * <pre>{@code
  * // Construction
  * CommandSequence sequence =
- *         new CommandSequence(drive)
- *                 .command(Direction.FORWARD, 2, 0.5)
- *                 .command(Direction.BACKWARD, 2, 0.5);
+ *         new CommandSequence()
+ *                 .command(drive, Drive.Direction.FORWARD, 2, 0.2)
+ *                 .command(intake, Intake.Direction.IN, 5, 0.5);
  *
  * // Usage within main loop
  * sequence.use();
  * }</pre>
  */
-public class CommandSequence {
-    private Drive drive;
-    private Vector<Command> commands;
+public class CommandSequence<E> {
+    private ArrayList<Command<E>> commands;
     private int state;
 
     /** Class representation of passed commands for simplified access */
-    class Command {
-        protected Direction direction;
+    class Command<V> {
+        protected MotorMechanism mechanism;
+        protected V direction;
         protected double measurement;
         protected double power;
 
-        protected Command(Direction direction, double measurement, double power) {
+        protected Command(MotorMechanism mechanism, V direction, double measurement, double power) {
+            this.mechanism = mechanism;
             this.direction = direction;
             this.measurement = measurement;
             this.power = power;
@@ -44,15 +44,10 @@ public class CommandSequence {
     /**
      * Construct a blank sequence of commands for the associated mechanisms
      *
-     * @param drive
-     * @throws NullPointerException if drive is null
+     * @param mechanism
      */
-    public CommandSequence(Drive drive) {
-        if (drive == null) {
-            throw new NullPointerException("Null drive passed to Sequence()");
-        }
-        this.drive = drive;
-        this.commands = new Vector<>();
+    public CommandSequence() {
+        this.commands = new ArrayList<>();
         this.state = 0;
     }
 
@@ -62,10 +57,15 @@ public class CommandSequence {
      * @param direction
      * @param measurement
      * @param power
+     * @throws NullPointerException if mechanism is null
      * @return Sequence instance
      */
-    public CommandSequence command(Direction direction, double measurement, double power) {
-        this.commands.addElement(new Command(direction, measurement, power));
+    public CommandSequence<E> command(
+            MotorMechanism mechanism, E direction, double measurement, double power) {
+        if (mechanism == null) {
+            throw new NullPointerException("Null mechanism passed to CommandSequence()");
+        }
+        this.commands.add(new Command<E>(mechanism, direction, measurement, power));
         return this;
     }
 
@@ -73,23 +73,22 @@ public class CommandSequence {
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
+            MotorMechanism mechanism = commands.get(i).mechanism;
             // terminate sequence when requested
-            if (drive.gamepad.dpad_left) {
+            if (mechanism.gamepad.dpad_left) {
                 state = 0;
                 return;
             }
 
             if (i == state) {
-                if (i == 0) {
+                if (i == 0 && !mechanism.gamepad.dpad_right) {
                     // return early if sequence hasn't been initiated
-                    if (!drive.gamepad.dpad_right) {
-                        return;
-                    }
+                    return;
                 }
 
                 // execute current command and increment state
-                Command command = commands.elementAt(i);
-                drive.command(command.direction, command.measurement, command.power);
+                Command<E> command = commands.get(i);
+                mechanism.command(command.direction, command.measurement, command.power);
                 state += 1;
             }
         }
