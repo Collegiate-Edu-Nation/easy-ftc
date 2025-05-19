@@ -28,7 +28,7 @@ public class CommandSequence {
 
     /** Class representation of passed commands for simplified access */
     class Command {
-        protected MotorMechanism<?> mechanism;
+        protected Mechanism mechanism;
         protected Object direction;
         protected double measurement;
         protected double power;
@@ -39,6 +39,11 @@ public class CommandSequence {
             this.direction = direction;
             this.measurement = measurement;
             this.power = power;
+        }
+
+        protected Command(ServoMechanism<?> mechanism, Object direction) {
+            this.mechanism = mechanism;
+            this.direction = direction;
         }
     }
 
@@ -70,11 +75,19 @@ public class CommandSequence {
         return this;
     }
 
+    public CommandSequence command(ServoMechanism<?> mechanism, Object direction) {
+        if (mechanism == null) {
+            throw new NullPointerException("Null mechanism passed to CommandSequence())");
+        }
+        this.commands.add(new Command(mechanism, direction));
+        return this;
+    }
+
     /** Leverage the constructed sequence in the main loop via state-machine */
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
-            MotorMechanism<?> mechanism = commands.get(i).mechanism;
+            Mechanism mechanism = commands.get(i).mechanism;
             // terminate sequence when requested
             if (mechanism.gamepad.dpad_left) {
                 state = 0;
@@ -89,7 +102,14 @@ public class CommandSequence {
 
                 // execute current command and increment state
                 Command command = commands.get(i);
-                mechanism.commandGeneric(command.direction, command.measurement, command.power);
+                if (mechanism instanceof MotorMechanism) {
+                    MotorMechanism<?> motorMechanism = (MotorMechanism) mechanism;
+                    motorMechanism.commandGeneric(
+                            command.direction, command.measurement, command.power);
+                } else {
+                    ServoMechanism<?> servoMechanism = (ServoMechanism) mechanism;
+                    servoMechanism.commandGeneric(command.direction);
+                }
                 state += 1;
             }
         }

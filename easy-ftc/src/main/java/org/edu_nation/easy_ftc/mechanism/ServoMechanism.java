@@ -114,6 +114,8 @@ abstract class ServoMechanism<E> extends Mechanism {
 
     public abstract void command(E direction);
 
+    protected abstract void commandGeneric(Object direction);
+
     /** Reverse the direction of the specified servo */
     @Override
     protected void reverse(String deviceName) {
