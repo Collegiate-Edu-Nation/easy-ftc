@@ -70,6 +70,33 @@ public class TestCommandSequence {
         }
     }
 
+    @Test
+    public void CommandSequence_multipleTypes() {
+        mockInit();
+
+        try {
+            Drive drive =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap)
+                            .gamepad(mockedGamepad)
+                            .build();
+            Claw claw =
+                    new Claw.Builder(mockedOpMode, mockedHardwareMap)
+                            .gamepad(mockedGamepad)
+                            .build();
+            CommandSequence sequence =
+                    new CommandSequence()
+                            .command(drive, Drive.Direction.FORWARD, 2, 0.5)
+                            .command(claw, Claw.Direction.OPEN);
+
+            FieldUtils.writeField(mockedGamepad, "dpad_left", false);
+            FieldUtils.writeField(mockedGamepad, "dpad_right", true);
+
+            sequence.use();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
     @Test(expected = NullPointerException.class)
     public void CommandSequence_nullThrowsException() {
         CommandSequence sequence =
