@@ -409,12 +409,6 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, false);
     }
 
-    /** Helper to call command with casted direction */
-    @Override
-    protected void commandGeneric(Object direction, double measurement, double power) {
-        command((Direction) direction, measurement, power);
-    }
-
     /**
      * Initiate an automated drivetrain turn using the IMU's gyro
      *

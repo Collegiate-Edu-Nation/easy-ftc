@@ -283,12 +283,6 @@ public class Claw extends ServoMechanism<Claw.Direction> {
         }
     }
 
-    /** Helper to call command with casted direction */
-    @Override
-    protected void commandGeneric(Object direction) {
-        command((Direction) direction);
-    }
-
     /** Set servo movement based on open, close values and current position */
     protected double controlToDirection(double current, boolean openButton, boolean closeButton) {
         double movement;

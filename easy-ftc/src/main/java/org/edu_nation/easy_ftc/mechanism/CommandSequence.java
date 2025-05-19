@@ -22,27 +22,22 @@ import java.util.ArrayList;
  * }</pre>
  */
 public class CommandSequence {
-    private ArrayList<Command> commands;
+    private ArrayList<Command<?>> commands;
     private int state;
 
     /** Class representation of passed commands for simplified access */
-    class Command {
-        protected Mechanism mechanism;
-        protected Object direction;
+    class Command<E> {
+        protected MotorMechanism<E> mechanism;
+        protected E direction;
         protected double measurement;
         protected double power;
 
         protected Command(
-                MotorMechanism<?> mechanism, Object direction, double measurement, double power) {
+                MotorMechanism<E> mechanism, E direction, double measurement, double power) {
             this.mechanism = mechanism;
             this.direction = direction;
             this.measurement = measurement;
             this.power = power;
-        }
-
-        protected Command(ServoMechanism<?> mechanism, Object direction) {
-            this.mechanism = mechanism;
-            this.direction = direction;
         }
     }
 
@@ -63,29 +58,12 @@ public class CommandSequence {
      * @throws NullPointerException if mechanism is null
      * @return CommandSequence instance
      */
-    public CommandSequence command(
-            MotorMechanism<?> mechanism, Object direction, double measurement, double power) {
+    public <V> CommandSequence command(
+            MotorMechanism<V> mechanism, V direction, double measurement, double power) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence()");
         }
-        this.commands.add(new Command(mechanism, direction, measurement, power));
-        return this;
-    }
-
-    /**
-     * Add a ServoMechanism command to the sequence via method chaining
-     *
-     * @param mechanism instance of the MotorMechanism associated with this command
-     * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
-     *     for accepted values
-     * @throws NullPointerException if mechanism is null
-     * @return CommandSequence instance
-     */
-    public CommandSequence command(ServoMechanism<?> mechanism, Object direction) {
-        if (mechanism == null) {
-            throw new NullPointerException("Null mechanism passed to CommandSequence())");
-        }
-        this.commands.add(new Command(mechanism, direction));
+        this.commands.add(new Command<>(mechanism, direction, measurement, power));
         return this;
     }
 
@@ -93,7 +71,7 @@ public class CommandSequence {
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
-            Mechanism mechanism = commands.get(i).mechanism;
+            MotorMechanism<?> mechanism = commands.get(i).mechanism;
             // terminate sequence when requested
             if (mechanism.gamepad.dpad_left) {
                 state = 0;
@@ -107,20 +85,16 @@ public class CommandSequence {
                 }
 
                 // execute current command and increment state
-                Command command = commands.get(i);
-                if (mechanism instanceof MotorMechanism) {
-                    MotorMechanism<?> motorMechanism = (MotorMechanism) mechanism;
-                    motorMechanism.commandGeneric(
-                            command.direction, command.measurement, command.power);
-                } else {
-                    ServoMechanism<?> servoMechanism = (ServoMechanism) mechanism;
-                    servoMechanism.commandGeneric(command.direction);
-                }
+                useHelper(commands.get(i));
                 state += 1;
             }
         }
 
         // reset state-machine when completed
         state = 0;
+    }
+
+    private <V> void useHelper(Command<V> command) {
+        command.mechanism.command(command.direction, command.measurement, command.power);
     }
 }

@@ -191,8 +191,6 @@ abstract class MotorMechanism<E> extends Mechanism {
 
     public abstract void command(E direction, double measurement, double power);
 
-    protected abstract void commandGeneric(Object direction, double measurement, double power);
-
     /** Ensure multiplier is in (0, 1] */
     protected void validate(double multiplier) {
         if (multiplier <= 0 || multiplier > 1) {

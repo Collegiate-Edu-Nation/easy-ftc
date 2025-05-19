@@ -302,12 +302,6 @@ public class Intake extends MotorMechanism<Intake.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, dir1 != dir2);
     }
 
-    /** Helper to call command with casted direction */
-    @Override
-    protected void commandGeneric(Object direction, double measurement, double power) {
-        command((Direction) direction, measurement, power);
-    }
-
     /** Sets intake motor movements based on dpad up, down */
     protected double controlToDirection(boolean dpadUp, boolean dpadDown) {
         double out = dpadUp ? 1 : 0;
