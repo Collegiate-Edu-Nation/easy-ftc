@@ -6,8 +6,7 @@ package org.edu_nation.easy_ftc.mechanism;
 import java.util.ArrayList;
 
 /**
- * List of commands to execute sequentially for the associated mechanisms. This is an abstraction
- * over a variable-length state-machine, enabling automated sequences of related commands in TeleOp
+ * Create a list of commands to execute sequentially in TeleOp, enabling automation of common tasks
  *
  * <p><b>Basic Usage:</b>
  *
@@ -16,7 +15,7 @@ import java.util.ArrayList;
  * CommandSequence sequence =
  *         new CommandSequence()
  *                 .command(drive, Drive.Direction.FORWARD, 2, 0.2)
- *                 .command(intake, Intake.Direction.IN, 5, 0.5);
+ *                 .command(claw, Claw.Direction.OPEN);
  *
  * // Usage within main loop
  * sequence.use();
@@ -47,24 +46,22 @@ public class CommandSequence {
         }
     }
 
-    /**
-     * Construct a blank sequence of commands for the associated mechanisms
-     *
-     * @param mechanism
-     */
+    /** Construct a blank sequence of commands */
     public CommandSequence() {
         this.commands = new ArrayList<>();
         this.state = 0;
     }
 
     /**
-     * Construct a sequence of commands via method chaining
+     * Add a MotorMechanism command to the sequence via method chaining
      *
-     * @param direction
-     * @param measurement
-     * @param power
+     * @param mechanism instance of the MotorMechanism associated with this command
+     * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
+     *     for accepted values
+     * @param measurement time(s) or distance to move the mechanism
+     * @param power fraction of total power/velocity to use for mechanism command
      * @throws NullPointerException if mechanism is null
-     * @return Sequence instance
+     * @return CommandSequence instance
      */
     public CommandSequence command(
             MotorMechanism<?> mechanism, Object direction, double measurement, double power) {
@@ -75,6 +72,15 @@ public class CommandSequence {
         return this;
     }
 
+    /**
+     * Add a ServoMechanism command to the sequence via method chaining
+     *
+     * @param mechanism instance of the MotorMechanism associated with this command
+     * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
+     *     for accepted values
+     * @throws NullPointerException if mechanism is null
+     * @return CommandSequence instance
+     */
     public CommandSequence command(ServoMechanism<?> mechanism, Object direction) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence())");
@@ -83,7 +89,7 @@ public class CommandSequence {
         return this;
     }
 
-    /** Leverage the constructed sequence in the main loop via state-machine */
+    /** Use the constructed sequence in the main loop */
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
