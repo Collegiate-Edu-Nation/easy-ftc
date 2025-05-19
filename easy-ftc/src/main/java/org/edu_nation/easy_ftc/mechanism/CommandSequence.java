@@ -62,8 +62,8 @@ public class CommandSequence {
      * @throws NullPointerException if mechanism is null
      * @return CommandSequence instance
      */
-    public <V> CommandSequence command(
-            MotorMechanism<V> mechanism, V direction, double measurement, double power) {
+    public <E> CommandSequence command(
+            MotorMechanism<E> mechanism, E direction, double measurement, double power) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence()");
         }
@@ -80,7 +80,7 @@ public class CommandSequence {
      * @throws NullPointerException if mechanism is null
      * @return CommandSequence instance
      */
-    public <V> CommandSequence command(ServoMechanism<V> mechanism, V direction) {
+    public <E> CommandSequence command(ServoMechanism<E> mechanism, E direction) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence())");
         }
@@ -121,17 +121,17 @@ public class CommandSequence {
 
     /** Helper for avoiding unsafe type conversions */
     @SuppressWarnings("unchecked")
-    private <V> void useHelper(Command<V> command) {
+    private <E> void useHelper(Command<E> command) {
         if (command.mechanism instanceof MotorMechanism) {
-            ((MotorMechanism<V>) command.mechanism)
+            ((MotorMechanism<E>) command.mechanism)
                     .command(command.direction, command.measurement, command.power);
         } else if (command.mechanism instanceof ServoMechanism) {
-            ((ServoMechanism<V>) command.mechanism).command(command.direction);
+            ((ServoMechanism<E>) command.mechanism).command(command.direction);
         } else {
             throw new IllegalArgumentException(
                     "Unknown object passed to CommandSequence.command(). This "
-                            + "shouln't happen, but if it does, ensure the object is "
-                            + "either a MotorMechanism or a ServoMechanism");
+                            + "shouln't happen, but if it does, ensure the object "
+                            + "is either a MotorMechanism or a ServoMechanism");
         }
     }
 }
