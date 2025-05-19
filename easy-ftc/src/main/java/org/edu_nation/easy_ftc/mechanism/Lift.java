@@ -313,6 +313,12 @@ public class Lift extends MotorMechanism<Lift.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, dir1 != dir2);
     }
 
+    /** Helper to call command with casted direction */
+    @Override
+    protected void commandGeneric(Object direction, double measurement, double power) {
+        command((Direction) direction, measurement, power);
+    }
+
     /** Set lift motor movements based on triggers */
     protected double controlToDirection(float lt, float rt) {
         return map(rt) - map(lt);

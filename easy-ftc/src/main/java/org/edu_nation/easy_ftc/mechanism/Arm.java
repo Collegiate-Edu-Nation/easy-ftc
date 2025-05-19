@@ -309,6 +309,12 @@ public class Arm extends MotorMechanism<Arm.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, dir1 != dir2);
     }
 
+    /** Helper to call command with casted direction */
+    @Override
+    protected void commandGeneric(Object direction, double measurement, double power) {
+        command((Direction) direction, measurement, power);
+    }
+
     /** Sets arm motor movements based on bumpers */
     protected double controlToDirection(boolean lb, boolean rb) {
         double down = lb ? 1 : 0;

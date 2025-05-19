@@ -22,18 +22,19 @@ import java.util.ArrayList;
  * sequence.use();
  * }</pre>
  */
-public class CommandSequence<E> {
-    private ArrayList<Command<E>> commands;
+public class CommandSequence {
+    private ArrayList<Command> commands;
     private int state;
 
     /** Class representation of passed commands for simplified access */
-    class Command<V> {
-        protected MotorMechanism mechanism;
-        protected V direction;
+    class Command {
+        protected MotorMechanism<?> mechanism;
+        protected Object direction;
         protected double measurement;
         protected double power;
 
-        protected Command(MotorMechanism mechanism, V direction, double measurement, double power) {
+        protected Command(
+                MotorMechanism<?> mechanism, Object direction, double measurement, double power) {
             this.mechanism = mechanism;
             this.direction = direction;
             this.measurement = measurement;
@@ -60,12 +61,12 @@ public class CommandSequence<E> {
      * @throws NullPointerException if mechanism is null
      * @return Sequence instance
      */
-    public CommandSequence<E> command(
-            MotorMechanism mechanism, E direction, double measurement, double power) {
+    public CommandSequence command(
+            MotorMechanism<?> mechanism, Object direction, double measurement, double power) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence()");
         }
-        this.commands.add(new Command<E>(mechanism, direction, measurement, power));
+        this.commands.add(new Command(mechanism, direction, measurement, power));
         return this;
     }
 
@@ -73,7 +74,7 @@ public class CommandSequence<E> {
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
-            MotorMechanism mechanism = commands.get(i).mechanism;
+            MotorMechanism<?> mechanism = commands.get(i).mechanism;
             // terminate sequence when requested
             if (mechanism.gamepad.dpad_left) {
                 state = 0;
@@ -87,8 +88,8 @@ public class CommandSequence<E> {
                 }
 
                 // execute current command and increment state
-                Command<E> command = commands.get(i);
-                mechanism.command(command.direction, command.measurement, command.power);
+                Command command = commands.get(i);
+                mechanism.commandGeneric(command.direction, command.measurement, command.power);
                 state += 1;
             }
         }
