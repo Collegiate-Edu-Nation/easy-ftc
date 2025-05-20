@@ -98,8 +98,13 @@ public class TestCommandSequence {
     }
 
     @Test(expected = NullPointerException.class)
-    public void CommandSequence_nullThrowsException() {
+    public void CommandSequence_nullMotorThrowsException() {
         CommandSequence sequence =
                 new CommandSequence().command(null, Drive.Direction.FORWARD, 2, 0.5);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void CommandSequence_nullServoThrowsException() {
+        CommandSequence sequence = new CommandSequence().command(null, Claw.Direction.OPEN, 2, 0.5);
     }
 }
