@@ -365,7 +365,7 @@ Then
 ### ToDo
 
 - [ ] Package for both nix and maven
-- [ ] Support gyro-based turning for drive in cmd
+- [x] Support gyro-based turning for drive in cmd
 - [ ] Support CRServo
 - [ ] Finish removing 'Object_initializes' tests
 - [ ] Flesh out Color
@@ -373,10 +373,10 @@ Then
 - [ ] Add graphic for controls
 - [ ] Look into RACE layout for differential (triggers instead of joystick for axial)
 - [ ] Support mechanism + sensor integrations
-- [ ] Investigate sequence abstraction + implementation
+- [x] Investigate sequence abstraction + implementation
 - [ ] Add telemetry for status indicators
 - [ ] Add support for OpenCV, AprilTag
-- [ ] Investigate options for synchronized, multi-system sequences
+- [ ] Investigate options for parallel sequences
 - [ ] Investigate further consolidation of builders (esp names, count, etc)
 - [ ] Investigate instrumentation and/or manual hardware tests
 
