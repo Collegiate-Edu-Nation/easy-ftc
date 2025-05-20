@@ -593,6 +593,56 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     ### Imports
 
     ```java
+    import org.edu_nation.easy_ftc.mechanism.Claw;
+    import org.edu_nation.easy_ftc.mechanism.Drive;
+    import org.edu_nation.easy_ftc.mechanism.CommandSequence;
+    import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+    ```
+
+    ### Construction
+
+    ```java
+    // Hardware init
+    Drive drive = new Drive.Builder(this, hardwareMap)
+        .gamepad(gamepad1)
+        .build();
+    Claw claw = new Claw.Builder(this, hardwareMap)
+        .gamepad(gamepad1)
+        .build();
+
+    // Create the sequence
+    CommandSequence sequence = new CommandSequence()
+        .command(drive, Drive.Direction.ROTATE_LEFT, 90, 0.2, AngleUnit.DEGREES)
+        .command(drive, Drive.Direction.FORWARD, 2, 0.2)
+        .command(claw, Claw.Direction.OPEN)
+        .command(drive, Drive.Direction.BACKWARD, 2, 0.2)
+        .command(drive, Drive.Direction.ROTATE_RIGHT, 90, 0.2, AngleUnit.DEGREES);
+    ```
+
+    ### Methods
+
+    ```java
+    // normal drivetrain and claw control
+    drive.control();
+    claw.control();
+
+    // use the sequence
+    sequence.use();
+    ```
+
+    ### Notes
+
+    - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
+    - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
+
+    </details>
+
+    <details>
+    <summary>Control with Custom Command Sequence</summary>
+
+    ### Imports
+
+    ```java
     import org.edu_nation.easy_ftc.mechanism.Drive;
     ```
 
@@ -647,6 +697,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
+    - `CommandSequence` should be used for most routines, but additional options are available if you roll your own state-machine (e.g., sensor integration)
     - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
     - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
 
@@ -1105,6 +1156,25 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Additional
 
+    <br>![Sequence](./img/blk/ex/sequence.png){ width=850 }
+
+    ### Methods
+
+    <br>![Use Sequence](./img/blk/ex/useSequence.png){ width=425 }
+
+    ### Notes
+
+    - `CommandSequence` should be used for most routines, but additional options are available if you roll your own state-machine (e.g., sensor integration)
+    - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
+    - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
+
+    </details>
+
+    <details>
+    <summary>Control with Custom Command Sequence</summary>
+
+    ### Additional
+
     <br>![Starting State](./img/blk/ex/startingState.png){ width=385 }
 
     ### Methods
@@ -1113,6 +1183,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
+    - `CommandSequence` should be used for most routines, but additional options are available if you roll your own state-machine (e.g., sensor integration)
     - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
     - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
 

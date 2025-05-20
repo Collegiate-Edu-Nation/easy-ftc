@@ -44,6 +44,7 @@ The target audience is beginner-level FTC teams and hobbyists, but even advanced
 - `TANK` and `ARCADE` are supported for `DIFFERENTIAL`
 - Servo-powered mechanisms can optionally leverage smooth-servo control
 - `Lift` and `Drive` optionally feature gamepad deadzones, mitigating stick/trigger drift
+- Routine tasks in the TeleOp phase (like a scoring sequence) can be easily modelled via `CommandSequence`
 
 ### Docs
 
