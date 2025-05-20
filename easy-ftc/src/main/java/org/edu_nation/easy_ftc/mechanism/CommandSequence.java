@@ -78,6 +78,7 @@ public class CommandSequence {
      * @param unit AngleUnit to use for the measurement (one of: DEGREES, RADIANS)
      * @throws IllegalArgumentException if mechanism is not {@link Drive}
      * @throws NullPointerException if mechanism is null
+     * @throws NullPointerException if unit is null
      * @return CommandSequence instance
      */
     public <E> CommandSequence command(
