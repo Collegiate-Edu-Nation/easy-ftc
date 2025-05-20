@@ -31,11 +31,15 @@ This brings us to easy-ftc's API.
 
 ### `command()` - Mechanisms
 
-`command()` is a function/method that tells (commands) a mechanism to move in a specific manner. This is most often seen in Autonomous routines, where most teams will program their robot to simply perform consecutive actions, though automated sequences in TeleOp can make use of commands as well. easy-ftc provides simple ways to command each mechanism at a specified power and direction for either time-based or distance-based movement.
+`command()` is a function/method that tells (commands) a mechanism to move in a specific manner. This is most often seen in Autonomous routines, where most teams will program their robot to simply perform consecutive actions, though automated sequences in TeleOp can make use of commands as well (see `CommandSequence().command()`). easy-ftc provides simple ways to command each mechanism at a specified power and direction for either time- or distance-based movement.
 
 ### `control()` - Mechanisms
 
 `control()` is a function/method that enables teleoperated control of each mechanism, which is only allowed in the TeleOp portion of a match. More explicitly, this function reads inputs from the gamepad, processes those inputs, and then controls the mechanism based on these processed inputs. easy-ftc decides the control scheme for you, which obviously takes away some user control but comes with the benefit of being able to program a competitive robot with a single function.
+
+### `CommandSequence()` - Mechanisms
+
+A common approach for improving the consistency of routine tasks in TeleOp (like scoring) is to automate these sequences via a state machine that's triggered by the user. `CommandSequence().command()` is a function/method that adds a mechanism `command()` to a planned sequence, enabling this functionality without needing to bother with state machines. As each `command()` returns a `CommandSequence`, several commands can be chained together to form complex routines. The sequence can then be used by simply adding `sequence.use()` to the main loop of the opMode, and can be interrupted between tasks to ensure you're never stuck in an unwanted state.
 
 ### `state()` - Sensors
 
