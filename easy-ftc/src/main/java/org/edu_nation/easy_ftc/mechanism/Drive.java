@@ -414,8 +414,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      *
      * @param direction direction to move the mechanism; see {@link Direction} for accepted values
      *     (one of: ROTATE_LEFT, ROTATE_RIGHT)
-     * @param measurement number of degrees to rotate
+     * @param measurement angle to rotate
      * @param power fraction of total power/velocity to use for mechanism command
+     * @param unit AngleUnit to use for the measurement (one of: DEGREES, RADIANS)
      * @throws NullPointerException if direction is null
      * @throws IllegalArgumentException if direction is an unexpected value
      * @throws IllegalArgumentException if measurement &lt; 0

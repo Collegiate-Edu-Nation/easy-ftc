@@ -8,6 +8,7 @@ import org.edu_nation.easy_ftc.mechanism.Lift;
 import org.edu_nation.easy_ftc.mechanism.Trigger;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class CommandSequence extends BlocksOpModeCompanion {
     @ExportToBlocks(
@@ -53,6 +54,19 @@ public class CommandSequence extends BlocksOpModeCompanion {
             double power) {
         Drive drive = new Drive.Builder(linearOpMode, hardwareMap).gamepad(gamepad1).build();
         return sequence.command(drive, direction, time, power);
+    }
+
+    @ExportToBlocks(
+            comment = "Add an angular Drive command to the sequence via method chaining",
+            parameterLabels = {"CommandSequence", "Direction", "Angle", "Power", "Unit"})
+    public static org.edu_nation.easy_ftc.mechanism.CommandSequence commandDrive(
+            org.edu_nation.easy_ftc.mechanism.CommandSequence sequence,
+            Drive.Direction direction,
+            double angle,
+            double power,
+            AngleUnit unit) {
+        Drive drive = new Drive.Builder(linearOpMode, hardwareMap).gamepad(gamepad1).build();
+        return sequence.command(drive, direction, angle, power, unit);
     }
 
     @ExportToBlocks(

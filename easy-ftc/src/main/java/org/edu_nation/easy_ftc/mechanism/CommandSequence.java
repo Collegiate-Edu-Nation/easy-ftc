@@ -4,9 +4,10 @@
 package org.edu_nation.easy_ftc.mechanism;
 
 import java.util.ArrayList;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 /**
- * Create a list of commands to execute sequentially in TeleOp, enabling automation of common tasks
+ * Create a list of commands to execute sequentially in TeleOp, enabling automation of routines
  *
  * <p><b>Basic Usage:</b>
  *
@@ -15,6 +16,7 @@ import java.util.ArrayList;
  * CommandSequence sequence =
  *         new CommandSequence()
  *                 .command(drive, Drive.Direction.FORWARD, 2, 0.2)
+ *                 .command(drive, Drive.Direction.ROTATE_LEFT, 90, 0.2, AngleUnit.DEGREES)
  *                 .command(claw, Claw.Direction.OPEN);
  *
  * // Usage within main loop
@@ -27,19 +29,33 @@ public class CommandSequence {
 
     /** Class representation of passed commands for simplified access */
     class Command<E> {
-        protected Mechanism mechanism;
-        protected E direction;
-        protected double measurement;
-        protected double power;
+        private Mechanism mechanism;
+        private E direction;
+        private double measurement;
+        private double power;
+        private AngleUnit unit;
 
-        protected Command(Mechanism mechanism, E direction, double measurement, double power) {
+        private Command(
+                Mechanism mechanism,
+                E direction,
+                double measurement,
+                double power,
+                AngleUnit unit) {
+            this.mechanism = mechanism;
+            this.direction = direction;
+            this.measurement = measurement;
+            this.power = power;
+            this.unit = unit;
+        }
+
+        private Command(Mechanism mechanism, E direction, double measurement, double power) {
             this.mechanism = mechanism;
             this.direction = direction;
             this.measurement = measurement;
             this.power = power;
         }
 
-        protected Command(Mechanism mechanism, E direction) {
+        private Command(Mechanism mechanism, E direction) {
             this.mechanism = mechanism;
             this.direction = direction;
         }
@@ -49,6 +65,35 @@ public class CommandSequence {
     public CommandSequence() {
         this.commands = new ArrayList<>();
         this.state = 0;
+    }
+
+    /**
+     * Add an angular {@link Drive} command to the sequence via method chaining
+     *
+     * @param mechanism instance of the {@link Drive} object associated with this command
+     * @param direction direction to move the mechanism; see the {@link Drive.Direction} for
+     *     accepted values (one of: ROTATE_LEFT, ROTATE_RIGHT)
+     * @param measurement angle to rotate
+     * @param power fraction of total power/velocity to use for mechanism command
+     * @param unit AngleUnit to use for the measurement (one of: DEGREES, RADIANS)
+     * @throws IllegalArgumentException if mechanism is not {@link Drive}
+     * @throws NullPointerException if mechanism is null
+     * @return CommandSequence instance
+     */
+    public <E> CommandSequence command(
+            MotorMechanism<E> mechanism,
+            E direction,
+            double measurement,
+            double power,
+            AngleUnit unit) {
+        if (!(mechanism instanceof Drive)) {
+            throw new IllegalArgumentException(
+                    "Illegal mechanism passed to CommandSequence.command(). The "
+                            + "angular command only accepts Drive mechanisms");
+        }
+        validate(mechanism);
+        this.commands.add(new Command<>(mechanism, direction, measurement, power, unit));
+        return this;
     }
 
     /**
@@ -64,9 +109,7 @@ public class CommandSequence {
      */
     public <E> CommandSequence command(
             MotorMechanism<E> mechanism, E direction, double measurement, double power) {
-        if (mechanism == null) {
-            throw new NullPointerException("Null mechanism passed to CommandSequence()");
-        }
+        validate(mechanism);
         this.commands.add(new Command<>(mechanism, direction, measurement, power));
         return this;
     }
@@ -81,11 +124,16 @@ public class CommandSequence {
      * @return CommandSequence instance
      */
     public <E> CommandSequence command(ServoMechanism<E> mechanism, E direction) {
-        if (mechanism == null) {
-            throw new NullPointerException("Null mechanism passed to CommandSequence())");
-        }
+        validate(mechanism);
         this.commands.add(new Command<>(mechanism, direction));
         return this;
+    }
+
+    /** Ensures mechanism is not null */
+    private void validate(Mechanism mechanism) {
+        if (mechanism == null) {
+            throw new NullPointerException("Null mechanism passed to CommandSequence().command()");
+        }
     }
 
     /**
@@ -123,6 +171,15 @@ public class CommandSequence {
     @SuppressWarnings("unchecked")
     private <E> void useHelper(Command<E> command) {
         if (command.mechanism instanceof MotorMechanism) {
+            if (command.mechanism instanceof Drive && command.unit instanceof AngleUnit) {
+                ((Drive) command.mechanism)
+                        .command(
+                                (Drive.Direction) command.direction,
+                                command.measurement,
+                                command.power,
+                                command.unit);
+                return;
+            }
             ((MotorMechanism<E>) command.mechanism)
                     .command(command.direction, command.measurement, command.power);
         } else if (command.mechanism instanceof ServoMechanism) {

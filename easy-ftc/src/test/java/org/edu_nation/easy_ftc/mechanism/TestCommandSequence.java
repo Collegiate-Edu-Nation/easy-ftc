@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.junit.Test;
 
 public class TestCommandSequence {
@@ -95,6 +96,33 @@ public class TestCommandSequence {
         } catch (Exception e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void CommandSequence_angularType() {
+        mockInit();
+
+        try {
+
+            Drive drive =
+                    new Drive.Builder(mockedOpMode, mockedHardwareMap)
+                            .gamepad(mockedGamepad)
+                            .build();
+            CommandSequence sequence =
+                    new CommandSequence()
+                            .command(drive, Drive.Direction.ROTATE_LEFT, 2, 0.5, AngleUnit.DEGREES);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void CommandSequence_angularThrowsException() {
+        when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
+
+        Arm arm = new Arm.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
+        CommandSequence sequence =
+                new CommandSequence().command(arm, Arm.Direction.UP, 90, 0.5, AngleUnit.DEGREES);
     }
 
     @Test(expected = NullPointerException.class)
