@@ -126,6 +126,16 @@ public class TestCommandSequence {
     }
 
     @Test(expected = NullPointerException.class)
+    public void CommandSequence_angularThrowsExceptionWhenNull() {
+        mockInit();
+
+        Drive drive =
+                new Drive.Builder(mockedOpMode, mockedHardwareMap).gamepad(mockedGamepad).build();
+        CommandSequence sequence =
+                new CommandSequence().command(drive, Drive.Direction.ROTATE_LEFT, 90, 0.5, null);
+    }
+
+    @Test(expected = NullPointerException.class)
     public void CommandSequence_nullMotorThrowsException() {
         CommandSequence sequence =
                 new CommandSequence().command(null, Drive.Direction.FORWARD, 2, 0.5);

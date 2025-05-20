@@ -91,6 +91,10 @@ public class CommandSequence {
                     "Illegal mechanism passed to CommandSequence.command(). The "
                             + "angular command only accepts Drive mechanisms");
         }
+        if (unit == null) {
+            throw new NullPointerException(
+                    "Null unit passed to angular CommandSequence().command()");
+        }
         validate(mechanism);
         this.commands.add(new Command<>(mechanism, direction, measurement, power, unit));
         return this;
