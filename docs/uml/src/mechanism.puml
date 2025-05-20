@@ -87,6 +87,18 @@ abstract class ServoMechanism<E> {
     # setDirections(boolean reverse)
 }
 
+class CommandSequence {
+    - commands: ArrayList<Command<?>>
+    - state: int
+    + CommandSequence()
+    + <E> command(MotorMechanism<E> mechanism, E direction, double measurement, double power, AngleUnit unit): CommandSequence
+    + <E> command(MotorMechanism<E> mechanism, E direction, double measurement, double power): CommandSequence
+    + <E> command(ServoMechanism<E> mechanism, E direction): CommandSequence
+    - validate(Mechanism mechanism)
+    + use()
+    - <E> useHelper(Command<E> command)
+}
+
 class Arm<Arm.Direction> {
     + control(double power)
     + control()
