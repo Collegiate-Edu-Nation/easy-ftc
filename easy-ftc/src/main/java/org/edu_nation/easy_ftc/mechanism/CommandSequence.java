@@ -3,6 +3,7 @@
 
 package org.edu_nation.easy_ftc.mechanism;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
 import java.util.ArrayList;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
@@ -25,6 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  */
 public class CommandSequence {
     private ArrayList<Command<?>> commands;
+    private Gamepad gamepad;
     private int state;
 
     /** Class representation of passed commands for simplified access */
@@ -134,10 +136,13 @@ public class CommandSequence {
         return this;
     }
 
-    /** Ensures mechanism is not null */
+    /** Sets gamepad to first non-null instance and ensures mechanism is not null */
     private void validate(Mechanism mechanism) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence().command()");
+        }
+        if (this.gamepad == null && mechanism.gamepad != null) {
+            this.gamepad = mechanism.gamepad;
         }
     }
 
@@ -149,16 +154,15 @@ public class CommandSequence {
     public void use() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
-            Mechanism mechanism = commands.get(i).mechanism;
             // terminate sequence when requested
-            if (mechanism.gamepad.dpad_left) {
+            if (gamepad.dpad_left) {
                 state = 0;
                 return;
             }
 
             if (i == state) {
                 // return early if sequence hasn't been initiated
-                if (i == 0 && !mechanism.gamepad.dpad_right) {
+                if (i == 0 && !gamepad.dpad_right) {
                     return;
                 }
 
