@@ -666,7 +666,7 @@ abstract class MotorMechanism<E> extends Mechanism {
                 isBusy = true;
             }
         }
-        return isBusy;
+        return isBusy && opMode.opModeIsActive();
     }
 
     /** Helper to identify whether the movement angle has been reached */
