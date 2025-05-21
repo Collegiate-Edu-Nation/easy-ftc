@@ -310,6 +310,22 @@ public class TestDrive {
     }
 
     @Test(expected = IllegalArgumentException.class)
+    public void validate_throwsExceptionWhenIllegalDirection() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.validate(Direction.FORWARD, AngleUnit.DEGREES);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void validate_throwsExceptionWhenNullUnit() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.validate(Direction.ROTATE_LEFT, null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void validateDeg_throwsException() {
         mockInit();
 

@@ -418,13 +418,14 @@ public class Drive extends MotorMechanism<Drive.Direction> {
      * @param power fraction of total power/velocity to use for mechanism command
      * @param unit AngleUnit to use for the measurement (one of: DEGREES, RADIANS)
      * @throws NullPointerException if direction is null
+     * @throws NullPointerException if unit is null
      * @throws IllegalArgumentException if direction is an unexpected value
      * @throws IllegalArgumentException if measurement &lt; 0
      * @throws IllegalArgumentException if power is not in the interval (0, 1]
      */
     public void command(Direction direction, double measurement, double power, AngleUnit unit) {
         validate(power);
-        validate(direction);
+        validate(direction, unit);
         double heading = 0;
 
         // initialize IMU if applicable
@@ -442,8 +443,8 @@ public class Drive extends MotorMechanism<Drive.Direction> {
         moveForMeasurement(unscaledMovements, measurement, power, unit, false);
     }
 
-    /** Ensures directions passed to angular command() are rotational */
-    private void validate(Direction direction) {
+    /** Ensures directions passed to angular command() are rotational and unit is not null */
+    protected void validate(Direction direction, AngleUnit unit) {
         switch (direction) {
             case ROTATE_LEFT:
                 break;
@@ -454,6 +455,11 @@ public class Drive extends MotorMechanism<Drive.Direction> {
                         "Unexpected direction value: "
                                 + direction
                                 + " passed to Drive.command(). Valid values are ROTATE_LEFT and ROTATE_RIGHT");
+        }
+        if (unit == null) {
+            throw new NullPointerException(
+                    "Null AngleUnit passed to Drive.command(). Valid values are "
+                            + "AngleUnit.DEGREES and AngleUnit.RADIANS");
         }
     }
 

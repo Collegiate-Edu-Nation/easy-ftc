@@ -80,6 +80,7 @@ public class CommandSequence {
      * @param unit AngleUnit to use for the measurement (one of: DEGREES, RADIANS)
      * @throws IllegalArgumentException if mechanism is not {@link Drive}
      * @throws NullPointerException if mechanism is null
+     * @throws NullPointerException if direction is null
      * @throws NullPointerException if unit is null
      * @return CommandSequence instance
      */
@@ -98,7 +99,7 @@ public class CommandSequence {
             throw new NullPointerException(
                     "Null unit passed to angular CommandSequence().command()");
         }
-        validate(mechanism);
+        validate(mechanism, direction);
         this.commands.add(new Command<>(mechanism, direction, measurement, power, unit));
         return this;
     }
@@ -112,11 +113,12 @@ public class CommandSequence {
      * @param measurement time(s) or distance to move the mechanism
      * @param power fraction of total power/velocity to use for mechanism command
      * @throws NullPointerException if mechanism is null
+     * @throws NullPointerException if direction is null
      * @return CommandSequence instance
      */
     public <E> CommandSequence command(
             MotorMechanism<E> mechanism, E direction, double measurement, double power) {
-        validate(mechanism);
+        validate(mechanism, direction);
         this.commands.add(new Command<>(mechanism, direction, measurement, power));
         return this;
     }
@@ -128,21 +130,27 @@ public class CommandSequence {
      * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
      *     for accepted values
      * @throws NullPointerException if mechanism is null
+     * @throws NullPointerException if direction is null
      * @return CommandSequence instance
      */
     public <E> CommandSequence command(ServoMechanism<E> mechanism, E direction) {
-        validate(mechanism);
+        validate(mechanism, direction);
         this.commands.add(new Command<>(mechanism, direction));
         return this;
     }
 
-    /** Sets gamepad to first non-null instance and ensures mechanism is not null */
-    private void validate(Mechanism mechanism) {
+    /** Sets gamepad to first non-null instance and ensures mechanism and direction are not null */
+    private <E> void validate(Mechanism mechanism, E direction) {
         if (mechanism == null) {
             throw new NullPointerException("Null mechanism passed to CommandSequence().command()");
         }
         if (this.gamepad == null && mechanism.gamepad != null) {
             this.gamepad = mechanism.gamepad;
+        }
+        if (direction == null) {
+            throw new NullPointerException(
+                    "Null direction passed to CommandSequence().command(). Valid "
+                            + "values are ROTATE_LEFT and ROTATE_RIGHT");
         }
     }
 
