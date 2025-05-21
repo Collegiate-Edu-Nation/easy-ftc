@@ -2,7 +2,7 @@
 <img src='docs/img/logo/easy-ftc_color.png' alt='easy-ftc' height=auto width=400px>
 
 ![Static Badge](https://img.shields.io/badge/Version-1.1.0-mediumblue?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/FTC_SDK-10.1.1-mediumblue?style=for-the-badge&labelColor=8C8F8F)
+![Static Badge](https://img.shields.io/badge/FTC_SDK-10.2-mediumblue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Android_API-30-mediumblue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.4-mediumblue?style=for-the-badge&labelColor=8C8F8F)\
 ![Dynamic Badge](https://img.shields.io/github/actions/workflow/status/collegiate-edu-nation/easy-ftc/build.yaml?branch=main&style=for-the-badge&labelColor=8C8F8F&color=forestgreen)
