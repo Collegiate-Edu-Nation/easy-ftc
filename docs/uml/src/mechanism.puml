@@ -89,12 +89,13 @@ abstract class ServoMechanism<E> {
 
 class CommandSequence {
     - commands: ArrayList<Command<?>>
+    - gamepad: Gamepad
     - state: int
     + CommandSequence()
     + <E> command(MotorMechanism<E> mechanism, E direction, double measurement, double power, AngleUnit unit): CommandSequence
     + <E> command(MotorMechanism<E> mechanism, E direction, double measurement, double power): CommandSequence
     + <E> command(ServoMechanism<E> mechanism, E direction): CommandSequence
-    - validate(Mechanism mechanism)
+    - <E> validate(Mechanism mechanism, E direction)
     + use()
     - <E> useHelper(Command<E> command)
 }
@@ -122,7 +123,7 @@ class Drive<Drive.Direction> {
     + control()
     + command(Direction direction, double measurement, double power)
     + command(Direction direction, double measurement, double power, AngleUnit unit)
-    - validate(Direction direction)
+    # validate(Direction direction, AngleUnit unit)
     # controlToDirection(double heading, float leftY, float leftX, float rightY, float rightX): double[]
     - controlToDirectionDifferential(double leftY, double rightY, double rightX): double[]
     - controlToDirectionMecanum(double heading, double leftY, double leftX, double rightX): double[]
