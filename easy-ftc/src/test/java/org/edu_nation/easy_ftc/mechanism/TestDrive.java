@@ -309,6 +309,14 @@ public class TestDrive {
         }
     }
 
+    @Test(expected = NullPointerException.class)
+    public void validate_throwsExceptionWhenNullDirection() {
+        mockInit();
+
+        Drive drive = new Drive.Builder(mockedOpMode, mockedHardwareMap).build();
+        drive.validate(null, AngleUnit.DEGREES);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void validate_throwsExceptionWhenIllegalDirection() {
         mockInit();

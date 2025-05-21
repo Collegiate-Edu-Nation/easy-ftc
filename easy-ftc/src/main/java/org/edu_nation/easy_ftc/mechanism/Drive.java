@@ -445,6 +445,9 @@ public class Drive extends MotorMechanism<Drive.Direction> {
 
     /** Ensures directions passed to angular command() are rotational and unit is not null */
     protected void validate(Direction direction, AngleUnit unit) {
+        if (direction == null) {
+            throw new NullPointerException("Null direction passed to Drive.command()");
+        }
         switch (direction) {
             case ROTATE_LEFT:
                 break;

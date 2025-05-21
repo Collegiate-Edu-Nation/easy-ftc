@@ -148,9 +148,7 @@ public class CommandSequence {
             this.gamepad = mechanism.gamepad;
         }
         if (direction == null) {
-            throw new NullPointerException(
-                    "Null direction passed to CommandSequence().command(). Valid "
-                            + "values are ROTATE_LEFT and ROTATE_RIGHT");
+            throw new NullPointerException("Null direction passed to CommandSequence().command()");
         }
     }
 
