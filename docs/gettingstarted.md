@@ -39,7 +39,7 @@ This brings us to easy-ftc's API.
 
 ### `CommandSequence()` - Mechanisms
 
-A common approach for improving the consistency of routine tasks in TeleOp (like scoring) is to automate these sequences via a state machine that's triggered by the user. `CommandSequence().command()` is a function/method that adds a mechanism `command()` to a planned sequence, enabling this functionality without needing to bother with state machines. As each `command()` returns a `CommandSequence`, several commands can be chained together to form complex routines. The sequence can then be used by simply adding `sequence.use()` to the main loop of the opMode, and can be interrupted between tasks to ensure you're never stuck in an unwanted state.
+A common approach for improving the consistency of routine tasks in TeleOp (like scoring) is to automate these sequences via a state machine that's triggered by the user. `CommandSequence().command()` is a function/method that adds a mechanism `command()` to a planned sequence, enabling this functionality without needing to bother with state machines. As each `command()` returns a `CommandSequence`, several commands can be chained together to form complex routines. The sequence can then be used by simply adding `sequence.control()` to the main loop of the opMode, and can be interrupted between tasks to ensure you're never stuck in an unwanted state.
 
 ### `state()` - Sensors
 

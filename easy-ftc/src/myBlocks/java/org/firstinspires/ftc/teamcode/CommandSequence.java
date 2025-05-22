@@ -12,13 +12,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class CommandSequence extends BlocksOpModeCompanion {
     @ExportToBlocks(
-            comment = "Initiate an automated arm movement",
-            parameterLabels = {"Direction", "Time", "Power"})
-    public static void use(org.edu_nation.easy_ftc.mechanism.CommandSequence sequence) {
-        sequence.use();
+            comment = "Leverage the constructed sequence with gamepad (dpadLeft, dpadRight)")
+    public static void control(org.edu_nation.easy_ftc.mechanism.CommandSequence sequence) {
+        sequence.control();
     }
 
-    @ExportToBlocks()
+    @ExportToBlocks(comment = "Construct a blank sequence of commands")
     public static org.edu_nation.easy_ftc.mechanism.CommandSequence CommandSequence() {
         return new org.edu_nation.easy_ftc.mechanism.CommandSequence();
     }

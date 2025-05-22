@@ -21,7 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
  *                 .command(claw, Claw.Direction.OPEN);
  *
  * // Usage within main loop
- * sequence.use();
+ * sequence.control();
  * }</pre>
  */
 public class CommandSequence {
@@ -156,11 +156,11 @@ public class CommandSequence {
     }
 
     /**
-     * Use the constructed sequence in the main loop
+     * Leverage the constructed sequence with gamepad (dpadLeft, dpadRight)
      *
      * @throws IllegalArgumentException if the mechanism is an unknown type
      */
-    public void use() {
+    public void control() {
         int count = commands.size();
         for (int i = 0; i < count; i++) {
             // terminate sequence when requested
@@ -176,7 +176,7 @@ public class CommandSequence {
                 }
 
                 // execute current command and increment state
-                useHelper(commands.get(i));
+                controlHelper(commands.get(i));
                 state += 1;
             }
         }
@@ -187,7 +187,7 @@ public class CommandSequence {
 
     /** Helper for avoiding unsafe type conversions */
     @SuppressWarnings("unchecked")
-    private <E> void useHelper(Command<E> command) {
+    private <E> void controlHelper(Command<E> command) {
         if (command.mechanism instanceof MotorMechanism) {
             if (command.mechanism instanceof Drive && command.unit instanceof AngleUnit) {
                 ((Drive) command.mechanism)

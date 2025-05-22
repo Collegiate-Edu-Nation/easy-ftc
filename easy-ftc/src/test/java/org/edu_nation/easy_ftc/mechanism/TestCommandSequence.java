@@ -65,7 +65,7 @@ public class TestCommandSequence {
             FieldUtils.writeField(mockedGamepad, "dpad_left", false);
             FieldUtils.writeField(mockedGamepad, "dpad_right", true);
 
-            sequence.use();
+            sequence.control();
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -92,7 +92,7 @@ public class TestCommandSequence {
             FieldUtils.writeField(mockedGamepad, "dpad_left", false);
             FieldUtils.writeField(mockedGamepad, "dpad_right", true);
 
-            sequence.use();
+            sequence.control();
         } catch (Exception e) {
             fail(e.getMessage());
         }

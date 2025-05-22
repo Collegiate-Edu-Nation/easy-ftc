@@ -626,8 +626,8 @@ Each example will use the following OpModes. For the sake of brevity, these are 
     drive.control();
     claw.control();
 
-    // use the sequence
-    sequence.use();
+    // control the sequence
+    sequence.control();
     ```
 
     ### Notes
@@ -1160,7 +1160,7 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Methods
 
-    <br>![Use Sequence](./img/blk/ex/useSequence.png){ width=425 }
+    <br>![Control Sequence](./img/blk/ex/controlSequence.png){ width=425 }
 
     ### Notes
 

@@ -96,8 +96,8 @@ class CommandSequence {
     + <E> command(MotorMechanism<E> mechanism, E direction, double measurement, double power): CommandSequence
     + <E> command(ServoMechanism<E> mechanism, E direction): CommandSequence
     - <E> validate(Mechanism mechanism, E direction)
-    + use()
-    - <E> useHelper(Command<E> command)
+    + control()
+    - <E> controlHelper(Command<E> command)
 }
 
 class Arm<Arm.Direction> {
