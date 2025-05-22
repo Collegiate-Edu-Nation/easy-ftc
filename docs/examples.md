@@ -1164,7 +1164,6 @@ Each example will use the following OpModes. For the sake of brevity, these are 
 
     ### Notes
 
-    - `CommandSequence` should be used for most routines, but additional options are available if you roll your own state-machine (e.g., sensor integration)
     - Sequence is initiated by pressing `dpad_right` and can be interrupted with `dpad_left`
     - Holding down `dpad_left` works best since the loop used by `command()` is thread blocking, meaning its value is only read between sequence states
 
