@@ -19,6 +19,19 @@ abstract class MotorMechanism<E> {}
 
 abstract class ServoMechanism<E> {}
 
+class CommandSequence {}
+
+class Command<E> {
+    - mechanism: Mechanism
+    - direction: E
+    - measurement: double
+    - power: double
+    - unit: AngleUnit
+    - Command(Mechanism mechanism, E direction, double measurement, double power, AngleUnit unit)
+    - Command(Mechanism mechanism, E direction, double measurement, double power)
+    - Command(Mechanism] mechanism, E direction)
+}
+
 abstract class "Builder<T extends Builder<T>> extends Mechanism.Builder<T>" as MotorMechanism_Builder {
     # Builder(LinearOpMode opMode, HardwareMap hardwareMap)
     + encoder(): T
@@ -242,6 +255,7 @@ ServoMechanism_Builder <|-- Trigger_Builder
 Mechanism +-- Mechanism_Builder
 MotorMechanism +-- MotorMechanism_Builder
 ServoMechanism +-- ServoMechanism_Builder
+CommandSequence +-- Command
 
 Arm +-- Arm_Builder
 Claw +-- Claw_Builder

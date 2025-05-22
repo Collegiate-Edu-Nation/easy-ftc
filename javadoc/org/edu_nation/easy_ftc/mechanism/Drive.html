@@ -157,13 +157,21 @@ loadScripts(document, 'script');</script>
 <div class="block">Initiate an automated drivetrain movement</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#control()" class="member-name-link">control</a>()</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#command(org.edu_nation.easy_ftc.mechanism.Drive.Direction,double,double,org.firstinspires.ftc.robotcore.external.navigation.AngleUnit)" class="member-name-link">command</a><wbr>(<a href="Drive.Direction.html" title="enum class in org.edu_nation.easy_ftc.mechanism">Drive.Direction</a>&nbsp;direction,
+ double&nbsp;measurement,
+ double&nbsp;power,
+ org.firstinspires.ftc.robotcore.external.navigation.AngleUnit&nbsp;unit)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Enable teleoperated drivetrain movement with gamepad (joysticks), with multiplier = 1.0</div>
+<div class="block">Initiate an automated drivetrain turn using the IMU's gyro</div>
 </div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#control(double)" class="member-name-link">control</a><wbr>(double&nbsp;multiplier)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#control()" class="member-name-link">control</a>()</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Enable teleoperated drivetrain movement with gamepad (joysticks), with multiplier = 1.0</div>
+</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#control(double)" class="member-name-link">control</a><wbr>(double&nbsp;multiplier)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
 <div class="block">Enable teleoperated drivetrain movement with gamepad (joysticks), scaling by multiplier</div>
 </div>
 </div>
@@ -218,6 +226,30 @@ loadScripts(document, 'script');</script>
 <dd><code>power</code> - fraction of total power/velocity to use for mechanism command</dd>
 <dt>Throws:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if direction is null</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if direction is an unexpected value</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if measurement &lt; 0</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if power is not in the interval (0, 1]</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="command(org.edu_nation.easy_ftc.mechanism.Drive.Direction,double,double,org.firstinspires.ftc.robotcore.external.navigation.AngleUnit)">
+<h3>command</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">command</span><wbr><span class="parameters">(<a href="Drive.Direction.html" title="enum class in org.edu_nation.easy_ftc.mechanism">Drive.Direction</a>&nbsp;direction,
+ double&nbsp;measurement,
+ double&nbsp;power,
+ org.firstinspires.ftc.robotcore.external.navigation.AngleUnit&nbsp;unit)</span></div>
+<div class="block">Initiate an automated drivetrain turn using the IMU's gyro</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>direction</code> - direction to move the mechanism; see <a href="Drive.Direction.html" title="enum class in org.edu_nation.easy_ftc.mechanism"><code>Drive.Direction</code></a> for accepted values
+     (one of: ROTATE_LEFT, ROTATE_RIGHT)</dd>
+<dd><code>measurement</code> - angle to rotate</dd>
+<dd><code>power</code> - fraction of total power/velocity to use for mechanism command</dd>
+<dd><code>unit</code> - AngleUnit to use for the measurement (one of: DEGREES, RADIANS)</dd>
+<dt>Throws:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if direction is null</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/NullPointerException.html" title="class or interface in java.lang" class="external-link">NullPointerException</a></code> - if unit is null</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if direction is an unexpected value</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if measurement &lt; 0</dd>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/IllegalArgumentException.html" title="class or interface in java.lang" class="external-link">IllegalArgumentException</a></code> - if power is not in the interval (0, 1]</dd>

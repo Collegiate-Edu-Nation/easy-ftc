@@ -387,6 +387,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#commandsequence-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommandSequence() - Mechanisms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#state-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       state() - Sensors
@@ -645,6 +654,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#commandsequence-mechanisms" class="md-nav__link">
+    <span class="md-ellipsis">
+      CommandSequence() - Mechanisms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#state-sensors" class="md-nav__link">
     <span class="md-ellipsis">
       state() - Sensors
@@ -708,9 +726,11 @@
 <p>This brings us to easy-ftc's API.</p>
 <h2 id="api">API</h2>
 <h3 id="command-mechanisms"><code>command()</code> - Mechanisms</h3>
-<p><code>command()</code> is a function/method that tells (commands) a mechanism to move in a specific manner. This is most often seen in Autonomous routines, where most teams will program their robot to simply perform consecutive actions, though automated sequences in TeleOp can make use of commands as well. easy-ftc provides simple ways to command each mechanism at a specified power and direction for either time-based or distance-based movement.</p>
+<p><code>command()</code> is a function/method that tells (commands) a mechanism to move in a specific manner. This is most often seen in Autonomous routines, where most teams will program their robot to simply perform consecutive actions, though automated sequences in TeleOp can make use of commands as well (see <code>CommandSequence().command()</code>). easy-ftc provides simple ways to command each mechanism at a specified power and direction for either time- or distance-based movement.</p>
 <h3 id="control-mechanisms"><code>control()</code> - Mechanisms</h3>
 <p><code>control()</code> is a function/method that enables teleoperated control of each mechanism, which is only allowed in the TeleOp portion of a match. More explicitly, this function reads inputs from the gamepad, processes those inputs, and then controls the mechanism based on these processed inputs. easy-ftc decides the control scheme for you, which obviously takes away some user control but comes with the benefit of being able to program a competitive robot with a single function.</p>
+<h3 id="commandsequence-mechanisms"><code>CommandSequence()</code> - Mechanisms</h3>
+<p>A common approach for improving the consistency of routine tasks in TeleOp (like scoring) is to automate these sequences via a state machine that's triggered by the user. <code>CommandSequence().command()</code> is a function/method that adds a mechanism <code>command()</code> to a planned sequence, enabling this functionality without needing to bother with state machines. As each <code>command()</code> returns a <code>CommandSequence</code>, several commands can be chained together to form complex routines. The sequence can then be used by simply adding <code>sequence.control()</code> to the main loop of the opMode, and can be interrupted between tasks to ensure you're never stuck in an unwanted state.</p>
 <h3 id="state-sensors"><code>state()</code> - Sensors</h3>
 <p><code>state()</code> is a function/method that returns the current state/value of each sensor. The return value depends on the exact sensor but is either a <code>boolean</code> (<code>Touch</code> returns <code>true</code> if the sensor is pressed, <code>false</code> if not) or <code>RGB</code> (<code>Color</code> returns one of <code>RED</code>, <code>GREEN</code>, or <code>BLUE</code>). When combined with conditional statements and <code>command()</code>/<code>control()</code>, this allows teams to determine their robots' actions based on the surrounding environment. For example, if the color sensor returns <code>BLUE</code>, move forward.</p>
 <h3 id="builderbuild"><code>Builder().build()</code></h3>
@@ -1042,7 +1062,7 @@
       <div class="md-copyright">
   
     <div class="md-copyright__highlight">
-      Copyright 2024 Collegiate Edu-Nation
+      Copyright Collegiate Edu-Nation
     </div>
   
   

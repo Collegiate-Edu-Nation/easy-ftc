@@ -216,6 +216,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Initiate an automated drivetrain movement</div>
 </dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/Drive.html#command(org.edu_nation.easy_ftc.mechanism.Drive.Direction,double,double,org.firstinspires.ftc.robotcore.external.navigation.AngleUnit)" class="member-name-link">command(Drive.Direction, double, double, AngleUnit)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Drive.html" title="class in org.edu_nation.easy_ftc.mechanism">Drive</a></dt>
+<dd>
+<div class="block">Initiate an automated drivetrain turn using the IMU's gyro</div>
+</dd>
 <dt><a href="org/edu_nation/easy_ftc/mechanism/Intake.html#command(org.edu_nation.easy_ftc.mechanism.Intake.Direction,double,double)" class="member-name-link">command(Intake.Direction, double, double)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Intake.html" title="class in org.edu_nation.easy_ftc.mechanism">Intake</a></dt>
 <dd>
 <div class="block">Initiate an automated intake movement</div>
@@ -224,9 +228,29 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Initiate an automated lift movement</div>
 </dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html#command(org.edu_nation.easy_ftc.mechanism.MotorMechanism,E,double,double)" class="member-name-link">command(MotorMechanism&lt;E&gt;, E, double, double)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a></dt>
+<dd>
+<div class="block">Add a MotorMechanism command to the sequence via method chaining</div>
+</dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html#command(org.edu_nation.easy_ftc.mechanism.MotorMechanism,E,double,double,org.firstinspires.ftc.robotcore.external.navigation.AngleUnit)" class="member-name-link">command(MotorMechanism&lt;E&gt;, E, double, double, AngleUnit)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a></dt>
+<dd>
+<div class="block">Add an angular <a href="org/edu_nation/easy_ftc/mechanism/Drive.html" title="class in org.edu_nation.easy_ftc.mechanism"><code>Drive</code></a> command to the sequence via method chaining</div>
+</dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html#command(org.edu_nation.easy_ftc.mechanism.ServoMechanism,E)" class="member-name-link">command(ServoMechanism&lt;E&gt;, E)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a></dt>
+<dd>
+<div class="block">Add a ServoMechanism command to the sequence via method chaining</div>
+</dd>
 <dt><a href="org/edu_nation/easy_ftc/mechanism/Trigger.html#command(org.edu_nation.easy_ftc.mechanism.Trigger.Direction)" class="member-name-link">command(Trigger.Direction)</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Trigger.html" title="class in org.edu_nation.easy_ftc.mechanism">Trigger</a></dt>
 <dd>
 <div class="block">Initiate an automated trigger movement</div>
+</dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" class="type-name-link" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a> - Class in <a href="org/edu_nation/easy_ftc/mechanism/package-summary.html">org.edu_nation.easy_ftc.mechanism</a></dt>
+<dd>
+<div class="block">Create a list of commands to execute sequentially in TeleOp, enabling automation of routines</div>
+</dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html#%3Cinit%3E()" class="member-name-link">CommandSequence()</a> - Constructor for class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a></dt>
+<dd>
+<div class="block">Construct a blank sequence of commands</div>
 </dd>
 <dt><a href="org/edu_nation/easy_ftc/mechanism/Arm.html#control()" class="member-name-link">control()</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Arm.html" title="class in org.edu_nation.easy_ftc.mechanism">Arm</a></dt>
 <dd>
@@ -235,6 +259,10 @@ loadScripts(document, 'script');</script>
 <dt><a href="org/edu_nation/easy_ftc/mechanism/Claw.html#control()" class="member-name-link">control()</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Claw.html" title="class in org.edu_nation.easy_ftc.mechanism">Claw</a></dt>
 <dd>
 <div class="block">Enable teleoperated claw movement with gamepad (b, a)</div>
+</dd>
+<dt><a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html#control()" class="member-name-link">control()</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/CommandSequence.html" title="class in org.edu_nation.easy_ftc.mechanism">CommandSequence</a></dt>
+<dd>
+<div class="block">Leverage the constructed sequence with gamepad (dpadLeft, dpadRight)</div>
 </dd>
 <dt><a href="org/edu_nation/easy_ftc/mechanism/Drive.html#control()" class="member-name-link">control()</a> - Method in class org.edu_nation.easy_ftc.mechanism.<a href="org/edu_nation/easy_ftc/mechanism/Drive.html" title="class in org.edu_nation.easy_ftc.mechanism">Drive</a></dt>
 <dd>
