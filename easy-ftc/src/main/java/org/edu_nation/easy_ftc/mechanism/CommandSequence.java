@@ -72,6 +72,7 @@ public class CommandSequence {
     /**
      * Add an angular {@link Drive} command to the sequence via method chaining
      *
+     * @param <E> {@link Drive}'s direction enum implementation
      * @param mechanism instance of the {@link Drive} object associated with this command
      * @param direction direction to move the mechanism; see the {@link Drive.Direction} for
      *     accepted values (one of: ROTATE_LEFT, ROTATE_RIGHT)
@@ -107,6 +108,7 @@ public class CommandSequence {
     /**
      * Add a MotorMechanism command to the sequence via method chaining
      *
+     * @param <E> mechanism's direction enum implementation
      * @param mechanism instance of the MotorMechanism associated with this command
      * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
      *     for accepted values
@@ -126,6 +128,7 @@ public class CommandSequence {
     /**
      * Add a ServoMechanism command to the sequence via method chaining
      *
+     * @param <E> mechanism's direction enum implementation
      * @param mechanism instance of the ServoMechanism associated with this command
      * @param direction direction to move the mechanism; see the passed mechanism's Direction enum
      *     for accepted values
