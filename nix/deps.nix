@@ -4,29 +4,28 @@
 { pkgs, android-sdk }:
 
 {
-  build =
+  build = [
+    android-sdk
+  ]
+  ++ (
+    with pkgs;
+    with pkgs.python312Packages;
+    with pkgs.nodePackages;
     [
-      android-sdk
+      bashInteractive
+      jdk21
+      aapt
+
+      # docs
+      plantuml
+      mkdocs
+      mkdocs-material
+
+      # formatting
+      nixfmt
+      (callPackage ./npm-groovy-lint { })
+      prettier
+      temurin-jre-bin-17
     ]
-    ++ (
-      with pkgs;
-      with pkgs.python312Packages;
-      with pkgs.nodePackages;
-      [
-        bashInteractive
-        jdk21
-        aapt
-
-        # docs
-        plantuml
-        mkdocs
-        mkdocs-material
-
-        # formatting
-        nixfmt
-        (callPackage ./npm-groovy-lint { })
-        prettier
-        temurin-jre-bin-17
-      ]
-    );
+  );
 }
