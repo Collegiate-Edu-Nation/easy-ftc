@@ -5,13 +5,13 @@
 
 buildNpmPackage rec {
   pname = "npm-groovy-lint";
-  version = "15.0.2";
+  version = "16.1.1";
   src = fetchFromGitHub {
     owner = "nvuillam";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-WLQH+BkPl2Urih2VpcCMSM85RKEwLA/Cn/Cux98AknU=";
+    hash = "sha256-tW2HAkN2nV0lOY3H98OvoY5EDSG3z2MDL0270wOI8m4=";
   };
 
-  npmDepsHash = "sha256-wdclH75A8IPgjh9eimSt2OGTPZOHddU/z8Jf8lwaDlE=";
+  npmDepsHash = "sha256-kSUtKfmXSIr75sbLPQ7wGZW/PBS1eHjvcZq4aQJs22E=";
 }

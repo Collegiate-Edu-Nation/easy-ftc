@@ -247,7 +247,7 @@ The project can also be imported into Android Studio, where Windows is supported
 
 To format source files, you must also install
 
-- Node.js v20.18.1 (LTS)
+- Node.js v24.12.0 (LTS)
 - nixfmt
   - _Optional as long as no nix files are modified_
 
@@ -266,7 +266,6 @@ Then
   ```
 
 - Set `JRE17_PATH` (path to JRE 17 binary, will default to `~/.java-caller`)
-
   - Linux and macOS
 
     ```shell
@@ -289,7 +288,7 @@ Then
 
 To generate documentation, you must also install
 
-- Python 3.12.7
+- Python 3.14.2
 - PlantUML
   - _Optional as long as no puml files are modified_
 
@@ -309,7 +308,6 @@ Then
   ```
 
 - Activate venv (optional)
-
   - Linux and macOS
 
     ```shell
@@ -329,7 +327,6 @@ Then
   ```
 
 - Set `PUML_PATH` (path to PlantUML binary)
-
   - Linux and macOS
 
     ```shell
@@ -355,9 +352,7 @@ Then
 - Running the build using the Gradle extension for VSCode on NixOS fails as the extension doesn't seem to pass environment variables to the Gradle daemon correctly (note the setting of `GRADLE_OPTS` in `flake.nix`). The workaround is to invoke the build task manually via `./gradlew build`
 
 - The coverage task will not work in Android Studio on Windows, but since it's simply an alias of sorts around `createReleaseUnitTestCoverageReport`, just invoke that task directly
-
   - The task should work in Android Studio on Linux and macOS once `JAVA_HOME` is specified
-
     - _Note that this is distinct from `JRE17_PATH`, which is only used for formatting Groovy scripts_
 
 - There seems to be a longstanding bug in Android Studio on macOS where environment variables are not propagated properly, breaking several tasks. The workaround is to launch Android Studio from the terminal via `open /Applications/Android\ Studio.app/`
