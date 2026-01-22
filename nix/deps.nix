@@ -9,7 +9,7 @@
   ]
   ++ (
     with pkgs;
-    with pkgs.python312Packages;
+    with pkgs.python314Packages;
     with pkgs.nodePackages;
     [
       bashInteractive
