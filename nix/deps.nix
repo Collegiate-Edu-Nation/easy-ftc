@@ -23,7 +23,7 @@
         mkdocs-material
 
         # formatting
-        nixfmt-rfc-style
+        nixfmt
         (callPackage ./npm-groovy-lint { })
         prettier
         temurin-jre-bin-17
