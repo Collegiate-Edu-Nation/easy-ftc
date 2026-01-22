@@ -247,7 +247,7 @@ The project can also be imported into Android Studio, where Windows is supported
 
 To format source files, you must also install
 
-- Node.js v20.18.1 (LTS)
+- Node.js v24.12.0 (LTS)
 - nixfmt
   - _Optional as long as no nix files are modified_
 
@@ -288,7 +288,7 @@ Then
 
 To generate documentation, you must also install
 
-- Python 3.12.7
+- Python 3.14.2
 - PlantUML
   - _Optional as long as no puml files are modified_
 
