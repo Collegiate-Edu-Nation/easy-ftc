@@ -1,101 +1,130 @@
 // SPDX-FileCopyrightText: Collegiate Edu-Nation
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-package org.firstinspires.ftc.teamcode;
+package org.edu_nation.easy_ftc.myBlocks;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
+import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 
+@ExportClassToBlocks
 public class Arm extends BlocksOpModeCompanion {
-    @ExportToBlocks(comment = "Create an Arm Builder object")
+    @ExportToBlocks(comment = "Construct an Arm object using the builder design pattern")
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder Builder() {
         return new org.edu_nation.easy_ftc.mechanism.Arm.Builder(linearOpMode, hardwareMap);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Whether to reverse devices",
+            parameterLabels = {"Arm.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder reverse(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder) {
         return builder.reverse();
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Reverse the specified device",
+            parameterLabels = {"Arm.Builder", "deviceName"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder reverse(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, String deviceName) {
         return builder.reverse(deviceName);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Reverse the specified devices",
+            parameterLabels = {"Arm.Builder", "deviceNames"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder reverse(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, String[] deviceNames) {
         return builder.reverse(deviceNames);
     }
 
     @ExportToBlocks(
-            comment = "Add a gamepad to the arm to enable teleoperated control",
-            parameterLabels = {"Arm"})
+            comment = "Pass gamepad for teleop control",
+            parameterLabels = {"Arm.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder gamepad(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder) {
         return builder.gamepad(gamepad1);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Whether to enable encoders (time-based)",
+            parameterLabels = {"Arm.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder encoder(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder) {
         return builder.encoder();
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the diameter for encoder control (distance-based)",
+            parameterLabels = {"Arm.Builder", "Diameter"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder diameter(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, double diameter) {
         return builder.diameter(diameter);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the length for encoder control (distance-based)",
+            parameterLabels = {"Arm.Builder", "Length"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder length(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, double length) {
         return builder.length(length);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment =
+                    "Specify the gearing of the motors (increases accuracy of distance-based movement)",
+            parameterLabels = {"Arm.Builder", "Gearing"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder gearing(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, double gearing) {
         return builder.gearing(gearing);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the number of motors",
+            parameterLabels = {"Arm.Builder", "Count"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder count(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, int count) {
         return builder.count(count);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Change the names of the hardware devices",
+            parameterLabels = {"Arm.Builder", "Names"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder names(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, String[] names) {
         return builder.names(names);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the zero-power behavior of the motors",
+            parameterLabels = {"Arm.Builder", "Behavior"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder behavior(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder,
             DcMotor.ZeroPowerBehavior behavior) {
         return builder.behavior(behavior);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the positional limit for Direction UP",
+            parameterLabels = {"Arm.Builder", "Up"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder up(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, double up) {
         return builder.up(up);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Specify the positional limit for Direction DOWN",
+            parameterLabels = {"Arm.Builder", "Down"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder down(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, double down) {
         return builder.down(down);
     }
 
-    @ExportToBlocks
+    @ExportToBlocks(
+            comment = "Build the arm",
+            parameterLabels = {"Arm.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Arm build(
             org.edu_nation.easy_ftc.mechanism.Arm.Builder builder) {
         return builder.build();
@@ -103,13 +132,13 @@ public class Arm extends BlocksOpModeCompanion {
 
     @ExportToBlocks(
             comment = "Initiate an automated arm movement",
-            parameterLabels = {"Arm", "Direction", "Time", "Power"})
+            parameterLabels = {"Arm", "Direction", "Measurement", "Power"})
     public static void command(
             org.edu_nation.easy_ftc.mechanism.Arm arm,
             Direction direction,
-            double time,
+            double measurement,
             double power) {
-        arm.command(direction, time, power);
+        arm.command(direction, measurement, power);
     }
 
     @ExportToBlocks(

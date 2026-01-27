@@ -178,6 +178,7 @@ android.libraryVariants.configureEach { variant ->
                 setMemberLevel JavadocMemberLevel.PUBLIC
                 setStylesheetFile file('../docs/stylesheet.css')
                 addBooleanOption('Xdoclint:none', true)
+                exclude('org/edu_nation/easy_ftc/myBlocks/**')
             }
         }
 
