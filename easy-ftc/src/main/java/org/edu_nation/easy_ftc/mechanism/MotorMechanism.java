@@ -165,7 +165,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         }
 
         /**
-         * Specify the logo direction of the IMU/gyro
+         * Specify the USB port direction of the IMU/gyro
          *
          * @param usb direction of the Hub's usb ports
          * @return builder instance
