@@ -35,7 +35,7 @@ abstract class Mechanism {
         this.gamepad = builder.gamepad;
     }
 
-    public abstract static class Builder<T extends Builder<T>> {
+    abstract static class Builder<T extends Builder<T>> {
         private final LinearOpMode opMode;
         private final HardwareMap hardwareMap;
         private boolean reverse = false;

@@ -11,8 +11,10 @@ import java.util.Objects;
 /**
  * Blueprints an abstract Servo Mechanism, providing basic functionalities, options, and objects
  * common to all Servo Mechanisms. Cannot be instantiated; only extended by other classes.
+ *
+ * @hidden
  */
-abstract class ServoMechanism<E> extends Mechanism {
+public abstract class ServoMechanism<E> extends Mechanism {
     protected Servo[] servos;
     protected boolean smooth;
     protected double increment;
@@ -28,7 +30,7 @@ abstract class ServoMechanism<E> extends Mechanism {
         this.delay = builder.delay;
     }
 
-    public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
+    abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected boolean smooth = false;
         protected double increment = 0.0;
         protected double incrementDelay = 0.0;

@@ -19,8 +19,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 /**
  * Blueprints an abstract Motor Mechanism, providing basic functionalities, options, and objects
  * common to all Motor Mechanisms. Cannot be instantiated; only extended by other classes.
+ *
+ * @hidden
  */
-abstract class MotorMechanism<E> extends Mechanism {
+public abstract class MotorMechanism<E> extends Mechanism {
     protected DcMotor[] motors;
     protected DcMotorEx[] motorsEx;
     protected IMU imu;
@@ -51,7 +53,7 @@ abstract class MotorMechanism<E> extends Mechanism {
         this.usb = builder.usb;
     }
 
-    public abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
+    abstract static class Builder<T extends Builder<T>> extends Mechanism.Builder<T> {
         protected boolean encoder = false;
         protected double diameter = 0.0;
         protected double length = 0.0;
