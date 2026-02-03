@@ -4,6 +4,7 @@
 package org.edu_nation.easy_ftc.myBlocks;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import java.util.List;
 import org.edu_nation.easy_ftc.mechanism.Arm.Direction;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
@@ -36,8 +37,8 @@ public class Arm extends BlocksOpModeCompanion {
             comment = "Reverse the specified devices",
             parameterLabels = {"Arm.Builder", "deviceNames"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder reverse(
-            org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, String[] deviceNames) {
-        return builder.reverse(deviceNames);
+            org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, List<String> deviceNames) {
+        return builder.reverse(deviceNames.toArray(new String[0]));
     }
 
     @ExportToBlocks(
@@ -93,8 +94,8 @@ public class Arm extends BlocksOpModeCompanion {
             comment = "Change the names of the hardware devices",
             parameterLabels = {"Arm.Builder", "Names"})
     public static org.edu_nation.easy_ftc.mechanism.Arm.Builder names(
-            org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, String[] names) {
-        return builder.names(names);
+            org.edu_nation.easy_ftc.mechanism.Arm.Builder builder, List<String> names) {
+        return builder.names(names.toArray(new String[0]));
     }
 
     @ExportToBlocks(

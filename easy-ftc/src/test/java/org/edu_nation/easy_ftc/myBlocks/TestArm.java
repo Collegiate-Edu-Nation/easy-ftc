@@ -12,6 +12,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+import java.util.ArrayList;
+import java.util.List;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
 import org.junit.Test;
 
@@ -37,20 +39,22 @@ public class TestArm extends LinearOpMode {
         BlocksOpModeCompanion.gamepad1 = mockedGamepad;
         BlocksOpModeCompanion.linearOpMode = mockedOpMode;
         BlocksOpModeCompanion.hardwareMap = mockedHardwareMap;
+        List<String> list = new ArrayList<String>();
+        list.add("arm");
         org.edu_nation.easy_ftc.mechanism.Arm arm;
         org.edu_nation.easy_ftc.mechanism.Arm.Builder builder;
         builder = Arm.Builder();
 
         arm = Arm.build(Arm.reverse(builder));
         arm = Arm.build(Arm.reverse(builder, "arm"));
-        arm = Arm.build(Arm.reverse(builder, new String[] {"arm"}));
+        arm = Arm.build(Arm.reverse(builder, list));
         arm = Arm.build(Arm.gamepad(builder));
         arm = Arm.build(Arm.encoder(builder));
         arm = Arm.build(Arm.diameter(builder, 1));
         arm = Arm.build(Arm.length(builder, 1));
         arm = Arm.build(Arm.gearing(builder, 1));
         arm = Arm.build(Arm.count(builder, 1));
-        arm = Arm.build(Arm.names(builder, new String[] {"arm"}));
+        arm = Arm.build(Arm.names(builder, list));
         arm = Arm.build(Arm.behavior(builder, DcMotor.ZeroPowerBehavior.BRAKE));
         arm = Arm.build(Arm.up(builder, 1));
         arm = Arm.build(Arm.down(builder, -1));
