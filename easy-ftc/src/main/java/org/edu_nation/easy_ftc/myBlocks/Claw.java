@@ -33,18 +33,28 @@ public class Claw extends BlocksOpModeCompanion {
 
     @ExportToBlocks(
             comment = "Reverse the specified devices",
-            parameterLabels = {"Claw.Builder", "deviceNames"})
+            parameterLabels = {"Claw.Builder", "deviceName", "deviceName"})
     public static org.edu_nation.easy_ftc.mechanism.Claw.Builder reverse(
-            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder, String[] deviceNames) {
-        return builder.reverse(deviceNames);
+            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder,
+            String deviceName1,
+            String deviceName2) {
+        return builder.reverse(new String[] {deviceName1, deviceName2});
     }
 
     @ExportToBlocks(
-            comment = "Pass gamepad for teleop control",
+            comment = "Pass gamepad1 for teleop control",
             parameterLabels = {"Claw.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Claw.Builder gamepad(
             org.edu_nation.easy_ftc.mechanism.Claw.Builder builder) {
         return builder.gamepad(gamepad1);
+    }
+
+    @ExportToBlocks(
+            comment = "Pass gamepad2 for teleop control",
+            parameterLabels = {"Claw.Builder"})
+    public static org.edu_nation.easy_ftc.mechanism.Claw.Builder gamepad2(
+            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder) {
+        return builder.gamepad(gamepad2);
     }
 
     @ExportToBlocks(
@@ -88,11 +98,19 @@ public class Claw extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Change the names of the hardware devices",
-            parameterLabels = {"Claw.Builder", "Names"})
+            comment = "Change the name of the hardware device",
+            parameterLabels = {"Claw.Builder", "Name"})
     public static org.edu_nation.easy_ftc.mechanism.Claw.Builder names(
-            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder, String[] names) {
-        return builder.names(names);
+            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder, String name) {
+        return builder.names(new String[] {name});
+    }
+
+    @ExportToBlocks(
+            comment = "Change the names of the hardware devices",
+            parameterLabels = {"Claw.Builder", "Name", "Name"})
+    public static org.edu_nation.easy_ftc.mechanism.Claw.Builder names(
+            org.edu_nation.easy_ftc.mechanism.Claw.Builder builder, String name1, String name2) {
+        return builder.names(new String[] {name1, name2});
     }
 
     @ExportToBlocks(

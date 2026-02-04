@@ -21,6 +21,8 @@ public class TestClaw extends LinearOpMode {
 
     private void mockInit() {
         when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "clawLeft")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "clawRight")).thenReturn(mockedClaw);
         when(mockedClaw.getPosition()).thenReturn(0.0);
     }
 
@@ -29,24 +31,33 @@ public class TestClaw extends LinearOpMode {
         mockInit();
         BlocksOpModeCompanion.opMode = mockedOpMode;
         BlocksOpModeCompanion.gamepad1 = mockedGamepad;
+        BlocksOpModeCompanion.gamepad2 = mockedGamepad;
         BlocksOpModeCompanion.linearOpMode = mockedOpMode;
         BlocksOpModeCompanion.hardwareMap = mockedHardwareMap;
         org.edu_nation.easy_ftc.mechanism.Claw claw;
+        org.edu_nation.easy_ftc.mechanism.Claw claw2;
         org.edu_nation.easy_ftc.mechanism.Claw.Builder builder;
+        org.edu_nation.easy_ftc.mechanism.Claw.Builder builder2;
         builder = Claw.Builder();
+        builder2 = Claw.Builder();
 
         claw = Claw.build(Claw.reverse(builder));
         claw = Claw.build(Claw.reverse(builder, "claw"));
-        claw = Claw.build(Claw.reverse(builder, new String[] {"claw"}));
         claw = Claw.build(Claw.gamepad(builder));
+        claw = Claw.build(Claw.gamepad2(builder));
         claw = Claw.build(Claw.smooth(builder));
         claw = Claw.build(Claw.increment(builder, 1));
         claw = Claw.build(Claw.incrementDelay(builder, 1));
         claw = Claw.build(Claw.delay(builder, 1));
         claw = Claw.build(Claw.count(builder, 1));
-        claw = Claw.build(Claw.names(builder, new String[] {"claw"}));
+        claw = Claw.build(Claw.names(builder, "claw"));
         claw = Claw.build(Claw.open(builder, 1));
         claw = Claw.build(Claw.close(builder, 0));
+
+        // 2-servo wrapper methods
+        claw2 = Claw.build(Claw.count(builder2, 2));
+        claw2 = Claw.build(Claw.reverse(builder2, "clawLeft", "clawRight"));
+        claw2 = Claw.build(Claw.names(builder2, "clawLeft", "clawRight"));
 
         Claw.control(claw);
         Claw.command(claw, Claw.OPEN());
