@@ -59,16 +59,12 @@ public class TestCommandSequence {
         org.edu_nation.easy_ftc.mechanism.CommandSequence sequence;
         org.edu_nation.easy_ftc.mechanism.Drive drive;
         org.edu_nation.easy_ftc.mechanism.Claw claw;
-        org.edu_nation.easy_ftc.mechanism.Drive.Direction driveDirection;
-        org.edu_nation.easy_ftc.mechanism.Claw.Direction clawDirection;
         drive = Drive.build(Drive.gamepad(Drive.Builder()));
         claw = Claw.build(Claw.gamepad(Claw.Builder()));
-        driveDirection = org.edu_nation.easy_ftc.mechanism.Drive.Direction.ROTATE_LEFT;
-        clawDirection = org.edu_nation.easy_ftc.mechanism.Claw.Direction.OPEN;
 
         sequence = CommandSequence.CommandSequence();
-        sequence = CommandSequence.command(sequence, drive, driveDirection, 1, 1);
-        sequence = CommandSequence.command(sequence, claw, clawDirection);
+        sequence = CommandSequence.command(sequence, drive, Drive.ROTATE_LEFT(), 1, 1);
+        sequence = CommandSequence.command(sequence, claw, Claw.OPEN());
 
         try {
             FieldUtils.writeField(mockedGamepad, "dpad_left", false);
@@ -81,6 +77,7 @@ public class TestCommandSequence {
 
         // after control() call since we don't mock the IMU
         sequence =
-                CommandSequence.command(sequence, drive, driveDirection, 1, 1, AngleUnit.DEGREES);
+                CommandSequence.command(
+                        sequence, drive, Drive.ROTATE_LEFT(), 1, 1, AngleUnit.DEGREES);
     }
 }
