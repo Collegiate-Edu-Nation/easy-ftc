@@ -40,11 +40,11 @@ public class Color extends BlocksOpModeCompanion {
     }
 
     @ExportToBlocks(
-            comment = "Specify the rgbOffsets (array of 3 integers, -255-255)",
-            parameterLabels = {"Color.Builder", "RGB Offsets"})
+            comment = "Specify the rgbOffsets (-255-255)",
+            parameterLabels = {"Color.Builder", "Red", "Green", "Blue"})
     public static org.edu_nation.easy_ftc.sensor.Color.Builder rgbOffsets(
-            org.edu_nation.easy_ftc.sensor.Color.Builder builder, int[] rgbOffsets) {
-        return builder.rgbOffsets(rgbOffsets);
+            org.edu_nation.easy_ftc.sensor.Color.Builder builder, int red, int green, int blue) {
+        return builder.rgbOffsets(new int[] {red, green, blue});
     }
 
     @ExportToBlocks(

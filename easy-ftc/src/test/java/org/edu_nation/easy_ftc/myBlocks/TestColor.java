@@ -38,7 +38,7 @@ public class TestColor extends LinearOpMode {
         color = Color.build(Color.reverse(builder));
         color = Color.build(Color.name(builder, "color"));
         color = Color.build(Color.threshold(builder, 1));
-        color = Color.build(Color.rgbOffsets(builder, new int[] {1, 1, 1}));
+        color = Color.build(Color.rgbOffsets(builder, 1, 1, 1));
 
         Color.state(color);
         rgb = Color.RED();

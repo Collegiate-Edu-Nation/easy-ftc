@@ -47,6 +47,7 @@ public class TestDrive extends LinearOpMode {
         mockInit();
         BlocksOpModeCompanion.opMode = mockedOpMode;
         BlocksOpModeCompanion.gamepad1 = mockedGamepad;
+        BlocksOpModeCompanion.gamepad2 = mockedGamepad;
         BlocksOpModeCompanion.linearOpMode = mockedOpMode;
         BlocksOpModeCompanion.hardwareMap = mockedHardwareMap;
         org.edu_nation.easy_ftc.mechanism.Drive drive;
@@ -55,11 +56,12 @@ public class TestDrive extends LinearOpMode {
 
         drive = Drive.build(Drive.reverse(builder));
         drive = Drive.build(Drive.gamepad(builder));
+        drive = Drive.build(Drive.gamepad2(builder));
         drive = Drive.build(Drive.encoder(builder));
         drive = Drive.build(Drive.diameter(builder, 1));
         drive = Drive.build(Drive.gearing(builder, 1));
         drive = Drive.build(Drive.count(builder, 2));
-        drive = Drive.build(Drive.names(builder, new String[] {"driveLeft", "driveRight"}));
+        drive = Drive.build(Drive.names(builder, "driveLeft", "driveRight"));
         drive = Drive.build(Drive.behavior(builder, DcMotor.ZeroPowerBehavior.BRAKE));
         drive = Drive.build(Drive.deadzone(builder, 0.5));
         drive = Drive.build(Drive.logo(builder, LogoFacingDirection.UP));
@@ -70,11 +72,13 @@ public class TestDrive extends LinearOpMode {
         drive = Drive.build(Drive.count(builder, 4));
         drive =
                 Drive.build(
-                        Drive.names(
-                                builder,
-                                new String[] {"frontLeft", "frontRight", "backLeft", "backRight"}));
+                        Drive.names(builder, "frontLeft", "frontRight", "backLeft", "backRight"));
         drive = Drive.build(Drive.reverse(builder, "frontLeft"));
-        drive = Drive.build(Drive.reverse(builder, new String[] {"frontLeft"}));
+        drive = Drive.build(Drive.reverse(builder, "frontLeft", "frontRight"));
+        drive = Drive.build(Drive.reverse(builder, "frontLeft", "frontRight", "backLeft"));
+        drive =
+                Drive.build(
+                        Drive.reverse(builder, "frontLeft", "frontRight", "backLeft", "backRight"));
         drive = Drive.build(Drive.type(builder, Drive.MECANUM()));
         drive = Drive.build(Drive.layout(builder, Drive.ROBOT()));
         // don't build since we don't mock the IMU

@@ -39,18 +39,57 @@ public class Drive extends BlocksOpModeCompanion {
 
     @ExportToBlocks(
             comment = "Reverse the specified devices",
-            parameterLabels = {"Drive.Builder", "deviceNames"})
+            parameterLabels = {"Drive.Builder", "deviceName", "deviceName"})
     public static org.edu_nation.easy_ftc.mechanism.Drive.Builder reverse(
-            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder, String[] deviceNames) {
-        return builder.reverse(deviceNames);
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder,
+            String deviceName1,
+            String deviceName2) {
+        return builder.reverse(new String[] {deviceName1, deviceName2});
     }
 
     @ExportToBlocks(
-            comment = "Pass gamepad for teleop control",
+            comment = "Reverse the specified devices",
+            parameterLabels = {"Drive.Builder", "deviceName", "deviceName", "deviceName"})
+    public static org.edu_nation.easy_ftc.mechanism.Drive.Builder reverse(
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder,
+            String deviceName1,
+            String deviceName2,
+            String deviceName3) {
+        return builder.reverse(new String[] {deviceName1, deviceName2, deviceName3});
+    }
+
+    @ExportToBlocks(
+            comment = "Reverse the specified devices",
+            parameterLabels = {
+                "Drive.Builder",
+                "deviceName",
+                "deviceName",
+                "deviceName",
+                "deviceName"
+            })
+    public static org.edu_nation.easy_ftc.mechanism.Drive.Builder reverse(
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder,
+            String deviceName1,
+            String deviceName2,
+            String deviceName3,
+            String deviceName4) {
+        return builder.reverse(new String[] {deviceName1, deviceName2, deviceName3, deviceName4});
+    }
+
+    @ExportToBlocks(
+            comment = "Pass gamepad1 for teleop control",
             parameterLabels = {"Drive.Builder"})
     public static org.edu_nation.easy_ftc.mechanism.Drive.Builder gamepad(
             org.edu_nation.easy_ftc.mechanism.Drive.Builder builder) {
         return builder.gamepad(gamepad1);
+    }
+
+    @ExportToBlocks(
+            comment = "Pass gamepad2 for teleop control",
+            parameterLabels = {"Drive.Builder"})
+    public static org.edu_nation.easy_ftc.mechanism.Drive.Builder gamepad2(
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder) {
+        return builder.gamepad(gamepad2);
     }
 
     @ExportToBlocks(
@@ -112,10 +151,22 @@ public class Drive extends BlocksOpModeCompanion {
 
     @ExportToBlocks(
             comment = "Change the names of the hardware devices",
-            parameterLabels = {"Drive.Builder", "Names"})
+            parameterLabels = {"Drive.Builder", "Name", "Name"})
     public static org.edu_nation.easy_ftc.mechanism.Drive.Builder names(
-            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder, String[] names) {
-        return builder.names(names);
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder, String name1, String name2) {
+        return builder.names(new String[] {name1, name2});
+    }
+
+    @ExportToBlocks(
+            comment = "Change the names of the hardware devices",
+            parameterLabels = {"Drive.Builder", "Name", "Name", "Name", "Name"})
+    public static org.edu_nation.easy_ftc.mechanism.Drive.Builder names(
+            org.edu_nation.easy_ftc.mechanism.Drive.Builder builder,
+            String name1,
+            String name2,
+            String name3,
+            String name4) {
+        return builder.names(new String[] {name1, name2, name3, name4});
     }
 
     @ExportToBlocks(
