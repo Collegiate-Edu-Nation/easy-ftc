@@ -6,6 +6,7 @@ package org.edu_nation.easy_ftc.myBlocks;
 import org.edu_nation.easy_ftc.mechanism.Arm;
 import org.edu_nation.easy_ftc.mechanism.Claw;
 import org.edu_nation.easy_ftc.mechanism.Drive;
+import org.edu_nation.easy_ftc.mechanism.Intake;
 import org.edu_nation.easy_ftc.mechanism.Lift;
 import org.edu_nation.easy_ftc.mechanism.Trigger;
 import org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion;
@@ -13,6 +14,13 @@ import org.firstinspires.ftc.robotcore.external.ExportClassToBlocks;
 import org.firstinspires.ftc.robotcore.external.ExportToBlocks;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
+/**
+ * Not using generics at the moment since js -> java interop makes it tricky. Specifically, the
+ * class of a passed Mechanism.Direction is actually a String, despite the associated OnBot code
+ * indicating otherwise. Unsafe casting and/or reflection may be able to work around the issue by
+ * casting the String to the mechanism class's associated Enum, but my initial attempts at doing so
+ * have failed.
+ */
 @ExportClassToBlocks
 public class CommandSequence extends BlocksOpModeCompanion {
     @ExportToBlocks(
@@ -45,6 +53,18 @@ public class CommandSequence extends BlocksOpModeCompanion {
             org.edu_nation.easy_ftc.mechanism.CommandSequence sequence,
             Drive mechanism,
             Drive.Direction direction,
+            double measurement,
+            double power) {
+        return sequence.command(mechanism, direction, measurement, power);
+    }
+
+    @ExportToBlocks(
+            comment = "Add an Intake command to the sequence via method chaining",
+            parameterLabels = {"CommandSequence", "Intake", "Direction", "Measurement", "Power"})
+    public static org.edu_nation.easy_ftc.mechanism.CommandSequence command(
+            org.edu_nation.easy_ftc.mechanism.CommandSequence sequence,
+            Intake mechanism,
+            Intake.Direction direction,
             double measurement,
             double power) {
         return sequence.command(mechanism, direction, measurement, power);

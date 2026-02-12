@@ -28,24 +28,16 @@ public class TestCommandSequence {
     Servo mockedClaw = mock(Servo.class);
 
     private void mockInit() {
+        when(mockedHardwareMap.get(DcMotor.class, "arm")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "driveLeft")).thenReturn(mockedMotor);
         when(mockedHardwareMap.get(DcMotor.class, "driveRight")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "driveLeft")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "driveRight")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotor.class, "frontLeft")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "frontRight")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "backLeft")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotor.class, "backRight")).thenReturn(mockedMotor);
-        when(mockedHardwareMap.get(DcMotorEx.class, "frontLeft")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "frontRight")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "backLeft")).thenReturn(mockedMotorEx);
-        when(mockedHardwareMap.get(DcMotorEx.class, "backRight")).thenReturn(mockedMotorEx);
+        when(mockedHardwareMap.get(DcMotor.class, "intake")).thenReturn(mockedMotor);
+        when(mockedHardwareMap.get(DcMotor.class, "lift")).thenReturn(mockedMotor);
         when(mockedMotorEx.getMotorType()).thenReturn(motorType);
         when(mockedMotorEx.isBusy()).thenReturn(true, false);
 
-        when(mockedHardwareMap.get(Servo.class, "clawLeft")).thenReturn(mockedClaw);
-        when(mockedHardwareMap.get(Servo.class, "clawRight")).thenReturn(mockedClaw);
         when(mockedHardwareMap.get(Servo.class, "claw")).thenReturn(mockedClaw);
+        when(mockedHardwareMap.get(Servo.class, "trigger")).thenReturn(mockedClaw);
         when(mockedClaw.getPosition()).thenReturn(0.0);
     }
 
@@ -57,14 +49,26 @@ public class TestCommandSequence {
         BlocksOpModeCompanion.linearOpMode = mockedOpMode;
         BlocksOpModeCompanion.hardwareMap = mockedHardwareMap;
         org.edu_nation.easy_ftc.mechanism.CommandSequence sequence;
+        org.edu_nation.easy_ftc.mechanism.Arm arm;
         org.edu_nation.easy_ftc.mechanism.Drive drive;
+        org.edu_nation.easy_ftc.mechanism.Intake intake;
+        org.edu_nation.easy_ftc.mechanism.Lift lift;
         org.edu_nation.easy_ftc.mechanism.Claw claw;
+        org.edu_nation.easy_ftc.mechanism.Trigger trigger;
+        arm = Arm.build(Arm.gamepad(Arm.Builder()));
         drive = Drive.build(Drive.gamepad(Drive.Builder()));
+        intake = Intake.build(Intake.gamepad(Intake.Builder()));
+        lift = Lift.build(Lift.gamepad(Lift.Builder()));
         claw = Claw.build(Claw.gamepad(Claw.Builder()));
+        trigger = Trigger.build(Trigger.gamepad(Trigger.Builder()));
 
         sequence = CommandSequence.CommandSequence();
+        sequence = CommandSequence.command(sequence, arm, Arm.UP(), 1, 1);
         sequence = CommandSequence.command(sequence, drive, Drive.ROTATE_LEFT(), 1, 1);
+        sequence = CommandSequence.command(sequence, intake, Intake.IN(), 1, 1);
+        sequence = CommandSequence.command(sequence, lift, Lift.UP(), 1, 1);
         sequence = CommandSequence.command(sequence, claw, Claw.OPEN());
+        sequence = CommandSequence.command(sequence, trigger, Trigger.OPEN());
 
         try {
             FieldUtils.writeField(mockedGamepad, "dpad_left", false);
