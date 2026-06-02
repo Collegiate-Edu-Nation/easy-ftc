@@ -232,11 +232,11 @@ Nix is my preferred approach for setting up the development environment. Linux a
 
 - Then open your preferred IDE from this shell
 
-- Optionally, leverage the binary cache by adding [Garnix] to your nix-config
+- Optionally, leverage our binary cache by adding [Cachix] to your nix-config
 
   ```nix
-  nix.settings.substituters = [ "https://cache.garnix.io" ];
-  nix.settings.trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+  nix.settings.substituters = [ "https://edu-nation.cachix.org" ];
+  nix.settings.trusted-public-keys = [ "edu-nation.cachix.org-1:S2s7ZDuLeFrV2qhfzXWNt+/XlnGxUjvUHv0WI+BvM+0=" ];
   ```
 
 <!-- omit in toc -->
@@ -474,4 +474,4 @@ Requests to join the project team may be submitted to the responsible community 
 
 This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
 
-[Garnix]: https://garnix.io/
+[Cachix]: https://www.cachix.org/
