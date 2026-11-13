@@ -7,9 +7,12 @@
   default = pkgs.mkShell {
     packages = deps.build;
 
+    # Keep Gradle and other JAVA_HOME consumers on the mitigated JDK too.
+    JAVA_HOME = "${deps.jdk21.home}";
+
     # set env vars for binary paths
     GRADLE_OPTS = "-Dorg.gradle.project.android.aapt2FromMavenOverride=${pkgs.aapt}/bin/aapt2";
-    JRE17_PATH = "${pkgs.temurin-jre-bin-17}/bin/java";
+    JRE17_PATH = "${deps.jre17}/bin/java";
     PUML_PATH = "${pkgs.plantuml}/bin/plantuml";
 
     shellHook = ''

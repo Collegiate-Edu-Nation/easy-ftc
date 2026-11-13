@@ -26,6 +26,10 @@ jobs:
         with:
           distribution: zulu
           java-version: 21
+
+      - name: Verify Java certificate trust
+        run: java nix/java/CheckCerts.java
+
       - name: setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:

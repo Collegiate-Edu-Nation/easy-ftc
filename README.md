@@ -4,7 +4,7 @@
 ![Static Badge](https://img.shields.io/badge/Version-1.1.0-blue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/FTC_SDK-11.1-blue?style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Android_API-30-blue?style=for-the-badge&labelColor=8C8F8F)
-![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.8-blue?style=for-the-badge&labelColor=8C8F8F)\
+![Static Badge](https://img.shields.io/badge/OpenJDK-21.0.11-blue?style=for-the-badge&labelColor=8C8F8F)\
 ![Dynamic Badge](https://img.shields.io/github/actions/workflow/status/collegiate-edu-nation/easy-ftc/build.yaml?branch=main&style=for-the-badge&labelColor=8C8F8F)
 ![Static Badge](https://img.shields.io/badge/Powered_by_Nix-grey?logo=nixOS&logoColor=white&logoSize=auto&style=for-the-badge&color=8C8F8F)
 

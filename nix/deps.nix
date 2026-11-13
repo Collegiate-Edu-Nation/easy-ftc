@@ -3,18 +3,22 @@
 
 { pkgs, android-sdk }:
 
+let
+  java = import ./java { inherit pkgs; };
+in
 {
+  inherit (java) jdk21 jre17;
+
   build = [
     android-sdk
   ]
   ++ (
     with pkgs;
     with pkgs.python314Packages;
-    with pkgs.nodePackages;
     [
-      bashInteractive
-      jdk21
+      java.jdk21
       aapt
+      jdt-language-server
 
       # docs
       plantuml
@@ -25,7 +29,7 @@
       nixfmt
       (callPackage ./npm-groovy-lint { })
       prettier
-      temurin-jre-bin-17
+      java.jre17
     ]
   );
 }
